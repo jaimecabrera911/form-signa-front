@@ -1,0 +1,32 @@
+<div class="flex flex-col flex-auto w-full w-index-main">
+    <!-- Header -->
+    <div class="flex panel-main  flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-8 md:px-7 border-b bg-card dark:bg-transparent">
+        <!-- Title -->
+        <div>
+            <div class="text-4xl font-extrabold tracking-tight leading-none">
+                {{ title }}
+            </div>
+            <div class="ml-0.5 font-medium text-secondary">
+                <span class="ng-star-inserted">{{ subtitle }}</span>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="mt-4 sm:mt-0">
+            <div class="flex flex-wrap">
+                <ng-container *ngFor="let child of children">
+                    <ng-container *ngTemplateOutlet="child.templateRef" class="item w-auto"></ng-container>
+                </ng-container>
+            </div>
+
+        </div>
+    </div>
+    <!-- flex-wrap   max-w-screen-xl mx-auto p-6 md:p-4 -->
+    <div class="flex mt-30 w-full p-7">
+        <!-- rounded-2xl -->
+        <mat-card class="item w-full h-auto " *ngFor="let panel of panels">
+            <mat-card-content>
+                <ng-container *ngTemplateOutlet="panel.templateRef"></ng-container>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

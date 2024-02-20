@@ -1,0 +1,27 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 w-full">
+    <div class="flex flex-col flex-auto">
+        <canvas #sigPad class="w-full" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)"></canvas>
+        <div class="flex flex-wrap">
+            <a class="mt-1 px-6 ml-3" mat-button mat-flat-button (click)="clear()">
+                <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                <span class="ml-2">Limpiar</span>
+            </a>
+            <a class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="save()">
+                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                <span class="ml-2">Confirmar</span>
+            </a>
+        </div>
+    </div>
+    <div class="flex flex-col flex-auto">
+        <div class="p-4 mt-4" *ngIf="codeImge">
+            <img [src]="img">
+        </div>
+    </div>
+    <div class="flex flex-col flex-auto">
+        <mat-form-field class="flex-auto" appearance="outline" *ngIf="codeImge">
+            <mat-icon *ngIf="icon" class="icon-size-5" matSuffix [svgIcon]="icon"></mat-icon>
+            <textarea matInput cols="5" rows="8" ng-readonly="true" [(ngModel)]="value" (click)="itemValue($event)" value="{{img}}"></textarea>
+            <!--<input matInput [(ngModel)]="value" type="text" (click)="itemValue($event)" value="{{img}}">-->
+        </mat-form-field>
+    </div>
+</div>

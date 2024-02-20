@@ -1,0 +1,42 @@
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" [routerLink]="['create']">
+        <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+        <span class="ml-2">Adicionar cliente</span>
+    </a>
+    <div *appPanels class="w-full">
+        <table mat-table matTableResponsive matSort (matSortChange)="announceSortChange($event)" [dataSource]="elements" class="table-list-items">
+            <div *ngFor="let column of colums; let i = index">
+                <ng-container [matColumnDef]="colums[i].name">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef [style.background-color]="background" [style.color]="color">
+                        {{ colums[i].label }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{'.mat-row:nth-child(even){': 'background-color: #DEE7F6 !important}'}">
+                        <div *ngIf="colums[i].name !== 'actions'">{{element[colums[i].name]}}</div>
+                        <div *ngIf="colums[i].name === 'actions'">
+                            <button mat-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:cog'"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <div *ngFor="let item of colums[i].options">
+                                    <a mat-menu-item *ngIf="item.status && item.route && item.pathId" [routerLink]="[element[colums[0].name],item.route]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="item.icon"></mat-icon>
+                                        {{ item.label }}
+                                    </a>
+                                    <a mat-menu-item *ngIf="item.status  && item.pathId === false" [routerLink]="[item.route]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="item.icon"></mat-icon>
+                                        {{ item.label }}
+                                    </a>
+                                </div>
+                            </mat-menu>
+                        </div>
+                    </td>
+                </ng-container>
+            </div>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="length" [pageSize]="size" showFirstLastButtons (page)="pageEvent=onChange($event)" [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </div>
+</app-content>

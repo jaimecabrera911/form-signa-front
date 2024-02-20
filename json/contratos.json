@@ -1,0 +1,44 @@
+{
+    "contratos": [
+        {
+            "code": "123",
+            "name": "AAA",
+            "amount": 123234
+        },
+        {
+            "code": "2222",
+            "name": "BBB",
+            "amount": 35346346
+        },
+        {
+            "code": "3333",
+            "name": "CCC",
+            "amount": 123234
+        },
+        {
+            "code": "444",
+            "name": "DDD",
+            "amount": 5345345
+        },
+        {
+            "code": "5555",
+            "name": "EEEEE",
+            "amount": 123234
+        },
+        {
+            "code": "66666",
+            "name": "FFFFFF",
+            "amount": 35346346
+        },
+        {
+            "code": "7777",
+            "name": "GGGGGGG",
+            "amount": 123234
+        },
+        {
+            "code": "8888",
+            "name": "HHHHHHH",
+            "amount": 5345345
+        }
+    ]
+}

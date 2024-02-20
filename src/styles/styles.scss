@@ -1,0 +1,197 @@
+/* ----------------------------------------------------------------------------------------------------- */
+
+
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+
+/* ----------------------------------------------------------------------------------------------------- */
+
+@import '../app/components/mat-table-responsive/mat-table-responsive.directive';
+body,
+.theme-default {
+    //002847
+    --fuse-primary: #B0C0DC;
+    --fuse-primary-rgb: 255, 255, 255;
+    --tw-text-opacity: 0, 40, 71;
+    //--fuse-primary-rgb: 27, 118, 190;
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+
+/* ------------- Scroll  ------------*/
+
+html {
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #5a585a;
+}
+
+body::-webkit-scrollbar {
+    width: 20px;
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
+
+
+/*-------------------------------------*/
+
+.menu-compact-list {
+    position: fixed;
+}
+
+table.mat-table {
+    width: 100% !important;
+    .actions {
+        width: 5%;
+    }
+}
+
+.mt-right {
+    float: right;
+}
+
+.logo-menu-navigation {
+    background: white;
+    border: 8px solid #002847;
+}
+
+.panel-main {
+    left: 18rem;
+    right: 0;
+    position: fixed;
+    top: 3.1rem;
+    z-index: 5;
+}
+
+.py-1 {
+    padding: 0.2rem 0.7rem 0.2rem 0.7rem;
+}
+
+.content-page {
+    margin-top: 12rem;
+}
+
+.w-index-main {
+    .w-pad-top {
+        padding-top: unset !important;
+    }
+    .w-pad-bottom {
+        padding-bottom: 1rem !important;
+    }
+}
+
+.main-header-compact {
+    position: fixed !important;
+    right: 2px;
+}
+
+.select-checkbox {
+    width: 15%;
+}
+
+.mat-card {
+    padding: unset !important;
+}
+
+
+/*
+.mat-row:nth-child(even) {
+    background-color: #DEE7F6 !important;
+}*/
+
+.mat-row:nth-child(odd) {
+    background-color: white;
+}
+
+@media only screen and (max-width: 959px) {
+    .panel-main {
+        left: 0px;
+        right: 0;
+        position: fixed;
+        top: 3rem;
+        z-index: 5;
+    }
+}
+
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header,
+.mat-vertical-stepper-header {
+    padding: 10px 14px;
+}
+
+
+/* -------------- Custom Dropzone -------------*/
+
+.custom-dropzone {
+    width: 100% !important;
+}
+
+.custom-dropzone {
+    width: 90%;
+    padding: 10px 0 10px 0;
+    float: right;
+    border: 2px dashed #002847 !important;
+    color: #002847 !important;
+    .custom-dropzone-file {
+        max-width: 100% !important;
+        width: 100%;
+    }
+}
+
+ngx-dropzone-image-preview {
+    width: 100%;
+}
+
+ngx-dropzone-label {
+    font-size: 13px;
+    width: 100%;
+}
+
+.file-list-item {
+    a {
+        list-style: none;
+        text-decoration: none;
+    }
+     :hover {
+        background: #ccc;
+    }
+}
+
+re-captcha.is-invalid>div {
+    border: 1px solid #dc3545 !important;
+    border-radius: 0.2rem;
+}
+
+::ng-deep .custom-frame {
+    & .mat-checkbox-background,
+    .mat-checkbox-frame {
+        border-radius: 70% !important;
+    }
+}
+
+.show-filters-button {
+    button {
+        float: right;
+    }
+}

@@ -1,0 +1,8 @@
+<div class="flex flex-col flex-auto">
+    <mat-form-field class="flex-auto" appearance="outline">
+        <mat-label>{{ label }}</mat-label>
+        <input matInput [matDatepicker]="PaymentDate" [(ngModel)]="value" (keyup)="change($event)">
+        <mat-datepicker-toggle matSuffix [for]="PaymentDate"></mat-datepicker-toggle>
+        <mat-datepicker #PaymentDate startView="multi-year" panelClass="example-month-picker"></mat-datepicker>
+    </mat-form-field>
+</div>

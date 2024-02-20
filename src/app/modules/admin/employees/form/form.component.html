@@ -1,0 +1,60 @@
+<app-content class="w-full">
+    <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [routerLink]="['../']">
+        <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+        <span class="ml-2">Atrás</span>
+    </a>
+    <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+        <mat-icon svgIcon="heroicons_outline:plus" color="text-white"></mat-icon>
+        <span class="ml-2">Guardar cliente</span>
+    </a>
+
+    <div *appPanels class="w-full">
+        <form [formGroup]="formInit">
+            <mat-tab-group>
+                <mat-tab label="Datos personales">
+                    <div class="flex flex-col flex-auto mt-2 rounded-2xl overflow-hidden">
+                        <div class="flex flex-col px-8 pt-10  rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 w-full">
+                                <app-input-select label="Tipo identificación" [options]="typeDocuments" formControlName="identificationType" icon="heroicons_outline:clipboard-list"></app-input-select>
+                                <app-input-text label="Número identificación" formControlName="identificationNumber" icon="heroicons_outline:identification"></app-input-text>
+                                <app-input-text label="Nombre" formControlName="names" icon="heroicons_solid:user-circle"></app-input-text>
+                                <app-input-text label="Apellidos" formControlName="surnames" icon="heroicons_solid:user-circle"></app-input-text>
+                                <app-input-text label="Teléfono" formControlName="phoneNumber" icon="heroicons_outline:phone"></app-input-text>
+                                <app-input-text label="Celular" formControlName="cellphoneNumber" icon="heroicons_outline:device-mobile"></app-input-text>
+                                <app-input-text label="Pais" formControlName="birthCountry" icon="heroicons_outline:location-marker"></app-input-text>
+                                <app-input-text label="Ciudad" formControlName="city" icon="heroicons_outline:location-marker"></app-input-text>
+                                <app-input-text label="Dirección" formControlName="address" icon="heroicons_outline:location-marker"></app-input-text>
+                                <app-input-text label="Cumpleaños" formControlName="birthdate" icon="heroicons_outline:device-mobile"></app-input-text>
+                                <app-input-select label="Genero" [options]="genders" formControlName="gender"></app-input-select>
+                                <div *ngFor="let IdentificationType of elementsIdentificationTypes">-- {{ IdentificationType.code }}</div>
+                            </div>
+                            <div class="flex flex-col flex-auto">
+                                <mat-divider role="separator" class="mat-divider mt-6 mb-8" aria-orientation="horizontal"></mat-divider>
+                                <!-- <p class="text-lg font-medium">Contacto</p>-->
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-2 w-full">
+                                <app-input-text label="Cargo" formControlName="position" icon="heroicons_solid:user-circle"></app-input-text>
+                                <app-input-text label="Espacio" formControlName="workspace" icon="heroicons_solid:user-circle"></app-input-text>
+                                <app-input-text label="Rol" formControlName="roleName" icon="heroicons_solid:mail"></app-input-text>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Permisos">
+
+                </mat-tab>
+                <mat-tab label="Usuarios">
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 w-full">
+                        <app-input-text label="Correo electronico" formControlName="email" icon="heroicons_solid:mail"></app-input-text>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 w-full">
+                        <app-input-password label="Contraseña" formControlName="password" icon="heroicons_outline:device-mobile"></app-input-password>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 w-full">
+                        <app-input-text label="Compañia" formControlName="companyUuid" icon="heroicons_outline:phone"></app-input-text>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+</app-content>
