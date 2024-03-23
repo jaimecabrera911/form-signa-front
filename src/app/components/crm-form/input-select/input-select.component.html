@@ -1,11 +1,10 @@
 <div class="flex flex-col flex-auto">
-    <mat-form-field class="flex-auto" appearance="outline">
-        <mat-label>{{ label }}</mat-label>
+    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+    <mat-form-field class="flex-auto" appearance="legacy">
         <mat-select [(ngModel)]="value" (selectionChange)="select($event)">
             <mat-option value="">Seleccione una opción</mat-option>
-            <mat-option *ngFor="let option of options"
-                        [value]="option.value">
-                {{option.viewValue}}
+            <mat-option *ngFor="let option of options" [value]="option.code">
+                {{option.name}}
             </mat-option>
         </mat-select>
     </mat-form-field>

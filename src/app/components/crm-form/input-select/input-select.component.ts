@@ -41,6 +41,7 @@ export class InputSelectComponent extends DefaultInput implements OnInit, Contro
     }
 
     select($event: MatSelectChange): void {
+        console.log('event select ',$event);
         this.value = $event.value;
         this.propagateChange($event.value);
     }

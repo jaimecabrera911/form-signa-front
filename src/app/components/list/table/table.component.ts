@@ -34,8 +34,15 @@ const iterableColumns: TableItems[] = [
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent extends ListComponent implements OnInit {
+export class TableComponent implements OnInit {
 
+    constructor() { }
+
+    ngOnInit(): void {
+    }
+
+    /*
+    extends ListComponent
     title = new Path().getModule();
     subtitle = 'Listado Subscripciones';
 
@@ -58,6 +65,7 @@ export class TableComponent extends ListComponent implements OnInit {
         console.log('colums: ', colums);
         console.log('items: ', items);
     }
+    */
 
     initForm(): void {
     }

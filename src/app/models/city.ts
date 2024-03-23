@@ -1,7 +1,8 @@
 import { State } from './state';
 
 export interface City {
-    id:    string;
-    name:  string;
-    state: State;
+    code: string;
+    name: string;
+    department: string;
+    country: State;
 }

@@ -2,8 +2,8 @@
     <button mat-icon-button (click)="onRemove()">
         <mat-icon svgIcon="heroicons_solid:chevron-left"></mat-icon>
     </button>
-    <mat-form-field class="quantity-input" appearance="outline">
-        <mat-label>{{ title }}</mat-label>
+    <mat-form-field class="quantity-input" appearance="legacy">
+        <label [ngClass]="required ? 'required-item' : ''">{{ title }}</label>
         <input matInput [value]="value.toString()" [min]="min" (change)="change($event)">
     </mat-form-field>
     <button mat-icon-button (click)="onAdd()">

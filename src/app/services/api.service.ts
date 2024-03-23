@@ -1,3 +1,4 @@
+import { Data } from './../models/data';
 import { IdentificationTypes } from 'app/models/identification-types';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -11,6 +12,7 @@ import { State } from 'app/models/state';
 import { Project } from 'app/models/project';
 import { Employee } from 'app/models/employee';
 import { Company } from 'app/models/company';
+import { Department } from 'app/models/department';
 
 @Injectable({
     providedIn: 'root'
@@ -58,7 +60,7 @@ export class ApiService {
 
     employeesService(): Observable<Employee> {
         const url = `${environment.apiUrl}users`;
-        return this.http.get<any>(url);
+        return this.http.get<Employee>(url);
     }
 
     createEmployeeService(data): Observable<Employee> {
@@ -72,7 +74,12 @@ export class ApiService {
 
     companyService(): Observable<Company> {
         const url = `${environment.apiUrl}companies`;
-        return this.http.get<any>(url);
+        return this.http.get<Company>(url);
+    }
+
+    createCompanyService(data): Observable<Company> {
+        const url = `${environment.apiUrl}companies`;
+        return this.http.post<Company>(url, data);
     }
 
     /*-------------------------|
@@ -85,11 +92,20 @@ export class ApiService {
     }
 
     /*-------------------------|
+        Department             |
+    -------------------------*/
+
+    departmentService(): Observable<Department> {
+        const url = `${environment.apiUrl}locations/departments`;
+        return this.http.get<Department>(url);
+    }
+
+    /*-------------------------|
         Countries              |
     -------------------------*/
 
     countriesService(): Observable<Country> {
-        const url = `${environment.apiUrl}countries`;
+        const url = `${environment.apiUrl}locations/countries`;
         return this.http.get<Country>(url);
     }
 
@@ -100,6 +116,25 @@ export class ApiService {
     identificationTypesService(): Observable<any> {
         const url = `${environment.apiUrl}identifications/types`;
         return this.http.get<any>(url);
+    }
+
+    /*-------------------------|
+        Data                   |
+    -------------------------*/
+
+    dataService(type: string): Observable<any> {
+        const url = `${environment.apiUrl}data/type/${type}`;
+        return this.http.get<any>(url);
+    }
+
+
+    /*-------------------------|
+        Data                   |
+    -------------------------*/
+
+    documentsUserService(): Observable<Document> {
+        //const url = `..`;
+        return this.http.get<Document>('/../assets/json/data.json');
     }
 
 

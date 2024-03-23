@@ -20,6 +20,10 @@ const routes: Routes = [
             {
                 path: 'edit/:id',
                 component: FormComponent
+            },
+            {
+                path: 'creation/:id/company',
+                component: FormComponent
             }
         ]
     }

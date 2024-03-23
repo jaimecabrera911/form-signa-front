@@ -1,0 +1,5 @@
+<div class="flex flex-col flex-auto">
+    <ng-multiselect-dropdown [placeholder]="label" [(ngModel)]="selectedItem" [settings]="dropdownSettings" [data]="options" (selectionChange)="writeValue($event)" (onFilterChange)="onFilterChange($event)" (onDropDownClose)="onDropDownClose($event)" (onSelect)="onItemSelect($event)"
+        (onDeSelect)="onDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+    </ng-multiselect-dropdown>
+</div>

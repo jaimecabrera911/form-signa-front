@@ -23,7 +23,7 @@
 
                     <!-- Email field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Seleccione una empresa</mat-label>
+                        <label>Seleccione una empresa</label>
                         <mat-select [formControlName]="'company'">
                             <mat-option *ngFor="let company of companies" [value]="company.uuid">
                                 {{company.name}}
@@ -36,7 +36,7 @@
 
                     <!-- Email field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Usuario</mat-label>
+                        <label>Usuario</label>
                         <input id="email" matInput [formControlName]="'email'">
                         <mat-error *ngIf="signInForm.get('email').hasError('required')">
                             Email address is required
@@ -48,7 +48,7 @@
 
                     <!-- Password field -->
                     <mat-form-field class="w-full">
-                        <mat-label>Contraseña</mat-label>
+                        <label>Contraseña</label>
                         <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
                         <button mat-icon-button type="button" (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'" matSuffix>
                             <mat-icon

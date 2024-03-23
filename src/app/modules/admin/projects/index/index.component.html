@@ -1,8 +1,21 @@
-<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+<app-content [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel" class="w-full">
     <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" [routerLink]="['create']">
         <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
         <span class="ml-2">Adicionar proyecto</span>
     </a>
+    <div *appAditional class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
+        <mat-form-field class="flex-auto gt-xs:pl-3">
+            <input matInput (keyup)="applyFilter($event)" #input placeholder="Buscar proyecto">
+            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div *appAditional class="flex-col flex-auto">
+        <a class="btn-add" mat-button mat-flat-button [routerLink]="['create']">
+            <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+            <span class="ml-4">Adicionar</span>
+        </a>
+    </div>
     <div *appPanels class="w-full">
         <table mat-table matTableResponsive matSort (matSortChange)="announceSortChange($event)" [dataSource]="elements" class="table-list-items">
             <div *ngFor="let column of colums; let i = index">
@@ -32,7 +45,6 @@
                     </td>
                 </ng-container>
             </div>
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

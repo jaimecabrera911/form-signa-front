@@ -23,6 +23,9 @@ import { InputQtyComponent } from './input-qty/input-qty.component';
 import { InputSignatureCanvasComponent } from './input-signature-canvas/input-signature-canvas.component';
 import { MatButtonModule } from '@angular/material/button';
 import { InputPasswordComponent } from './input-password/input-password.component';
+import { InputMultiSelectComponent } from './input-multi-select/input-multi-select.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { InputBirthDateComponent } from './input-birth-date/input-birth-date.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +39,9 @@ import { InputPasswordComponent } from './input-password/input-password.componen
         InputQtyComponent,
         InputQuantityComponent,
         InputSignatureCanvasComponent,
-        InputPasswordComponent
+        InputPasswordComponent,
+        InputMultiSelectComponent,
+        InputBirthDateComponent
     ],
     exports: [
         InputTextComponent,
@@ -49,10 +54,13 @@ import { InputPasswordComponent } from './input-password/input-password.componen
         InputQtyComponent,
         InputQuantityComponent,
         InputSignatureCanvasComponent,
-        InputPasswordComponent
+        InputPasswordComponent,
+        InputMultiSelectComponent,
+        InputBirthDateComponent
     ],
     imports: [
         CommonModule,
+        NgMultiSelectDropDownModule.forRoot(),
         MatFormFieldModule,
         MatButtonModule,
         MatInputModule,

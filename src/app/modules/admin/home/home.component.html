@@ -1,34 +1,79 @@
 <div class="flex flex-col flex-auto w-full w-index-main">
     <!-- Header -->
-    <div class="flex panel-main  flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent">
-        <!-- Title -->
-        <div>
-            <div class="text-4xl font-extrabold tracking-tight leading-none">Inicio</div>
-        </div>
-        <!-- Actions -->
-        <div class="mt-4 sm:mt-0">
-        </div>
-    </div>
-
-    <!-- Header -->
-    <div class="p-12 mt-2">
-        <div class="relative py-8 px-4 sm:p-16 w-full bg-[#002847] dark mt-32 p-12">
-            <!-- Background - @formatter:off -->
-            <!-- Rings -->
-            <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-                <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
-                    <circle r="234" cx="196" cy="23"></circle>
-                    <circle r="234" cx="790" cy="491"></circle>
-                </g>
-            </svg>
-            <!-- @formatter:on -->
-            <div class="z-10 relative flex flex-col items-center ">
-                <h2 class="text-xl font-semibold">BIENVENIDO</h2>
-                <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
-                    fomsigna
+    <div class="bg-card mt-14">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-6 sm:my-4">
+                <!-- Avatar and name -->
+                <div class="flex flex-auto items-center min-w-0">
+                    <div class="flex-0 w-16 h-16 ml-8 rounded-full overflow-hidden">
+                        <img class="w-full h-full object-cover" src="assets/images/avatars/brian-hughes.jpg">
+                    </div>
+                    <div class="flex flex-col min-w-0 ml-4 text-black">
+                        <ng-container *transloco=" let t ">
+                            <div class="text-2xl md:text-2xl font-semibold tracking-tight leading-7 md:leading-snug truncate ">Bienvenida de nuevo, Fernanda!</div>
+                        </ng-container>
+                        <div class="flex items-center ">
+                            <div class="ml-1.5 leading-6 truncate text-secondary ">Aquí tienes el resumen de tus actividades</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="mt-4 mx-36">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 ">
+            <!-- Overdue -->
+            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500 ">
+                        17
+                    </div>
+                    <div class="text-lg font-medium text-red-600 dark:text-red-500 ">Formularios</div>
+                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
+                        <div class="text-md font-medium truncate ">Incompletos</div>
+                        <div class="ml-1.5 text-lg font-semibold ">9</div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Summary -->
+            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500 ">
+                        21
+                    </div>
+                    <div class="text-lg font-medium text-blue-600 dark:text-blue-500 ">Formularios</div>
+                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
+                        <div class="text-md font-medium truncate ">Devueltos:</div>
+                        <div class="ml-1.5 text-lg font-semibold ">13</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issues -->
+            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500 ">
+                        24</div>
+                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500 ">Formularios</div>
+                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
+                        <div class="text-md font-medium truncate ">Sin firmar:</div>
+                        <div class="ml-1.5 text-lg font-semibold ">19</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Features -->
+            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500 ">
+                        38</div>
+                    <div class="text-lg font-medium text-green-600 dark:text-green-500 ">Formularios</div>
+                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
+                        <div class="text-md font-medium truncate ">completos:</div>
+                        <div class="ml-1.5 text-lg font-semibold ">16</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

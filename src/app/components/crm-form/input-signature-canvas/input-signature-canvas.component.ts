@@ -32,7 +32,7 @@ export class InputSignatureCanvasComponent extends DefaultInput  implements Afte
     ngAfterViewInit(): void {
         this.sigPadElement = this.sigPad.nativeElement;
         this.context = this.sigPadElement.getContext('2d');
-        this.context.strokeStyle = '#3742fa';
+        this.context.strokeStyle = '#000000';
     }
 
     ngOnInit(): void {

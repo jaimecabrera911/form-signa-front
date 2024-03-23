@@ -10,6 +10,13 @@ const menu: any = [
         link : '/home'
     },
     {
+        id   : 'companies',
+        title: 'Empresas',
+        type : 'basic',
+        icon : 'mat_outline:feed',
+        link : '/companies'
+    },
+    {
         id   : 'projects',
         title: 'Proyectos',
         type : 'basic',
@@ -26,14 +33,6 @@ const menu: any = [
 ];
 
 /*
-{
-        id   : 'companies',
-        title: 'Empresas',
-        type : 'basic',
-        icon : 'mat_outline:feed',
-        link : '/companies'
-    },
-,
     {
         id   : 'forms',
         title: 'Formularios',
@@ -52,21 +51,5 @@ const menu: any = [
 
 export const defaultNavigation: FuseNavigationItem[] = menu;
 export const compactNavigation: FuseNavigationItem[] = menu;
-export const futuristicNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example 3',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
-export const horizontalNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
+export const futuristicNavigation: FuseNavigationItem[] = menu;
+export const horizontalNavigation: FuseNavigationItem[] = menu;

@@ -1,22 +1,24 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
-import {DefaultInput} from '../default-input';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {FormControl} from '@angular/forms';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import { DefaultInput } from '../default-input';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import { Moment } from 'moment';
 
-
+const moment = _moment;
 export const MY_FORMATS = {
-  parse: {
-      dateInput: 'LL'
-  },
-  display: {
-      dateInput: 'YYYY/MM/DD',
-      monthYearLabel: 'YYYY',
-      dateA11yLabel: 'LL',
-      monthYearA11yLabel: 'YYYY'
-  }
+    parse: {
+        dateInput: 'LL'
+    },
+    display: {
+        dateInput: 'YYYY-MM-DD',
+        monthYearLabel: 'YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'YYYY'
+    }
 };
 
 @Component({
@@ -35,9 +37,6 @@ export const MY_FORMATS = {
 })
 export class InputDateComponent extends DefaultInput implements OnInit, ControlValueAccessor {
 
-   
-
-
     constructor() {
         super();
     }
@@ -45,8 +44,12 @@ export class InputDateComponent extends DefaultInput implements OnInit, ControlV
     ngOnInit(): void {
     }
 
-    selectDae($event: any): void {
-        this.value = $event.value;//Ejemplo
-        this.propagateChange(this.value);
+    addEvent(event): void {
+        const date: Moment = event.value;
+        if (date) {
+            const dateFormat = moment(date).format('YYYY-MM-DD');
+            this.value = dateFormat;
+            this.propagateChange(this.value);
+        }
     }
 }

@@ -20,9 +20,9 @@ const iterableColumns: TableItems[] = [
 })
 export class IndexComponent extends ListComponent implements OnInit {
 
-    title = 'Listado';
-    subtitle = new Path().getModule();
-    swaAlert = new SwalAlert();
+    title =  new Path().getModule();
+    subtitle = 'Listado';
+    searchPanel: boolean = true;
     public override apiItems$ = this.api.projectService();
     public override colums = iterableColumns;
 

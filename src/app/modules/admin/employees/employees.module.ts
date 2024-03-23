@@ -17,7 +17,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -26,36 +26,38 @@ import { MatTableResponsiveModule } from 'app/components/mat-table-responsive/ma
 import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { FormComponent } from './form/form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
-  declarations: [
-    EmployeesComponent,
-    IndexComponent,
-    FormComponent
-  ],
-  imports: [
-    CommonModule,
-    EmployeesRoutingModule,
-    ContentModule,
-    ListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatMenuModule,
-    MatTabsModule,
-    MatStepperModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    OverlayModule,
-    MatDialogModule,
-    MatTableResponsiveModule,
-    CrmFormModule,
-  ]
+    declarations: [
+        EmployeesComponent,
+        IndexComponent,
+        FormComponent
+    ],
+    imports: [
+        CommonModule,
+        EmployeesRoutingModule,
+        ContentModule,
+        ListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatMenuModule,
+        MatTabsModule,
+        MatStepperModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatSlideToggleModule,
+        OverlayModule,
+        MatDialogModule,
+        MatTableResponsiveModule,
+        CrmFormModule,
+        NgxDropzoneModule
+    ]
 })
 export class EmployeesModule { }

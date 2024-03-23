@@ -51,14 +51,14 @@ export abstract class DefaultInput implements ControlValueAccessor {
 
     itemValue($event: MouseEvent): void {
         this.propagateChange(this.value);
-        console.log('pruebaaaaa :',this.value);
+        //console.log('itemsss :',this.value);
     }
 
     writeValue(value: any): void {
         if (value !== undefined) {
             this.value = value;
             this.propagateChange(this.value);
-            console.log('value :',this.value);
+            //console.log('value :',this.value);
         }
     }
 }
