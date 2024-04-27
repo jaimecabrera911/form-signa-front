@@ -1,18 +1,14 @@
 <div class="flex flex-col flex-auto h-full bg-white">
     <div class="flex md:w-full md:max-w-7xl sm:rounded-2xl  overflow-hidden sm:bg-card">
-        <div class="relative hidden md:flex flex-auto items-center justify-center h-full  overflow-hidden bg-gray-800 dark:border-r">
-
+        <div class="relative hidden md:flex flex-auto items-center justify-center h-full overflow-hidden bg-gray-800 dark:border-r">
             <img src="assets/images/login/fondo-login.jpeg" class="h-full">
+            <!-- Logo -->
+            <!--<app-logo-app sizeImage="28"></app-logo-app>-->
         </div>
         <div class="w-full sm:w-auto py-8 px-4 sm:p-12 md:p-16">
             <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
-                <!-- Logo -->
-                <app-logo-app sizeImage="18"></app-logo-app>
-
                 <!-- Title -->
-                <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">¡Bienvenido!</div>
-
-
+                <div class="text-4xl font-extrabold tracking-tight leading-tight">¡Bienvenido!</div>
                 <!-- Alert -->
                 <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
                     {{alert.message}}
@@ -21,22 +17,22 @@
                 <!-- Sign in form -->
                 <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
 
-                    <!-- Email field -->
+                    <!-- Compañia -->
+                    <label>Compañia</label>
                     <mat-form-field class="w-full">
-                        <label>Seleccione una empresa</label>
                         <mat-select [formControlName]="'company'">
                             <mat-option *ngFor="let company of companies" [value]="company.uuid">
                                 {{company.name}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="signInForm.get('company').hasError('required')">
-                            company address is required
+                            company is required
                         </mat-error>
                     </mat-form-field>
 
                     <!-- Email field -->
+                    <label>Usuario</label>
                     <mat-form-field class="w-full">
-                        <label>Usuario</label>
                         <input id="email" matInput [formControlName]="'email'">
                         <mat-error *ngIf="signInForm.get('email').hasError('required')">
                             Email address is required
@@ -46,9 +42,8 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <!-- Password field -->
+                    <label>Contraseña</label>
                     <mat-form-field class="w-full">
-                        <label>Contraseña</label>
                         <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
                         <button mat-icon-button type="button" (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'" matSuffix>
                             <mat-icon

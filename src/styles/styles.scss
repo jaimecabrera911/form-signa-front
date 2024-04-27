@@ -17,7 +17,7 @@
 body,
 .theme-default {
     //002847
-    --fuse-primary: #141E3C;
+    --fuse-primary: #B0C0DC;
     --fuse-primary-rgb: 255, 255, 255;
     --tw-text-opacity: 0, 40, 71;
     //--fuse-primary-rgb: 27, 118, 190;
@@ -63,7 +63,7 @@ body::-webkit-scrollbar-thumb {
 
 /*-------------------------------------*/
 
-.menu-compact-list {
+Table .menu-compact-list {
     position: fixed;
 }
 
@@ -153,15 +153,11 @@ table.mat-table {
 /* -------------- Custom Dropzone -------------*/
 
 .custom-dropzone {
-    width: 100% !important;
-}
-
-.custom-dropzone {
-    width: 90%;
+    width: 100%;
     padding: 10px 0 10px 0;
     float: right;
-    border: 2px dashed #002847 !important;
-    color: #002847 !important;
+    border: 2px dashed #A2A1A1 !important;
+    color: #A2A1A1 !important;
     .custom-dropzone-file {
         max-width: 100% !important;
         width: 100%;
@@ -225,11 +221,29 @@ label {
     background-color: #F1F5F9 !important;
 }
 
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 0 0 !important;
+}
+
 .mat-form-field-flex {
     background-color: #fff;
     border: 1px solid #D9D9D9;
-    color: #BABABA;
-    padding: 1px 5px 5px 13px;
+    color: #969090;
+    padding: 1px 10px 7px 15px;
+    border-radius: 8px;
+    font-size: 16px !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,
+.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 1.3em !important;
+    margin: 5px 0 0 0 !important;
+}
+
+body.light .mat-option,
+body.light .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple),
+.mat-select .mat-select-trigger .mat-select-value {
+    color: #969090;
 }
 
 .mat-tab-group .mat-tab-header .mat-tab-label-container .mat-tab-list .mat-tab-labels .mat-tab-label+.mat-tab-label {
@@ -262,6 +276,10 @@ tr.mat-header-row {
     color: #FFFFFF !important;
 }
 
+td.mat-cell:last-of-type {
+    padding-right: unset !important;
+}
+
 body.light .mat-card:not([class*=mat-elevation-z]),
 body .light .mat-card:not([class*=mat-elevation-z]) {
     box-shadow: unset !important;
@@ -286,6 +304,7 @@ body .light .mat-card:not([class*=mat-elevation-z]) {
 .mat-button,
 .mat-flat-button {
     justify-content: unset !important;
+    border-radius: 8px !important;
 }
 
 .mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper {

@@ -8,16 +8,16 @@ ngx-dropzone-label {
 }
 
 .custom-dropzone {
-    width: 60%;
     padding: 10px 0 10px 0;
     margin: auto;
     border: 2px dashed #002847 !important;
     color: #002847 !important;
-    height: 16em;
-    .custom-dropzone-file {
-        max-width: 100% !important;
-        width: 100%;
-    }
+    height: 220px !important;
+}
+
+.custom-dropzone-file {
+    max-width: 100% !important;
+    width: 100%;
 }
 
 ngx-dropzone-image-preview {

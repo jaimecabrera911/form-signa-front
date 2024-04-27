@@ -26,6 +26,17 @@ import { InputPasswordComponent } from './input-password/input-password.componen
 import { InputMultiSelectComponent } from './input-multi-select/input-multi-select.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { InputBirthDateComponent } from './input-birth-date/input-birth-date.component';
+import { InputRadioComponent } from './input-radio/input-radio.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { InputUploadImageComponent } from './input-upload-image/input-upload-image.component';
+import { InputUploadFilesComponent } from './input-upload-files/input-upload-files.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { PanelDocumentsComponent } from './panel-documents/panel-documents.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [
@@ -41,7 +52,11 @@ import { InputBirthDateComponent } from './input-birth-date/input-birth-date.com
         InputSignatureCanvasComponent,
         InputPasswordComponent,
         InputMultiSelectComponent,
-        InputBirthDateComponent
+        InputBirthDateComponent,
+        InputRadioComponent,
+        InputUploadImageComponent,
+        InputUploadFilesComponent,
+        PanelDocumentsComponent
     ],
     exports: [
         InputTextComponent,
@@ -56,7 +71,11 @@ import { InputBirthDateComponent } from './input-birth-date/input-birth-date.com
         InputSignatureCanvasComponent,
         InputPasswordComponent,
         InputMultiSelectComponent,
-        InputBirthDateComponent
+        InputBirthDateComponent,
+        InputRadioComponent,
+        InputUploadImageComponent,
+        InputUploadFilesComponent,
+        PanelDocumentsComponent
     ],
     imports: [
         CommonModule,
@@ -68,11 +87,18 @@ import { InputBirthDateComponent } from './input-birth-date/input-birth-date.com
         MatSelectModule,
         MatDatepickerModule,
         MatSlideToggleModule,
+        MatCardModule,
         NativeDateModule,
         MatIconModule,
         NgxNumberFormatModule,
         MomentDateModule,
-        QuantityInputModule
+        QuantityInputModule,
+        MatRadioModule,
+        NgxDropzoneModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatMenuModule
     ]
 })
 export class CrmFormModule { }

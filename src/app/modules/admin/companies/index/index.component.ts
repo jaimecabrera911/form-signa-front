@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SwalAlert } from 'app/components/alerts/swalAlert';
 import { ListComponent } from 'app/components/list/list-component';
 import { Path } from 'app/components/routers/path';
@@ -6,17 +6,18 @@ import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
 
 const iterableColumns: TableItems[] = [
-    { name: 'identificationType', label: 'Tipo', panel: false },
-    { name: 'identificationNumber', label: 'Número', panel: false },
-    { name: 'name', label: 'Nombre', panel: false },
-    { name: 'email', label: 'Correo', panel: false },
-    { name: 'phone', label: 'Teléfono', panel: false },
+       {  name: 'identificationNumber', name2: false, styleEnable:false, label: 'Número' } ,
+       {  name: 'name', name2: false, styleEnable:false, label: 'Nombre' },
+       {  name: 'address', name2: false, styleEnable:false, label: 'Dirección' },
+       {  name: 'legalRepresentative', name2: false, styleEnable:false, label: 'Rep legal' },
+       {  name: 'email', name2: false, styleEnable:false, label: 'Correo' } ,
+       {  name: 'phone', name2: false, styleEnable:false, label: 'Teléfono' }
 ];
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss']
 })
 export class IndexComponent extends ListComponent implements OnInit {
 

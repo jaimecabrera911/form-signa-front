@@ -1,8 +1,4 @@
 <app-content class="w-full" [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel">
-    <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
-        <mat-icon svgIcon="heroicons_outline:plus" color="text-white"></mat-icon>
-        <span class="ml-2">Guardar cliente</span>
-    </a>
     <div *appPanels class="w-full">
         <form [formGroup]="formInit">
             <div class="flex flex-col flex-auto mt-2">
@@ -10,15 +6,27 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
                         <app-input-text label="NIT de la empresa" formControlName="identificationNumber"></app-input-text>
                         <app-input-text label="Razón Social" formControlName="name"></app-input-text>
-                        <app-input-text label="Representante Legal" formControlName="name"></app-input-text>
-                        <app-input-select label="Regimen" [options]="regimen" formControlName="regimen"></app-input-select>
-                        <app-input-text label="Ciudad" formControlName="city"></app-input-text>
+                        <app-input-text label="Representante Legal" formControlName="legalRepresentative"></app-input-text>
+                        <app-input-select label="Regimen" [options]="elementsRegimes" formControlName="regime"></app-input-select>
+                        <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city"></app-input-select>
                         <app-input-text label="Dirección" formControlName="address"></app-input-text>
                         <app-input-text label="Teléfono" formControlName="phone"></app-input-text>
                         <app-input-text label="Correo de contacto" formControlName="email"></app-input-text>
-                        <app-input-text label="Página web" formControlName="website"></app-input-text>
-
-                        <app-input-text label="Departmento" formControlName="department"></app-input-text>
+                        <app-input-text label="Página web" formControlName="webSite"></app-input-text>
+                    </div>
+                </div>
+            </div>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
                     </div>
                 </div>
             </div>

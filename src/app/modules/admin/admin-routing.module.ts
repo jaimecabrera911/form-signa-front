@@ -29,7 +29,8 @@ const routes: Routes = [
             },
         ]
     },
-    { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule) }
+    { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule) },
+    { path: 'training-forms', loadChildren: () => import('./training-forms/training-forms.module').then(m => m.TrainingFormsModule) }
 ];
 
 

@@ -1,0 +1,21 @@
+<!--<label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+-->
+<mat-card class="item w-full h-auto border-indigo-500/50">
+    <div class="w-full content-center rounded-2xl bg-white">
+        <div class="w-full pb-5 pt-2 text-center text-2xl font-bold border-b-2 border-gray-200">
+            Subir archivo
+        </div>
+        <div class="py-4 mx-16">
+            <div class="flex flex-col flex-auto mt-2 p-8">
+                <ngx-dropzone class="custom-dropzone" [multiple]="true" [accept]="'image/jpeg,image/png,image/jpg,image/gif,application/pdf,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.spreadsheetml.template, application/vnd.ms-excel.sheet.macroEnabled.12,application/vnd.ms-excel.template.macroEnabled.12, application/vnd.ms-excel.addin.macroEnabled.12,application/vnd.ms-excel.sheet.binary.macroEnabled.12,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.wordprocessingml.template, application/vnd.ms-word.document.macroEnabled.12,application/vnd.ms-word.template.macroEnabled.12,application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.presentationml.template, application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.ms-powerpoint.addin.macroEnabled.12, application/vnd.ms-powerpoint.presentation.macroEnabled.12, application/vnd.ms-powerpoint.template.macroEnabled.12, application/vnd.ms-powerpoint.slideshow.macroEnabled.12'"
+                    (change)="onSelect($event)">
+                    <ngx-dropzone-label>Cargar archivos en formatos .pdf, .xls, xlsx, .ppt, .doc, docx, .jpg, .png, gif
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-preview class="custom-dropzone-files" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+            </div>
+        </div>
+    </div>
+</mat-card>

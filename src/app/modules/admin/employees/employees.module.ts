@@ -26,13 +26,14 @@ import { MatTableResponsiveModule } from 'app/components/mat-table-responsive/ma
 import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { FormComponent } from './form/form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NgxDropzoneModule } from 'ngx-dropzone';
+import { StatusAdminPipe } from 'app/components/directives/status-admin.pipe';
 
 @NgModule({
     declarations: [
         EmployeesComponent,
         IndexComponent,
-        FormComponent
+        FormComponent,
+        StatusAdminPipe
     ],
     imports: [
         CommonModule,
@@ -56,8 +57,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
         OverlayModule,
         MatDialogModule,
         MatTableResponsiveModule,
-        CrmFormModule,
-        NgxDropzoneModule
+        CrmFormModule
     ]
 })
 export class EmployeesModule { }

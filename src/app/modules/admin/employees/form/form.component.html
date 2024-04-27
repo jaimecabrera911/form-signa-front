@@ -1,19 +1,26 @@
 <app-content [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel" class="w-full">
     <div *appPanels class="w-full">
         <form [formGroup]="formInit">
-            <mat-tab-group>
+            <mat-tab-group class="mt-6">
                 <mat-tab label="Datos personales">
-                    <div class="flex flex-col flex-auto mt-2">
-                        <div class="flex flex-col px-8 mx-8 mb-6">
+                    <div class="form-employee flex flex-col flex-auto">
+                        <div class="flex flex-col px-4 mx-8 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
-                                <div class="custom-dropzone" [multiple]="false" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-                                    <ngx-dropzone-label>
-                                        <div>Cargar imagen</div>
-                                    </ngx-dropzone-label>
-                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f
-                                   of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                                        <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
-                                    </ngx-dropzone-image-preview>
+                                <div class="flex flex-col flex-auto">
+                                    <app-input-upload-image *ngIf="uploadProfile" label="Cargar imagenes" class="mt-5" formControlName="profilePictureUpload"></app-input-upload-image>
+                                    <div *ngIf="uploadProfile && id" class="flex flex-wrap mt-6">
+                                        <a class="mt-1 px-6 ml-2" mat-button mat-flat-button (click)="uploadProfile=false;showImage=true;">
+                                            <span class="ml-2">Ver foto</span>
+                                        </a>
+                                    </div>
+                                    <div *ngIf="imageProfile && showImage">
+                                        <img [src]="imageProfile" class="w-64 max-w-sm rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
+                                    </div>
+                                    <div *ngIf="imageProfile && showImage" class="flex flex-wrap">
+                                        <a class="mt-1 px-6 ml-2" mat-button mat-flat-button [color]="'primary'" (click)="uploadProfile=true;showImage=false;">
+                                            <span class="ml-2">Editar</span>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="flex flex-col flex-auto">
                                     <div class="flex flex-col flex-auto">
@@ -26,131 +33,61 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
                                 <app-input-text label="Número identificación" formControlName="identificationNumber" required="true"></app-input-text>
                                 <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" required="true"></app-input-birth-date>
-                                <app-input-select label="Genero" [options]="genders" formControlName="gender" required="true"></app-input-select>
+                                <app-input-select label="Genero" [options]="elementsGenders" formControlName="gender" required="true"></app-input-select>
                                 <app-input-text label="No télefono casa" formControlName="phoneNumber" required="true"></app-input-text>
                                 <app-input-text label="No teléfono movil" formControlName="cellphoneNumber" required="true"></app-input-text>
                                 <app-input-text label="Dirección de domicilio" formControlName="address" required="true"></app-input-text>
-                                <app-input-text label="Cargo" formControlName="position" required="true"></app-input-text>
-                                <app-input-select label="EPS" [options]="elementsEPS" formControlName="eps" required="true"></app-input-select>
-                                <app-input-select label="ARL" [options]="elementsARL" formControlName="arl" required="true"></app-input-select>
-                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pensionFund" required="true"></app-input-select>
-                                <app-input-select label="Caja de compensación" [options]="elementsCajaCompensacion" formControlName="compensationBox" required="true"></app-input-select>
-                                <app-input-text label="Contacto de emergencia" formControlName="emergencyContact" required="true"></app-input-text>
-                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="telephoneNumberEmergencyContact" required="true"></app-input-text>
+                                <app-input-select label="Cargo" [options]="elementsPosition" formControlName="position" required="true"></app-input-select>
+                                <app-input-select label="EPS" [options]="elementsHealthcareProvider" formControlName="healthcareProvider" required="true"></app-input-select>
+                                <app-input-select label="ARL" [options]="elementsOccupationRiskManager" formControlName="occupationRiskManager" required="true"></app-input-select>
+                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pension" required="true"></app-input-select>
+                                <app-input-select label="Caja de compensación" [options]="elementsCompensationFund" formControlName="compensationFund" required="true"></app-input-select>
+                                <app-input-select label="Lugar trabajao" [options]="elementsWorkspace" formControlName="workspace" required="true"></app-input-select>
+                                <app-input-text label="Contacto de emergencia" formControlName="contactName" required="true"></app-input-text>
+                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="contactNumber" required="true"></app-input-text>
                                 <app-input-select label="Nacionalidad" [options]="elementsCountries" formControlName="birthCountry" required="true"></app-input-select>
-                                <app-input-select label="Departamento" [options]="elementsDepartaments" formControlName="department" required="true"></app-input-select>
+                                <app-input-select label="Departamento" [options]="elementsDepartaments" required="true"></app-input-select>
                                 <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" required="true"></app-input-select>
+                                <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" required="false"></app-input-date>
+                                <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" required="false"></app-input-date>
                             </div>
-                            <!--
-                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2 w-full">
-                                <app-input-text label="Correo electronico" formControlName="email" icon="heroicons_solid:mail"></app-input-text>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2 w-full">
-                                <app-input-password label="Contraseña" formControlName="password" icon="heroicons_outline:device-mobile"></app-input-password>
-                            </div>
-                            <div class="flex flex-col flex-auto">
-                            <br><br><br>
-                            <ngx-dropzone class="custom-dropzone" [multiple]="true" [accept]="'image/jpeg,image/png,image/jpg,image/gif,application/pdf,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.spreadsheetml.template, application/vnd.ms-excel.sheet.macroEnabled.12,application/vnd.ms-excel.template.macroEnabled.12, application/vnd.ms-excel.addin.macroEnabled.12,application/vnd.ms-excel.sheet.binary.macroEnabled.12,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.wordprocessingml.template, application/vnd.ms-word.document.macroEnabled.12,application/vnd.ms-word.template.macroEnabled.12,application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.presentationml.template, application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.ms-powerpoint.addin.macroEnabled.12, application/vnd.ms-powerpoint.presentation.macroEnabled.12, application/vnd.ms-powerpoint.template.macroEnabled.12, application/vnd.ms-powerpoint.slideshow.macroEnabled.12'"
-                                (change)="onSelect($event)">
-                                <ngx-dropzone-label>Cargar archivos en formatos .pdf, .xls, xlsx, .ppt, .doc, docx, .jpg, .png, gif
-                                </ngx-dropzone-label>
-                                <ngx-dropzone-preview class="custom-dropzone-file-" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                </ngx-dropzone-preview>
-                            </ngx-dropzone>
-                        </div>
-                            -->
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Permisos médicos">
-                    <mat-card class="item w-full h-auto border-indigo-500/50">
-                        <div class="flex flex-col flex-auto mt-2 rounded-2xl">
-                            <!-- Items list -->
-
-                            <div class="w-full">
-                                <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3
-                                    bg-card shadow rounded-2xl overflow-hidden mat-item-card">
-                                    <!-- Main actions -->
-                                    <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 w-full">
-                                        <div class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
-                                            <mat-form-field class="flex-auto gt-xs:pl-3">
-                                                <input matInput (keyup)="applyFilter($event)" #input placeholder="Buscar empleado">
-                                                <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="flex-col flex-auto">
-                                            <a class="btn-add" mat-button mat-flat-button>
-                                                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
-                                                <span class="ml-4">Adicionar archivo</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <mat-card class="item w-full h-auto ">
-                                <ng-container *ngIf="items && (items.length > 0)">
-                                    <div class="p-6 md:p-8 space-y-8">
-                                        <ng-container *ngIf="items.length > 0">
-                                            <div class="flex flex-wrap -m-2 mt-2">
-                                                <ng-container *ngFor="let file of items;">
-                                                    <a class="flex flex-col w-40 h-40 m-2 p-4 shadow rounded-2xl cursor-pointer bg-card">
-                                                        <div class="aspect-w-9 aspect-h-6">
-                                                            <div class="flex items-center justify-center">
-                                                                <div class="relative">
-                                                                    <mat-icon class="icon-size-14 text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
-                                                                    <div class="absolute left-0 bottom-0 px-1.5 rounded text-sm font-semibold leading-5 text-white" [class.bg-red-600]="file.type === 'PDF'" [class.bg-blue-600]="file.type === 'DOC'" [class.bg-green-600]="file.type === 'XLS'" [class.bg-gray-600]="file.type === 'TXT'"
-                                                                        [class.bg-amber-600]="file.type === 'JPG'">
-                                                                        {{file.type.toUpperCase()}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex flex-col flex-auto justify-center text-center text-sm font-medium">
-                                                            <div class="truncate" [matTooltip]="file.name">{{file.name}}
-                                                            </div>
-                                                            <ng-container *ngIf="file.contents">
-                                                                <div class="text-secondary truncate">{{file.contents}}
-                                                                </div>
-                                                            </ng-container>
-                                                        </div>
-                                                    </a>
-                                                </ng-container>
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                </ng-container>
-                            </mat-card>
-
-                            <mat-paginator [length]="length" [pageSize]="size" showFirstLastButtons (page)="pageEvent=onChange($event)" [pageSizeOptions]="pageSizeOptions">
-                            </mat-paginator>
-
-
-                            <!--
-                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2 w-full">
-                                <app-input-multi-select label="Seleccione un permiso" [options]="items" formControlName="permissions"></app-input-multi-select>
-                            </div>
-                            <div class="flex flex-col flex-auto">
-                                <mat-divider role="separator" class="mat-divider mt-6 mb-8" aria-orientation="horizontal"></mat-divider>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-2 w-full">
-                                <app-input-text label="Espacio" formControlName="workspace"></app-input-text>
-                                <app-input-text label="Rol" formControlName="roleName"></app-input-text>
-                            </div>
-                            -->
+                    <div *ngIf="uploadFiles">
+                        <div class="w-full float-right">
+                            <a class="mt-1 px-2 ml-2 float-right" mat-button mat-flat-button (click)="onSelect($event,'SHOW_UPT')">
+                                <span class="ml-2">Cerrar</span>
+                            </a>
                         </div>
-                    </mat-card>
+                        <app-input-upload-files formControlName="filesUpload"></app-input-upload-files>
+                    </div>
+                    <app-panel-documents *ngIf="listFiles" formControlName="showUpload" [items]="filesItems" (click)="onSelect($event,'HID_UPT')"></app-panel-documents>
                 </mat-tab>
                 <mat-tab label="Firma" class="sign">
                     <div class="sign mx-10 my-5 py-10">
-                        <app-input-signature-canvas label="Firma" class="w-full" formControlName="sign" ng-readonly="true" icon="heroicons_outline:device-mobile"></app-input-signature-canvas>
+                        <app-input-signature-canvas label="Firma" formControlName="signatureUpload" [item1]="formInit.value.names" [item2]="formInit.value.identificationNumber" class="w-full" ng-readonly="true" icon="heroicons_outline:device-mobile"></app-input-signature-canvas>
+                        <div class="mx-10 bg-contain bg-center">
+                            <img [src]="imageSignature">
+                        </div>
                     </div>
                 </mat-tab>
             </mat-tab-group>
-            <a class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
-                <mat-icon svgIcon="heroicons_outline:plus" color="text-white"></mat-icon>
-                <span class="ml-2">Guardar cliente</span>
-            </a>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </app-content>

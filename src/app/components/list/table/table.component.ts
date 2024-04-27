@@ -56,8 +56,8 @@ export class TableComponent implements OnInit {
         super(api);
     }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
+    override ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         console.log('colums: ', this.idTable);
     }
 

@@ -36,8 +36,6 @@ export class ContentComponent implements OnInit {
             }else{
                 this.item = true;
             }
-
-            console.log('list miguel ',this.item,' - ');
         }
 
         btnBack(): void{

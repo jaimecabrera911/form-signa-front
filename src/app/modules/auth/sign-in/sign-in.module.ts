@@ -13,6 +13,7 @@ import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component'
 import { authSignInRoutes } from 'app/modules/auth/sign-in/sign-in.routing';
 import { LogoAppModule } from 'app/components/logo-app/logo-app.module';
 import { MatSelectModule } from '@angular/material/select';
+import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
         FuseCardModule,
         FuseAlertModule,
         SharedModule,
+        CrmFormModule,
         LogoAppModule
     ]
 })

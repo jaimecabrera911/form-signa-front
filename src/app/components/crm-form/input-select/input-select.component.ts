@@ -30,14 +30,6 @@ export class InputSelectComponent extends DefaultInput implements OnInit, Contro
     }
 
     ngOnInit(): void {
-        /*const options = this.crmField['options'];
-        Object.keys(options).forEach((value) => {
-            this.options.push({
-                key: value,
-                label: this.crmField['options'][value].value
-            });
-        });*/
-        console.log('opciones: ',this.options);
     }
 
     select($event: MatSelectChange): void {

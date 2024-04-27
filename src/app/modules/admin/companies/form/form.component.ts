@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalAlert } from 'app/components/alerts/swalAlert';
+import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-items.component';
 import { Path } from 'app/components/routers/path';
 import { Company } from 'app/models/company';
 import { ApiService } from 'app/services/api.service';
@@ -12,31 +13,27 @@ import { Observable } from 'rxjs';
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent extends ListItemsComponent implements OnInit {
 
+    colums: any = [];
+    //public override apiItems$ = '';
     title = new Path().getModule();
     subtitle = 'Registro de empresas';
-    id: string | number | null = 0;
+    id: any = 0;
     searchPanel = false;
     swaAlert = new SwalAlert();
 
-    regimen: any[] = [
-        { code: 'comun', name: 'Común' },
-        { code: 'simplificado', name: 'Simplificado' }
-    ];
-
     formInit: any = this._formBuilder.group({
-        identificationType: new FormControl('NIT'),
-        identificationNumber: new FormControl('2222'),
-        representateLegal: new FormControl('rep legal'),
-        regimen: new FormControl('2222'),
-        name: new FormControl('Empresa 1'),
-        email: new FormControl('empresa1@gmail.com'),
-        website: new FormControl('www.empresa1.com'),
-        phone: new FormControl('11111111'),
-        address: new FormControl('direccion 1'),
-        department: new FormControl('ANTIOQUIA'),
-        city: new FormControl('05001')
+        identificationType: new FormControl(),
+        identificationNumber: new FormControl(),
+        legalRepresentative: new FormControl(),
+        regime: new FormControl(''),
+        name: new FormControl(),
+        email: new FormControl(),
+        webSite: new FormControl(),
+        phone: new FormControl(),
+        address: new FormControl(),
+        city: new FormControl()
     });
 
     constructor(
@@ -45,10 +42,39 @@ export class FormComponent implements OnInit {
         private activatedRouter: ActivatedRoute,
         protected api: ApiService
     ) {
-
+        super(api);
     }
 
-    ngOnInit(): void {
+    override ngOnInit(): void {
+        this.id = this.activatedRouter.snapshot?.paramMap.get('id');
+        super.ngOnInit();
+        this.getCompanyId();
+    }
+
+    getCompanyId(): void {
+        if (this.id) {
+            this.api.companyIdService(this.id).subscribe({
+                next: (items: any) => {
+                   this.setFormCompanies(items.data);
+                }, error: (e: any) => this.swaAlert.toastErrorUpdate()
+            });
+        }
+    }
+
+    setFormCompanies(form): void {
+        this.formInit.patchValue({
+            identificationNumber: form[0].identificationNumber,
+            name: form[0].name,
+            legalRepresentative: form[0].legalRepresentative,
+            email: form[0].email,
+            webSite: form[0].webSite,
+            phone: form[0].phone,
+            address: form[0].address,
+            regime: form[0].regime.id,
+            city: form[0].city.id,
+            employees: form[0].employees.id,
+            workspaces: form[0].workspaces.id
+        });
     }
 
     onSubmit(): void {
@@ -60,21 +86,23 @@ export class FormComponent implements OnInit {
     formSave(): void {
         let observable: Observable<Company>;
         if (this.id) {
-            //observable = this.api.createEmployeeService(this.pageId, this.formInit.value);
+            observable = this.api.updateCompanyService(this.formInit.value,this.id);
         } else {
             observable = this.api.createCompanyService(this.formInit.value);
         }
         observable.subscribe({
-            next: (data: any) => {
-                this.router.navigateByUrl('/companies');
-                //this.router.navigateByUrl(`/employee/pages/${success.id}/edit`);
-                const toast = this.swaAlert.Toast();
+            next: (item: any) => {
+                const route = `/companies/edit/${item.data.id}`;
+                this.router.navigateByUrl(route);
+                const toast = this.swaAlert.toast();
                 toast.fire({ icon: 'success', title: 'Datos guardados correctamente' })
-                    .then((() => {
-                    }));
+                    .then((() => {}));
             },
             error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
+    }
+
+    initForm(): void {
     }
 
 }

@@ -1,8 +1,4 @@
 <app-content class="w-full" [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel">
-    <a *appActions class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
-        <mat-icon svgIcon="heroicons_outline:plus" color="text-white"></mat-icon>
-        <span class="ml-2">Guardar cliente</span>
-    </a>
     <div *appPanels class="w-full">
         <form [formGroup]="formInit">
             <div class="flex flex-col flex-auto mt-2">
@@ -13,11 +9,19 @@
                         <app-input-date label="Fecha creación" formControlName="startDate"></app-input-date>
                         <app-input-date label="Fecha finalización" formControlName="endDate"></app-input-date>
                         <app-input-select label="Ubicación geografica" [options]="elementsCities" formControlName="city" required="true"></app-input-select>
-                        <app-input-text label="Nombre del responsable" formControlName="assigned"></app-input-text>
+                        <app-input-select label="Nombre del responsable" [options]="elementsEmployees" formControlName="user" required="true"></app-input-select>
                         <app-input-text label="Descripción" formControlName="description"></app-input-text>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-9 w-full">
+                        <div class="flex flex-col flex-auto">
+                            <app-input-radio label="Selecciona el estado" [options]="elementsStateProject" formControlName="state"></app-input-radio>
+                        </div>
                     </div>
                 </div>
             </div>
+            <a class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                <span class="ml-2">Guardar cliente</span>
+            </a>
         </form>
     </div>
 </app-content>
