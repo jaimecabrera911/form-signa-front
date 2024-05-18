@@ -1,21 +1,12 @@
-<div
-    class="fuse-vertical-navigation-item-wrapper"
-    [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle"
-    [ngClass]="item.classes?.wrapper">
+<div class="fuse-vertical-navigation-item-wrapper" [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle" [ngClass]="item.classes?.wrapper">
 
-    <div
-        class="fuse-vertical-navigation-item"
-        [ngClass]="{'fuse-vertical-navigation-item-active': active,
+    <div class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active': active,
                     'fuse-vertical-navigation-item-disabled': item.disabled,
-                    'fuse-vertical-navigation-item-active-forced': item.active}"
-        [matTooltip]="item.tooltip || ''">
+                    'fuse-vertical-navigation-item-active-forced': item.active}" [matTooltip]="item.tooltip || ''">
 
         <!-- Icon -->
         <ng-container *ngIf="item.icon">
-            <mat-icon
-                class="fuse-vertical-navigation-item-icon"
-                [ngClass]="item.classes?.icon"
-                [svgIcon]="item.icon"></mat-icon>
+            <mat-icon class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
         </ng-container>
 
         <!-- Title & Subtitle -->
@@ -37,9 +28,7 @@
         <!-- Badge -->
         <ng-container *ngIf="item.badge">
             <div class="fuse-vertical-navigation-item-badge">
-                <div
-                    class="fuse-vertical-navigation-item-badge-content"
-                    [ngClass]="item.badge.classes">
+                <div class="fuse-vertical-navigation-item-badge-content" [ngClass]="item.badge.classes">
                     {{item.badge.title}}
                 </div>
             </div>
@@ -60,38 +49,27 @@
 
                 <!-- Basic -->
                 <ng-container *ngIf="item.type === 'basic'">
-                    <fuse-vertical-navigation-basic-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-basic-item>
+                    <fuse-vertical-navigation-basic-item [item]="item" [name]="name"></fuse-vertical-navigation-basic-item>
                 </ng-container>
 
                 <!-- Collapsable -->
                 <ng-container *ngIf="item.type === 'collapsable'">
-                    <fuse-vertical-navigation-collapsable-item
-                        [item]="item"
-                        [name]="name"
-                        [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+                    <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
                 </ng-container>
 
                 <!-- Divider -->
                 <ng-container *ngIf="item.type === 'divider'">
-                    <fuse-vertical-navigation-divider-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-divider-item>
+                    <fuse-vertical-navigation-divider-item [item]="item" [name]="name"></fuse-vertical-navigation-divider-item>
                 </ng-container>
 
                 <!-- Group -->
                 <ng-container *ngIf="item.type === 'group'">
-                    <fuse-vertical-navigation-group-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-group-item>
+                    <fuse-vertical-navigation-group-item [item]="item" [name]="name"></fuse-vertical-navigation-group-item>
                 </ng-container>
 
                 <!-- Spacer -->
                 <ng-container *ngIf="item.type === 'spacer'">
-                    <fuse-vertical-navigation-spacer-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-spacer-item>
+                    <fuse-vertical-navigation-spacer-item [item]="item" [name]="name"></fuse-vertical-navigation-spacer-item>
                 </ng-container>
 
             </ng-container>

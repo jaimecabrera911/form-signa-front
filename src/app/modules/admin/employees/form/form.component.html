@@ -1,7 +1,7 @@
-<app-content [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel" class="w-full">
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
     <div *appPanels class="w-full">
         <form [formGroup]="formInit">
-            <mat-tab-group class="mt-6">
+            <mat-tab-group class="mt-12">
                 <mat-tab label="Datos personales">
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-8 mb-6">
@@ -24,32 +24,33 @@
                                 </div>
                                 <div class="flex flex-col flex-auto">
                                     <div class="flex flex-col flex-auto">
-                                        <app-input-text label="Nombres" formControlName="names" required="true"></app-input-text>
-                                        <app-input-text label="Apellidos" formControlName="surnames" required="true"></app-input-text>
-                                        <app-input-select label="Tipo identificación" [options]="elementsIdentificationTypes" formControlName="identificationType" required="true"></app-input-select>
+                                        <app-input-text label="Nombres" formControlName="names" required="true" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-text label="Apellidos" formControlName="surnames" required="true" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-select label="Tipo identificación" [options]="elementsIdentificationTypes" formControlName="identificationType" required="true" [validateFormSumt]="validate"></app-input-select>
                                     </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
-                                <app-input-text label="Número identificación" formControlName="identificationNumber" required="true"></app-input-text>
-                                <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" required="true"></app-input-birth-date>
-                                <app-input-select label="Genero" [options]="elementsGenders" formControlName="gender" required="true"></app-input-select>
-                                <app-input-text label="No télefono casa" formControlName="phoneNumber" required="true"></app-input-text>
-                                <app-input-text label="No teléfono movil" formControlName="cellphoneNumber" required="true"></app-input-text>
-                                <app-input-text label="Dirección de domicilio" formControlName="address" required="true"></app-input-text>
-                                <app-input-select label="Cargo" [options]="elementsPosition" formControlName="position" required="true"></app-input-select>
-                                <app-input-select label="EPS" [options]="elementsHealthcareProvider" formControlName="healthcareProvider" required="true"></app-input-select>
-                                <app-input-select label="ARL" [options]="elementsOccupationRiskManager" formControlName="occupationRiskManager" required="true"></app-input-select>
-                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pension" required="true"></app-input-select>
-                                <app-input-select label="Caja de compensación" [options]="elementsCompensationFund" formControlName="compensationFund" required="true"></app-input-select>
-                                <app-input-select label="Lugar trabajao" [options]="elementsWorkspace" formControlName="workspace" required="true"></app-input-select>
-                                <app-input-text label="Contacto de emergencia" formControlName="contactName" required="true"></app-input-text>
-                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="contactNumber" required="true"></app-input-text>
-                                <app-input-select label="Nacionalidad" [options]="elementsCountries" formControlName="birthCountry" required="true"></app-input-select>
-                                <app-input-select label="Departamento" [options]="elementsDepartaments" required="true"></app-input-select>
-                                <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" required="true"></app-input-select>
-                                <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" required="false"></app-input-date>
-                                <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" required="false"></app-input-date>
+                                <app-input-text label="Número identificación" formControlName="identificationNumber" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-email label="Email" formControlName="email" required="true" [validateFormSumt]="validate"></app-input-email>
+                                <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" required="true" [validateFormSumt]="validate"></app-input-birth-date>
+                                <app-input-select label="Genero" [options]="elementsGenders" formControlName="gender" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="No télefono casa" formControlName="phoneNumber" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="No teléfono movil" formControlName="cellphoneNumber" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Dirección de domicilio" formControlName="address" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="Cargo" [options]="elementsPosition" formControlName="position" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="EPS" [options]="elementsHealthcareProvider" formControlName="healthcareProvider" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="ARL" [options]="elementsOccupationRiskManager" formControlName="occupationRiskManager" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pension" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Caja de compensación" [options]="elementsCompensationFund" formControlName="compensationFund" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Lugar trabajao" [options]="elementsWorkspace" formControlName="workspace" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="Contacto de emergencia" formControlName="contactName" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="contactNumber" required="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="Nacionalidad" [options]="elementsCountries" formControlName="birthCountry" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Departamento" [options]="elementsDepartaments" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" required="true" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" required="false" maxInputDate="{{ formInit.value.withdrawalDate ? formInit.value.withdrawalDate : '' }}" [validateFormSumt]="validate"></app-input-date>
+                                <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" required="false" minInputDate="{{ formInit.value.dateAdmission ? formInit.value.dateAdmission : '' }}" [validateFormSumt]="validate"></app-input-date>
                             </div>
                         </div>
                     </div>
@@ -57,13 +58,20 @@
                 <mat-tab label="Permisos médicos">
                     <div *ngIf="uploadFiles">
                         <div class="w-full float-right">
-                            <a class="mt-1 px-2 ml-2 float-right" mat-button mat-flat-button (click)="onSelect($event,'SHOW_UPT')">
+                            <a class="mt-1 px-2 ml-2 float-right" mat-button mat-flat-button (click)="uploadFile('UPLOAD_FILES_HID')">
                                 <span class="ml-2">Cerrar</span>
                             </a>
                         </div>
-                        <app-input-upload-files formControlName="filesUpload"></app-input-upload-files>
+                        <app-input-upload-files *ngIf="uploadFiles" formControlName="filesUpload"></app-input-upload-files>
                     </div>
-                    <app-panel-documents *ngIf="listFiles" formControlName="showUpload" [items]="filesItems" (click)="onSelect($event,'HID_UPT')"></app-panel-documents>
+                    <app-multimedia *ngIf="listFiles" [items]="filesItems" searchPanel="true">
+                        <div *appAditionalMultimedia class="flex-col flex-auto">
+                            <a class="btn-add" mat-button mat-flat-button (click)="uploadFile('UPLOAD_FILES_SHOW')">
+                                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                                <span class="ml-4">Adicionar</span>
+                            </a>
+                        </div>
+                    </app-multimedia>
                 </mat-tab>
                 <mat-tab label="Firma" class="sign">
                     <div class="sign mx-10 my-5 py-10">

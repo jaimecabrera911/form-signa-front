@@ -1,49 +1,6 @@
-<app-content [title]="title" [subtitle]="subtitle" [searchPanel]="searchPanel" class="w-full">
-    <div *appAditional class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
-        <mat-form-field class="flex-auto gt-xs:pl-3">
-            <input matInput (keyup)="applyFilter($event)" #input placeholder="Buscar proyecto">
-            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:search'"></mat-icon>
-        </mat-form-field>
-    </div>
-    <div *appAditional class="flex-col flex-auto">
-        <a class="btn-add" mat-button mat-flat-button [routerLink]="['create']">
-            <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
-            <span class="ml-4">Adicionar</span>
-        </a>
-    </div>
-    <div *appPanels class="w-full">
-        <table mat-table matTableResponsive [dataSource]="elements" class="table-list-items">
-            <div *ngFor="let column of colums; let i = index">
-                <ng-container [matColumnDef]="colums[i].name">
-                    <th mat-header-cell *matHeaderCellDef [style.background-color]="background" [style.color]="color">
-                        {{ colums[i].label }}
-                    </th>
-                    <td mat-cell *matCellDef="let elements">
-                        <div *ngIf="colums[i].name2 && !colums[i].styles" class="w-full">
-                            <div *ngIf="colums[i].name2 !== null || !colums[i].name2">
-                                {{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
-                        </div>
-                        <div *ngIf="colums[i].styles" class="w-full">
-                            <div *ngFor="let item of colums[i].styles">
-                                <div *ngIf="((elements[colums[i].name][colums[i].name2] ===  item.label)  ||
-                                             (elements[colums[i].name] && (elements[colums[i].name] === item.label)) )" class="w-full content-center">
-                                    <div class="p-1 w-full content-center rounded-2xl text-center" [style.background-color]="item.backgroundColor" [style.color]="item.textColor">
-                                        <div *ngIf="!colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i].name] | statusAdmin}}</div>
-                                        <div *ngIf="colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] | statusAdmin}}</div>
-                                        <div *ngIf="!colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i].name] }}</div>
-                                        <div *ngIf="colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="!colums[i].styles && !colums[i].name2">{{elements[colums[i].name] }}</div>
-                    </td>
-                </ng-container>
-            </div>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [length]="length" [pageSize]="size" showFirstLastButtons (page)="pageEvent=onChange($event)" [pageSizeOptions]="pageSizeOptions">
-        </mat-paginator>
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="mt-10 w-full">
+        <app-table-items [data]="apiItems$" [colums]="iterableColumns" [searchPanel]="searchPanel" [placeHolderSearch]="subtitle" routeBottom="projects/create">
+        </app-table-items>
     </div>
 </app-content>

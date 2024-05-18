@@ -31,13 +31,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { InputUploadImageComponent } from './input-upload-image/input-upload-image.component';
 import { InputUploadFilesComponent } from './input-upload-files/input-upload-files.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { PanelDocumentsComponent } from './panel-documents/panel-documents.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-
+import { TableItemsComponent } from './table-items/table-items.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { InputEmailComponent } from './input-email/input-email.component';
 @NgModule({
     declarations: [
         InputTextComponent,
@@ -56,8 +57,10 @@ import { MatCardModule } from '@angular/material/card';
         InputRadioComponent,
         InputUploadImageComponent,
         InputUploadFilesComponent,
-        PanelDocumentsComponent
-    ],
+        TableItemsComponent,
+        InputEmailComponent,
+        InputEmailComponent
+   ],
     exports: [
         InputTextComponent,
         InputSelectComponent,
@@ -75,7 +78,8 @@ import { MatCardModule } from '@angular/material/card';
         InputRadioComponent,
         InputUploadImageComponent,
         InputUploadFilesComponent,
-        PanelDocumentsComponent
+        TableItemsComponent,
+        InputEmailComponent
     ],
     imports: [
         CommonModule,
@@ -98,7 +102,8 @@ import { MatCardModule } from '@angular/material/card';
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
-        MatMenuModule
+        MatMenuModule,
+        NgxDocViewerModule
     ]
 })
 export class CrmFormModule { }

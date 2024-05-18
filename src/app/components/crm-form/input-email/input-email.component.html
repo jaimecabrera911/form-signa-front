@@ -1,0 +1,13 @@
+<div class="flex flex-col flex-auto">
+    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+    <mat-form-field class="flex-auto" appearance="legacy">
+        <mat-icon *ngIf="icon" class="icon-size-5" matSuffix [svgIcon]="icon"></mat-icon>
+        <input matInput [(ngModel)]="value" name="value" #valueCtrl="ngModel" (keyup)="change($event)" [type]="type" [required]="required">
+        <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
+            <mat-error>Campo Obligatorio</mat-error>
+        </mat-hint>
+        <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
+        <mat-error *ngIf="valueCtrl.hasError('email') && !validateFormSumt">Correo invalido</mat-error>
+
+    </mat-form-field>
+</div>

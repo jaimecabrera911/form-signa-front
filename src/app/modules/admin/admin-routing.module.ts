@@ -27,10 +27,18 @@ const routes: Routes = [
                 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
                 loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
             },
+            {
+                path: 'companies',
+                // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule)
+            },
+            {   path: 'forms-project',
+                // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                loadChildren: () => import('./forms-project/forms-project.module').then(m => m.FormsProjectModule)
+            }
         ]
     },
-    { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule) },
-    { path: 'training-forms', loadChildren: () => import('./training-forms/training-forms.module').then(m => m.TrainingFormsModule) }
+
 ];
 
 

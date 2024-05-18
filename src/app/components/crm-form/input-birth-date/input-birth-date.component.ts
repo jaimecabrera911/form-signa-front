@@ -48,6 +48,8 @@ export class InputBirthDateComponent extends DefaultInput implements OnInit, Con
     ngOnInit(): void {
         this.maxDate = new Date();
         this.maxDate.setMonth(this.maxDate.getMonth() - 12 * 18);
+        const test = this.maxDate.getMonth() - 12 * 18;
+        console.log('getMonth ',this.maxDate,' test ',test);
     }
 
     addEvent(event): void {

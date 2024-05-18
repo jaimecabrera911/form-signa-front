@@ -1,53 +1,30 @@
 <!-- Item wrapper -->
-<div
-    class="fuse-vertical-navigation-item-wrapper"
-    [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle"
-    [ngClass]="item.classes?.wrapper">
+<div class="fuse-vertical-navigation-item-wrapper" [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle" [ngClass]="item.classes?.wrapper">
 
     <!-- Item with an internal link -->
     <ng-container *ngIf="item.link && !item.externalLink && !item.function && !item.disabled">
-        <a
-            class="fuse-vertical-navigation-item"
-            [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}"
-            [routerLink]="[item.link]"
-            [routerLinkActive]="'fuse-vertical-navigation-item-active'"
-            [routerLinkActiveOptions]="isActiveMatchOptions"
-            [matTooltip]="item.tooltip || ''">
+        <a class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [routerLink]="[item.link]" [routerLinkActive]="'fuse-vertical-navigation-item-active'" [routerLinkActiveOptions]="isActiveMatchOptions" [matTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
     </ng-container>
 
     <!-- Item with an external link -->
     <ng-container *ngIf="item.link && item.externalLink && !item.function && !item.disabled">
-        <a
-            class="fuse-vertical-navigation-item"
-            [href]="item.link"
-            [target]="item.target || '_self'"
-            [matTooltip]="item.tooltip || ''">
+        <a class="fuse-vertical-navigation-item" [href]="item.link" [target]="item.target || '_self'" [matTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
     </ng-container>
 
     <!-- Item with a function -->
     <ng-container *ngIf="!item.link && item.function && !item.disabled">
-        <div
-            class="fuse-vertical-navigation-item"
-            [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}"
-            [matTooltip]="item.tooltip || ''"
-            (click)="item.function(item)">
+        <div class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [matTooltip]="item.tooltip || ''" (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
     </ng-container>
 
     <!-- Item with an internal link and function -->
     <ng-container *ngIf="item.link && !item.externalLink && item.function && !item.disabled">
-        <a
-            class="fuse-vertical-navigation-item"
-            [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}"
-            [routerLink]="[item.link]"
-            [routerLinkActive]="'fuse-vertical-navigation-item-active'"
-            [routerLinkActiveOptions]="isActiveMatchOptions"
-            [matTooltip]="item.tooltip || ''"
+        <a class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [routerLink]="[item.link]" [routerLinkActive]="'fuse-vertical-navigation-item-active'" [routerLinkActiveOptions]="isActiveMatchOptions" [matTooltip]="item.tooltip || ''"
             (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
@@ -55,31 +32,21 @@
 
     <!-- Item with an external link and function -->
     <ng-container *ngIf="item.link && item.externalLink && item.function && !item.disabled">
-        <a
-            class="fuse-vertical-navigation-item"
-            [href]="item.link"
-            [target]="item.target || '_self'"
-            [matTooltip]="item.tooltip || ''"
-            (click)="item.function(item)">
+        <a class="fuse-vertical-navigation-item" [href]="item.link" [target]="item.target || '_self'" [matTooltip]="item.tooltip || ''" (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
     </ng-container>
 
     <!-- Item with a no link and no function -->
     <ng-container *ngIf="!item.link && !item.function && !item.disabled">
-        <div
-            class="fuse-vertical-navigation-item"
-            [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}"
-            [matTooltip]="item.tooltip || ''">
+        <div class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}" [matTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
     </ng-container>
 
     <!-- Item is disabled -->
     <ng-container *ngIf="item.disabled">
-        <div
-            class="fuse-vertical-navigation-item fuse-vertical-navigation-item-disabled"
-            [matTooltip]="item.tooltip || ''">
+        <div class="fuse-vertical-navigation-item fuse-vertical-navigation-item-disabled" [matTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
     </ng-container>
@@ -91,10 +58,18 @@
 
     <!-- Icon -->
     <ng-container *ngIf="item.icon">
-        <mat-icon
-            class="fuse-vertical-navigation-item-icon"
-            [ngClass]="item.classes?.icon"
-            [svgIcon]="item.icon"></mat-icon>
+        <mat-icon *ngIf="item.id === 'companies'" class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon">
+            <svg width="17" height="20" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_2864)"/><defs><pattern id="pattern0_879_2864" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_2864" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_2864" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB6ElEQVR4nO3aTUrFQBBF4cKZiuAuXIXgYlyRP+hWdOQyXIU60ekR4Q0En0KbrkpV5X7jpjs5NgkvtpmIiIiIiMhWAUfALfBGPq/ADXBo1QH35HdvlQEHwAf5vX9dq1Wl0IGKPDrurLqvFw1wvXvxZPMCXLV4GYqIiIi0/47R53tIkR8jtb+HFPp5Xft7iEIH2tij4y6ybaXvGD2/h9CUZUNTlg1NWTajF0rx8avJFgKF7jF+NdlCoNA9xq8mWwi2Fro6y4amLBuasmyc7/cBuATOgGPbMqfAz8D52veWikPkJ+B07ftK57dao+O/7WRFDgh9Menv38/E0I+xV77d0JeNzpDMPxMyMfRZw38EzzsTMjH0ScMzJO/uoUfZ/rkVOiJ0g0fHvDMhs67Iep0hmX8mZNaVWeBa3qbFVei/KXTH0LPGR64VeS/DFPonhd7JsGm0o/dQ6JV36Oh47ejKoZewwLU8KHQQhQ6i0EEUOohCdww9a3zkWpH3Mkyhf1LonQybRjt6D4VeeYeOjteOrhx6lAWu5U2hgyh0EIUOotBBFDpI29BWZPwiTGIL1qoyfhEmsQVrVRlfBsnCKfSOQv9TtnCb29Gj1pq/DJxDeM9fBs4hvOcvA+cQ3vOXgXMI7/nLwDmEx/yfE3iIbPNGm6QAAAAASUVORK5CYII="/></defs></svg>
+        </mat-icon>
+        <mat-icon *ngIf="item.id === 'projects'" class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon">
+            <svg width="20" height="23" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_2868)"/><defs><pattern id="pattern0_879_2868" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_2868" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_2868" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADvklEQVR4nO2dvU4VQRTHR72IVpSgsfEDE57AGwkWgpU+gj6C2ulNIFqQyK3UqImgjT6BwcJbqaiVpdGIiRYUIhgifiAmNv7N6JBsyMzs3J3Z2TnL+SU3IZezM2d/u3N2d3ZZhGAYhmEYhmEYhqkzAE4AuAvgHYCf6jMP4A6AsarzIw+AwwCeIZ85AINV50sSAMcArMKdVQAjJeazXdR0T+5G8gZfABwKnMtuALcAfFOfm/I7UQccy4WJp4Fzua7p46qoyYHPl9GA+Sxr2l8S1FFnF77MWNpPmUUAbQA7Y4iWp3C+zBMVvUE7hui1AImuERe9REX0d+KiQaV0vGXRcQ6G0yw6X/RYANHHBRFMKxCr88cekucEIaoWvR/ASgqX4LUWrRIYUeK6kTwiiFG5aJXEoJy7cJD8hNqenJToTDKj8rJanrap8+w19fMMpQNf8qLrDFh0HFh0JFh0JFh0JFj0VhENYBeA8wBequc4quKrujlbyg1ZU6dl9KXrfB+AV0iL6ZLWVUsZfen25NQkS9bLeLYDBkL3o+tYlosUWa+baFmTU+R2SeurpYy+yrhnGBL5xNSN2h0MAwr6DeACgL0iYeog+qIgQB1E7xEEIC9aEIFFR4JFR4JFR4JFR4JFR4JFR4JFR2LLigawDcCOLuIb3cRvGdEgAouOBIuOBIuOw0cWHYcpFl2jP+i08R7AAQAHAXywBQr3/nost8+aluWahmVkWz0idXJET2biJgOJbhYRVnQDURF9NhN3LpDolqGJRw7LdsjeRssRfToTdyaQ6E5RWT4bKXXRJzNxp3xF4//l8w9DE0cclqdbp3NEH83EDQcQ3fQR5buhUhY9lIkbCiC65Tv0ydbpHNEDmbiBAKI7vpLI1ukc0b2ZuF4f0Qg07MnWaYu7dU3sLw/RzRCCyNbpbiZa1CWrlphDnmSdhpnXmtg3pmARUQ7JOm0R/VwT+6KIaAQe7iTrtEX0rCb2YUHRzZBiSNZpi+h7mtj7BUW3Qg91cnXaIvqa4+ss/xFbCrk6DTOXNLGXTcEi8jAnV6ddpkhdpkpFZCHk6rTLFKnLVKmoYIiTqtMuU6QuU6WiAhmk6rRF9LAm1jhVKsztfy5reMs2DG0vi9QAsKBJ9A+Afk1sv/rdZha6fB+0fNN5I0DuDdXWZj6J1AAwoUn0gSV+VhM/bomXt/M3cyVg/u1KntMouFdMqD17Rb0JrM8S36f+TciKWmbc9nSnar+t9mw5KTXl8zSopf1F1UfQ9hmGYRiGYRiGYQQ1/gL7uW+2aSNktgAAAABJRU5ErkJggg=="/></defs></svg>
+        </mat-icon>
+        <mat-icon *ngIf="item.id === 'employees'" class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon">
+            <svg width="20" height="23" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_1325)"/><defs><pattern id="pattern0_879_1325" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_1325" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_1325" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFN0lEQVR4nO2cW4hVVRjHd4cuQlcownlLpyILe3e0piaLMKkHqReJHnooMLq8RBCWEUFhGPYQ6XQhi+hVhOwiYyqRvQVljlZolhE6inMxorJfLGed2AzrrL3WXmuvtZdn/eHAMPy/8z+/7+x9vr3X3ucURVZWVlZWVlZWVlZWVlZ9AXcCo8A4MCMf+4HNwHKHp84SAq4HdlGtL4DrzhZl2Qm4FTiJuYT3FsuY/hazW7JNk7s6AVwb+/UnI2CM+toV+/WnNPhcdUeRqoDzgJXAFuAw8Kd8HJL/u0d4POSMOrcZNqXCOzf0RmCvAeBXwCLHrHEPjd6fCm85dASYtIA8JWoc8qZw11QqvN3QRfKJbCVqbkit0UTg7QZ/6QC7O+JHx/ep8IrQuz0A35XKMCQSrwh+20PwaI3c5R5yR1LhFcEHPASPWwcXZ7PF2kVdjdXMjMMLTHsInq4JvQA4HvIUPBqvp+k/WQdaSCwQycaZ6oTLolI0Xrne66p9dcGFxNInsNMgZ8x1MSkaL/Cmh+A3XOC7EmsX4khCHLbJXXxa/r3J+WQhNi9wu4fg4SIREZMX+Nwh9NMiMRGLF7gGOFYjdAIYLBITMXmBJZaHWuKFLikSFTF55Tv9iUHoduEtEhexeYFlwOvAN/KdPCb/Fv9bWpxjoh94mT0K6B7STc2d6vKEhtKhnjg8uy3uq05IwGCPi7NngEtLvouBfxS+HcDCuBQtFzAkJ7jR5Sngux5eMcyG4lC0XMwuJOkOrd5X1Lyn8ed7PFSSu7xOTylqnqio2akM61dhdvo73OOooEpe1kJiTP/tPbbG2tOf6gUdMQgvU9Rd0mMglrW5bbym0/8lhfdll+nP7AvW6YBD7XjbeE2n/yqF/36X6U/1Jf4PNbUfVNTOtI23/M72ChVaoKhZqPEfr3qn5UeDTnuATo/btkzun+60iddk+p9U3W8mgSfqTn+qGy30jKLuaczUaROvyfTfoan9rO70x6zRf4ujjDm7+184NDoWr8n0f0dT+1bd6Y9Zo4V+Aa4CrgR+xlydNvGaTPDTwGJF3U3yCzy1pj/mjRY6Kh94aHQUXtNL7gfLx7RycWefQd2Mp0bXUadNvDbAHxmuN5gCn6FZddrEawu8HnjFwp9yo73ypgKcfG7fAZMb7V250UJ5iz7HtyzyR4d35UYL5S063Jb1m2H9D3JZc1D+baLfVZkx3+CYW9YGw/oXSzUvGNa8mhstBcwDNhp8leLxUs2aCq9YL35NPHfRwi06yi5sAf9gybe6FmQbeGvuwutcd2GLRq8s+VZ4aHQcXotdeE2p5lHXXdii0Uvn3Mfs2ujovFXADxhcETYGtsj9/ycbxJfcA+Y2xlsVPGJx3a3jMXd+yTc/YG5jvFXBN5d8iwMCzyv5LgqY2xhvVfBAyTcQCPi0wvtHgNxGeauCLyz5LgD+DQD8q8J7NFCjG+PVBZ9SeCcDAH9rcSO6z9xGeXXBPyq8PwUA3q3w7gmQ2yivLnivwvt1AOCtCu+2ALmN8uqCtym8HwcAflfh3RIgt1HeNgJvUHg3BshtlFcXvN5yzaDjKXetwrsuQG6jvLpg1e2zzwYAfkzhfTJAbqO8uuCHFd5HAgCvVngfCpDbKK8u+D6Fd1UA4BUK770Bchvl1QUvU3iHAwAP9fjV9KZzG+Ut5M/3zpU49bxa4R3ocVp6xCq06L9c8WRrTU4aSv6tCv/zObdCwPnAc/IrDBPyqwRXaPyXy98VFd4josniOapy+j03KysrKysrKysrKyuriK3/AHETci+VfaB4AAAAAElFTkSuQmCC"/></defs></svg>
+        </mat-icon>
+        <mat-icon *ngIf="item.id === 'forms-project'" class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon">
+            <svg width="20" height="23" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_2873)"/><defs><pattern id="pattern0_879_2873" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_2873" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_2873" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAACOElEQVR4nO3dPU7DQBCG4amAI+SHc1BRUFFxFH46NhcMiIpwFAQobPUhCyNALLEd7Y5n1t8j0SBrmbyyHGkiEREiIiIiNwAcAbgB8ADgFXZEAGsAJ+IdgGMAT7BtC+BcnN/J1iP7j90+LjzZuozdPpO92bqLDeAFdr1VExu2nXbcCO8ALsQDGCaf89URG4bJ94z+Y8Mw+T2n79gwTP7O6jc2DJP0vD5jwzD5f2Z/sWGY7J7bV2wYJt2z+4kNw6Tf/D5iwzDp/xrsx4ZhMux1nPXYjYz34QFsW2SOvS5Xsns4y8Ier2dX7FimYr/BLItN7Jx3drmS3UNNijC0DoZWwtBKGFoJQythaCUMrYShlTC0EoZWwtBKPIWOAG6bRU/7E9rfdV6fceY+f9d96JA4Iwy5PuPsoebQ88QZsyHXZ5x9VnPoReKM5ZDrM86+nNqjYzXk+oyzr2oOHb8+9RjwZjj4U5KOmSfxZugaQythaCUMrYShlTC0Ek+hI3cdOqFD4gzuOgqEnifO4K6jQOhF4gzuOgqEDokzuOsoEDpy16ET2jUZCyZGGFoHQythaCUMrcRT6Mhdh07okDiDu44CoeeJM7jrKBB6kTiDu44CoUPiDO46CoSO3HXohHZNxoKJEYbWwdBKGFoJQythaCUMrYShJxDa8r+ez+15zNAev0xhX/djhr7GdFyOGfoQwAb1ewRwMFroH1/htKk88lIsaO/sq+Y5Vskb5AuAu+ZxMfqdTERERCRDfACStsyv0kJHDAAAAABJRU5ErkJggg=="/></defs></svg>
+        </mat-icon>
     </ng-container>
 
     <!-- Title & Subtitle -->
@@ -116,9 +91,7 @@
     <!-- Badge -->
     <ng-container *ngIf="item.badge">
         <div class="fuse-vertical-navigation-item-badge">
-            <div
-                class="fuse-vertical-navigation-item-badge-content"
-                [ngClass]="item.badge.classes">
+            <div class="fuse-vertical-navigation-item-badge-content" [ngClass]="item.badge.classes">
                 {{item.badge.title}}
             </div>
         </div>

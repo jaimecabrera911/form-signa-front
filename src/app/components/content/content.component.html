@@ -1,10 +1,10 @@
 <div class="flex flex-col flex-auto w-full w-index-main">
     <!-- panel-main -->
     <div class="flex panel-main w-full flex-col sm:flex-row items-start sm:items-center sm:justify-between p-4 sm:py-4 md:px-4 border-b bg-card dark:bg-transparent">
-        <div class="ml-8">
+        <div class="ml-2">
             <mat-icon (click)="btnBack()" class="icon-size-10 btnBack" [svgIcon]="'heroicons_solid:chevron-left'"></mat-icon>
         </div>
-        <div class="flex-1 min-w-0 ml-4">
+        <div class="flex-1 min-w-0 ml-3">
             <div class="mt-1">
                 <div class="text-3xl md:text-3xl  text-black font-semibold tracking-tight leading-7 md:leading-snug truncate ng-star-inserted">
                     {{ title }}
@@ -12,7 +12,7 @@
             </div>
             <div class="flex flex-wrap text-sm items-center font-medium mt-1">
                 <a *ngIf="item" class="whitespace-nowrap text-gray-400">{{ title }}</a>
-                <div class="flex items-center ml-1 whitespace-nowrap">
+                <div class="flex items-center whitespace-nowrap">
                     <mat-icon *ngIf="item" class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
                     <a class="ml-1 text-gray-400">{{ subtitle }}</a>
                 </div>
@@ -29,19 +29,7 @@
     </div>
 
     <div class="p-9 mx-9">
-        <div class="mt-36 w-full" *ngIf="searchPanel">
-            <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3
-                bg-card shadow rounded-2xl overflow-hidden mat-item-card">
-                <!-- Main actions -->
-                <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 w-full">
-                    <ng-container *ngFor="let add of aditional">
-                        <ng-container *ngTemplateOutlet="add.templateRef"></ng-container>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex w-full" [ngClass]="!searchPanel ? 'mt-28' : 'mt-5'">
+        <div class="flex w-full mt-24 pt-4">
             <mat-card class="item w-full h-auto " *ngFor="let panel of panels">
                 <mat-card-content>
                     <ng-container *ngTemplateOutlet="panel.templateRef"></ng-container>
@@ -49,3 +37,4 @@
             </mat-card>
         </div>
     </div>
+</div>

@@ -26,14 +26,13 @@ import { MatTableResponsiveModule } from 'app/components/mat-table-responsive/ma
 import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { FormComponent } from './form/form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { StatusAdminPipe } from 'app/components/directives/status-admin.pipe';
+import { MultimediaModule } from 'app/components/multimedia/multimedia.module';
 
 @NgModule({
     declarations: [
         EmployeesComponent,
         IndexComponent,
         FormComponent,
-        StatusAdminPipe
     ],
     imports: [
         CommonModule,
@@ -57,7 +56,8 @@ import { StatusAdminPipe } from 'app/components/directives/status-admin.pipe';
         OverlayModule,
         MatDialogModule,
         MatTableResponsiveModule,
-        CrmFormModule
+        CrmFormModule,
+        MultimediaModule
     ]
 })
 export class EmployeesModule { }

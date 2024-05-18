@@ -1,11 +1,15 @@
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <mat-select [(ngModel)]="value" (selectionChange)="select($event)">
+        <mat-select [(ngModel)]="value" name="value" #valueCtrl="ngModel" (selectionChange)="select($event)" [required]="required">
             <mat-option value="">Seleccione una opción</mat-option>
             <mat-option *ngFor="let option of options" [value]="option.code">
                 {{option.name}}
             </mat-option>
         </mat-select>
+        <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
+            <mat-error>Campo Obligatorio</mat-error>
+        </mat-hint>
+        <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
     </mat-form-field>
 </div>

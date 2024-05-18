@@ -24,6 +24,13 @@ const menu: any = [
         link : '/projects'
     },
     {
+        id   : 'forms-project',
+        title: 'Formularios',
+        type : 'basic',
+        icon : 'mat_outline:supervised_user_circle',
+        link : '/forms-project'
+    },
+    {
         id   : 'employees',
         title: 'Empleados',
         type : 'basic',

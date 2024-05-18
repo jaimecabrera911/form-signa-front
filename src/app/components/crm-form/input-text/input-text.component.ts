@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {DefaultInput} from '../default-input';
 
@@ -16,12 +16,13 @@ import {DefaultInput} from '../default-input';
 })
 export class InputTextComponent extends DefaultInput implements OnInit, ControlValueAccessor {
     @Input() type: string = 'text';
-
-    constructor() {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         super();
     }
 
     ngOnInit(): void {
+        this.changeDetectorRef.detectChanges();
     }
+
 
 }

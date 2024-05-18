@@ -1,4 +1,8 @@
 <mat-form-field class="w-full" appearance="legacy">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
-    <textarea matInput [cols]="cols" [rows]="rows" [(ngModel)]="value" (keyup)="change($event)"></textarea>
+    <textarea matInput [cols]="cols" [rows]="rows" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (keyup)="change($event)"></textarea>
+    <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
+        <mat-error>Campo Obligatorio</mat-error>
+    </mat-hint>
+    <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
 </mat-form-field>

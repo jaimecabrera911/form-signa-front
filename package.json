@@ -34,6 +34,7 @@
         "moment": "2.29.1",
         "ng-apexcharts": "1.6.0",
         "ng-multiselect-dropdown": "^0.3.9",
+        "ngx-doc-viewer": "^2.1.4",
         "ngx-dropzone": "^3.1.0",
         "ngx-markdown": "13.0.0",
         "ngx-number-format": "^13.0.0",

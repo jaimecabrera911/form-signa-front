@@ -90,7 +90,6 @@ export class InputSignatureCanvasComponent extends DefaultInput implements After
         const item: any = this.dataURLtoFile(this.img,this.nameSignature());
         const formData = new FormData();
         formData.append('files', item);
-        console.log('file ',formData);
         this.value = formData;
         this.writeValue(formData);
         this.codeImge = true;

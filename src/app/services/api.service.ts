@@ -148,6 +148,30 @@ export class ApiService {
     }
 
     /*-------------------------|
+       Forms                   |
+    -------------------------*/
+
+    formsService(id): Observable<any> {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const filetrs = 'fields%2Cevidences%2Cproject%20&filters%5Bproject%5D[id]';
+        const url = `${environment.apiUrl}forms?populate=${filetrs}=${id}`;
+        return this.http.get<any>(url,{headers});
+    }
+
+     /*-------------------------|
+       Templates Forms          |
+    -------------------------*/
+
+    temapltesFormService(id): Observable<any> {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const filetrs = 'fields%2Cevidences%2Cproject%20&filters%5Bproject%5D[id]';
+        const url = `${environment.apiUrl}forms?populate=${filetrs}=${id}`;
+        return this.http.get<any>(url,{headers});
+    }
+
+    /*-------------------------|
         Cities                 |
     -------------------------*/
 

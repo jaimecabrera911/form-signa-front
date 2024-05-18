@@ -67,13 +67,6 @@ Table .menu-compact-list {
     position: fixed;
 }
 
-table.mat-table {
-    width: 100% !important;
-    .actions {
-        width: 5%;
-    }
-}
-
 .mt-right {
     float: right;
 }
@@ -88,20 +81,10 @@ table.mat-table {
 }
 
 .panel-main {
-    /*left: 18rem;
-    right: 0;*/
     position: fixed;
     top: 4rem;
     padding-top: 5rem;
     z-index: 5;
-}
-
-.py-1 {
-    padding: 0.2rem 0.7rem 0.2rem 0.7rem;
-}
-
-.content-page {
-    margin-top: 12rem;
 }
 
 .w-index-main {
@@ -124,14 +107,6 @@ table.mat-table {
 
 .mat-card {
     padding: unset !important;
-}
-
-.mat-row:nth-child(even) {
-    background-color: #F5F7FE !important;
-}
-
-.mat-row:nth-child(odd) {
-    background-color: white;
 }
 
 @media only screen and (max-width: 959px) {
@@ -206,11 +181,8 @@ re-captcha.is-invalid>div {
 
 label {
     font-weight: 600;
-    margin-bottom: 0.8em !important;
-}
-
-.mat-table {
-    font-family: "Poppins", serif;
+    margin-bottom: 0.4em !important;
+    margin-top: 0.3em;
 }
 
 .mat-tab-group {
@@ -253,15 +225,6 @@ body.light .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple),
     color: #FFFFFF;
 }
 
-.mat-header-cell {
-    font-size: 15px !important;
-    text-align: center !important;
-}
-
-tr.mat-header-row {
-    height: 50px !important;
-}
-
 .mat-tab-labels {
     display: flex;
     background-color: #748EB8;
@@ -274,10 +237,6 @@ tr.mat-header-row {
 
 .mat-tab-group .mat-tab-header .mat-tab-label-container .mat-tab-list .mat-tab-labels .mat-tab-label {
     color: #FFFFFF !important;
-}
-
-td.mat-cell:last-of-type {
-    padding-right: unset !important;
 }
 
 body.light .mat-card:not([class*=mat-elevation-z]),

@@ -1,8 +1,12 @@
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <input matInput [max]="maxDate" [matDatepicker]="picker" [(ngModel)]="value" (dateChange)="addEvent($event)">
+        <input matInput [max]="maxDate" [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
+            <mat-error>Campo Obligatorio</mat-error>
+        </mat-hint>
+        <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
     </mat-form-field>
 </div>

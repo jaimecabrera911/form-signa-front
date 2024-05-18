@@ -13,7 +13,6 @@ export class ContentComponent implements OnInit {
 
     @Input() title: string;
     @Input() subtitle?: string;
-    @Input() searchPanel?: boolean;
     @ContentChildren(ActionsDirective) children: any;
     @ContentChildren(PanelsDirective) panels: any;
     @ContentChildren(AditionalDirective) aditional: any;

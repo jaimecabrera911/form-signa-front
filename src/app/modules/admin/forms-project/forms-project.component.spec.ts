@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PanelDocumentsComponent } from './panel-documents.component';
+import { FormsProjectComponent } from './forms-project.component';
 
-describe('PanelDocumentsComponent', () => {
-  let component: PanelDocumentsComponent;
-  let fixture: ComponentFixture<PanelDocumentsComponent>;
+describe('FormsProjectComponent', () => {
+  let component: FormsProjectComponent;
+  let fixture: ComponentFixture<FormsProjectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PanelDocumentsComponent ]
+      declarations: [ FormsProjectComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PanelDocumentsComponent);
+    fixture = TestBed.createComponent(FormsProjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

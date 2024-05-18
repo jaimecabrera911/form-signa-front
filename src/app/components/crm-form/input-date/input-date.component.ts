@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { DefaultInput } from '../default-input';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -37,11 +37,17 @@ export const MY_FORMATS = {
 })
 export class InputDateComponent extends DefaultInput implements OnInit, ControlValueAccessor {
 
+    @Input() maxInputDate?: any;
+    @Input() minInputDate?: Date;
+    date: any;
+
     constructor() {
         super();
     }
 
     ngOnInit(): void {
+        //this.date = new Date().toISOString().slice(0, 10);
+        this.date = new Date();
     }
 
     addEvent(event): void {

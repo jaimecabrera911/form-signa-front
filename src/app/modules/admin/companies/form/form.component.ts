@@ -22,6 +22,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     id: any = 0;
     searchPanel = false;
     swaAlert = new SwalAlert();
+    validate: boolean = false;
 
     formInit: any = this._formBuilder.group({
         identificationType: new FormControl(),
@@ -79,6 +80,11 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     onSubmit(): void {
         const data = this.formInit.value;
+        if (this.formInit.invalid) {
+            this.validate = true;
+            //console.log('valid form temp', this.validate);
+            return;
+        }
         console.log('form: ', data);
         this.formSave();
     }

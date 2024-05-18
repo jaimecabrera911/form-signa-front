@@ -34,20 +34,23 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     filesCurrent: string[] = [];
     uploadProfile: boolean = true;
     showImage: boolean = true;
+    validate: boolean = false;
     checkUpload: any[] = [{profile: false, signature: false, files: false}];
-
+    date: any;
+//[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
+//, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]
     formInit: any = this._formBuilder.group({
         identificationType: new FormControl(),
-        identificationNumber: new FormControl(1),
+        identificationNumber: new FormControl(),
         names: new FormControl(),
         surnames: new FormControl(),
         birthdate: new FormControl(),
-        email: new FormControl('', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+        email: new FormControl(''),
         address: new FormControl(),
-        cellphoneNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]),
+        cellphoneNumber: new FormControl(''),
         phoneNumber: new FormControl(''),
         password: new FormControl(''),
-        position: new FormControl(1),
+        position: new FormControl(),
         contactName: new FormControl(''),
         contactNumber: new FormControl(''),
         enabled: new FormControl(true),
@@ -87,7 +90,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         super.ngOnInit();
         this.getEmployeesId();
         this.nameEmployee = this.formInit.value.names;
-
+        this.date = new Date();
     }
 
     getEmployeesId(): void {
@@ -100,55 +103,59 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
     }
 
+
     setFormEmployees(form): void {
         this.formInit.patchValue({
-            identificationNumber: form[0].identificationNumber,
-            names: form[0].names,
-            surnames: form[0].surnames,
-            birthdate: form[0].birthdate,
-            email: form[0].email,
-            address: form[0].address,
-            cellphoneNumber: form[0].cellphoneNumber,
-            phoneNumber: form[0].phoneNumber,
-            contactName: form[0].contactName,
-            contactNumber: form[0].contactNumber,
-            enabled: form[0].enabled,
-            profilePicture: form[0].profilePicture.id,
-            signature: form[0].signature.id,
-            files: form[0].files.map((items: any) => items.id),
-            identificationType: form[0].identificationType.id,
-            position: form[0].position.id,
-            company: form[0].company.id,
-            healthcareProvider: form[0].healthcareProvider.id,
-            pension: form[0].pension.id,
-            occupationRiskManager: form[0].occupationRiskManager.id,
-            compensationFund: form[0].compensationFund.id,
-            workspace: form[0].workspace.id,
-            gender: form[0].gender.id,
-            city: form[0].city.id,
-            birthCountry: form[0].birthCountry.id,
-            user: form[0].user.id
+            identificationNumber: form[0]?.identificationNumber,
+            names: form[0]?.names ? form[0]?.names : '',
+            surnames: form[0]?.surnames ? form[0]?.surnames : '',
+            birthdate: form[0]?.birthdate ? form[0]?.birthdate : '',
+            email: form[0]?.email ? form[0]?.email : '',
+            address: form[0]?.address ? form[0]?.address : '',
+            cellphoneNumber: form[0]?.cellphoneNumber ? form[0]?.cellphoneNumber : '',
+            phoneNumber: form[0]?.phoneNumber ? form[0]?.phoneNumber : '',
+            contactName: form[0]?.contactName ? form[0]?.contactName : '',
+            contactNumber: form[0]?.contactNumber ? form[0]?.contactNumber : '',
+            enabled: form[0]?.enabled ? form[0]?.enabled : '',
+            profilePicture: form[0].profilePicture ? form[0]?.profilePicture.id : null,
+            signature: form[0].signature ? form[0]?.signature.id : null,
+            files: form[0]?.files ? form[0]?.files.map((items: any) => items.id) : null,
+            identificationType: form[0]?.identificationType ? form[0]?.identificationType.id : '',
+            position: form[0]?.position.id,
+            company: form[0]?.company.id,
+            healthcareProvider: form[0]?.healthcareProvider.id,
+            pension: form[0]?.pension.id,
+            occupationRiskManager: form[0]?.occupationRiskManager.id,
+            compensationFund: form[0]?.compensationFund.id,
+            workspace: form[0]?.workspace.id,
+            gender: form[0]?.gender.id,
+            city: form[0]?.city.id,
+            birthCountry: form[0]?.birthCountry.id,
+            user: form[0]?.user.id
         });
-        this.imageProfile = `${environment.urlApp}${form[0].profilePicture.formats.thumbnail.url}`;
+        this.imageProfile = form[0].profilePicture ?  this.urlImage(form[0]?.profilePicture.formats.thumbnail.url)  : null;
         if (this.imageProfile) {
             this.uploadProfile = false;
         }
-        this.imageSignature = `${environment.urlApp}${form[0].signature.formats.thumbnail.url}`;
-        this.filesItems = form[0].files;
-        this.filesCurrent = form[0].files.map((items: any) => items.id);
+        this.imageSignature = form[0].signature ? this.urlImage(form[0]?.signature.formats.thumbnail.url) : null;
+        this.filesItems = form[0]?.files ? form[0]?.files : '';
+        this.filesCurrent = form[0]?.files ? form[0].files.map((items: any) => items.id) : [];
+        console.log('filesCurrent:: ',this.filesCurrent);
     }
 
-    onSelect($event,item): void {
-        if ($event && item === 'SHOW_UPT') {
-            console.log('item ',$event);
-            this.uploadFiles = false;
-            this.formInit.value.showUpload = false;
-            this.listFiles = true;
+    urlImage(url: any): string{
+         return environment.urlApp+url;
+    }
+
+    uploadFile(item): void {
+        if (item === 'UPLOAD_FILES_SHOW') {
+            this.uploadFiles = true;
+            //this.listFiles = false;
         }
-        if($event && item === 'HID_UPT') {
-            this.uploadFiles = this.formInit.value.showUpload;
-            this.listFiles = false;
-            console.log('test ');
+
+        if(item === 'UPLOAD_FILES_HID') {
+            this.uploadFiles = false;
+            //this.listFiles = true;
         }
     }
 
@@ -164,6 +171,12 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     onSubmit(): void {
         const form = this.formInit.value;
+        console.log('form', form);
+        if (this.formInit.invalid) {
+            this.validate = true;
+            console.log('valid form temp', this.validate);
+            return;
+        }
         this.validateFiles();
     }
 
@@ -188,6 +201,10 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }else{
             this.checkUpload[0].files = true;
         }
+
+        /*if(this.checkUpload[0].profile && this.checkUpload[0].signature &&  this.checkUpload[0].files){
+            this.formSave();
+        }*/
     }
 
     uploadSave(file, type): void {
@@ -240,10 +257,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                 const route = `/employees/edit/${item.data.id}`;
                 this.router.navigateByUrl(route);
                 const toast = this.swaAlert.toast();
-                toast.fire({ icon: 'success', title: 'Datos guardados correctamente' })
-                    .then((() => {}));
-            },
-            error: (e: any) => this.swaAlert.toastErrorUpdate()
+                toast.fire({ icon: 'success', title: 'Datos guardados correctamente' }).then((() => {}));
+            },error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
     }
 
