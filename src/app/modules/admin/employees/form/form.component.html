@@ -8,13 +8,13 @@
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
                                 <div class="flex flex-col flex-auto">
                                     <app-input-upload-image *ngIf="uploadProfile" label="Cargar imagenes" class="mt-5" formControlName="profilePictureUpload"></app-input-upload-image>
-                                    <div *ngIf="uploadProfile && id" class="flex flex-wrap mt-6">
+                                    <div *ngIf="uploadProfile && imageProfile && id" class="flex flex-wrap mt-6">
                                         <a class="mt-1 px-6 ml-2" mat-button mat-flat-button (click)="uploadProfile=false;showImage=true;">
                                             <span class="ml-2">Ver foto</span>
                                         </a>
                                     </div>
                                     <div *ngIf="imageProfile && showImage">
-                                        <img [src]="imageProfile" class="w-64 max-w-sm rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
+                                        <img [src]="imageProfile" class="h-60 max-auto rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
                                     </div>
                                     <div *ngIf="imageProfile && showImage" class="flex flex-wrap">
                                         <a class="mt-1 px-6 ml-2" mat-button mat-flat-button [color]="'primary'" (click)="uploadProfile=true;showImage=false;">
@@ -24,54 +24,42 @@
                                 </div>
                                 <div class="flex flex-col flex-auto">
                                     <div class="flex flex-col flex-auto">
-                                        <app-input-text label="Nombres" formControlName="names" required="true" [validateFormSumt]="validate"></app-input-text>
-                                        <app-input-text label="Apellidos" formControlName="surnames" required="true" [validateFormSumt]="validate"></app-input-text>
-                                        <app-input-select label="Tipo identificación" [options]="elementsIdentificationTypes" formControlName="identificationType" required="true" [validateFormSumt]="validate"></app-input-select>
+                                        <app-input-text label="Primer nombre" formControlName="firstName" (keyup)="createUsername($event,'fn')" [required]="formInit.controls['firstName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-text label="Segundo nombre" formControlName="secondName" [required]="formInit.controls['secondName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-text label="Primer apellido" formControlName="firstSurname" (keyup)="createUsername($event,'pa')" [required]="formInit.controls['firstSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                     </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
-                                <app-input-text label="Número identificación" formControlName="identificationNumber" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-email label="Email" formControlName="email" required="true" [validateFormSumt]="validate"></app-input-email>
-                                <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" required="true" [validateFormSumt]="validate"></app-input-birth-date>
-                                <app-input-select label="Genero" [options]="elementsGenders" formControlName="gender" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-text label="No télefono casa" formControlName="phoneNumber" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="No teléfono movil" formControlName="cellphoneNumber" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="Dirección de domicilio" formControlName="address" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="Cargo" [options]="elementsPosition" formControlName="position" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="EPS" [options]="elementsHealthcareProvider" formControlName="healthcareProvider" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="ARL" [options]="elementsOccupationRiskManager" formControlName="occupationRiskManager" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pension" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="Caja de compensación" [options]="elementsCompensationFund" formControlName="compensationFund" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="Lugar trabajao" [options]="elementsWorkspace" formControlName="workspace" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-text label="Contacto de emergencia" formControlName="contactName" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="contactNumber" required="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="Nacionalidad" [options]="elementsCountries" formControlName="birthCountry" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="Departamento" [options]="elementsDepartaments" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" required="true" [validateFormSumt]="validate"></app-input-select>
-                                <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" required="false" maxInputDate="{{ formInit.value.withdrawalDate ? formInit.value.withdrawalDate : '' }}" [validateFormSumt]="validate"></app-input-date>
-                                <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" required="false" minInputDate="{{ formInit.value.dateAdmission ? formInit.value.dateAdmission : '' }}" [validateFormSumt]="validate"></app-input-date>
+                                <app-input-text label="Segundo apellido" formControlName="secondSurname" (keyup)="createUsername($event,'sa')" [required]="formInit.controls['secondSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="Tipo identificación" [options]="elementsIdentificationTypes" formControlName="identificationType" [required]="formInit.controls['identificationType'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="Número identificación" formControlName="identificationNumber" [required]="formInit.controls['identificationNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" [required]="formInit.controls['birthdate'].hasError('required')" [validateFormSumt]="validate"></app-input-birth-date>
+                                <app-input-select label="Genero" [options]="elementsGenders" formControlName="gender" [required]="formInit.controls['gender'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="No télefono casa" formControlName="phoneNumber" [required]="formInit.controls['phoneNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="No teléfono movil" formControlName="cellphoneNumber" [required]="formInit.controls['cellphoneNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Dirección de domicilio" formControlName="address" [required]="formInit.controls['address'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="Cargo" [options]="elementsPosition" formControlName="position" [required]="formInit.controls['position'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="EPS" [options]="elementsHealthcareProvider" formControlName="healthcareProvider" [required]="formInit.controls['healthcareProvider'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="ARL" [options]="elementsOccupationRiskManager" formControlName="occupationRiskManager" [required]="formInit.controls['occupationRiskManager'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Fondo de pensiones" [options]="elementsPension" formControlName="pension" [required]="formInit.controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Caja de compensación" [options]="elementsCompensationFund" formControlName="compensationFund" [required]="formInit.controls['compensationFund'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Lugar trabajao" [options]="elementsWorkspace" formControlName="workspace" [required]="formInit.controls['workspace'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="Contacto de emergencia" formControlName="contactName" [required]="formInit.controls['contactName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="No. teléfonico  Contacto de emergencia" formControlName="contactNumber" [required]="formInit.controls['contactNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="Nacionalidad" [options]="elementsCountries" formControlName="birthCountry" [required]="formInit.controls['birthCountry'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Departamento" [options]="elementsDepartaments" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" [required]="formInit.controls['city'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" [required]="formInit.controls['dateAdmission'].hasError('required')" maxInputDate="{{ formInit.value.withdrawalDate ? formInit.value.withdrawalDate : '' }}" [validateFormSumt]="validate"></app-input-date>
+                                <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" [required]="formInit.controls['withdrawalDate'].hasError('required')" minInputDate="{{ formInit.value.dateAdmission ? formInit.value.dateAdmission : '' }}" [validateFormSumt]="validate"></app-input-date>
+                                <app-input-email label="Email" formControlName="email" [required]="formInit.controls['email'].hasError('required')" [validateFormSumt]="validate"></app-input-email>
+                                <app-input-text label="usuario" formControlName="username" [required]="formInit.controls['username'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                             </div>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Permisos médicos">
-                    <div *ngIf="uploadFiles">
-                        <div class="w-full float-right">
-                            <a class="mt-1 px-2 ml-2 float-right" mat-button mat-flat-button (click)="uploadFile('UPLOAD_FILES_HID')">
-                                <span class="ml-2">Cerrar</span>
-                            </a>
-                        </div>
-                        <app-input-upload-files *ngIf="uploadFiles" formControlName="filesUpload"></app-input-upload-files>
-                    </div>
-                    <app-multimedia *ngIf="listFiles" [items]="filesItems" searchPanel="true">
-                        <div *appAditionalMultimedia class="flex-col flex-auto">
-                            <a class="btn-add" mat-button mat-flat-button (click)="uploadFile('UPLOAD_FILES_SHOW')">
-                                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
-                                <span class="ml-4">Adicionar</span>
-                            </a>
-                        </div>
-                    </app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
                 </mat-tab>
                 <mat-tab label="Firma" class="sign">
                     <div class="sign mx-10 my-5 py-10">

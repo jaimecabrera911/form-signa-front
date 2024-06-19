@@ -27,6 +27,7 @@ import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { FormComponent } from './form/form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MultimediaModule } from 'app/components/multimedia/multimedia.module';
+import { TablesItemsModule } from 'app/components/tables-items/tables-items.module';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { MultimediaModule } from 'app/components/multimedia/multimedia.module';
         MatDialogModule,
         MatTableResponsiveModule,
         CrmFormModule,
-        MultimediaModule
+        MultimediaModule,
+        TablesItemsModule
     ]
 })
 export class EmployeesModule { }

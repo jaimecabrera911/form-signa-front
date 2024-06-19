@@ -9,6 +9,7 @@ import { Observable, map } from 'rxjs';
 import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-items.component';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'environments/environment';
+import { Users } from 'app/models/users';
 
 @Component({
     selector: 'app-form',
@@ -17,17 +18,12 @@ import { environment } from 'environments/environment';
 })
 export class FormComponent extends ListItemsComponent implements OnInit {
     colums: any = [];
-    override apiItems$ = this.api.documentsUserService();
-
     title = new Path().getModule();
     subtitle = 'Adicionar de empleados';
     searchPanel = false;
     id: any = 0;
     swaAlert = new SwalAlert();
     nameEmployee: string = '';
-    elementsUpload: any = [];
-    uploadFiles: boolean = false;
-    listFiles: boolean = true;
     imageProfile: any = '';
     imageSignature: any = '';
     filesItems: any[] = [];
@@ -37,32 +33,33 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     validate: boolean = false;
     checkUpload: any[] = [{profile: false, signature: false, files: false}];
     date: any;
-//[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
-//, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.maxLength(10)]
-    formInit: any = this._formBuilder.group({
-        identificationType: new FormControl(),
-        identificationNumber: new FormControl(),
-        names: new FormControl(),
-        surnames: new FormControl(),
+
+    formInit: FormGroup = this._formBuilder.group({
+        identificationType: new FormControl('', [Validators.required]),
+        identificationNumber: new FormControl('', [Validators.required]),
+        firstName: new FormControl('', [Validators.required]),
+        secondName: new FormControl(''),
+        firstSurname: new FormControl('', [Validators.required]),
+        secondSurname: new FormControl(''),
         birthdate: new FormControl(),
-        email: new FormControl(''),
-        address: new FormControl(),
-        cellphoneNumber: new FormControl(''),
+        email: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required]),
+        cellphoneNumber: new FormControl('', [Validators.required]),
         phoneNumber: new FormControl(''),
         password: new FormControl(''),
-        position: new FormControl(),
+        position: new FormControl('', [Validators.required]),
         contactName: new FormControl(''),
         contactNumber: new FormControl(''),
         enabled: new FormControl(true),
-        user: new FormControl(1),
+        user: new FormControl(),
         company: new FormControl(1),
-        healthcareProvider: new FormControl(),
-        occupationRiskManager: new FormControl(),
-        pension: new FormControl(),
-        compensationFund: new FormControl(),
-        workspace: new FormControl(),
+        healthcareProvider: new FormControl('', [Validators.required]),
+        occupationRiskManager: new FormControl('', [Validators.required]),
+        pension: new FormControl('', [Validators.required]),
+        compensationFund: new FormControl('', [Validators.required]),
+        workspace: new FormControl('', [Validators.required]),
         gender: new FormControl('', [Validators.required]),
-        city: new FormControl(),
+        city: new FormControl('', [Validators.required]),
         birthCountry: new FormControl(1),
         profilePicture: new FormControl(),
         dateAdmission: new FormControl(''),
@@ -72,7 +69,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         profilePictureUpload: new FormControl(null),
         files: new FormControl(),
         filesUpload: new FormControl(null),
-        showUpload: new FormControl(false)
+        showUpload: new FormControl(false),
+        username: new FormControl()
     });
 
 
@@ -87,6 +85,18 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     override ngOnInit(): void {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
+        this.getCities();
+        this.getIdentificationTypes();
+        this.getHealthcareProvider();
+        this.getOccupationRiskManager();
+        this.getCompensationFund();
+        this.getPension();
+        this.getGenders();
+        this.getCountries();
+        this.getDepartments();
+        this.getWorkspace();
+        this.getPosition();
+        this.getEmployees();
         super.ngOnInit();
         this.getEmployeesId();
         this.nameEmployee = this.formInit.value.names;
@@ -103,12 +113,13 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
     }
 
-
     setFormEmployees(form): void {
         this.formInit.patchValue({
             identificationNumber: form[0]?.identificationNumber,
-            names: form[0]?.names ? form[0]?.names : '',
-            surnames: form[0]?.surnames ? form[0]?.surnames : '',
+            firstName: form[0]?.firstName ? form[0]?.firstName : '',
+            secondName: form[0]?.secondName ? form[0]?.secondName : '',
+            firstSurname: form[0]?.firstSurname ? form[0]?.firstSurname : '',
+            secondSurname: form[0]?.secondSurname ? form[0]?.secondSurname : '',
             birthdate: form[0]?.birthdate ? form[0]?.birthdate : '',
             email: form[0]?.email ? form[0]?.email : '',
             address: form[0]?.address ? form[0]?.address : '',
@@ -117,6 +128,9 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             contactName: form[0]?.contactName ? form[0]?.contactName : '',
             contactNumber: form[0]?.contactNumber ? form[0]?.contactNumber : '',
             enabled: form[0]?.enabled ? form[0]?.enabled : '',
+            dateAdmission: form[0]?.dateAdmission ? form[0]?.dateAdmission : '',
+            withdrawalDate: form[0]?.withdrawalDate ? form[0]?.withdrawalDate : '',
+            username: form[0]?.username ? form[0]?.username : '',
             profilePicture: form[0].profilePicture ? form[0]?.profilePicture.id : null,
             signature: form[0].signature ? form[0]?.signature.id : null,
             files: form[0]?.files ? form[0]?.files.map((items: any) => items.id) : null,
@@ -131,7 +145,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             gender: form[0]?.gender.id,
             city: form[0]?.city.id,
             birthCountry: form[0]?.birthCountry.id,
-            user: form[0]?.user.id
+            user: form[0]?.user.id ? form[0]?.user.id : null
         });
         this.imageProfile = form[0].profilePicture ?  this.urlImage(form[0]?.profilePicture.formats.thumbnail.url)  : null;
         if (this.imageProfile) {
@@ -140,23 +154,19 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.imageSignature = form[0].signature ? this.urlImage(form[0]?.signature.formats.thumbnail.url) : null;
         this.filesItems = form[0]?.files ? form[0]?.files : '';
         this.filesCurrent = form[0]?.files ? form[0].files.map((items: any) => items.id) : [];
-        console.log('filesCurrent:: ',this.filesCurrent);
     }
 
     urlImage(url: any): string{
          return environment.urlApp+url;
     }
 
-    uploadFile(item): void {
-        if (item === 'UPLOAD_FILES_SHOW') {
-            this.uploadFiles = true;
-            //this.listFiles = false;
-        }
-
-        if(item === 'UPLOAD_FILES_HID') {
-            this.uploadFiles = false;
-            //this.listFiles = true;
-        }
+    createUsername($event,type): void{
+        const form = this.formInit.value;
+        form.firstName = type === 'fn' ? $event.target.value : form.firstName;
+        form.firstSurname = type === 'pa' ? $event.target.value : form.firstSurname;
+        form.secondSurname  = type === 'sa' ? $event.target.value : form.secondSurname;
+        const user = `${form.firstName.slice(0,2)}${form.firstSurname}${form.secondSurname.slice(0,1)}`;
+        this.formInit.patchValue({ username: user ? user : ''});
     }
 
     validateFilesUpload(data: any): any {
@@ -171,44 +181,60 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     onSubmit(): void {
         const form = this.formInit.value;
-        console.log('form', form);
-        if (this.formInit.invalid) {
+       if (this.formInit.invalid) {
             this.validate = true;
-            console.log('valid form temp', this.validate);
             return;
         }
+        this.validateUser();
         this.validateFiles();
     }
 
 
+    validateUser(): void{
+        const form = this.formInit.value;
+        const user: any = {username: '', email: '', password: '', role: 1};
+        user.username = form.username;
+        user.email = form.email;
+        user.password = form.identificationNumber;
+
+        let observable: Observable<Users>;
+        if (form.user) {
+           observable = this.api.updateUsersService(this.formInit.value,form.user);
+        } else {
+            observable = this.api.createUserService(user);
+        }
+        observable.subscribe({
+            next: (item: any) => {
+                this.formInit.value.user = item.id;
+            },error: (e: any) => this.swaAlert.toastErrorUpdate()
+        });
+    }
+
 
     validateFiles(): any {
         const form = this.formInit.value;
-        if (form.profilePictureUpload) {
-            this.uploadSave(form.profilePictureUpload, 'profilePicture');
-        }else{
-            this.checkUpload[0].profile = true;
-        }
-
-        if (form.signatureUpload) {
-            this.uploadSave(form.signatureUpload, 'signature');
-        }else{
-            this.checkUpload[0].signature = true;
-        }
-
-        if (form.filesUpload) {
-            this.uploadSave(form.filesUpload, 'files');
-        }else{
-            this.checkUpload[0].files = true;
-        }
-
-        /*if(this.checkUpload[0].profile && this.checkUpload[0].signature &&  this.checkUpload[0].files){
+        if(!form.profilePictureUpload && !form.signatureUpload &&  !form.filesUpload){
             this.formSave();
-        }*/
+        }else{
+            if (form.profilePictureUpload) {
+                this.uploadSave(form.profilePictureUpload, 'profilePicture');
+            }else{
+                this.checkUpload[0].profile = true;
+            }
+            if (form.signatureUpload) {
+                this.uploadSave(form.signatureUpload, 'signature');
+            }else{
+                this.checkUpload[0].signature = true;
+            }
+            if (form.filesUpload) {
+                this.uploadSave(form.filesUpload, 'files');
+            }else{
+                this.checkUpload[0].files = true;
+            }
+        }
     }
 
     uploadSave(file, type): void {
-
         if (file) {
             const form = this.formInit.value;
             this.api.uploadService(file).subscribe({
@@ -233,12 +259,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                             this.checkUpload[0].files = true;
                         }
                         if(this.checkUpload[0].profile && this.checkUpload[0].signature &&  this.checkUpload[0].files){
-                            console.log('check: ',this.checkUpload);
-                            console.log(' form  vvva', form);
-                            console.log('aprobado ');
                             this.formSave();
                         }
-
                     }
                 }, error: (e: any) => this.swaAlert.toastErrorUpload()
             });

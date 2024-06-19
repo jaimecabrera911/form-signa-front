@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Path } from 'app/components/routers/path';
+import { Employee } from 'app/models/employee';
 import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
@@ -14,9 +15,11 @@ export class IndexComponent implements OnInit {
     title = 'Base empleados';
     subtitle = new Path().getModule();
     searchPanel: boolean = true;
-    apiItems$: Observable<any>;
+    apiItems$: Observable<Employee>;
+
     iterableColumns: TableItems[] = [
-        { name: 'names', name2: false, styleEnable:false, label: 'Nombres' },
+        { name: 'firstName', name2: false, styleEnable:false, label: 'Nombre' },
+        { name: 'firstSurname', name2: false, styleEnable:false, label: 'Apellido' },
         { name: 'identificationNumber', name2: false, styleEnable:false, label: 'Documento' },
         { name: 'position', name2: 'name', styleEnable:false, label: 'Cargo' },
         { name: 'email', name2: false, styleEnable:false, label: 'Correo' },
