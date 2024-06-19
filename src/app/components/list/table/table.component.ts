@@ -41,32 +41,6 @@ export class TableComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    /*
-    extends ListComponent
-    title = new Path().getModule();
-    subtitle = 'Listado Subscripciones';
-
-    public override apiItems$ = this.api.subscriptionService();
-    public override colums = iterableColumns;
-    public override idTable = 'subscriptionNumber';
-
-    constructor(
-        protected api: ApiService,
-    ) {
-        super(api);
-    }
-
-    override ngAfterViewInit(): void {
-        super.ngAfterViewInit();
-        console.log('colums: ', this.idTable);
-    }
-
-    optionsTable(colums: any, items: any): void {
-        console.log('colums: ', colums);
-        console.log('items: ', items);
-    }
-    */
-
     initForm(): void {
     }
 

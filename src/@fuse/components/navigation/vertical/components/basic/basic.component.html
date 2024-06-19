@@ -57,7 +57,7 @@
 <ng-template #itemTemplate>
 
     <!-- Icon -->
-    <ng-container *ngIf="item.icon">
+    <ng-container *ngIf="item.id">
         <mat-icon *ngIf="item.id === 'companies'" class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon">
             <svg width="17" height="20" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_2864)"/><defs><pattern id="pattern0_879_2864" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_2864" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_2864" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB6ElEQVR4nO3aTUrFQBBF4cKZiuAuXIXgYlyRP+hWdOQyXIU60ekR4Q0En0KbrkpV5X7jpjs5NgkvtpmIiIiIiMhWAUfALfBGPq/ADXBo1QH35HdvlQEHwAf5vX9dq1Wl0IGKPDrurLqvFw1wvXvxZPMCXLV4GYqIiIi0/47R53tIkR8jtb+HFPp5Xft7iEIH2tij4y6ybaXvGD2/h9CUZUNTlg1NWTajF0rx8avJFgKF7jF+NdlCoNA9xq8mWwi2Fro6y4amLBuasmyc7/cBuATOgGPbMqfAz8D52veWikPkJ+B07ftK57dao+O/7WRFDgh9Menv38/E0I+xV77d0JeNzpDMPxMyMfRZw38EzzsTMjH0ScMzJO/uoUfZ/rkVOiJ0g0fHvDMhs67Iep0hmX8mZNaVWeBa3qbFVei/KXTH0LPGR64VeS/DFPonhd7JsGm0o/dQ6JV36Oh47ejKoZewwLU8KHQQhQ6i0EEUOohCdww9a3zkWpH3Mkyhf1LonQybRjt6D4VeeYeOjteOrhx6lAWu5U2hgyh0EIUOotBBFDpI29BWZPwiTGIL1qoyfhEmsQVrVRlfBsnCKfSOQv9TtnCb29Gj1pq/DJxDeM9fBs4hvOcvA+cQ3vOXgXMI7/nLwDmEx/yfE3iIbPNGm6QAAAAASUVORK5CYII="/></defs></svg>
         </mat-icon>
@@ -71,6 +71,12 @@
             <svg width="20" height="23" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect y="0.628906" width="30" height="32" fill="url(#pattern0_879_2873)"/><defs><pattern id="pattern0_879_2873" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_879_2873" transform="matrix(0.0111111 0 0 0.0104167 0 0.03125)"/></pattern><image id="image0_879_2873" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAACOElEQVR4nO3dPU7DQBCG4amAI+SHc1BRUFFxFH46NhcMiIpwFAQobPUhCyNALLEd7Y5n1t8j0SBrmbyyHGkiEREiIiIiNwAcAbgB8ADgFXZEAGsAJ+IdgGMAT7BtC+BcnN/J1iP7j90+LjzZuozdPpO92bqLDeAFdr1VExu2nXbcCO8ALsQDGCaf89URG4bJ94z+Y8Mw+T2n79gwTP7O6jc2DJP0vD5jwzD5f2Z/sWGY7J7bV2wYJt2z+4kNw6Tf/D5iwzDp/xrsx4ZhMux1nPXYjYz34QFsW2SOvS5Xsns4y8Ier2dX7FimYr/BLItN7Jx3drmS3UNNijC0DoZWwtBKGFoJQythaCUMrYShlTC0EoZWwtBKPIWOAG6bRU/7E9rfdV6fceY+f9d96JA4Iwy5PuPsoebQ88QZsyHXZ5x9VnPoReKM5ZDrM86+nNqjYzXk+oyzr2oOHb8+9RjwZjj4U5KOmSfxZugaQythaCUMrYShlTC0Ek+hI3cdOqFD4gzuOgqEnifO4K6jQOhF4gzuOgqEDokzuOsoEDpy16ET2jUZCyZGGFoHQythaCUMrcRT6Mhdh07okDiDu44CoeeJM7jrKBB6kTiDu44CoUPiDO46CoSO3HXohHZNxoKJEYbWwdBKGFoJQythaCUMrYShJxDa8r+ez+15zNAev0xhX/djhr7GdFyOGfoQwAb1ewRwMFroH1/htKk88lIsaO/sq+Y5Vskb5AuAu+ZxMfqdTERERCRDfACStsyv0kJHDAAAAABJRU5ErkJggg=="/></defs></svg>
         </mat-icon>
     </ng-container>
+
+    <!--
+    <ng-container *ngIf="item.icon">
+        <mat-icon class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
+    </ng-container>
+    -->
 
     <!-- Title & Subtitle -->
     <div class="fuse-vertical-navigation-item-title-wrapper">

@@ -77,20 +77,10 @@ export abstract class ListComponent implements OnInit {
     getItems(): void {
         if (this.apiItems$) {
             this.apiItems$.subscribe({
-                next: (data: any) => {
-                    if (data.data) {
-                        console.log('items:::::::: ', data);
-                        this.length = typeof data.meta !== 'undefined' ? data.meta.pagination.total : '';
-                        //this.lengthItems = typeof data !== 'undefined' ? data.length : '';
-                        this.lengthItems = 0;
-                        this.value = data.data;
-                        this.test = typeof data[0] !== 'undefined' ? data[0].datas : '';
-                        console.log(' this.test:::::::: ',  this.test);
-                        this.dataElements = JSON.parse(JSON.stringify(this.value,
-                            (key, value) => (value === null) ? '' : value
-                        ));
-                        console.log('items:', this.dataElements);
-                        this.elements = new MatTableDataSource<any>(this.dataElements);
+                next: (elements: any) => {
+                    if (elements.data) {
+                        const validateItems = this.validateResponse(elements.data);
+                        this.configuration(validateItems);
                     }
                 },
                 error: (e: any) => console.error(e)
@@ -98,6 +88,18 @@ export abstract class ListComponent implements OnInit {
         } else {
             return;
         }
+    }
+
+    configuration(data: any): void{
+        this.elements = new MatTableDataSource<any>(data);
+        this.elements.paginator = this.paginator;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    validateResponse(items: any): any {
+        return JSON.parse(JSON.stringify(items,
+            (key, value) => (value === null) ? '' : value
+        ));
     }
 
     formatData(elements: any, length: any): any {
@@ -134,61 +136,12 @@ export abstract class ListComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     announceSortChange(sortState: Sort) {
-        console.log('short :', sortState);
         if (sortState.direction) {
             this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
         } else {
             this._liveAnnouncer.announce('Sorting cleared');
         }
     }
-
-    /*
-    sortData($event: Sort): void {
-        this.sortBy = $event.active;
-        this.direction = $event.direction;
-
-        this.getItems();
-        console.log('sort ',this.getItems());
-    }
-
-    showFilters(): void {
-        this.filters = !this.filters;
-    }
-
-    searchByKeywords(): void {
-        this.params.set(this.searchKey, this.search);
-        this.getItems();
-    }
-
-    searchItems($event: KeyboardEvent): void {
-        this.params.set(this.searchKey, this.search);
-        this.getItems();
-    }
-
-    searchItemsByFilters(): void {
-        this.params.clear();
-        this.search = '';
-        // eslint-disable-next-line guard-for-in
-        for (const controlsKey in this.searchForm.controls) {
-            const value = this.searchForm.get(controlsKey).value;
-            if (value && value.length > 0) {
-                this.params.set(controlsKey, value);
-            }
-        }
-        this.getItems();
-    }
-
-    selectAll(): void {
-    }
-
-    unSelectItem(element: any): void {
-        if (element.selected) {
-            this.selectedItems.push(element);
-        } else {
-            this.selectedItems.splice(this.selectedItems.indexOf(element), 1);
-        }
-        this.massive = this.selectedItems.length > 0;
-    }*/
 
     //abstract formatData(elements: any, length: any): any;
     abstract initForm(): void;

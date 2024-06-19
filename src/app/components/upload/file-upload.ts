@@ -2,7 +2,6 @@ export class FileUpload{
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     onRemove(event: any, files: any) {
-        console.log(event);
         files.splice(files.indexOf(event), 1);
     }
 

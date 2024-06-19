@@ -26,9 +26,22 @@ const menu: any = [
     {
         id   : 'forms-project',
         title: 'Formularios',
-        type : 'basic',
+        type : 'aside',
         icon : 'mat_outline:supervised_user_circle',
-        link : '/forms-project'
+        children: [
+            {
+                id: 'forms-project.templates',
+                title: 'Plantillas formularios',
+                type: 'basic',
+                link: '/forms-project',
+            },
+            {
+                id: 'forms-project.generated',
+                title: 'Formularios generados',
+                type: 'basic',
+                link: '/forms-project/generated',
+            }
+        ],
     },
     {
         id   : 'employees',
