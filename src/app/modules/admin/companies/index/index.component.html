@@ -1,6 +1,12 @@
 <app-content [title]="title" [subtitle]="subtitle" class="w-full">
     <div *appPanels class="mt-10 w-full">
-        <app-table-items [data]="apiItems$" [colums]="iterableColumns" [searchPanel]="searchPanel" [placeHolderSearch]="subtitle" routeBottom="companies/create">
-        </app-table-items>
+        <app-tables-items [data]="apiItems$" [colums]="iterableColumns" [searchPanel]="searchPanel" [placeHolderSearch]="subtitle" typeTable="list" routeBottom="companies/create">
+            <div *appActionsTable class="flex-col flex-auto">
+                <a class="btn-add mt-2" mat-button mat-flat-button [routerLink]="['create']">
+                    <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                    <span class="ml-4">Adicionar</span>
+                </a>
+            </div>
+        </app-tables-items>
     </div>
 </app-content>

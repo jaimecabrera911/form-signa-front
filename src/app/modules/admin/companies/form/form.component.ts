@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalAlert } from 'app/components/alerts/swalAlert';
 import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-items.component';
@@ -16,7 +16,6 @@ import { Observable } from 'rxjs';
 export class FormComponent extends ListItemsComponent implements OnInit {
 
     colums: any = [];
-    //public override apiItems$ = '';
     title = new Path().getModule();
     subtitle = 'Registro de empresas';
     id: any = 0;
@@ -25,14 +24,14 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     validate: boolean = false;
 
     formInit: any = this._formBuilder.group({
-        identificationType: new FormControl(),
-        identificationNumber: new FormControl(),
-        legalRepresentative: new FormControl(),
-        regime: new FormControl(''),
-        name: new FormControl(),
-        email: new FormControl(),
+        identificationType: new FormControl('', [Validators.required]),
+        identificationNumber: new FormControl('', [Validators.required]),
+        legalRepresentative: new FormControl('', [Validators.required]),
+        regime: new FormControl('', [Validators.required]),
+        name: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required]),
         webSite: new FormControl(),
-        phone: new FormControl(),
+        phone: new FormControl('', [Validators.required]),
         address: new FormControl(),
         city: new FormControl()
     });
@@ -50,6 +49,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
         super.ngOnInit();
         this.getCompanyId();
+        this.getCities();
+        this.getRegimes();
     }
 
     getCompanyId(): void {
@@ -82,10 +83,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         const data = this.formInit.value;
         if (this.formInit.invalid) {
             this.validate = true;
-            //console.log('valid form temp', this.validate);
             return;
         }
-        console.log('form: ', data);
         this.formSave();
     }
 

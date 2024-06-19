@@ -25,6 +25,7 @@ import { ListModule } from 'app/components/list/list.module';
 import { MatTableResponsiveModule } from 'app/components/mat-table-responsive/mat-table-responsive.module';
 import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TablesItemsModule } from 'app/components/tables-items/tables-items.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     OverlayModule,
     MatDialogModule,
     MatTableResponsiveModule,
+    TablesItemsModule,
     CrmFormModule
   ]
 })
