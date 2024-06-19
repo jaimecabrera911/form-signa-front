@@ -9,5 +9,8 @@ export interface TableItems {
     styleEnable?: boolean;
     styles?: styleColumn[];
     idPrimary?: boolean;
+    function?: boolean;
+    functionName?: string | boolean;
+    item?: string | boolean;
     options?: ActionsTable[];
 }

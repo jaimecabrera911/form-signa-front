@@ -29,4 +29,10 @@ export class Path{
         this.current = splitted[splitted.length - 1];
         return this.current;
     }
+
+    public getCodeForm(): string{
+        const str = window.location.pathname;
+        const spu = str.split('/').pop().toUpperCase();
+        return spu;
+    }
 }
