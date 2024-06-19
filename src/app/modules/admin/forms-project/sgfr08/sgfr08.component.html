@@ -1,0 +1,99 @@
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="w-full">
+        <form [formGroup]="formInit">
+            <mat-tab-group class="mt-8">
+                <mat-tab label="Formulario">
+                    <div class="form-employee flex flex-col flex-auto">
+                        <div class="flex flex-col px-4 mx-3 mb-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                            </div>
+
+                            <div formGroupName="fieldsItems">
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-text label="Fecha vigencia" formControlName="date" [required]="formInit.get('fieldsItems').controls['date'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Novedad" formControlName="novetly" [required]="formInit.get('fieldsItems').controls['novetly'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-date label="Fecha de creación" formControlName="creationDate" [required]="formInit.get('fieldsItems').controls['creationDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-select [options]="activityTypeList" label="Tipo actividad" formControlName="typeActivity" [required]="formInit.get('fieldsItems').controls['typeActivity'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="¿Cuál?" formControlName="descriptionActivity" [required]="formInit.get('fieldsItems').controls['descriptionActivity'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-text label="Nombre de la capacitación" formControlName="nameCapacitation" [required]="formInit.get('fieldsItems').controls['nameCapacitation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-slect-autocomplete label="Capacitador" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-slect-autocomplete>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
+                                    <app-input-textarea label="Objetivo de la capacitación " formControlName="objetiveCapacitation" [required]="formInit.get('fieldsItems').controls['objetiveCapacitation'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
+                                    <app-input-textarea label="Contenido de la capacitación" formControlName="contentCapacitation" [required]="formInit.get('fieldsItems').controls['contentCapacitation'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 w-full">
+                                    <app-input-date label="Fecha" formControlName="dateCapacitation" [required]="formInit.get('fieldsItems').controls['dateCapacitation'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
+                                    <app-input-select label="Lugar" [options]="placeList" formControlName="place" [required]="formInit.get('fieldsItems').controls['place'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="Hora de inicio" [options]="startTimeList" formControlName="startTime" [required]="formInit.get('fieldsItems').controls['startTime'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="Duración" formControlName="duration" [required]="formInit.get('fieldsItems').controls['duration'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-select label="No. de personas invitadas" [options]="numberPeopleInvitedList" formControlName="peopleInvited" [required]="formInit.get('fieldsItems').controls['peopleInvited'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="No. de personas asistentes" [options]="numberPeopleAttendingList" formControlName="peopleAttending" [required]="formInit.get('fieldsItems').controls['peopleAttending'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="% de asistencia" formControlName="percentageAttendance" [required]="formInit.get('fieldsItems').controls['percentageAttendance'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Método de evaluación</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-select label="Método" [options]="evaluationMethodList" formControlName="methodEvaluation" [required]="formInit.get('fieldsItems').controls['methodEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="¿Cuál?" formControlName="descriptionEvaluation" [required]="formInit.get('fieldsItems').controls['descriptionEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-select label="Evaluación de la eficacia " [options]="efficacyEvaluationList" formControlName="effectivenessEvaluation" [required]="formInit.get('fieldsItems').controls['effectivenessEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="Eficaz" formControlName="effectiveEvaluation" [required]="formInit.get('fieldsItems').controls['effectiveEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select label="Genera acción de mejora" [options]="improvementActionActionList" formControlName="generateImprovementActionEvaluation" [required]="formInit.get('fieldsItems').controls['generateImprovementActionEvaluation'].hasError('required')"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-date label="Fecha de seguimiento" formControlName="dateFollowUpDateEvaluation" [required]="formInit.get('fieldsItems').controls['dateFollowUpDateEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+
+                                <app-approval></app-approval>
+                                <!---
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 w-full">
+                                    <app-input-text label="Elaborado" formControlName="elaboratedSignature" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Aprobado" formControlName="approvedSignature" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Capacitador" formControlName="trainer" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-date label="Fecha de aprobación" formControlName="dateApproved" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Asistentes">
+                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
+                </mat-tab>
+                <mat-tab label="Evidencias" class="sign">
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</app-content>

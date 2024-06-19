@@ -1,0 +1,51 @@
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="mt-10 w-full">
+        <div class=" w-full mb-10">
+            <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3
+                bg-card shadow rounded-2xl overflow-hidden mat-item-card">
+                <!-- Main actions -->
+                <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <mat-form-field class="flex-auto gt-xs:pl-3">
+                            <input matInput #input placeholder="Buscar formulario" (keyup)="applyFilter($event)">
+                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full bg-white mt-10 p-3 shadow rounded-2xl">
+            <ng-container>
+                <div class="flex flex-col flex-auto mt-2">
+                    <div class="flex flex-col my-3 rounded">
+                        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-x-9 w-full">
+                            <div class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
+                                <ng-container *ngFor="let template of obs | async;">
+                                    <div class="cursor-pointer rounded-3xl bg-[#F5F7FE] hover:bg-[#dce1f2] active:bg-[#dadeed] focus:outline-none focus:ring focus:ring-violet-300 mb-2 px-4 py-2" (click)="preview(template.code)">
+                                        <div class="flex">
+                                            <div class="flex-1">{{ template.code }} {{ template.name }}</div>
+                                            <div class="flex-none w-5"><img class="w-6" src="/assets/icons/Plus.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="flex flex-col flex-auto sm:col-span-2 md:grid-cols-2 lg:col-span-2">
+                                <div [routerLink]="[templatePreview?.route]" class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
+                                    <img [src]="templatePreview.urlImage" class="w-full h-auto relative z-0 rounded-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
+                                        <span class="text-white text-xl font-bold">ABRIR</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div>
+                <mat-paginator [pageSize]="size" [pageIndex]="page" showFirstLastButtons [pageSizeOptions]="pageSizeOptions">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</app-content>

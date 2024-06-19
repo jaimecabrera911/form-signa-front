@@ -1,0 +1,23 @@
+.mat-table {
+    font-family: "Poppins", serif;
+    width: 100% !important;
+    .actions {
+        width: 5%;
+    }
+    .mat-row:nth-child(even) {
+        background-color: #F5F7FE !important;
+    }
+    .mat-row:nth-child(odd) {
+        background-color: white;
+    }
+    .mat-header-cell {
+        font-size: 15px !important;
+        text-align: center !important;
+    }
+    tr.mat-header-row {
+        height: 50px !important;
+    }
+    td.mat-cell:last-of-type {
+        padding-right: unset !important;
+    }
+}

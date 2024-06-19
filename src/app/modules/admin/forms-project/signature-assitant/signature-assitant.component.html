@@ -1,0 +1,76 @@
+<div *ngIf="items" class="grid grid-cols-1 sm:grid-cols-6 lg:grid-cols-6 w-full">
+    <div class="flex flex-col flex-auto sm:col-span-1 md:grid-cols-1 lg:col-span-4">
+        <div class="office-viewer">
+            <form [formGroup]="formInit">
+                <div *ngIf="imageSignature" class="mx-10 bg-contain bg-center">
+                    <div class="w-full mt-10  pb-3 pt-2 text-center text-2xl font-bold  border-b border-gray-200">
+                        Detalle firma capacitación
+                    </div>
+                    <img [src]="imageSignature" class="mt-10 h-40 max-auto rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
+                </div>
+                <div *ngIf="!imageSignature" class="w-full  pb-3 pt-2 text-center text-2xl font-bold  border-b border-gray-200">
+                    Firmar capacitación
+                </div>
+                <app-input-signature-canvas *ngIf="!imageSignature" label="Firma" formControlName="signatureUpload" class="w-full" ng-readonly="true" icon="heroicons_outline:device-mobile"></app-input-signature-canvas>
+                <div *ngIf="!imageSignature" class="mt-3 pl-8 w-full float-right">
+                    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                        <div class="flex flex-col flex-auto">
+                            <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                                <span class="ml-5">Guardar</span>
+                            </a>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                                <span class="ml-5">Cancelar</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="flex-col flex-auto lg:col-span-2">
+        <div class="flex flex-col flex-auto p-6">
+            <!-- Preview -->
+            <div class="aspect-w-20 mt-2 aspect-h-6">
+                <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card p-3">
+                    <ng-container>
+                        <mat-icon class="icon-size-14 text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- Name & Ext -->
+            <!--
+            <div class="flex flex-col items-start mt-4">
+                <div class="mt-1 px-1.5 rounded text-sm font-semibold leading-5 text-white" [class.bg-red-600]="file.file.ext === '.pdf'" [class.bg-blue-600]="file.file.ext === '.docx'" [class.bg-green-600]="file.file.ext === '.xlsx'" [class.bg-gray-600]="file.file.ext === '.txt'"
+                    [class.bg-amber-600]="file.file.ext === '.jpeg' || file.file.ext === '.png'">
+                    {{file.file.ext.toUpperCase()}}
+                </div>
+            </div>
+            -->
+
+            <!-- Information -->
+            <div class="text-lg font-medium mt-4">Información</div>
+            <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+                <div class="items-center justify-between py-2">
+                    <div class="text-secondary">Empleado</div>
+                    <div>{{ fullName }}</div>
+                </div>
+                <div class="items-center justify-between py-2">
+                    <div class="text-secondary">Fecha asinación</div>
+                    <div>{{ items.createdAt | date:'short' }}</div>
+                </div>
+                <div class="items-center justify-between py-2">
+                    <div class="text-secondary">Fecha actualización</div>
+                    <div>{{ items.updatedAt | date:'short' }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!items">
+    <div class="w-full  pb-3 pt-2 text-center text-2xl font-bold  border-t border-b border-gray-200">
+        Debes guardar cambios para poder firmar la capacitación
+    </div>
+</div>
