@@ -1,9 +1,7 @@
-import { Data } from './../models/data';
-import { IdentificationTypes } from 'app/models/identification-types';
+/* eslint-disable @typescript-eslint/naming-convention */
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subscription } from 'app/models/subscription';
 import { Observable } from 'rxjs';
 
 import { City } from 'app/models/city';
@@ -13,11 +11,17 @@ import { Project } from 'app/models/project';
 import { Employee } from 'app/models/employee';
 import { Company } from 'app/models/company';
 import { Department } from 'app/models/department';
+import { Users } from 'app/models/users';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { Assistants } from 'app/models/assitant';
+import { Form } from 'app/models/form';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
+
+    company: any = 1;
 
     constructor(private http: HttpClient) { }
 
@@ -40,7 +44,6 @@ export class ApiService {
         params.forEach(function(value, key) {
             httpParams = httpParams.set(key, value);
         });
-        console.log(httpParams);
         return httpParams;
     }
 
@@ -50,15 +53,13 @@ export class ApiService {
         projects               |
      -------------------------*/
 
-    projectService(): Observable<Project> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+    projectService(id: number): Observable<Project> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const url = `${environment.apiUrl}projects?populate=city%2Cuser%2Cstate`;
+        const url = `${environment.apiUrl}projects?populate=%2A&filters%5Bcompany%5D[id]=${id}`;
         return this.http.get<any>(url,{headers});
     }
 
     projectIdService(id: number): Observable<Project> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const filetrs = 'city%2Ccompany%2Cuser%2Cstate&filters%5Bid%5D';
         const url = `${environment.apiUrl}projects?populate=${filetrs}=${id}`;
@@ -66,49 +67,75 @@ export class ApiService {
     }
 
     createProjectService(data): Observable<Project> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}projects`;
         return this.http.post<Project>(url, data, {headers});
     }
 
     updateProjectService(data,id): Observable<Project> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}projects/${id}`;
         return this.http.put<Project>(url, data, {headers});
     }
 
+    /*-------------------------|
+        Users                  |
+    --------------------------*/
+
+    createUserService(data: any): Observable<Users> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}users`;
+        return this.http.post<Users>(url, data, {headers});
+    }
+
+    userIdService(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}users=${id}`;
+        return this.http.get<any>(url,{headers});
+    }
+
+    updateUsersService(data,id): Observable<Users> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}projects/${id}`;
+        return this.http.put<Users>(url, data, {headers});
+    }
+
 
     /*-------------------------|
         Employees              |
-     -------------------------*/
+    --------------------------*/
 
     employeesService(): Observable<Employee> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const url = `${environment.apiUrl}employees?populate=position`;
+        const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bcompany%5D=${this.company}`;
+        return this.http.get<Employee>(url,{headers});
+    }
+
+    employeesActiveService(): Observable<Employee> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}employees?populate=%2A&filters%5Benabled%5D=true&filters%5Bcompany%5D=${this.company}`;
+        return this.http.get<Employee>(url,{headers});
+    }
+
+    employeesManagerService(): Observable<Employee> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}employees?populate=%2A&filters%5BisManager%5D=true&filters%5Bcompany%5D=${this.company}`;
         return this.http.get<Employee>(url,{headers});
     }
 
     employeIdService(id: number): Observable<Employee> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const filetrs = 'identificationType%2Cposition%2Ccompany%2ChealthcareProvider%2Cpension%2CoccupationRiskManager%2CcompensationFund%2Cworkspace%2Cgender%2Ccity';
-        const filters2 = '%2CbirthCountry%2Cuser%2CprofilePicture%2Csignature%2Cfiles&filters%5Bid%5D';
-        const url = `${environment.apiUrl}employees?populate=${filetrs}${filters2}=${id}`;
+        const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bid%5D=${id}&filters%5Bcompany%5D=${this.company}`;
         return this.http.get<Employee>(url,{headers});
     }
 
     createEmployeeService(data): Observable<Employee> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees`;
         return this.http.post<Employee>(url, data, {headers});
     }
 
     updateEmployeeService(data,id): Observable<Employee> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees/${id}`;
         return this.http.put<Employee>(url, data, {headers});
@@ -119,14 +146,12 @@ export class ApiService {
     -------------------------*/
 
     companyService(): Observable<Company> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies`;
         return this.http.get<Company>(url,{headers});
     }
 
     companyIdService(id: number): Observable<Company> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const filetrs = 'regime%2Ccity%2Cprojacts%2Cemployees%2Cpositions%2Cworkspaces&filters%5Bid%5D';
         const url = `${environment.apiUrl}companies?populate=${filetrs}=${id}`;
@@ -134,14 +159,12 @@ export class ApiService {
     }
 
     createCompanyService(data): Observable<Company> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies`;
         return this.http.post<Company>(url, data, {headers});
     }
 
     updateCompanyService(data,id): Observable<Company> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies/${id}`;
         return this.http.put<Company>(url, data, {headers});
@@ -151,24 +174,79 @@ export class ApiService {
        Forms                   |
     -------------------------*/
 
-    formsService(id): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+    formsService(): Observable<Form> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const filetrs = 'fields%2Cevidences%2Cproject%20&filters%5Bproject%5D[id]';
-        const url = `${environment.apiUrl}forms?populate=${filetrs}=${id}`;
+        const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bcompany%5D=${this.company}`;
         return this.http.get<any>(url,{headers});
+    }
+
+    formIdService(id): Observable<Form> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bid%5D=${id}`;
+        return this.http.get<Form>(url,{headers});
+    }
+
+    createFormSevice(data): Observable<Form> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}forms`;
+        return this.http.post<Form>(url, data, {headers});
+    }
+
+    updateFormService(data,id): Observable<Form> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}forms/${id}`;
+        return this.http.put<Form>(url, data, {headers});
     }
 
      /*-------------------------|
        Templates Forms          |
     -------------------------*/
 
-    temapltesFormService(id): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+    templatesFormService(id: number): Observable<Template> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const filetrs = 'fields%2Cevidences%2Cproject%20&filters%5Bproject%5D[id]';
-        const url = `${environment.apiUrl}forms?populate=${filetrs}=${id}`;
-        return this.http.get<any>(url,{headers});
+        const filetrs = 'company%2Cimage&filters%5Bcompany%5D[id]';
+        const url = `${environment.apiUrl}form-templates?populate=${filetrs}=${id}`;
+        return this.http.get<Template>(url,{headers});
+    }
+
+    templatesIdService(code: string): Observable<Template> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}form-templates?filters%5Bcode%5D=${code}`;
+        return this.http.get<Template>(url,{headers});
+    }
+
+    /*-------------------------|
+        Assistants             |
+    -------------------------*/
+
+    createAssistantService(data): Observable<Assistants> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants`;
+        return this.http.post<Assistants>(url,data, {headers});
+    }
+
+    assistantIdService(id): Observable<Assistants> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bid%5D=${id}`;
+        return this.http.get<Assistants>(url,{headers});
+    }
+
+    assistantFormEmpService(form, employee): Observable<Assistants> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${form}&filters%5Bemployee%5D=${employee}`;
+        return this.http.get<Assistants>(url,{headers});
+    }
+
+    assistantFormService(id): Observable<Assistants> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${id}`;
+        return this.http.get<Assistants>(url,{headers});
+    }
+
+    updateAssitantService(data,id): Observable<Form> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants/${id}`;
+        return this.http.put<Form>(url, data, {headers});
     }
 
     /*-------------------------|
@@ -176,7 +254,6 @@ export class ApiService {
     -------------------------*/
 
     citiesService(): Observable<City> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}cities`;
         return this.http.get<City>(url,{headers});
@@ -187,7 +264,6 @@ export class ApiService {
     -------------------------*/
 
     departmentService(): Observable<Department> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}departments`;
         return this.http.get<Department>(url,{headers});
@@ -198,7 +274,6 @@ export class ApiService {
     -------------------------*/
 
     countriesService(): Observable<Country> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}countries`;
         return this.http.get<Country>(url,{headers});
@@ -209,7 +284,6 @@ export class ApiService {
     --------------------------*/
 
     identificationTypesService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}identification-types`;
         return this.http.get<any>(url,{headers});
@@ -220,7 +294,6 @@ export class ApiService {
     --------------------------*/
 
     regimesService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}regimes`;
         return this.http.get<any>(url,{headers});
@@ -231,7 +304,6 @@ export class ApiService {
     --------------------------*/
 
     pensionService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}pensions`;
         return this.http.get<any>(url,{headers});
@@ -242,7 +314,6 @@ export class ApiService {
     --------------------------*/
 
     healthcareProviderService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}healthcare-providers`;
         return this.http.get<any>(url,{headers});
@@ -253,7 +324,6 @@ export class ApiService {
     --------------------------*/
 
     occupationRiskManagerService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}occupation-risk-managers`;
         return this.http.get<any>(url,{headers});
@@ -264,7 +334,6 @@ export class ApiService {
     --------------------------*/
 
     compensationFundService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}compensation-funds`;
         return this.http.get<any>(url,{headers});
@@ -275,7 +344,6 @@ export class ApiService {
     --------------------------*/
 
     workspaceService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}workspaces`;
         return this.http.get<any>(url,{headers});
@@ -286,7 +354,6 @@ export class ApiService {
     --------------------------*/
 
     positionService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}positions`;
         return this.http.get<any>(url,{headers});
@@ -297,7 +364,6 @@ export class ApiService {
     --------------------------*/
 
     gendersService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}genders`;
         return this.http.get<any>(url,{headers});
@@ -308,21 +374,9 @@ export class ApiService {
     --------------------------*/
 
     stateProjectService(): Observable<any> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}state-projects`;
         return this.http.get<any>(url,{headers});
-    }
-
-
-
-    /*-------------------------|
-        Data                   |
-    -------------------------*/
-
-    documentsUserService(): Observable<any> {
-        //const url = `..`;
-        return this.http.get<any>('/../assets/json/data.json');
     }
 
     /*-------------------------|
@@ -330,89 +384,20 @@ export class ApiService {
     -------------------------*/
 
     uploadService(data): Observable<Company> {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}upload`;
         return this.http.post<Company>(url, data, {headers});
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /*-------------------------|
-       subscriptions          |
+        DataField              |
     -------------------------*/
 
-    subscriptionService(): Observable<Subscription> {
-        const url = `${environment.apiUrl}subscriptions`;
-        return this.http.get<any>(url);
+
+    dataFieldService(name: string): Observable<any> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}data-fields?filters%5Bname%5D=${name}`;
+        return this.http.get<any>(url,{headers});
     }
-
-    saveSubscriptionService(data): Observable<Subscription> {
-        const url = `${environment.apiUrl}subscriptions`;
-        return this.http.post<Subscription>(url, data);
-    }
-
-
-
-    /*-------------------------|
-        Cities                 |
-    -------------------------*/
-    /*
-        citiesService(): Observable<City>{
-            const url = `${environment.apiUrl}cities`;
-            return this.http.get<City>(url);
-        }
-
-        saveCitiesService(data): Observable<City> {
-            const url = `${environment.apiUrl}cities`;
-            return this.http.post<City>(url, data);
-        }
-    */
-    /*-------------------------|
-        Countries              |
-    -------------------------*/
-    /*
-        countriesService(): Observable<Country>{
-            const url = `${environment.apiUrl}countries`;
-            return this.http.get<Country>(url);
-        }
-
-        saveCountriesService(data): Observable<Country> {
-            const url = `${environment.apiUrl}countries`;
-            return this.http.post<Country>(url, data);
-        }
-    */
-    /*-------------------------|
-        States                 |
-    -------------------------*/
-
-    statesService(): Observable<State> {
-        const url = `${environment.apiUrl}states`;
-        return this.http.get<State>(url);
-    }
-
-    saveStatesService(data): Observable<State> {
-        const url = `${environment.apiUrl}states`;
-        return this.http.post<State>(url, data);
-    }
-
-
 
 }
