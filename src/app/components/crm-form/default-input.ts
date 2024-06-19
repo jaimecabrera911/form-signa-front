@@ -12,14 +12,16 @@ export abstract class DefaultInput implements ControlValueAccessor {
 
     @Output() changeValue: EventEmitter<any> = new EventEmitter<any>();
     @Input() icon?: any;
+    @Input() valueItem?: any;
     @Input() label: string = '';
-    @Input() field: any;
+    @Input() field?: any;
     @Input() validateFormSumt?: boolean = false;
     @Input() formGroupChild?: FormGroup;
     @Input() disabled: boolean = false;
-    @Input() required: boolean = false;
-    @Input() fields: string[] = [];
-    value: any;
+    @Input() required: boolean;
+    @Input() readonly?: boolean = false;
+    @Input() fields?: string[] = [];
+    value: any = '';
     valueCont: number = 0;
 
 
@@ -61,7 +63,6 @@ export abstract class DefaultInput implements ControlValueAccessor {
         if (value !== undefined) {
             this.value = value;
             this.propagateChange(this.value);
-            //console.log('value :',this.value);
         }
     }
 }

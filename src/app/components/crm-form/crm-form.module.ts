@@ -39,6 +39,8 @@ import { MatCardModule } from '@angular/material/card';
 import { TableItemsComponent } from './table-items/table-items.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InputEmailComponent } from './input-email/input-email.component';
+import { InputSelectAutocompleteComponent } from './input-select-autocomplete/input-slect-autocomplete.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 @NgModule({
     declarations: [
         InputTextComponent,
@@ -59,7 +61,8 @@ import { InputEmailComponent } from './input-email/input-email.component';
         InputUploadFilesComponent,
         TableItemsComponent,
         InputEmailComponent,
-        InputEmailComponent
+        InputEmailComponent,
+        InputSelectAutocompleteComponent
    ],
     exports: [
         InputTextComponent,
@@ -79,7 +82,8 @@ import { InputEmailComponent } from './input-email/input-email.component';
         InputUploadImageComponent,
         InputUploadFilesComponent,
         TableItemsComponent,
-        InputEmailComponent
+        InputEmailComponent,
+        InputSelectAutocompleteComponent
     ],
     imports: [
         CommonModule,
@@ -103,7 +107,8 @@ import { InputEmailComponent } from './input-email/input-email.component';
         MatPaginatorModule,
         MatSortModule,
         MatMenuModule,
-        NgxDocViewerModule
+        NgxDocViewerModule,
+        AutocompleteLibModule
     ]
 })
 export class CrmFormModule { }

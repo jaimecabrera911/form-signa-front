@@ -1,0 +1,25 @@
+<div class="flex flex-col flex-auto">
+    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label> {{ value }}
+    <div class="ng-autocomplete">
+        <ng-autocomplete [(ngModel)]="value" name="value" #valueCtrl="ngModel" [data]="options" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </div>
+    <!--
+        historyIdentifier="countries"
+        <mat-form-field class="flex-auto" appearance="legacy">
+        <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
+            <mat-error>Campo Obligatorio</mat-error>
+        </mat-hint>
+        <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
+    </mat-form-field>
+   -->
+</div>

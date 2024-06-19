@@ -1,0 +1,16 @@
+.ng-autocomplete {
+    width: 100%;
+    max-width: 600px;
+    display: table;
+    margin: 0 auto;
+}
+
+.autocomplete-container {
+    border-radius: 10px;
+    .input-container {
+        border-radius: 10px;
+        input {
+            border-radius: 10px;
+        }
+    }
+}
