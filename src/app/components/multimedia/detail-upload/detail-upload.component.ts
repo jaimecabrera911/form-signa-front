@@ -29,7 +29,6 @@ export class DetailUploadComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         const urlDocument  = `${environment.urlApp}${this.file.file.url}`;
-        console.log('urlDocument ',this.file.file.name);
         if(urlDocument){
             this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(urlDocument);
         }

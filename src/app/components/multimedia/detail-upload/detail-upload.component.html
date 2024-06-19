@@ -10,15 +10,21 @@
     </div>
     <div class="flex-col flex-auto">
         <div class="flex flex-col flex-auto p-6">
+            <!-- Actions -->
+            <div class="grid grid-cols-1 gap-4 w-full mt-2">
+                <button class="flex-auto" mat-stroked-button (click)="closeModal()">
+                    Cerrar
+                </button>
+            </div>
+
             <!-- Preview -->
-            <div class="aspect-w-20 aspect-h-6">
+            <div class="aspect-w-20 mt-2 aspect-h-6">
                 <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card p-3">
                     <ng-container>
                         <mat-icon class="icon-size-24 text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
                     </ng-container>
                 </div>
             </div>
-
 
             <!-- Name & Ext -->
             <div class="flex flex-col items-start mt-4">
@@ -47,13 +53,6 @@
                     <div class="text-secondary">Size</div>
                     <div>{{file.file.size}}</div>
                 </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="grid grid-cols-2 gap-4 w-full mt-2">
-                <button class="flex-auto" mat-stroked-button (click)="closeModal()">
-                    Cerrar
-                </button>
             </div>
         </div>
     </div>

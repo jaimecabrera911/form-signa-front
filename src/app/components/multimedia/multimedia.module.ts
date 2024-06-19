@@ -14,6 +14,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatInputModule } from '@angular/material/input';
 import { DetailUploadComponent } from './detail-upload/detail-upload.component';
 import { CrmFormModule } from '../crm-form/crm-form.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -38,10 +40,12 @@ import { CrmFormModule } from '../crm-form/crm-form.module';
         MatFormFieldModule,
         MatInputModule,
         NgxDropzoneModule,
+        MatButtonModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
-        CrmFormModule
+        CrmFormModule,
+        ReactiveFormsModule
     ]
 })
 export class MultimediaModule { }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { ActionsMultimediaDirective } from './actions-multimedia.directive';
 import { PanelsMultimediaDirective } from './panels-multimedia.directive';
 import { AditionalMultimediaDirective } from './aditional-multimedia.directive';
@@ -8,14 +8,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetailUploadComponent } from './detail-upload/detail-upload.component';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'app-multimedia',
     templateUrl: './multimedia.component.html',
-    styleUrls: ['./multimedia.component.scss']
+    styleUrls: ['./multimedia.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => MultimediaComponent)
+        }
+    ]
 })
-export class MultimediaComponent  implements OnInit, OnDestroy {
+export class MultimediaComponent  extends DefaultInput implements OnInit, OnDestroy {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -37,22 +44,33 @@ export class MultimediaComponent  implements OnInit, OnDestroy {
     obs: Observable<any>;
     dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
+    formInit: any = this._formBuilder.group({
+        filesUploads: new FormControl()
+    });
+
 
     constructor(private changeDetectorRef: ChangeDetectorRef,
-               private matDialog: MatDialog
-    ) {}
+                private _formBuilder: FormBuilder,
+                private matDialog: MatDialog
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.changeDetectorRef.detectChanges();
         setTimeout(()=>{
             this.onLoadFiles();
-        }, 6000);
+        }, 9000);
     }
 
     onLoadFiles(): void{
         this.dataSource = new MatTableDataSource<any>(this.items);
         this.dataSource.paginator = this.paginator;
         this.obs = this.dataSource.connect();
+    }
+
+    refresh(): any{
+        this.onLoadFiles();
     }
 
     /** Filter */
@@ -74,16 +92,20 @@ export class MultimediaComponent  implements OnInit, OnDestroy {
     }
 
 
+
+    updateFilesForm(): void {
+        this.writeValue(this.formInit.value.filesUploads);
+    }
+
     uploadFile(item): void {
         if (item === 'UPLOAD_FILES_SHOW') {
-            //this.writeValue(true);
             this.uploadFiles = true;
             this.listFiles = false;
-            console.log('upl_1');
-        } else {
+        }
+
+        if (item === 'UPLOAD_FILES_HID') {
             this.uploadFiles = false;
             this.listFiles = true;
-            console.log('upl_2');
         }
     }
 
@@ -91,5 +113,8 @@ export class MultimediaComponent  implements OnInit, OnDestroy {
         if (this.dataSource) {
             this.dataSource.disconnect();
         }
+    }
+
+    initForm(): void {
     }
 }
