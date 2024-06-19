@@ -19,8 +19,8 @@
     <div class="flex flex-col flex-auto"></div>
     <div class="flex flex-col flex-auto"></div>
     <div class="flex flex-col flex-auto sm:col-span-2 md:grid-cols-2 lg:col-span-2">
-        <div class="p-4 mt-4" *ngIf="codeImge">
-            <img [src]="img">
+        <div *ngIf="codeImge">
+            <img [src]="img" class="mt-10 h-35 max-auto rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
         </div>
     </div>
     <!--

@@ -24,10 +24,8 @@ export class CanvasSignatureComponent implements AfterViewInit, OnInit  {
 
     // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     ngAfterViewInit(): void {
-        console.log('sig:: ', this.sigPad);
         this.sigPadElement = this.sigPad.nativeElement;
         this.context = this.sigPadElement.getContext('2d');
-        console.log('context:: ', this.context);
         this.context.strokeStyle = '#3742fa';
       }
 
@@ -70,7 +68,6 @@ export class CanvasSignatureComponent implements AfterViewInit, OnInit  {
 
     save(): void {
       this.img = this.sigPadElement.toDataURL('image/png');
-      console.log(this.img);
     }
 
 

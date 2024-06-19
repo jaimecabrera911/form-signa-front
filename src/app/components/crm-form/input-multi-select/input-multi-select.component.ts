@@ -19,15 +19,17 @@ import { MatSelectChange } from '@angular/material/select';
 export class InputMultiSelectComponent extends DefaultInput implements OnInit, ControlValueAccessor {
 
     @Input() options: any;
+    @Input() selectedItem: [];
     showFilter: any = true;
-    selectedItem: any = [];
     dropdownSettings: any = {};
+    items: any[];
 
     constructor() {
         super();
     }
 
     ngOnInit(): void {
+        this.items =  this.selectedItem;
         this.dropdownSettings = {
             singleSelection: false,
             idField: 'id',
@@ -35,7 +37,7 @@ export class InputMultiSelectComponent extends DefaultInput implements OnInit, C
             searchPlaceholderText: 'Buscar',
             selectAllText: 'Seleccionar todo',
             unSelectAllText: 'Deseleccionar todo',
-            itemsShowLimit: 10,
+            itemsShowLimit: 15,
             allowSearchFilter: this.showFilter,
         };
     }

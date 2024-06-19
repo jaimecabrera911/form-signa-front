@@ -20,8 +20,8 @@ const moment = _moment;
 export class InputSignatureCanvasComponent extends DefaultInput implements AfterViewInit, OnInit, ControlValueAccessor {
 
     @Input() name: string;
-    @Input() item1: string;
-    @Input() item2: string;
+    @Input() item1?: string;
+    @Input() item2?: string;
     @ViewChild('sigPad', { static: true }) sigPad: ElementRef;
     sigPadElement: any;
     context: any;

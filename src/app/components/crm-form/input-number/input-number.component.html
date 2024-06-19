@@ -1,6 +1,6 @@
 <div class="flex flex-col flex-auto">
     <mat-form-field class="flex-auto" appearance="legacy">
-        <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+        <label [ngClass]="required === true ? 'required-item' : ''">{{ label }}</label>
         <input matInput [(ngModel)]="value" (keyup)="change($event)" ngxNumberFormat="###,###,###,###,###,###,###">
         <span matPrefix>$</span>
         <span matSuffix>.00</span>

@@ -34,8 +34,6 @@ export class InputUploadFilesComponent extends DefaultInput implements OnInit, C
 
     onRemove(event): void {
         this.fileUpload.onRemove(event, this.files);
-        console.log('delete ',this.files.length);
-        console.log('files ',this.files);
         if(this.files.length <= 0){
             this.value = null;
             this.writeValue(null);
