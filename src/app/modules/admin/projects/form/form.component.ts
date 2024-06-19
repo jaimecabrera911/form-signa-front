@@ -47,6 +47,9 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
         super.ngOnInit();
         this.getProjectId();
+        this.getCities();
+        this.getStateProject();
+        this.getEmployees();
     }
 
     getProjectId(): void {
@@ -79,8 +82,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             return;
         }
         const data = this.formInit.value;
-        console.log('data ',data);
-        //this.formSave();
+        this.formSave();
     }
 
     formSave(): void {

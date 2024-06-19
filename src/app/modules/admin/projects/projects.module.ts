@@ -24,6 +24,7 @@ import { ListModule } from 'app/components/list/list.module';
 import { MatTableResponsiveModule } from 'app/components/mat-table-responsive/mat-table-responsive.module';
 import { CrmFormModule } from 'app/components/crm-form/crm-form.module';
 import { FormComponent } from './form/form.component';
+import { TablesItemsModule } from 'app/components/tables-items/tables-items.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { FormComponent } from './form/form.component';
     MatDialogModule,
     MatTableResponsiveModule,
     CrmFormModule,
+    TablesItemsModule
   ],
   exports: [
     MatTableResponsiveModule

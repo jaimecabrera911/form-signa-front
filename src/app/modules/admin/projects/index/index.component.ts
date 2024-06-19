@@ -36,6 +36,6 @@ export class IndexComponent  implements OnInit {
     }
 
     ngOnInit(): void {
-        this.apiItems$ = this.api.projectService();
+        this.apiItems$ = this.api.projectService(1);
     }
 }
