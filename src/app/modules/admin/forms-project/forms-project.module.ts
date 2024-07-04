@@ -1,7 +1,7 @@
 import { MatCardModule } from '@angular/material/card';
 import { MultimediaModule } from 'app/components/multimedia/multimedia.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { FormsProjectRoutingModule } from './forms-project-routing.module';
 import { FormsProjectComponent } from './forms-project.component';
@@ -88,6 +88,7 @@ import { SignatureAssitantComponent } from './signature-assitant/signature-assit
         TablesItemsModule,
         MatCardModule,
         MatSelectModule
-    ]
+    ],
+    providers: [DatePipe]
 })
 export class FormsProjectModule { }

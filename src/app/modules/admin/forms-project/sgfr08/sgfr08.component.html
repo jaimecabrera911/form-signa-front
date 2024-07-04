@@ -57,11 +57,11 @@
                                         [validateFormSumt]="validate"></app-input-select>
                                     <app-input-date label="Fecha de seguimiento" formControlName="dateFollowUpDateEvaluation" [required]="formInit.get('fieldsItems').controls['dateFollowUpDateEvaluation'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
                                 </div>
+                            </div>
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
 
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
-
-                                <app-approval></app-approval>
-                                <!---
+                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <!---
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 w-full">
                                     <app-input-text label="Elaborado" formControlName="elaboratedSignature" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                     <app-input-text label="Aprobado" formControlName="approvedSignature" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
@@ -69,7 +69,7 @@
                                     <app-input-date label="Fecha de aprobación" formControlName="dateApproved" [required]="formInit.get('fieldsItems').controls['pension'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
                                 </div>
                                 -->
-                            </div>
+
                         </div>
                     </div>
                 </mat-tab>

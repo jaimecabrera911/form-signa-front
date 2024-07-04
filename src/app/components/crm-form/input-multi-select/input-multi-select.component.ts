@@ -43,36 +43,30 @@ export class InputMultiSelectComponent extends DefaultInput implements OnInit, C
     }
 
     onFilterChange(item: any): void {
-        console.log(item);
         this.value = this.selectedItem;
         this.writeValue(this.selectedItem);
     }
     onDropDownClose(item: any): void {
-        console.log(item);
         this.writeValue(this.selectedItem);
         this.value = this.selectedItem;
     }
 
     onItemSelect(item: any): void {
-        console.log(item);
         this.writeValue(this.selectedItem);
         this.value = this.selectedItem;
     }
 
     onDeSelect(item: any): void {
-        console.log(item);
         this.writeValue(this.selectedItem);
         this.value = this.selectedItem;
     }
 
     onSelectAll(items: any): void {
-        console.log(items);
         this.writeValue(this.selectedItem);
         this.value = this.selectedItem;
     }
 
     onDeSelectAll(items: any): void {
-        console.log(items);
         this.writeValue(this.selectedItem);
         this.value = this.selectedItem;
     }

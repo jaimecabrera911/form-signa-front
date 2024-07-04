@@ -42,13 +42,14 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     filesItems: any[] = [];
     infoForm: any[] = [];
     assistantsForm: any = [];
+    approvalsForm: any = [];
 
     iterableColumns: TableItems[] = [
         { name: 'firstName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
         { name: 'firstSurname', name2: false, styleEnable: false, label: ' .', function: false, functionName: false, item: false },
         { name: 'secondSurname', name2: false, styleEnable: false, label: ' .', function: false, functionName: false, item: false },
         { name: 'identificationNumber', name2: false, styleEnable: false, label: 'Documento', function: false, functionName: false, item: false },
-        { name: 'position', name2: 'name', styleEnable:false, label: 'Cargo', function: false, functionName: false, item: true  },
+        { name: 'position', name2: 'name', styleEnable: false, label: 'Cargo', function: false, functionName: false, item: true },
         { name: 'isSignature', name2: false, styleEnable: false, label: 'Estado', function: false, functionName: false, item: true },
         { name: 'id', name2: false, styleEnable: false, label: 'Firma', function: true, functionName: 'isSignature', item: false }
     ];
@@ -86,11 +87,17 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                     this.itemsCurrent = response.data;
                     this.filesItems = this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : '';
                     this.formInit.patchValue({
+                        code: this.itemsCurrent[0].code,
+                        uid: this.itemsCurrent[0].uid,
+                        name: this.itemsCurrent[0].name,
+                        version: this.itemsCurrent[0].version,
+                        project: this.itemsCurrent[0].project.id,
                         evidences: this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : null,
                         assistants: this.itemsCurrent[0]?.assistants ? this.itemsCurrent[0]?.assistants : null,
                     });
                     this.getForm();
                     this.getAssistantsId();
+                    this.getApprovalsId();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
@@ -106,7 +113,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     }
 
 
-    assignFields(): void{
+    assignFields(): void {
         const form = this.formInit.value;
         form.fields.forEach((items: any) => {
             this.updateValueForm(items.name, form.fieldsItems[items.name], items.type);
@@ -126,10 +133,20 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
 
     getAssistantsId(): void {
         if (this.id) {
-            const itemsSelect: any[] = [];
             this.api.assistantFormService(this.id).subscribe({
                 next: (response: any) => {
                     this.assistantsForm = response.data;
+                }, error: (e: any) => console.log('')
+            });
+        }
+    }
+
+    getApprovalsId(): void {
+        if (this.id) {
+            const itemsSelect: any[] = [];
+            this.api.approvalFormService(this.id).subscribe({
+                next: (response: any) => {
+                    this.approvalsForm = response.data;
                 }, error: (e: any) => console.log('')
             });
         }
@@ -156,7 +173,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         }
     }
 
-    assignUpload(files): void{
+    assignUpload(files): void {
         const form = this.formInit.value;
         form.evidences = files;
         this.formSave();
@@ -172,14 +189,18 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             observable = this.api.createFormSevice(this.formInit.value);
         }
         observable.subscribe({
-            next: (item: any) => {
-                if (item) {
+            next: (response: any) => {
+                if (response) {
+                    if (this.formInit.value.trainingApproval.length > 0) {
+                        this.assignApprovals(response.data.id);
+                    }
+
                     if (this.formInit.value.assignedAssistants.length > 0) {
-                        this.validationAssitant(item.data.id);
+                        this.validationAssitant(response.data.id);
                     } else {
                         const toast = this.swaAlert.toast();
                         toast.fire({ icon: 'success', title: 'Formulario guardado correctamente' }).then((() => {
-                            location.href = `/forms-project/${this.code.toLowerCase()}/edit/${item.data.id}`;
+                            location.href = `/forms-project/${this.code.toLowerCase()}/edit/${response.data.id}`;
                         }));
                     }
 
@@ -187,6 +208,55 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
     }
+
+    assignApprovals(idForm): void {
+        this.formInit.value.trainingApproval.forEach((element: any, i: number) => {
+            if(element.id && this.id){
+                console.log('id Approval ',element.id,' form ',this.id);
+                Object.assign(this.formInit.value.trainingApproval[i], { form: this.id });
+            }else{
+                console.log('create',);
+                Object.assign(this.formInit.value.trainingApproval[i], { form: idForm });
+            }
+        });
+        if(this.id){
+            const idSelect = this.formInit.value.trainingApproval.map((item: any) => item.id);
+            const filterDelete = this.approvalsForm.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
+            filterDelete.forEach((element: any) => {
+                this.deleteApproval(element);
+            });
+        }
+        this.formInit.value.trainingApproval.forEach((request: any) => {
+            this.saveApproval(request);
+        });
+    }
+
+    saveApproval(request: any): void {
+        let observable: Observable<any>;
+        console.log('request ',request,' id ',request.id);
+        if (request.id) {
+            console.log('edit ');
+            observable = this.api.updateApprovalService(request, request.id);
+        } else {
+            observable = this.api.createApprovalService(request);
+        }
+        observable.subscribe({
+            next: (response: any) => {
+                if (response) {
+                    const toast = this.swaAlert.toast();
+                    toast.fire({ icon: 'success', title: 'Aprobaciones  guardadas correctamente' });
+                }
+            }, error: (e: any) => this.swaAlert.toastErrorUpdate()
+        });
+    }
+
+    deleteApproval(id: number): void{
+        this.api.deleteApprovalService(id).subscribe({
+            next: (response) => { console.log('delte ',response);},
+            error: (e: any) => console.log(e)
+        });
+    }
+
 
     validationAssitant(idForm): void {
         const form = this.formInit.value;
@@ -196,6 +266,13 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             form.assignedAssistants.forEach((element: any) => {
                 this.saveAssistants(element, idForm);
             });
+            if(this.id){
+                const idSelect = this.formInit.value.assignedAssistants.map((item: any) => item);
+                const filterDelete = this.assistantsForm.filter((item: any) => !idSelect.includes(item.employee.id)).map((item: any) => item.id);
+                filterDelete.forEach((element: any) => {
+                    this.deleteAssistant(element);
+                });
+            }
         } else {
             const toast = this.swaAlert.toast();
             toast.fire({ icon: 'success', title: 'Formulario guardado correctamente' }).then((() => {
@@ -205,7 +282,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     }
 
     saveAssistants(idEmployee, idForm): void {
-        const validIdEmp = this.assistantsForm.filter((item: any) => item.employee.id === idEmployee).map((item: any)=> item.employee.id );
+        const validIdEmp = this.assistantsForm.filter((item: any) => item.employee.id === idEmployee).map((item: any) => item.employee.id);
         const request: any = { employee: idEmployee, signature: null, date: new Date(), isSigned: false, form: idForm };
         if (validIdEmp[0] === undefined || !validIdEmp[0]) {
             this.api.createAssistantService(request).subscribe({
@@ -213,11 +290,18 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                     const toast = this.swaAlert.toast();
                     toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
                         location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;
-                     }));
+                    }));
 
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
 
+    }
+
+    deleteAssistant(id: number): void{
+        this.api.deleteAssitantService(id).subscribe({
+            next: (response) => { console.log('delte ',response);},
+            error: (e: any) => console.log(e)
+        });
     }
 }

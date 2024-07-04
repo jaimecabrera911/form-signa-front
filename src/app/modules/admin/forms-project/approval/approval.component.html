@@ -1,86 +1,96 @@
 <div class="w-full">
-
     <div class="mt-3">
+        <!-- <pre>{{ formInit.value.selectAutoComplete | json }}
+        </pre>-->
         <form [formGroup]="formInit">
             <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3 bg-card shadow rounded-2xl  mat-item-card">
-                <!-- Main actions -->
                 <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full">
                     <div class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
-                        <!--  (ngModelChange)="asignar($event)"  -->
-                        <app-input-multi-select [label]="placeHolderSearch" class="mt-1" formControlName="selectAutoComplete" (ngModelChange)="asignar()" [options]="itemsAutoComplte" [selectedItem]="assistantsItems"></app-input-multi-select>
+                        <app-input-multi-select label="Empleados administrativos" class="mt-1" formControlName="selectAutoComplete" [selectedItem]="approvalsItems" (ngModelChange)="asignar()" [options]="itemsAutoComplte"></app-input-multi-select>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
-    <!--<form [formGroup]="form">-->
-    <table mat-table [dataSource]="dataSource" matSort class="table-list-items w-full">
-        <div *ngFor="let column of colums; let i = index">
-            <ng-container [matColumnDef]="colums[i].name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header [style.background-color]="background" [style.color]="color">
-                    {{ colums[i].label }}
-                </th>
-                <td mat-cell *matCellDef="let elements">
-                    <div *ngIf="colums[i].name2 && !colums[i].styles" class="w-full">
-                        <div *ngIf="colums[i].name2 !== null || !colums[i].name2">
-                            {{ elements[colums[i]['name']][colums[i]['name2']] ? elements[colums[i]['name']][colums[i]['name2']] : '' }} </div>
-                    </div>
-                    <div *ngIf="colums[i].name === 'state'">
-                        Estado
-                    </div>
-                    <div *ngIf="colums[i].name === 'reason'">
-                        <mat-form-field>
-                            <mat-select placeholder="Motivo">
-                                <mat-option value="">Seleccione una opción</mat-option>
-                                <mat-option *ngFor="let option of reason" [value]="option.code">
-                                    {{option.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div *ngIf="colums[i].name === 'observation'">
-                        <mat-form-field class="flex-auto" appearance="legacy">
-                            <textarea matInput cols="3" rows="3"></textarea>
-                        </mat-form-field>
-                    </div>
-                    <div *ngIf="colums[i].name === 'id'">
-                        Fecha
-                    </div>
-
-                    <div *ngIf="colums[i].name === 'actions'">
-                        <mat-form-field>
-                            <mat-select placeholder="Seleccione">
-                                <mat-option *ngFor="let option of actions" [value]="option.code">
-                                    {{option.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <!--
-                    <div *ngIf="colums[i].styles" class="w-full">
-                        <div *ngFor="let item of colums[i].styles">
-                            <div *ngIf="((elements[colums[i].name][colums[i].name2] ===  item.label)  ||
-                                         (elements[colums[i].name] && (elements[colums[i].name] === item.label)) )" class="w-full content-center">
-                                <div class="p-1 w-full content-center rounded-2xl text-center" [style.background-color]="item.backgroundColor" [style.color]="item.textColor">
-                                    <div *ngIf="!colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i].name] }} </div>
-                                    <div *ngIf="colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
-                                    <div *ngIf="!colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i].name] }}
-                                    </div>
-                                    <div *ngIf="colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
-                                </div>
-                            </div>
+    <br>
+    <!-- <pre>{{ formApproval.value | json }}</pre> -->
+    <form [formGroup]="formApproval">
+        <div *ngIf="formId" class="bg-[#748EB8] text-white font-medium grid grid-cols-1 p-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-4 w-full">
+            <div class="flex flex-col flex-auto">Empleado</div>
+            <div class="flex flex-col flex-auto">Motivo</div>
+            <div class="flex flex-col flex-auto">Observación</div>
+            <div class="flex flex-col flex-auto">Fecha</div>
+            <div class="flex flex-col flex-auto">Acción</div>
+        </div>
+        <div *ngIf="!formId" class="bg-[#748EB8] text-white font-medium p-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+            <div class="flex flex-col flex-auto">Empleado</div>
+            <div class="flex flex-col flex-auto">Motivo</div>
+            <div class="flex flex-col flex-auto">Observación</div>
+        </div>
+        <div formArrayName="data" class="w-full" *ngFor="let aprv of formApproval.get('data')['controls']; let i = index">
+            <div [formGroupName]="i" class="w-full">
+                <div class="flex flex-col my-2  rounded">
+                    <div *ngIf="formId" class="grid grid-cols-1 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-4 w-full">
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field class="flex-auto" appearance="legacy">
+                                <input matInput formControlName="employeeName">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field>
+                                <mat-select placeholder="Motivo" (ngModelChange)="addFormValue()" formControlName="reason">
+                                    <mat-option value="">Seleccione una opción</mat-option>
+                                    <mat-option *ngFor="let option of reason" [value]="option.code">
+                                        {{option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field class="flex-auto" appearance="legacy">
+                                <textarea matInput (keyup)="addFormValue()" formControlName="observations" cols="2" rows="2"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field class="flex-auto" appearance="legacy">
+                                <input matInput formControlName="createdAt">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field>
+                                <mat-select placeholder="Acción" (ngModelChange)="addFormValue()" formControlName="state">
+                                    <mat-option value="">Seleccione una opción</mat-option>
+                                    <mat-option *ngFor="let option of actions" [value]="option.code">
+                                        {{option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
-                    -->
-                    <div *ngIf="!colums[i].styles && !colums[i].name2">{{ elements[colums[i].name] }}</div>
-                </td>
-            </ng-container>
+                    <div *ngIf="!formId" class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field class="flex-auto" appearance="legacy">
+                                <input matInput formControlName="employeeName">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field>
+                                <mat-select placeholder="Motivo" (ngModelChange)="addFormValue()" formControlName="reason">
+                                    <mat-option value="">Seleccione una opción</mat-option>
+                                    <mat-option *ngFor="let option of reason" [value]="option.code">
+                                        {{option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col flex-auto">
+                            <mat-form-field class="flex-auto" appearance="legacy">
+                                <textarea matInput (keyup)="addFormValue()" formControlName="observations" cols="2" rows="2"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons aria-label="Select page of periodic elements">
-    </mat-paginator>
-    <!-- </form> -->
+    </form>
 </div>

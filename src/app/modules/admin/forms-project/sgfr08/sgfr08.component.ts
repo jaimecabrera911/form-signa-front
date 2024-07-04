@@ -43,6 +43,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         this.getStartTime();
         this.getNumberPeopleAttending();
         this.getEmployees();
+        console.log('trainingApproval:: ',this.formInit.value.trainingApproval);
     }
 
     validateForm(): void{
@@ -83,6 +84,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
             evidences: new FormControl([]),
             project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
+            approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
                 date: new FormControl(new Date(), [Validators.required]),
                 novetly: new FormControl('', [Validators.required]),
@@ -112,20 +114,14 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
                 dateApproved: new FormControl()
             }),
             filesUpload: new FormControl(),
-            assignedAssistants: new FormControl()
+            assignedAssistants: new FormControl(),
+            trainingApproval: new FormControl()
         });
     }
 
 
     override getForm(): void{
         if(this.id){
-            this.formInit.patchValue({
-                code: this.itemsCurrent[0].code,
-                uid: this.itemsCurrent[0].uid,
-                name: this.itemsCurrent[0].name,
-                version: this.itemsCurrent[0].version,
-                project: this.itemsCurrent[0].project.id
-            });
             this.formInit.get('fieldsItems').patchValue({
                 date: this.cleanSelect(this.getValueField('date')),
                 novetly: this.cleanSelect(this.getValueField('novetly')),

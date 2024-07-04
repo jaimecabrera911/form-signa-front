@@ -219,12 +219,6 @@ export class ApiService {
         Assistants             |
     -------------------------*/
 
-    createAssistantService(data): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const url = `${environment.apiUrl}assistants`;
-        return this.http.post<Assistants>(url,data, {headers});
-    }
-
     assistantIdService(id): Observable<Assistants> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bid%5D=${id}`;
@@ -243,11 +237,52 @@ export class ApiService {
         return this.http.get<Assistants>(url,{headers});
     }
 
-    updateAssitantService(data,id): Observable<Form> {
+    createAssistantService(data): Observable<Assistants> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants`;
+        return this.http.post<Assistants>(url,data, {headers});
+    }
+
+    updateAssitantService(data,id): Observable<Assistants> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants/${id}`;
-        return this.http.put<Form>(url, data, {headers});
+        return this.http.put<Assistants>(url, data, {headers});
     }
+
+    deleteAssitantService(id): Observable<Assistants>{
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}assistants/${id}`;
+        return this.http.delete<Assistants>(url,{headers});
+    }
+
+    /*-------------------------|
+        Approvals              |
+    -------------------------*/
+
+    createApprovalService(data): Observable<any> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}approvals`;
+        return this.http.post<any>(url,data, {headers});
+    }
+
+    approvalFormService(id): Observable<any> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}approvals?populate=%2A&filters%5Bform%5D=${id}`;
+        return this.http.get<any>(url,{headers});
+    }
+
+    updateApprovalService(data,id): Observable<any> {
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}approvals/${id}`;
+        return this.http.put<any>(url, data, {headers});
+    }
+
+    deleteApprovalService(id): Observable<any>{
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}approvals/${id}`;
+        return this.http.delete<any>(url,{headers});
+    }
+
 
     /*-------------------------|
         Cities                 |
