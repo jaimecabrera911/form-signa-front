@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetailUploadComponent } from './detail-upload/detail-upload.component';
-import { FormBuilder, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'app-multimedia',
@@ -22,7 +22,7 @@ import { FormBuilder, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
         }
     ]
 })
-export class MultimediaComponent  extends DefaultInput implements OnInit, OnDestroy {
+export class MultimediaComponent extends DefaultInput implements OnInit, OnDestroy {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -36,6 +36,7 @@ export class MultimediaComponent  extends DefaultInput implements OnInit, OnDest
     @Input() items: any[];
 
     listFiles: boolean = true;
+    itemsList: boolean = true;
     uploadFiles: boolean = false;
     pageSizeOptions = [6, 12, 18, 24, 30, 36];
     page = 0;
@@ -48,28 +49,35 @@ export class MultimediaComponent  extends DefaultInput implements OnInit, OnDest
         filesUploads: new FormControl()
     });
 
+    formEditUpload: FormGroup = new FormGroup({
+        dataFile: this._formBuilder.array([])
+    });
 
     constructor(private changeDetectorRef: ChangeDetectorRef,
-                private _formBuilder: FormBuilder,
-                private matDialog: MatDialog
+        private _formBuilder: FormBuilder,
+        private matDialog: MatDialog
     ) {
         super();
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.changeDetectorRef.detectChanges();
-        setTimeout(()=>{
-            this.onLoadFiles();
-        }, 9000);
+        this.onLoadFiles();
+        setTimeout(() => {
+            this.itemsList = false;
+        }, 9900);
     }
 
-    onLoadFiles(): void{
-        this.dataSource = new MatTableDataSource<any>(this.items);
-        this.dataSource.paginator = this.paginator;
-        this.obs = this.dataSource.connect();
+    onLoadFiles(): void {
+        if (this.items) {
+            this.dataSource = new MatTableDataSource<any>(this.items);
+            this.dataSource.paginator = this.paginator;
+            this.editFile(this.items);
+            this.obs = this.dataSource.connect();
+        }
     }
 
-    refresh(): any{
+    refresh(): any {
         this.onLoadFiles();
     }
 
@@ -91,11 +99,17 @@ export class MultimediaComponent  extends DefaultInput implements OnInit, OnDest
         this.matDialog.open(DetailUploadComponent, dialogConfig);
     }
 
-
-
     updateFilesForm(): void {
-        this.writeValue(this.formInit.value.filesUploads);
+        this.editFileGroup(null, false, this.formInit.value.filesUploads);
     }
+
+    addItem(id): void {
+        console.log('id ', id);
+        setTimeout(() => {
+            this.writeValue(this.formEditUpload.get('dataFile').value);
+        }, 1000);
+    }
+
 
     uploadFile(item): void {
         if (item === 'UPLOAD_FILES_SHOW') {
@@ -107,6 +121,31 @@ export class MultimediaComponent  extends DefaultInput implements OnInit, OnDest
             this.uploadFiles = false;
             this.listFiles = true;
         }
+    }
+
+    editFile(items): void {
+        items?.forEach((element: any, i: number) => {
+            this.editFileGroup(element.id, false, null);
+        });
+    }
+
+    editFileGroup(id, stateDelete, filesUploads): void {
+        const itemsFile = this.formEditUpload.get('dataFile') as FormArray;
+        const data = this.formEditUpload.get('dataFile').value.filter((item: any) => item.id === id).map((item: any) => item.id);
+        if (data[0] !== id) {
+            itemsFile.push(this.formEditFile(id, stateDelete, filesUploads));
+        }
+        setTimeout(() => {
+            this.writeValue(this.formEditUpload.get('dataFile').value);
+        }, 1000);
+    }
+
+    formEditFile(id, stateDelete, filesUploads): FormGroup {
+        return this._formBuilder.group({
+            id: [id],
+            stateDelete: [stateDelete],
+            filesUploads: [filesUploads]
+        });
     }
 
     ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { DetailUploadComponent } from './detail-upload/detail-upload.component';
 import { CrmFormModule } from '../crm-form/crm-form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -43,6 +44,7 @@ import { MatButtonModule } from '@angular/material/button';
         MatButtonModule,
         MatTableModule,
         MatPaginatorModule,
+        MatCheckboxModule,
         MatSortModule,
         CrmFormModule,
         ReactiveFormsModule

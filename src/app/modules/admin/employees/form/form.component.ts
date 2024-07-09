@@ -31,7 +31,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     uploadProfile: boolean = true;
     showImage: boolean = true;
     validate: boolean = false;
-    checkUpload: any[] = [{profile: false, signature: false, files: false}];
+    filesUploadDelete: any[] = [];
+    checkUpload: any[] = [{ profile: false, signature: false, files: false }];
     date: any;
 
     formInit: FormGroup = this._formBuilder.group({
@@ -147,7 +148,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             birthCountry: form[0]?.birthCountry.id,
             user: form[0]?.user.id ? form[0]?.user.id : null
         });
-        this.imageProfile = form[0].profilePicture ?  this.urlImage(form[0]?.profilePicture.formats.thumbnail.url)  : null;
+        this.imageProfile = form[0].profilePicture ? this.urlImage(form[0]?.profilePicture.formats.thumbnail.url) : null;
         if (this.imageProfile) {
             this.uploadProfile = false;
         }
@@ -156,32 +157,33 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.filesCurrent = form[0]?.files ? form[0].files.map((items: any) => items.id) : [];
     }
 
-    urlImage(url: any): string{
-         return environment.urlApp+url;
+    urlImage(url: any): string {
+        return environment.urlApp + url;
     }
 
-    createUsername($event,type): void{
+    createUsername($event, type): void {
         const form = this.formInit.value;
         form.firstName = type === 'fn' ? $event.target.value : form.firstName;
         form.firstSurname = type === 'pa' ? $event.target.value : form.firstSurname;
-        form.secondSurname  = type === 'sa' ? $event.target.value : form.secondSurname;
-        const user = `${form.firstName.slice(0,2)}${form.firstSurname}${form.secondSurname.slice(0,1)}`;
-        this.formInit.patchValue({ username: user ? user : ''});
+        form.secondSurname = type === 'sa' ? $event.target.value : form.secondSurname;
+        const user = `${form.firstName.slice(0, 2)}${form.firstSurname}${form.secondSurname.slice(0, 1)}`;
+        this.formInit.patchValue({ username: user ? user : '' });
     }
 
     validateFilesUpload(data: any): any {
         const filesId = data.map((items: any) => items.id);
-        if(this.id){
+        if (this.id) {
             filesId.forEach((num: any) => this.filesCurrent.push(num));
-            const items = this.filesCurrent;
-        }else{
+            const validateDeleteItems = this.filesCurrent.filter((item: any) => !this.filesUploadDelete.includes(item));
+            const items = validateDeleteItems;
+        } else {
             const items = filesId.forEach((num: any) => this.filesCurrent.push(num));
         }
     }
 
     onSubmit(): void {
         const form = this.formInit.value;
-       if (this.formInit.invalid) {
+        if (this.formInit.invalid) {
             this.validate = true;
             return;
         }
@@ -190,48 +192,54 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     }
 
 
-    validateUser(): void{
+    validateUser(): void {
         const form = this.formInit.value;
-        const user: any = {username: '', email: '', password: '', role: 1};
+        const user: any = { username: this.formInit.value.username, email: this.formInit.value.email, password: '', role: 1 };
+        const userUpdate: any = { username: this.formInit.value.username, email: this.formInit.value.email };
         user.username = form.username;
         user.email = form.email;
         user.password = form.identificationNumber;
 
         let observable: Observable<Users>;
         if (form.user) {
-           observable = this.api.updateUsersService(this.formInit.value,form.user);
+            observable = this.api.updateUsersService(userUpdate, form.user);
         } else {
             observable = this.api.createUserService(user);
         }
         observable.subscribe({
             next: (item: any) => {
                 this.formInit.value.user = item.id;
-            },error: (e: any) => this.swaAlert.toastErrorUpdate()
+            }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
     }
 
 
     validateFiles(): any {
+        this.validDeleFile();
         const form = this.formInit.value;
-        if(!form.profilePictureUpload && !form.signatureUpload &&  !form.filesUpload){
+        if (this.formInit.value.filesUpload !== undefined && this.formInit.value.filesUpload !== null) {
+        const uploadFiles = form.filesUpload.filter((item: any) => item.id === null).map((item: any) => item.filesUploads);
+        if (!form.profilePictureUpload && !form.signatureUpload && !form.filesUpload) {
             this.formSave();
-        }else{
+        } else {
             if (form.profilePictureUpload) {
                 this.uploadSave(form.profilePictureUpload, 'profilePicture');
-            }else{
+            } else {
                 this.checkUpload[0].profile = true;
             }
             if (form.signatureUpload) {
                 this.uploadSave(form.signatureUpload, 'signature');
-            }else{
+            } else {
                 this.checkUpload[0].signature = true;
             }
-            if (form.filesUpload) {
-                this.uploadSave(form.filesUpload, 'files');
-            }else{
+            if (this.formInit.value.filesUpload && uploadFiles[0] !== undefined) {
+                console.log('para cargar :: ', uploadFiles[0]);
+                this.uploadSave(uploadFiles[0], 'files');
+            } else {
                 this.checkUpload[0].files = true;
             }
         }
+    }
     }
 
     uploadSave(file, type): void {
@@ -250,15 +258,16 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                         }
                         if (type === 'files') {
                             const filesId = data.map((items: any) => items.id);
-                            if(this.id){
+                            if (this.id) {
                                 filesId.forEach((id: any) => this.filesCurrent.push(id));
-                                form.files = this.filesCurrent;
-                            }else{
+                                const validateDeleteItems = this.filesCurrent.filter((item: any) => !this.filesUploadDelete.includes(item));
+                                form.files = validateDeleteItems;
+                            } else {
                                 form.files = filesId;
                             }
                             this.checkUpload[0].files = true;
                         }
-                        if(this.checkUpload[0].profile && this.checkUpload[0].signature &&  this.checkUpload[0].files){
+                        if (this.checkUpload[0].profile && this.checkUpload[0].signature && this.checkUpload[0].files) {
                             this.formSave();
                         }
                     }
@@ -267,10 +276,46 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
     }
 
+    validDeleFile(): void {
+        if (this.id) {
+            if (this.formInit.value.filesUpload !== undefined && this.formInit.value.filesUpload !== null) {
+                const uploadDelete = this.formInit.value.filesUpload.filter((item: any) => item.id !== null && item.stateDelete === true).map((item: any) => item.id);
+                console.log('cantidad eliminar ', uploadDelete.length);
+                console.log('uploadDelete :: ', uploadDelete);
+                if (uploadDelete.length > 0) {
+                    console.log('itemsCurrent validate  evidences :: ', this.filesItems);
+
+                    const vadidDeleteFile = this.filesItems.filter((item: any) => !uploadDelete.includes(item.id));
+                    console.log('vadidDeleteFile ', vadidDeleteFile);
+                    if (vadidDeleteFile) {
+                        this.formInit.value.evidences = vadidDeleteFile;
+                        this.filesUploadDelete = uploadDelete;
+                        //vadidDeleteFile.map((item: any) => item.id);
+                        console.log('0- filesUploadDelete::  ', this.filesUploadDelete);
+                        //console.log('upload uploadDelete :: ', uploadDelete);
+                        console.log('______valid itemsCurrent evidences  delete:: ', this.formInit.value.evidences);
+                        uploadDelete?.forEach((element: any) => {
+                            this.deleteUpload(element);
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    async deleteUpload(id: number): Promise<void> {
+        await this.api.deleteUploadService(id).subscribe({
+            next: (response) => { console.log('delete upload ', response); },
+            error: (e: any) => console.log(e)
+        });
+    }
+
+
     formSave(): void {
         let observable: Observable<Employee>;
         if (this.id) {
-            observable = this.api.updateEmployeeService(this.formInit.value,this.id);
+            console.log('update ');
+            observable = this.api.updateEmployeeService(this.formInit.value, this.id);
         } else {
             observable = this.api.createEmployeeService(this.formInit.value);
         }
@@ -279,8 +324,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                 const route = `/employees/edit/${item.data.id}`;
                 this.router.navigateByUrl(route);
                 const toast = this.swaAlert.toast();
-                toast.fire({ icon: 'success', title: 'Datos guardados correctamente' }).then((() => {}));
-            },error: (e: any) => this.swaAlert.toastErrorUpdate()
+                toast.fire({ icon: 'success', title: 'Datos guardados correctamente' }).then((() => { }));
+            }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
     }
 

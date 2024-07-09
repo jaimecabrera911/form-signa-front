@@ -96,7 +96,7 @@ export class ApiService {
 
     updateUsersService(data,id): Observable<Users> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
-        const url = `${environment.apiUrl}projects/${id}`;
+        const url = `${environment.apiUrl}users/${id}`;
         return this.http.put<Users>(url, data, {headers});
     }
 
@@ -418,10 +418,16 @@ export class ApiService {
         Upload                 |
     -------------------------*/
 
-    uploadService(data): Observable<Company> {
+    uploadService(data): Observable<any> {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}upload`;
-        return this.http.post<Company>(url, data, {headers});
+        return this.http.post<any>(url, data, {headers});
+    }
+
+    deleteUploadService(id): Observable<any>{
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}upload/files/${id}`;
+        return this.http.delete<any>(url,{headers});
     }
 
     /*-------------------------|
