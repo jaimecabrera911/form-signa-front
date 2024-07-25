@@ -4,13 +4,16 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
+import { AuthService } from 'app/security-auth/auth.service';
+import { LoginService } from 'app/services/login.service';
 
 @Component({
     selector       : 'user',
     templateUrl    : './user.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs       : 'user'
+    exportAs       : 'user',
+    styles: ['.menu-icon-user{top: 12px; right: 2.5rem !important; position: fixed}']
 })
 export class UserComponent implements OnInit, OnDestroy
 {
@@ -19,7 +22,9 @@ export class UserComponent implements OnInit, OnDestroy
     /* eslint-enable @typescript-eslint/naming-convention */
 
     @Input() showAvatar: boolean = true;
+    username: string;
     user: User;
+    avatar: 'assets/images/avatars/brian-hughes.jpg';
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -29,7 +34,8 @@ export class UserComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        private login: LoginService,
     )
     {
     }
@@ -43,15 +49,20 @@ export class UserComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to user changes
+        this.username = this.login.currentEmployeeValue ? this.login.currentEmployeeValue[0].fullName : 'Cargando' ;
+
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((user: User) => {
                 this.user = user;
-
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+    }
+
+    profile(): void
+    {   const id = this.login.currentEmployeeValue ? this.login.currentEmployeeValue[0].id : 0 ;
+        this._router.navigate(['/employees/edit/',id]);
     }
 
     /**
@@ -93,6 +104,6 @@ export class UserComponent implements OnInit, OnDestroy
      */
     signOut(): void
     {
-        this._router.navigate(['/sign-out']);
+        this._router.navigate(['/login/sign-out']);
     }
 }
