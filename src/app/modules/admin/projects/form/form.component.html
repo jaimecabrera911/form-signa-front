@@ -9,14 +9,17 @@
                         <app-input-date label="Fecha creación" formControlName="startDate" [required]="formInit.controls['startDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
                         <app-input-date label="Fecha finalización" formControlName="endDate" [required]="formInit.controls['endDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
                         <app-input-select label="Ubicación geografica" [options]="elementsCities" formControlName="city" [required]="formInit.controls['endDate'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                        <app-input-select label="Nombre del responsable" [options]="elementsEmployees" formControlName="user" [required]="formInit.controls['user'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                        <app-input-select label="Nombre del responsable" [options]="elementsEmployees" formControlName="employee" [required]="formInit.controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                         <app-input-text label="Descripción" formControlName="description" [required]="formInit.controls['description'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                        <app-input-select label="Estado" [options]="elementsStateProject" formControlName="state" [required]="formInit.controls['state'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                     </div>
+                    <!--
                     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-9 w-full">
                         <div class="flex flex-col flex-auto">
-                            <app-input-radio label="Selecciona el estado" [options]="elementsStateProject" formControlName="state" [required]="formInit.controls['state'].hasError('required')" [validateFormSumt]="validate"></app-input-radio>
+                            <app-input-radio label="Selecciona el estado" [options]="elementsStateProject" formControlName="state" [validateFormSumt]="validate"></app-input-radio>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
             <div class="pl-10">

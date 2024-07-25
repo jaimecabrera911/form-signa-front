@@ -20,7 +20,7 @@ export class IndexComponent  implements OnInit {
         { name: 'startDate', name2: false, styleEnable:false, label: 'Fecha creación' },
         { name: 'endDate', name2: false, styleEnable:false, label: 'Fecha finalización' },
         { name: 'city', name2: 'name', styleEnable:false, label: 'Ubicación' },
-        { name: 'user', name2: 'username', styleEnable:false, label: 'Responsable' },
+        { name: 'employee', name2: 'username', styleEnable:false, label: 'Responsable' },
         { name: 'state', name2: 'name', styleEnable:false, label: 'Estado', styles: [
                 { label: 'En Ejecucion', textColor: '#A229CC', backgroundColor: '#F0D7F9' },
                 { label: 'Por iniciar', textColor: '#0F4EC9', backgroundColor: '#AAC1FE' },

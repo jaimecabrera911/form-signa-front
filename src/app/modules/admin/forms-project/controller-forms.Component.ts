@@ -125,9 +125,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             return;
         }
         this.validDeleFile();
-        const uploadFiles = this.formInit.value.filesUpload.filter((item: any) => item.id === null).map((item: any) => item.filesUploads);
-        if (this.formInit.value.filesUpload && uploadFiles[0] !== undefined) {
-            this.uploadSave(uploadFiles[0]);
+        const uploadFiles = this.formInit.value.filesUpload?.filter((item: any) => item.id === null).map((item: any) => item.filesUploads ? item.filesUploads : null);
+        if (this.formInit.value.filesUpload) {
+            if(uploadFiles[0] !== undefined){
+                this.uploadSave(uploadFiles[0]);
+            }
         } else {
             this.formSave();
         }
@@ -281,11 +283,12 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (validIdEmp[0] === undefined || !validIdEmp[0]) {
             await this.api.createAssistantService(request).subscribe({
                 next: (response) => {
-                    const toast = this.swaAlert.toast();
-                    toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
-                        location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;
-                    }));
-
+                    if(response){
+                        const toast = this.swaAlert.toast();
+                        toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
+                            location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;
+                        }));
+                    }
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }

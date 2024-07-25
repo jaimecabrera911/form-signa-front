@@ -24,7 +24,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     validate: boolean = false;
 
     formInit: any = this._formBuilder.group({
-        identificationType: new FormControl('', [Validators.required]),
+        identificationType: new FormControl(2, [Validators.required]),
         identificationNumber: new FormControl('', [Validators.required]),
         legalRepresentative: new FormControl('', [Validators.required]),
         regime: new FormControl('', [Validators.required]),
@@ -65,22 +65,21 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     setFormCompanies(form): void {
         this.formInit.patchValue({
-            identificationNumber: form[0].identificationNumber,
-            name: form[0].name,
-            legalRepresentative: form[0].legalRepresentative,
-            email: form[0].email,
-            webSite: form[0].webSite,
-            phone: form[0].phone,
-            address: form[0].address,
-            regime: form[0].regime.id,
-            city: form[0].city.id,
-            employees: form[0].employees.id,
-            workspaces: form[0].workspaces.id
+            identificationNumber: form[0]?.identificationNumber,
+            name: form[0]?.name,
+            legalRepresentative: form[0]?.legalRepresentative,
+            email: form[0]?.email,
+            webSite: form[0]?.webSite,
+            phone: form[0]?.phone,
+            address: form[0]?.address,
+            regime: form[0]?.regime?.id,
+            city: form[0]?.city?.id,
+            employees: form[0]?.employees?.id,
+            workspaces: form[0]?.workspaces?.id
         });
     }
 
     onSubmit(): void {
-        const data = this.formInit.value;
         if (this.formInit.invalid) {
             this.validate = true;
             return;

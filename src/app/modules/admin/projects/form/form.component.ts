@@ -6,6 +6,7 @@ import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-item
 import { Path } from 'app/components/routers/path';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
     selector: 'app-form',
@@ -23,6 +24,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     validate: boolean = false;
 
     formInit: any = this._formBuilder.group({
+        uid: new FormControl(),
         code: new FormControl(),
         name: new FormControl('', [Validators.required]),
         description: new FormControl(),
@@ -30,7 +32,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         startDate: new FormControl(),
         endDate: new FormControl(),
         company: new FormControl(1),
-        user: new FormControl(1),
+        employee: new FormControl(),
         state: new FormControl('')
     });
 
@@ -64,15 +66,16 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     setFormProjects(form): void {
         this.formInit.patchValue({
-            code: form[0].code,
-            name: form[0].name,
-            description: form[0].description,
-            startDate: form[0].startDate,
-            endDate: form[0].endDate,
-            city: form[0].city.id,
-            company: form[0].company.id,
-            user: form[0].user.id,
-            state: form[0].state.id
+            uid: form[0]?.uid,
+            code: form[0]?.code,
+            name: form[0]?.name,
+            description: form[0]?.description,
+            startDate: form[0]?.startDate,
+            endDate: form[0]?.endDate,
+            city: form[0]?.city?.id,
+            company: form[0]?.company?.id,
+            employee: form[0]?.employee?.id,
+            state: form[0]?.state?.id
         });
     }
 
@@ -88,8 +91,10 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     formSave(): void {
         let observable: Observable<any>;
         if (this.id) {
+            this.formInit.value.uid = this.formInit.value.uid;
             observable = this.api.updateProjectService(this.formInit.value,this.id);
         } else {
+            this.formInit.value.uid = uuidv4();
             observable = this.api.createProjectService(this.formInit.value);
         }
         observable.subscribe({

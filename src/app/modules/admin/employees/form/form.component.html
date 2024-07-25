@@ -14,7 +14,7 @@
                                         </a>
                                     </div>
                                     <div *ngIf="imageProfile && showImage">
-                                        <img [src]="imageProfile" class="h-60 max-auto rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
+                                        <img [src]="imageProfile" class="h-60 w-56 rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800">
                                     </div>
                                     <div *ngIf="imageProfile && showImage" class="flex flex-wrap">
                                         <a class="mt-1 px-6 ml-2" mat-button mat-flat-button [color]="'primary'" (click)="uploadProfile=true;showImage=false;">
@@ -24,14 +24,14 @@
                                 </div>
                                 <div class="flex flex-col flex-auto">
                                     <div class="flex flex-col flex-auto">
-                                        <app-input-text label="Primer nombre" formControlName="firstName" (keyup)="createUsername($event,'fn')" [required]="formInit.controls['firstName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-text label="Primer nombre" formControlName="firstName" (keyup)="createUsername($event,'fn'); " [required]="formInit.controls['firstName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                         <app-input-text label="Segundo nombre" formControlName="secondName" [required]="formInit.controls['secondName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                        <app-input-text label="Primer apellido" formControlName="firstSurname" (keyup)="createUsername($event,'pa')" [required]="formInit.controls['firstSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                        <app-input-text label="Primer apellido" formControlName="firstSurname" (keyup)="createUsername($event,'pa');" [required]="formInit.controls['firstSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                     </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
-                                <app-input-text label="Segundo apellido" formControlName="secondSurname" (keyup)="createUsername($event,'sa')" [required]="formInit.controls['secondSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Segundo apellido" formControlName="secondSurname" (keyup)="createUsername($event,'sa');" [required]="formInit.controls['secondSurname'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 <app-input-select label="Tipo identificación" [options]="elementsIdentificationTypes" formControlName="identificationType" [required]="formInit.controls['identificationType'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                                 <app-input-text label="Número identificación" formControlName="identificationNumber" [required]="formInit.controls['identificationNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 <app-input-birth-date label="Fecha de nacimiento" formControlName="birthdate" [required]="formInit.controls['birthdate'].hasError('required')" [validateFormSumt]="validate"></app-input-birth-date>
@@ -53,7 +53,8 @@
                                 <app-input-date label="Fecha de ingreso" formControlName="dateAdmission" [required]="formInit.controls['dateAdmission'].hasError('required')" maxInputDate="{{ formInit.value.withdrawalDate ? formInit.value.withdrawalDate : '' }}" [validateFormSumt]="validate"></app-input-date>
                                 <app-input-date label="Fecha de retiro" formControlName="withdrawalDate" [required]="formInit.controls['withdrawalDate'].hasError('required')" minInputDate="{{ formInit.value.dateAdmission ? formInit.value.dateAdmission : '' }}" [validateFormSumt]="validate"></app-input-date>
                                 <app-input-email label="Email" formControlName="email" [required]="formInit.controls['email'].hasError('required')" [validateFormSumt]="validate"></app-input-email>
-                                <app-input-text label="usuario" formControlName="username" [required]="formInit.controls['username'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Usuario" formControlName="username" [required]="formInit.controls['username'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-bool label="Aprobador" formControlName="isManager" [required]="formInit.controls['isManager'].hasError('required')" [validateFormSumt]="validate"></app-input-bool>
                             </div>
                         </div>
                     </div>
