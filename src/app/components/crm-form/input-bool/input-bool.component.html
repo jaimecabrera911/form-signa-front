@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-auto">
-    <mat-slide-toggle [color]="'primary'" [checked]="value"  [disabled]="disabled" (change)="onChangeCheckbox($event)"
-                      class="example-margin">{{ label }}
+    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+    <mat-slide-toggle [color]="'primary'" [checked]="value" [disabled]="disabled" (change)="onChangeCheckbox($event)" class="example-margin">{{ label }}
     </mat-slide-toggle>
 </div>

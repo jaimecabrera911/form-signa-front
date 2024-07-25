@@ -43,7 +43,6 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         this.getStartTime();
         this.getNumberPeopleAttending();
         this.getEmployees();
-        console.log('trainingApproval:: ',this.formInit.value.trainingApproval);
     }
 
     validateForm(): void{

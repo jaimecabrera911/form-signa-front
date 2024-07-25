@@ -2,14 +2,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, ViewChild, ContentChildren, AfterViewInit, forwardRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { DefaultInput } from 'app/components/crm-form/default-input';
 import { Functions } from 'app/components/functions/functions';
 import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-approval',
@@ -25,15 +21,8 @@ import { Observable } from 'rxjs';
 })
 export class ApprovalComponent extends DefaultInput implements AfterViewInit, OnInit {
 
-    //@ViewChild(MatPaginator) paginator: MatPaginator;
-    //@ViewChild(MatSort) sort: MatSort;
-
-    //@Input() data?: Observable<any>;
     @Input() selectedItems?: any[];
     @Input() formId?: number;
-    //@Input() typeTable?: string;
-    //@Input() colums?: any[];
-    //@Input() placeHolderSearch?: string;
     approvalsForm: any = [];
     elements: any = [];
     itemsAutoComplte: any = [];
@@ -47,14 +36,6 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     formApproval: FormGroup = new FormGroup({
         data: this._formBuilder.array([])
     });
-
-    /*
-        displayedColumns: string[] = [];
-        dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-        background: string = '#748EB8';
-        color: string = '#FFFFFF';
-        pageSizeOptions = [5, 10, 15, 20, 50, 100];
-        */
 
     itemsAprv!: FormArray;
     function: any = new Functions();
@@ -96,8 +77,6 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
 
     ngAfterViewInit(): void {
-        //this.getItemsTable();
-        //this.getColumnsTable();
     }
 
     ngOnInit(): void {
@@ -112,7 +91,7 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
                     this.elements = this.function.validateResponse(elements.data);
                     this.elements.forEach((item: any) => { item.enabled ? item.enabled = 'Activo' : item.enabled = 'Inactivo'; });
                     this.selectAutocomplte(this.elements);
-                    if(this.formId){
+                    if (this.formId) {
                         this.getApprovalsId();
                     }
                 }
@@ -133,7 +112,6 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
                                 item.employee.firstSurname, item.employee.secondSurname)
                         });
                     });
-                    //console.log('response.data ',response.data);
                     this.approvalsItems = [...itemsSelect];
                     if (this.approvalsItems) {
                         this.formInit.value.selectAutoComplete = this.approvalsItems;
@@ -172,7 +150,6 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         if (!data[0]) {
             this.itemsAprv.push(this.formData(empId, empName));
         }
-        //console.log('filter ',this.formApproval.get('data').value);
         this.addFormValue();
     }
 
@@ -183,90 +160,44 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     deleteDataGroup(): void {
         const idSelect = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
         const filterDelete = this.formApproval.get('data').value.filter((item: any) => !idSelect.includes(item.employee)).map((item: any) => item.employee);
-        //console.log('this.approvalsItems ',this.approvalsItems);
         const filterEditDelete = this.approvalsItems.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
-        //console.log('filterEditDelete ',filterEditDelete);
-        //console.log('result filterEditDelete ',filterEditDelete[0]);
-        //if(!filterEditDelete[0] || filterEditDelete[0] === undefined){
-            if (filterDelete[0] || filterDelete[0] !== undefined) {
-                const index = this.formApproval.get('data').value.findIndex(item => item.employee === filterDelete[0]);
-                const add = this.formApproval.get('data') as FormArray;
-                add.removeAt(index);
-            }
-        //}
+        if (filterDelete[0] || filterDelete[0] !== undefined) {
+            const index = this.formApproval.get('data').value.findIndex(item => item.employee === filterDelete[0]);
+            const add = this.formApproval.get('data') as FormArray;
+            add.removeAt(index);
+        }
     }
 
     asignar(): void {
-        //console.log('this.formInit.value.selectAutoComplete ',this.formInit.value.selectAutoComplete);
-        //if (this.formInit.value.selectAutoComplete) {
-            this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
-                this.addDataGroup(element.id, element.name);
-            });
-        //}
+        this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
+            this.addDataGroup(element.id, element.name);
+        });
     }
 
     editarAsignar(items): void {
-        //console.log('asignar ',items);
         items.forEach((element: any, i: number) => {
-                this.editDataGroup(element.id,element.employee.id,
-                    this.function.setNameEmployee(element.employee.firstName, element.employee.secondName,
-                        element.employee.firstSurname, element.employee.secondSurname),
-                    element.state, element.reason, element.observations, element.createdAt);
-            });
-        //console.log('formApproval ',this.formApproval.get('data').value);
+            this.editDataGroup(element.id, element.employee.id,
+                this.function.setNameEmployee(element.employee.firstName, element.employee.secondName,
+                    element.employee.firstSurname, element.employee.secondSurname),
+                element.state, element.reason, element.observations, element.createdAt);
+        });
     }
 
-    editDataGroup(id, empId, empName, state, reason, observations, createdAt): void{
+    editDataGroup(id, empId, empName, state, reason, observations, createdAt): void {
         const itemsAprv = this.formApproval.get('data') as FormArray;
-        //console.log(id,' _ ',empId,' _ ',empName,' _ ',state,' _ ',reason,' _ ',observations);
-        itemsAprv.push(this.formEditData(id,empId, empName, state, reason, observations, createdAt));
+        itemsAprv.push(this.formEditData(id, empId, empName, state, reason, observations, createdAt));
     }
 
-    formEditData(id,empId, empName, state, reason, observations, createdAt): FormGroup {
+    formEditData(id, empId, empName, state, reason, observations, createdAt): FormGroup {
         return this._formBuilder.group({
             id: [id],
             employee: [empId],
             employeeName: [{ value: empName, disabled: true }],
             state: [state],
             reason: [reason],
-            createdAt: [{ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true}],
+            createdAt: [{ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }],
             observations: [observations]
         });
     }
-
-
-    /*
-    validateTable(items): void {
-        this.configurationTable([]);
-        this.selectAutocomplte(items);
-    }
-
-    configurationTable(data): void {
-        this.dataSource = new MatTableDataSource<any>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }*/
-
-
-    /*
-    onSubmit(): void {
-        if (this.formInit.value.selectAutoComplete) {
-            this.addItemsTable(this.formInit.value.selectAutoComplete);
-            const idEmployees = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
-        }
-    }*/
-
-    /*
-    addItemsTable(items): void {
-        const employeeId = items.map((item: any) => item.id);
-        const itemsSeleted = this.elements.filter(item => employeeId.includes(item.id));
-        this.configurationTable(itemsSeleted);
-    }
-
-    getColumnsTable(): void {
-        for (const val of this.colums) {
-            this.displayedColumns.push(val.name);
-        }
-    }*/
 
 }

@@ -14,4 +14,20 @@ export class Functions{
         ));
     }
 
+    validateDate(date): void{
+        return date ? date : null;
+    }
+
+    validateList(item): void{
+        return item ? item : null;
+    }
+
+    validateBoolean(item): void{
+        return item === null ? false : item;
+    }
+
+    validateSelect(item): void{
+        return item ? item : null;
+    }
+
 }

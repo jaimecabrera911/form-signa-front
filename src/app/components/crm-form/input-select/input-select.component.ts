@@ -21,8 +21,6 @@ export interface Option {
     ]
 })
 export class InputSelectComponent extends DefaultInput implements OnInit, ControlValueAccessor {
-    //@Input() crmField: any;
-    //options: Option[] = [];
     @Input() options: any;
 
     constructor() {
