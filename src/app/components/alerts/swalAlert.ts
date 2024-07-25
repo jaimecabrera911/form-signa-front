@@ -59,4 +59,11 @@ export class SwalAlert {
             icon: 'error', title: 'Hubo un problema, intenta nuevamente'
         });
     }
+
+    toastErrorUser(): any {
+        const toast = this.toast();
+        return toast.fire({
+            icon: 'error', title: 'Hay un usuario con el mismo nombre'
+        });
+    }
 }

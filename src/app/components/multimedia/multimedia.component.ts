@@ -62,9 +62,9 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
 
     async ngOnInit(): Promise<void> {
         this.changeDetectorRef.detectChanges();
-        this.onLoadFiles();
         setTimeout(() => {
             this.itemsList = false;
+            this.onLoadFiles();
         }, 9900);
     }
 
@@ -104,7 +104,6 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
     }
 
     addItem(id): void {
-        console.log('id ', id);
         setTimeout(() => {
             this.writeValue(this.formEditUpload.get('dataFile').value);
         }, 1000);
