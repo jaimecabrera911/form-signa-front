@@ -25,26 +25,14 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    /*----------------  Tables  ----------------*/
 
-    getParams(
-        params: Map<string, string>,
-        page: number,
-        size: number,
-        sortBy: string,
-        direction: string
-    ): HttpParams {
-        let httpParams = new HttpParams()
-            .set('page', page)
-            .set('size', size)
-            .set('sort', sortBy)
-            .set('direction', direction);
-        // tslint:disable-next-line:only-arrow-functions
-        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-        params.forEach(function(value, key) {
-            httpParams = httpParams.set(key, value);
-        });
-        return httpParams;
+    /*-----------------------|
+        Auth                 |
+    ------------------------*/
+
+    login(identifier: string, password: string): Observable<any> {
+        const url = `${environment.apiUrl}auth/local`;
+        return this.http.post<any>(url, { identifier, password });
     }
 
 
@@ -54,28 +42,28 @@ export class ApiService {
      -------------------------*/
 
     projectService(id: number): Observable<Project> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}projects?populate=%2A&filters%5Bcompany%5D[id]=${id}`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     projectIdService(id: number): Observable<Project> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const filetrs = 'city%2Ccompany%2Cuser%2Cstate&filters%5Bid%5D';
         const url = `${environment.apiUrl}projects?populate=${filetrs}=${id}`;
-        return this.http.get<Project>(url,{headers});
+        return this.http.get<Project>(url);
     }
 
     createProjectService(data): Observable<Project> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}projects`;
-        return this.http.post<Project>(url, data, {headers});
+        return this.http.post<Project>(url, data);
     }
 
     updateProjectService(data,id): Observable<Project> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}projects/${id}`;
-        return this.http.put<Project>(url, data, {headers});
+        return this.http.put<Project>(url, data);
     }
 
     /*-------------------------|
@@ -83,21 +71,21 @@ export class ApiService {
     --------------------------*/
 
     createUserService(data: any): Observable<Users> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}users`;
-        return this.http.post<Users>(url, data, {headers});
+        return this.http.post<Users>(url, data);
     }
 
     userIdService(id: number): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}users=${id}`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     updateUsersService(data,id): Observable<Users> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}users/${id}`;
-        return this.http.put<Users>(url, data, {headers});
+        return this.http.put<Users>(url, data);
     }
 
 
@@ -106,39 +94,45 @@ export class ApiService {
     --------------------------*/
 
     employeesService(): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<Employee>(url,{headers});
+        return this.http.get<Employee>(url);
+    }
+
+    employeUsernameService(user: string): Observable<Employee> {
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}employees?populate=profilePicture%2Ccompany%2Cuser%2Csignature&filters%5Busername%5D=${user}`;
+        return this.http.get<Employee>(url);
     }
 
     employeesActiveService(): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees?populate=%2A&filters%5Benabled%5D=true&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<Employee>(url,{headers});
+        return this.http.get<Employee>(url);
     }
 
     employeesManagerService(): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees?populate=%2A&filters%5BisManager%5D=true&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<Employee>(url,{headers});
+        return this.http.get<Employee>(url);
     }
 
     employeIdService(id: number): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bid%5D=${id}&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<Employee>(url,{headers});
+        return this.http.get<Employee>(url);
     }
 
     createEmployeeService(data): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees`;
-        return this.http.post<Employee>(url, data, {headers});
+        return this.http.post<Employee>(url, data);
     }
 
     updateEmployeeService(data,id): Observable<Employee> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}employees/${id}`;
-        return this.http.put<Employee>(url, data, {headers});
+        return this.http.put<Employee>(url, data);
     }
 
     /*-------------------------|
@@ -146,28 +140,28 @@ export class ApiService {
     -------------------------*/
 
     companyService(): Observable<Company> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies`;
-        return this.http.get<Company>(url,{headers});
+        return this.http.get<Company>(url);
     }
 
     companyIdService(id: number): Observable<Company> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const filetrs = 'regime%2Ccity%2Cprojacts%2Cemployees%2Cpositions%2Cworkspaces&filters%5Bid%5D';
         const url = `${environment.apiUrl}companies?populate=${filetrs}=${id}`;
-        return this.http.get<Company>(url,{headers});
+        return this.http.get<Company>(url);
     }
 
     createCompanyService(data): Observable<Company> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies`;
-        return this.http.post<Company>(url, data, {headers});
+        return this.http.post<Company>(url, data);
     }
 
     updateCompanyService(data,id): Observable<Company> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}companies/${id}`;
-        return this.http.put<Company>(url, data, {headers});
+        return this.http.put<Company>(url, data);
     }
 
     /*-------------------------|
@@ -175,27 +169,27 @@ export class ApiService {
     -------------------------*/
 
     formsService(): Observable<Form> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     formIdService(id): Observable<Form> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bid%5D=${id}`;
-        return this.http.get<Form>(url,{headers});
+        return this.http.get<Form>(url);
     }
 
     createFormSevice(data): Observable<Form> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms`;
-        return this.http.post<Form>(url, data, {headers});
+        return this.http.post<Form>(url, data);
     }
 
     updateFormService(data,id): Observable<Form> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms/${id}`;
-        return this.http.put<Form>(url, data, {headers});
+        return this.http.put<Form>(url, data);
     }
 
      /*-------------------------|
@@ -203,16 +197,16 @@ export class ApiService {
     -------------------------*/
 
     templatesFormService(id: number): Observable<Template> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const filetrs = 'company%2Cimage&filters%5Bcompany%5D[id]';
         const url = `${environment.apiUrl}form-templates?populate=${filetrs}=${id}`;
-        return this.http.get<Template>(url,{headers});
+        return this.http.get<Template>(url);
     }
 
     templatesIdService(code: string): Observable<Template> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}form-templates?filters%5Bcode%5D=${code}`;
-        return this.http.get<Template>(url,{headers});
+        return this.http.get<Template>(url);
     }
 
     /*-------------------------|
@@ -220,39 +214,39 @@ export class ApiService {
     -------------------------*/
 
     assistantIdService(id): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bid%5D=${id}`;
-        return this.http.get<Assistants>(url,{headers});
+        return this.http.get<Assistants>(url);
     }
 
     assistantFormEmpService(form, employee): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${form}&filters%5Bemployee%5D=${employee}`;
-        return this.http.get<Assistants>(url,{headers});
+        return this.http.get<Assistants>(url);
     }
 
     assistantFormService(id): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${id}`;
-        return this.http.get<Assistants>(url,{headers});
+        return this.http.get<Assistants>(url);
     }
 
     createAssistantService(data): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants`;
-        return this.http.post<Assistants>(url,data, {headers});
+        return this.http.post<Assistants>(url,data);
     }
 
     updateAssitantService(data,id): Observable<Assistants> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants/${id}`;
-        return this.http.put<Assistants>(url, data, {headers});
+        return this.http.put<Assistants>(url, data);
     }
 
     deleteAssitantService(id): Observable<Assistants>{
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}assistants/${id}`;
-        return this.http.delete<Assistants>(url,{headers});
+        return this.http.delete<Assistants>(url);
     }
 
     /*-------------------------|
@@ -260,27 +254,27 @@ export class ApiService {
     -------------------------*/
 
     createApprovalService(data): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}approvals`;
-        return this.http.post<any>(url,data, {headers});
+        return this.http.post<any>(url,data);
     }
 
     approvalFormService(id): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}approvals?populate=%2A&filters%5Bform%5D=${id}`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     updateApprovalService(data,id): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}approvals/${id}`;
-        return this.http.put<any>(url, data, {headers});
+        return this.http.put<any>(url, data);
     }
 
     deleteApprovalService(id): Observable<any>{
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}approvals/${id}`;
-        return this.http.delete<any>(url,{headers});
+        return this.http.delete<any>(url);
     }
 
 
@@ -289,9 +283,9 @@ export class ApiService {
     -------------------------*/
 
     citiesService(): Observable<City> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}cities`;
-        return this.http.get<City>(url,{headers});
+        return this.http.get<City>(url);
     }
 
     /*-------------------------|
@@ -299,9 +293,9 @@ export class ApiService {
     -------------------------*/
 
     departmentService(): Observable<Department> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}departments`;
-        return this.http.get<Department>(url,{headers});
+        return this.http.get<Department>(url);
     }
 
     /*-------------------------|
@@ -309,9 +303,9 @@ export class ApiService {
     -------------------------*/
 
     countriesService(): Observable<Country> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}countries`;
-        return this.http.get<Country>(url,{headers});
+        return this.http.get<Country>(url);
     }
 
     /*-------------------------|
@@ -319,9 +313,9 @@ export class ApiService {
     --------------------------*/
 
     identificationTypesService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}identification-types`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     /*-------------------------|
@@ -329,9 +323,9 @@ export class ApiService {
     --------------------------*/
 
     regimesService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}regimes`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     /*-------------------------|
@@ -339,9 +333,9 @@ export class ApiService {
     --------------------------*/
 
     pensionService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}pensions`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     /*-------------------------|
@@ -349,9 +343,9 @@ export class ApiService {
     --------------------------*/
 
     healthcareProviderService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}healthcare-providers`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -359,9 +353,9 @@ export class ApiService {
     --------------------------*/
 
     occupationRiskManagerService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}occupation-risk-managers`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -369,9 +363,9 @@ export class ApiService {
     --------------------------*/
 
     compensationFundService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}compensation-funds`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -379,9 +373,9 @@ export class ApiService {
     --------------------------*/
 
     workspaceService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}workspaces`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -389,9 +383,9 @@ export class ApiService {
     --------------------------*/
 
     positionService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}positions`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -399,9 +393,9 @@ export class ApiService {
     --------------------------*/
 
     gendersService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}genders`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
      /*-------------------------|
@@ -409,9 +403,9 @@ export class ApiService {
     --------------------------*/
 
     stateProjectService(): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}state-projects`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
     /*-------------------------|
@@ -419,15 +413,15 @@ export class ApiService {
     -------------------------*/
 
     uploadService(data): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}upload`;
-        return this.http.post<any>(url, data, {headers});
+        return this.http.post<any>(url, data);
     }
 
     deleteUploadService(id): Observable<any>{
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}upload/files/${id}`;
-        return this.http.delete<any>(url,{headers});
+        return this.http.delete<any>(url);
     }
 
     /*-------------------------|
@@ -436,9 +430,9 @@ export class ApiService {
 
 
     dataFieldService(name: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}data-fields?filters%5Bname%5D=${name}`;
-        return this.http.get<any>(url,{headers});
+        return this.http.get<any>(url);
     }
 
 }

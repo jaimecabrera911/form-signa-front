@@ -6,7 +6,7 @@
             <!--<app-logo-app sizeImage="28"></app-logo-app>-->
         </div>
         <div class="w-full sm:w-auto py-8 px-4 sm:p-12 md:p-16">
-            <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <div class="w-full mt-36  max-w-80 sm:w-80 mx-auto sm:mx-0">
                 <!-- Title -->
                 <div class="text-4xl font-extrabold tracking-tight leading-tight">¡Bienvenido!</div>
                 <!-- Alert -->
@@ -15,9 +15,10 @@
                 </fuse-alert>
 
                 <!-- Sign in form -->
-                <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+                <form class="mt-14 mb-14" [formGroup]="signInForm" #signInNgForm="ngForm">
 
                     <!-- Compañia -->
+                    <!--
                     <label>Compañia</label>
                     <mat-form-field class="w-full">
                         <mat-select [formControlName]="'company'">
@@ -29,16 +30,14 @@
                             company is required
                         </mat-error>
                     </mat-form-field>
+                    -->
 
                     <!-- Email field -->
                     <label>Usuario</label>
                     <mat-form-field class="w-full">
-                        <input id="email" matInput [formControlName]="'email'">
-                        <mat-error *ngIf="signInForm.get('email').hasError('required')">
-                            Email address is required
-                        </mat-error>
-                        <mat-error *ngIf="signInForm.get('email').hasError('email')">
-                            Please enter a valid email address
+                        <input id="email" matInput [formControlName]="'identifier'">
+                        <mat-error *ngIf="signInForm.get('identifier').hasError('required')">
+                            Usuario es Obligatorio
                         </mat-error>
                     </mat-form-field>
 
@@ -56,19 +55,21 @@
                                 [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                         </button>
                         <mat-error>
-                            Password is required
+                            Contraseña es obligatoria
                         </mat-error>
                     </mat-form-field>
 
                     <!-- Actions -->
+                    <!---
                     <div class="inline-flex items-end justify-between w-full mt-1.5">
 
                         <a class="text-md font-medium text-primary-500 hover:underline" [routerLink]="['/forgot-password']">olvide contraseña
                         </a>
                     </div>
+                   -->
 
                     <!-- Submit button -->
-                    <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
+                    <button class="fuse-mat-button-large place-content-center text-xl w-full mt-6" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
                         <span *ngIf="!signInForm.disabled">
                             Iniciar sesión
                         </span>

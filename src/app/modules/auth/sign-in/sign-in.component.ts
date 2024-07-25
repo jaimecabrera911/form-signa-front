@@ -3,10 +3,12 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+//import { AuthService } from 'app/core/auth/auth.service';
+import { AuthService } from '../../../security-auth/auth.service';
 import { ApiService } from 'app/services/api.service';
 
 import { Observable } from 'rxjs';
+import { LoginService } from 'app/services/login.service';
 
 @Component({
     selector: 'auth-sign-in',
@@ -31,9 +33,11 @@ export class AuthSignInComponent implements OnInit {
      */
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _authService: AuthService,
+        //private _authService: AuthService,
+        private authService: AuthService,
         private _formBuilder: FormBuilder,
         private _router: Router,
+        private _login: LoginService,
         protected api: ApiService,
     ) {
     }
@@ -47,10 +51,9 @@ export class AuthSignInComponent implements OnInit {
      */
     ngOnInit(): void {
         // Create the form
-        this.getCompanies();
+        //this.getCompanies();
         this.signInForm = this._formBuilder.group({
-            company: ['', [Validators.required]],
-            email: ['', [Validators.required, Validators.email]],
+            identifier: ['', [Validators.required]],
             password: ['', Validators.required],
             rememberMe: ['']
         });
@@ -60,7 +63,7 @@ export class AuthSignInComponent implements OnInit {
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-    getCompanies(): void {
+    /*getCompanies(): void {
         this.api.companyService().subscribe({
             next: (data: any) => {
 
@@ -68,53 +71,43 @@ export class AuthSignInComponent implements OnInit {
             },
             error: (e: any) => console.error(e)
         });
-    }
+    }*/
 
     /**
      * Sign in
      */
     signIn(): void {
-        // Return if the form is invalid
+        const data = this.signInForm.value;
         if (this.signInForm.invalid) {
             return;
         }
-
-        // Disable the form
         this.signInForm.disable();
-
-        // Hide the alert
         this.showAlert = false;
-
-        // Sign in
-        this._authService.signIn(this.signInForm.value)
+        this.api.login(data.identifier, data.password)
             .subscribe({
                 next: (response: any) => {
-
-                    // Set the redirect url.
-                    // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-                    // to the correct page after a successful sign in. This way, that url can be set via
-                    // routing file and we don't have to touch here.
-                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-
-                    // Navigate to the redirect url
-                    this._router.navigateByUrl(redirectURL);
-
-
-                    // Re-enable the form
-                    this.signInForm.enable();
-
-                    // Reset the form
-                    this.signInNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type: 'error',
-                        message: 'Wrong email or password'
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                },error: (e: any) => console.error(e)
+                    this.signinSuccess(response);
+                }, error: (error: any) => this.signInError(error)
             });
+    }
+
+    /**
+     *  Sign Success
+     */
+    signinSuccess(success: any): void {
+        this._login.loginSuccess(success);
+        this.alert = { type: 'success', message: 'Usuario verificado' };
+        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('/');
+        this._router.navigateByUrl(redirectURL);
+    }
+
+    /**
+     * Sign ErrorItem
+     */
+    signInError(error: any): void {
+        this.signInForm.enable();
+        this.signInNgForm.resetForm();
+        this.alert = { type: 'error', message: 'Correo o contraseña equivocada' };
+        this.showAlert = true;
     }
 }
