@@ -1,5 +1,8 @@
-<div class="flex flex-col flex-auto">
-    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
-    <mat-slide-toggle [color]="'primary'" [checked]="value" [disabled]="disabled" (change)="onChangeCheckbox($event)" class="example-margin">{{ label }}
-    </mat-slide-toggle>
+<div class="flex flex-col flex-auto pl-10">
+    <div class="content-center w-full" class="mt-1">
+        <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
+        <div class="mt-3"></div>
+        <mat-slide-toggle [color]="'primary'" [checked]="value" [disabled]="disabled" (change)="onChangeCheckbox($event)" class="example-margin">
+        </mat-slide-toggle>
+    </div>
 </div>

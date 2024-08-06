@@ -105,11 +105,10 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
             this.api.approvalFormService(this.formId).subscribe({
                 next: (response: any) => {
                     this.approvalsForm = response.data;
-                    response.data.forEach((item: any) => {
+                    response?.data?.forEach((item: any) => {
                         itemsSelect.push({
-                            id: item.employee.id,
-                            name: this.function.setNameEmployee(item.employee.firstName, item.employee.secondName,
-                                item.employee.firstSurname, item.employee.secondSurname)
+                            id: item?.employee?.id,
+                            name: item?.employee?.fullName
                         });
                     });
                     this.approvalsItems = [...itemsSelect];
@@ -177,8 +176,7 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     editarAsignar(items): void {
         items.forEach((element: any, i: number) => {
             this.editDataGroup(element.id, element.employee.id,
-                this.function.setNameEmployee(element.employee.firstName, element.employee.secondName,
-                    element.employee.firstSurname, element.employee.secondSurname),
+                element.employee.fullName,
                 element.state, element.reason, element.observations, element.createdAt);
         });
     }

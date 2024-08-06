@@ -10,6 +10,9 @@ import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
 import { ListItemsFormComponent } from './list-items-form.component';
+import { v4 as uuidv4 } from 'uuid';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalImageComponent } from '@fuse/components/modal-image/modal-image.component';
 
 const typeValues = [
     { id: 1, value: 'string' },
@@ -46,9 +49,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     filesUploadDelete: any[] = [];
 
     iterableColumns: TableItems[] = [
-        { name: 'firstName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
-        { name: 'firstSurname', name2: false, styleEnable: false, label: ' .', function: false, functionName: false, item: false },
-        { name: 'secondSurname', name2: false, styleEnable: false, label: ' .', function: false, functionName: false, item: false },
+        { name: 'fullName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
         { name: 'identificationNumber', name2: false, styleEnable: false, label: 'Documento', function: false, functionName: false, item: false },
         { name: 'position', name2: 'name', styleEnable: false, label: 'Cargo', function: false, functionName: false, item: true },
         { name: 'isSignature', name2: false, styleEnable: false, label: 'Estado', function: false, functionName: false, item: true },
@@ -57,6 +58,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
 
     constructor(
         protected _formBuilder: FormBuilder,
+        protected matDialog: MatDialog,
         protected api: ApiService
     ) {
         super(api);
@@ -88,11 +90,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                     this.itemsCurrent = response.data;
                     this.filesItems = this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : '';
                     this.formInit.patchValue({
-                        code: this.itemsCurrent[0].code,
-                        uid: this.itemsCurrent[0].uid,
-                        name: this.itemsCurrent[0].name,
-                        version: this.itemsCurrent[0].version,
-                        project: this.itemsCurrent[0].project.id,
+                        code: this.itemsCurrent[0]?.code,
+                        uid: this.itemsCurrent[0]?.uid,
+                        name: this.itemsCurrent[0]?.name,
+                        version: this.itemsCurrent[0]?.version,
+                        project: this.itemsCurrent[0]?.project?.id,
                         evidences: this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : null,
                         assistants: this.itemsCurrent[0]?.assistants ? this.itemsCurrent[0]?.assistants : null,
                     });
@@ -105,9 +107,13 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     }
 
     getTypeValue = (id: any) => typeValues.filter(item => item.id === id).map(item => item.value);
+
     getForm(): void { }
+
     getValueField(code: any): any { return this.itemsCurrent[0].fields.filter(item => item.name === code).map(item => item.value); };
+
     cleanSelect(item): void { return item.pop(); }
+
     updateValueForm(codeField: any, valueField: any, typeField: any): void {
         this.validateItems.push({ name: codeField, value: valueField, type: typeField });
         this.formInit.value.fields = [...this.validateItems];
@@ -129,6 +135,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (this.formInit.value.filesUpload) {
             if(uploadFiles[0] !== undefined){
                 this.uploadSave(uploadFiles[0]);
+            } else {
+                this.formSave();
             }
         } else {
             this.formSave();
@@ -308,6 +316,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (this.id) {
             observable = await this.api.updateFormService(this.formInit.value, this.id);
         } else {
+            this.formInit.value.uid = uuidv4();
             observable = await this.api.createFormSevice(this.formInit.value);
         }
         observable.subscribe({
@@ -331,5 +340,14 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                 }
             }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
+    }
+
+    getPreview(item: any): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '50%';
+        dialogConfig.data = {
+            image: item,
+        };
+        this.matDialog.open(ModalImageComponent, dialogConfig);
     }
 }

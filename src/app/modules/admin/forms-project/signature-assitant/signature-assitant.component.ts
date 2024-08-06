@@ -44,9 +44,9 @@ export class SignatureAssitantComponent implements OnInit {
     asssitantId(): void{
         this.api.assistantFormEmpService(Number(this.data.idForm),this.data.employee).subscribe({
             next: (response: any) => {
-                this.items = response.data[0];
-                const employee = response.data[0].employee;
-                this.fullName = this.function.setNameEmployee(employee.firstName, employee.secondName, employee.firstSurname, employee.secondSurname);
+                this.items = response?.data[0];
+                const employee = response?.data[0]?.employee;
+                this.fullName = employee.fullName;
                 this.idAssitant = response.data[0].id;
                 this.imageSignature = response.data[0].signature ? this.urlImage(response.data[0]?.signature.formats.thumbnail.url) : null;
             }, error: (e: any) => console.log(e)

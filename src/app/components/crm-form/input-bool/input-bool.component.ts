@@ -17,8 +17,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputBoolComponent extends DefaultInput implements OnInit {
 
-    checked = false;
-
     constructor() {
         super();
     }
@@ -29,6 +27,6 @@ export class InputBoolComponent extends DefaultInput implements OnInit {
 
     onChangeCheckbox($event: MatSlideToggleChange): void {
         this.changeValue.emit($event.checked);
-        this.writeValue($event.checked);
+        this.writeValue($event.checked === null ? false : $event.checked);
     }
 }

@@ -6,6 +6,7 @@ import { FuseLoadingModule } from '@fuse/services/loading';
 import { FuseMediaWatcherModule } from '@fuse/services/media-watcher/media-watcher.module';
 import { FuseSplashScreenModule } from '@fuse/services/splash-screen/splash-screen.module';
 import { FuseUtilsModule } from '@fuse/services/utils/utils.module';
+import { ModalImageComponent } from './components/modal-image/modal-image.component';
 
 @NgModule({
     imports  : [
@@ -32,6 +33,9 @@ import { FuseUtilsModule } from '@fuse/services/utils/utils.module';
                 appearance: 'fill'
             }
         }
+    ],
+    declarations: [
+      ModalImageComponent
     ]
 })
 export class FuseModule

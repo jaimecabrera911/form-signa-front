@@ -171,7 +171,7 @@ export class ApiService {
     formsService(): Observable<Form> {
         //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bcompany%5D=${this.company}`;
-        return this.http.get<any>(url);
+        return this.http.get<Form>(url);
     }
 
     formIdService(id): Observable<Form> {

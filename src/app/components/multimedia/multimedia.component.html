@@ -49,7 +49,7 @@
                                 <div [formGroupName]="i" class="flex flex-col w-32 h-40 m-2 p-2 shadow rounded-2xl  active:bg-[#dadeed] hover:bg-[#dce1f2] cursor-pointer bg-card">
                                     <section class="example-section">
                                         <mat-checkbox class="example-margin" formControlName="stateDelete" (click)="addItem(file.id)">
-                                        </mat-checkbox>ll-{{ formEditUpload.get('dataFile').controls.value }}
+                                        </mat-checkbox>{{ formEditUpload.get('dataFile').controls.value }}
                                     </section>
                                     <div (click)="getPreview(file)">
                                         <div class="aspect-w-9 aspect-h-6">

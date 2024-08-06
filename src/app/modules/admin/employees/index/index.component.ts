@@ -18,8 +18,7 @@ export class IndexComponent implements OnInit {
     apiItems$: Observable<Employee>;
 
     iterableColumns: TableItems[] = [
-        { name: 'firstName', name2: false, styleEnable:false, label: 'Nombre' },
-        { name: 'firstSurname', name2: false, styleEnable:false, label: 'Apellido' },
+        { name: 'fullName', name2: false, styleEnable:false, label: 'Nombres' },
         { name: 'identificationNumber', name2: false, styleEnable:false, label: 'Documento' },
         { name: 'position', name2: 'name', styleEnable:false, label: 'Cargo' },
         { name: 'email', name2: false, styleEnable:false, label: 'Correo' },

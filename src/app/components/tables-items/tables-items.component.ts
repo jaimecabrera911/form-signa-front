@@ -114,7 +114,7 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
     selectAutocomplte(items): void {
         const itemsSelect: any[] = [];
         items.forEach((item: any) =>
-            itemsSelect.push({ id: item.id, name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname) }));
+            itemsSelect.push({ id: item?.id, name: item?.fullName }));
         this.itemsAutoComplte = [...itemsSelect];
     }
 
