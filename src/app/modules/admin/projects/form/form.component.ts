@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalAlert } from 'app/components/alerts/swalAlert';
-import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-items.component';
+import { ListItemsComponent } from 'app/components/formasigna/list-items/list-items.component';
 import { Path } from 'app/components/routers/path';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
