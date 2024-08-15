@@ -1,1 +1,222 @@
-<p>sgfr78 works!</p>
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="w-full">
+        <form [formGroup]="formInit">
+            <mat-tab-group class="mt-8">
+                <mat-tab label="Formulario">
+                    <div class="form-employee flex flex-col flex-auto">
+                        <div class="flex flex-col px-4 mx-3 mb-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                            </div>
+
+                            <div formGroupName="fieldsItems">
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-text label="Ubicación" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Número de sillas" formControlName="numberStairs" [required]="formInit.get('fieldsItems').controls['numberStairs'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Altura" formControlName="height" [required]="formInit.get('fieldsItems').controls['height'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-text label="Resistencia" formControlName="strength" [required]="formInit.get('fieldsItems').controls['strength'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Número de sillas" formControlName="material" [required]="formInit.get('fieldsItems').controls['material'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select [options]="typeStairs" label="Tipo de escalera" formControlName="typeStairs" [required]="formInit.get('fieldsItems').controls['typeStairs'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">VERIFICACIÓN</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="paws" [required]="formInit.get('fieldsItems').controls['paws'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="rails" [required]="formInit.get('fieldsItems').controls['rails'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="step" [required]="formInit.get('fieldsItems').controls['step'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="topStop" [required]="formInit.get('fieldsItems').controls['topStop'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="staircaseInsurance" [required]="formInit.get('fieldsItems').controls['staircaseInsurance'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="hinges" [required]="formInit.get('fieldsItems').controls['hinges'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="pulley" [required]="formInit.get('fieldsItems').controls['pulley'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="stringerGuides" [required]="formInit.get('fieldsItems').controls['stringerGuides'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="platform" [required]="formInit.get('fieldsItems').controls['platform'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="railing" [required]="formInit.get('fieldsItems').controls['railing'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="wheelsBrakes" [required]="formInit.get('fieldsItems').controls['wheelsBrakes'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="cleaning" [required]="formInit.get('fieldsItems').controls['cleaning'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxx</div>
+                                    </div>
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2  font-semibold">xxxxxxxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="stateVerification" label="Estado" formControlName="tags" [required]="formInit.get('fieldsItems').controls['tags'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-3 text-center font-semibold text-xl">OBSERVACIONES</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
+                                    <app-input-textarea label="Observaciones" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3  lg:grid-cols-3 gap-x-4 w-full">
+                                <div class="flex flex-col flex-auto" (click)="getPreview(image.img1)">
+                                    <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
+                                        <img [src]="image.img1" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
+                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
+                                            <span class="text-white text-xl font-bold">Ampliar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-auto" (click)="getPreview(image.img2)">
+                                    <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
+                                        <img [src]="image.img2" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
+                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
+                                            <span class="text-white text-xl font-bold">Ampliar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-auto" (click)="getPreview(image.img3)">
+                                    <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
+                                        <img [src]="image.img3" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
+                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
+                                            <span class="text-white text-xl font-bold">Ampliar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Asistentes">
+                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
+                </mat-tab>
+                <mat-tab label="Evidencias" class="sign">
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</app-content>

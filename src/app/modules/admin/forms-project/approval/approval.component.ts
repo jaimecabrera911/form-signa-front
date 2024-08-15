@@ -61,6 +61,8 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         { code: 'aprobacion', name: 'Aprobación' },
         { code: 'capacitacion', name: 'Capacitación' },
         { code: 'supervision', name: 'Supervisión' },
+        { code: 'inspeccion', name: 'Inspección' },
+        { code: 'resvisarInspeccion', name: 'Resvisar Inspección' },
     ];
 
     actions: any[] = [

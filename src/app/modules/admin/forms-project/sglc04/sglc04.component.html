@@ -1,0 +1,333 @@
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="w-full">
+        <form [formGroup]="formInit">
+            <mat-tab-group class="mt-8">
+                <mat-tab label="Formulario">
+                    <div class="form-employee flex flex-col flex-auto">
+                        <div class="flex flex-col px-4 mx-3 mb-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                            </div>
+
+                            <div formGroupName="fieldsItems">
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Herramientas fijas</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">Esmeril</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="emery" [required]="formInit.get('fieldsItems').controls['emery'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="emeryObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['emeryObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="drill" [required]="formInit.get('fieldsItems').controls['drill'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="drillObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['drillObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="press" [required]="formInit.get('fieldsItems').controls['press'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="pressObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['pressObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="compressor" [required]="formInit.get('fieldsItems').controls['compressor'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="compressorObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['compressorObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="weldingMachine" [required]="formInit.get('fieldsItems').controls['weldingMachine'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="weldingMachineObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['weldingMachineObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="polisher" [required]="formInit.get('fieldsItems').controls['polisher'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="polisherObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['polisherObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="gasCuttingEquipment" [required]="formInit.get('fieldsItems').controls['gasCuttingEquipment'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="gasCuttingEquipmentObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['gasCuttingEquipmentObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="handsaw" [required]="formInit.get('fieldsItems').controls['handsaw'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="handsawObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['handsawObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="vibrocompactador" [required]="formInit.get('fieldsItems').controls['vibrocompactador'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="vibrocompactadorObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['vibrocompactadorObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="mixer" [required]="formInit.get('fieldsItems').controls['mixer'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="mixerObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['mixerObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="submersiblePump" [required]="formInit.get('fieldsItems').controls['submersiblePump'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="submersiblePumpObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['submersiblePumpObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="pressureWasher" [required]="formInit.get('fieldsItems').controls['pressureWasher'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="pressureWasherObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['pressureWasherObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="doubleHandleHammerDrill" [required]="formInit.get('fieldsItems').controls['doubleHandleHammerDrill'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="doubleHandleHammerDrillObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['doubleHandleHammerDrillObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Herramientas manuales</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">Esmeril</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="marshland" [required]="formInit.get('fieldsItems').controls['marshland'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="marshlandObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['marshlandObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="singleDrillA" [required]="formInit.get('fieldsItems').controls['singleDrillA'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="singleDrillAObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['singleDrillAObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="sander" [required]="formInit.get('fieldsItems').controls['sander'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="sanderObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['sanderObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="smallPolisherA" [required]="formInit.get('fieldsItems').controls['smallPolisherA'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="smallPolisherAObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['smallPolisherAObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="largePolisherB" [required]="formInit.get('fieldsItems').controls['largePolisherB'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="largePolisherBObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['largePolisherBObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="shears" [required]="formInit.get('fieldsItems').controls['shears'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="shearsObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['shearsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="bigHammer" [required]="formInit.get('fieldsItems').controls['bigHammer'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="bigHammerObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['bigHammerObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="hammers" [required]="formInit.get('fieldsItems').controls['hammers'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="hammersObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['hammersObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="knives" [required]="formInit.get('fieldsItems').controls['knives'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="knivesObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['knivesObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="fixedLadder" [required]="formInit.get('fieldsItems').controls['fixedLadder'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="fixedLadderObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['fixedLadderObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="machete" [required]="formInit.get('fieldsItems').controls['machete'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="macheteObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['macheteObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="gusts" [required]="formInit.get('fieldsItems').controls['gusts'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="gustsObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['gustsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="drillBits" [required]="formInit.get('fieldsItems').controls['drillBits'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="drillBitsObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['drillBitsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="fixedWrenches" [required]="formInit.get('fieldsItems').controls['fixedWrenches'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="fixedWrenchesObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['fixedWrenchesObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="electricalTweezers" [required]="formInit.get('fieldsItems').controls['electricalTweezers'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="electricalTweezersObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['electricalTweezersObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="needleNoseTweezers" [required]="formInit.get('fieldsItems').controls['needleNoseTweezers'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="needleNoseTweezersObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['needleNoseTweezersObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="screwdrivers" [required]="formInit.get('fieldsItems').controls['screwdrivers'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="screwdriversObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['screwdriversObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="decameters" [required]="formInit.get('fieldsItems').controls['decameters'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="decametersObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['decametersObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="tapeMeasures" [required]="formInit.get('fieldsItems').controls['tapeMeasures'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="tapeMeasuresObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['tapeMeasuresObserv'].hasError('required')" rows="1"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-x-4 w-full mt-6">
+                                    <div class="flex flex-col flex-auto">
+                                        <div class="pt-2 font-semibold">xxxxxxxx</div>
+                                    </div>
+                                    <app-input-select [options]="toolsInspectionStatus" label="Revisión Estado" formControlName="needleNosePlierss" [required]="formInit.get('fieldsItems').controls['needleNosePlierss'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="Observaciones" formControlName="needleNosePlierssObserv" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['needleNosePlierssObserv'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Asistentes">
+                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
+                </mat-tab>
+                <mat-tab label="Evidencias" class="sign">
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</app-content>

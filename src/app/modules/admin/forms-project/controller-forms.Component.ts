@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalImageComponent } from '@fuse/components/modal-image/modal-image.component';
 
+
 const typeValues = [
     { id: 1, value: 'string' },
     { id: 2, value: 'integer' },
@@ -47,6 +48,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     assistantsForm: any = [];
     approvalsForm: any = [];
     filesUploadDelete: any[] = [];
+    days: any = {'monday': 'Lunes', 'tuesday': 'Martes', 'wednesday': 'Miercoles', 'thursday': 'Jueves', 'friday': 'Viernes', 'saturday': 'Sabado', 'sunday': 'Domingo'};
 
     iterableColumns: TableItems[] = [
         { name: 'fullName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
@@ -76,8 +78,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         await this.api.templatesIdService(this.code).subscribe({
             next: (items: any) => {
                 if (items.data) {
-                    this.infoForm = items.data;
-                    this.title = `${items.data[0].code} ${items.data[0].name}`;
+                    this.infoForm = items?.data;
+                    this.title = `${items?.data[0]?.code} ${items?.data[0]?.name}`;
                 }
             }, error: (e: any) => console.error(e)
         });
@@ -106,11 +108,16 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         }
     }
 
-    getTypeValue = (id: any) => typeValues.filter(item => item.id === id).map(item => item.value);
+    getTypeValue = (id: any) => typeValues.filter(item => item.id === id)
+      .map(item => item.value);
 
     getForm(): void { }
 
-    getValueField(code: any): any { return this.itemsCurrent[0].fields.filter(item => item.name === code).map(item => item.value); };
+    getValueField(code: any): any {
+        return this.itemsCurrent[0].fields
+        .filter(item => item.name === code)
+        .map(item => item.value);
+    };
 
     cleanSelect(item): void { return item.pop(); }
 

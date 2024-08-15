@@ -24,6 +24,10 @@ export abstract class ListItemsFormComponent  implements OnInit {
     startTimeList: any = [];
     numberPeopleAttendingList: any = [];
     employeesList: any = [];
+    toolsInspectionStatus: any = [];
+    state: any = [];
+    stateVerification: any = [];
+    typeStairs: any = [];
 
     constructor(protected api: ApiService) {
     }
@@ -54,7 +58,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getActivityType(): void {
         this.api.dataFieldService('activityType').subscribe({
             next: (response: any) => {
-                this.activityTypeList = response.data[0].values;
+                this.activityTypeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -62,7 +66,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getPlace(): void {
         this.api.dataFieldService('place').subscribe({
             next: (response: any) => {
-                this.placeList = response.data[0].values;
+                this.placeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -70,7 +74,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getNumberPeopleInvited(): void {
         this.api.dataFieldService('numberPeopleInvited').subscribe({
             next: (response: any) => {
-                this.numberPeopleInvitedList = response.data[0].values;
+                this.numberPeopleInvitedList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -78,7 +82,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getImprovementAction(): void {
         this.api.dataFieldService('improvementAction').subscribe({
             next: (response: any) => {
-                this.improvementActionActionList = response.data[0].values;
+                this.improvementActionActionList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -86,7 +90,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getEfficacyEvaluation(): void {
         this.api.dataFieldService('efficacyEvaluation').subscribe({
             next: (response: any) => {
-                this.efficacyEvaluationList = response.data[0].values;
+                this.efficacyEvaluationList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -95,7 +99,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getEvaluationMethod(): void {
         this.api.dataFieldService('evaluationMethod').subscribe({
             next: (response: any) => {
-                this.evaluationMethodList = response.data[0].values;
+                this.evaluationMethodList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -103,7 +107,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getStartTime(): void {
         this.api.dataFieldService('startTime').subscribe({
             next: (response: any) => {
-                this.startTimeList = response.data[0].values;
+                this.startTimeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -111,10 +115,43 @@ export abstract class ListItemsFormComponent  implements OnInit {
     getNumberPeopleAttending(): void {
         this.api.dataFieldService('numberPeopleAttending').subscribe({
             next: (response: any) => {
-                this.numberPeopleAttendingList = response.data[0].values;
+                this.numberPeopleAttendingList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
+
+    getToolsInspectionStatus(): void {
+        this.api.dataFieldService('toolsInspectionStatus').subscribe({
+            next: (response: any) => {
+                this.toolsInspectionStatus = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    getState(): void {
+        this.api.dataFieldService('state').subscribe({
+            next: (response: any) => {
+                this.state = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    getStateVerification(): void {
+        this.api.dataFieldService('stateVerification').subscribe({
+            next: (response: any) => {
+                this.stateVerification = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    getTypeStairs(): void {
+        this.api.dataFieldService('typeStairs').subscribe({
+            next: (response: any) => {
+                this.typeStairs = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
 
     formatSelectData(elements: any): void {
         let index: number;

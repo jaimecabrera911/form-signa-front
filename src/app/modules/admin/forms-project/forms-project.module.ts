@@ -42,6 +42,7 @@ import { TablesItemsModule } from 'app/components/tables-items/tables-items.modu
 import { ApprovalComponent } from './approval/approval.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SignatureAssitantComponent } from './signature-assitant/signature-assitant.component';
+import { Sglc04Component } from './sglc04/sglc04.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { SignatureAssitantComponent } from './signature-assitant/signature-assit
         Sglc25Component,
         Sglc31Component,
         ApprovalComponent,
-        SignatureAssitantComponent
+        SignatureAssitantComponent,
+        Sglc04Component
     ],
     imports: [
         CommonModule,

@@ -13,34 +13,33 @@ import { Sglc02Component } from './sglc02/sglc02.component';
 import { Sglc24Component } from './sglc24/sglc24.component';
 import { Sglc25Component } from './sglc25/sglc25.component';
 import { Sglc31Component } from './sglc31/sglc31.component';
+import { Sglc04Component } from './sglc04/sglc04.component';
 
 const routes: Routes = [
     {
         path: '',
         component: FormsProjectComponent ,
         children: [
-            {
-                path: '',
-                component: TemplatesComponent
-            },
-            {
-                path: 'templates',
-                component: TemplatesComponent
-            },
-            {
-                path: 'generated',
-                component: GeneratedComponent
-            },
-            {
-                path: 'sg-fr-08',
-                component: SGFR08Component
-            },
-            {
-                path: 'sg-fr-08/edit/:id',
-                component: SGFR08Component
-            },
-            {
-                path: 'sg-fr-76',
+            {   path: '', component: TemplatesComponent },
+            {   path: 'templates', component: TemplatesComponent },
+            {   path: 'generated', component: GeneratedComponent },
+            {   path: 'sg-fr-08', component: SGFR08Component },
+            {   path: 'sg-fr-08/edit/:id', component: SGFR08Component },
+            {   path: 'sg-lc-02', component: Sglc02Component },
+            {   path: 'sg-lc-02/edit/:id', component: Sglc02Component },
+            {   path: 'sg-lc-31', component: Sglc31Component },
+            {   path: 'sg-lc-31/edit/:id', component: Sglc31Component },
+            {   path: 'sg-lc-04', component: Sglc04Component },
+            {   path: 'sg-lc-04/edit/:id', component: Sglc04Component },
+            {   path: 'sg-lc-25', component: Sglc25Component },
+            {   path: 'sg-lc-25/edit/:id', component: Sglc25Component },
+            {   path: 'sg-lc-24', component: Sglc24Component },
+            {   path: 'sg-lc-24/edit/:id', component: Sglc24Component },
+            {   path: 'sg-fr-86', component: Sgfr86Component },
+            {   path: 'sg-fr-86/edit/:id', component: Sgfr86Component },
+
+
+            {   path: 'sg-fr-76',
                 component: Sgfr76Component,
                 children: [
                     {
@@ -76,56 +75,6 @@ const routes: Routes = [
                     {
                         path: 'edit/:id',
                         component: Sgfr78Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-fr-86',
-                component: Sgfr86Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sgfr86Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-lc-02',
-                component: Sglc02Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sglc02Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-lc-24',
-                component: Sglc24Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sglc24Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-lc-25',
-                component: Sglc25Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sglc25Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-lc-31',
-                component: Sglc31Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sglc31Component
                     }
                 ]
             }

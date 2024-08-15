@@ -1,4 +1,3 @@
-import { Assistants } from './../../../../models/assitant';
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -8,9 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'app/services/api.service';
-import { v4 as uuidv4 } from 'uuid';
 import { ControllerFormsComponent } from '../controller-forms.Component';
-
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-sgfr08',
@@ -25,9 +23,10 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
     constructor(protected router: Router,
         protected _formBuilder: FormBuilder,
         protected activatedRouter: ActivatedRoute,
+        protected matDialog: MatDialog,
         protected api: ApiService
     ) {
-        super(_formBuilder, api);
+        super(_formBuilder, matDialog, api);
     }
 
      override ngOnInit(): void {
@@ -48,7 +47,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
     validateForm(): void{
         this.formInit = this._formBuilder.group({
             code: new FormControl(this.code),
-            uid: new FormControl(uuidv4()),
+            uid: new FormControl(),
             name: new FormControl(this.title),
             version: new FormControl('1.0'),
             company: new FormControl(1),
@@ -134,12 +133,12 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
                 dateCapacitation: this.cleanSelect(this.getValueField('dateCapacitation')),
                 place: this.cleanSelect(this.getValueField('place')),
                 startTime: this.cleanSelect(this.getValueField('startTime')),
-                duration: this.getValueField('duration'),
+                duration: this.cleanSelect(this.getValueField('duration')),
                 peopleInvited: this.cleanSelect(this.getValueField('peopleInvited')),
                 peopleAttending: this.cleanSelect(this.getValueField('peopleAttending')),
                 percentageAttendance: this.cleanSelect(this.getValueField('percentageAttendance')),
                 methodEvaluation: this.cleanSelect(this.getValueField('methodEvaluation')),
-                descriptionEvaluation: this.getValueField('descriptionEvaluation'),
+                descriptionEvaluation: this.cleanSelect(this.getValueField('descriptionEvaluation')),
                 effectivenessEvaluation: this.cleanSelect(this.getValueField('effectivenessEvaluation')),
                 effectiveEvaluation: this.cleanSelect(this.getValueField('effectiveEvaluation')),
                 generateImprovementActionEvaluation: this.cleanSelect(this.getValueField('generateImprovementActionEvaluation')),

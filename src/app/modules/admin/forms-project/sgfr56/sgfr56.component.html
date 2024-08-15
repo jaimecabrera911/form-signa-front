@@ -1,1 +1,138 @@
-<p>sgfr56 works!</p>
+<app-content [title]="title" [subtitle]="subtitle" class="w-full">
+    <div *appPanels class="w-full">
+        <form [formGroup]="formInit">
+            <mat-tab-group class="mt-8">
+                <mat-tab label="Formulario">
+                    <div class="form-employee flex flex-col flex-auto">
+                        <div class="flex flex-col px-4 mx-3 mb-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                            </div>
+                            <div class="grid grid-cols-1 p-4 gap-x-4 w-full bg-white text-sm">
+                                DANDO CUMPLIMIENTO A LA RES.777/2021, EN ORIENTAR LAS MEDIDAS GENERALES DE AUTOCUIDADO Y DE BIOSEGURIDAD EN EL MARCO DE LA PANDEMIA POR EL CORONAVIRUS COVID-19, PARA INCORPORAR EN EL DESARROLLO DE TODAS LAS ACTIVIDADES DE LOS DIFERENTES SECTORES ECONÓMICOS,
+                                SOCIALES, Y DEL ESTADO, CON EL FIN DE DISMINUIR EL RIESGO DE TRANSMISIÓN DEL VIRUS.
+                            </div>
+
+                            <div formGroupName="fieldsItems">
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-text label="Lugar de trabajo" formControlName="place" [required]="formInit.get('fieldsItems').controls['place'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="Empresa" formControlName="compnayName" [required]="formInit.get('fieldsItems').controls['compnayName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select label="Elaboró" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+                            </div>
+                            <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3 bg-card shadow rounded-2xl  mat-item-card">
+                                <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
+                                        <app-input-multi-select label="Empleados administrativos" class="mt-1" formControlName="selectAutoComplete" [selectedItem]="approvalsItems" (ngModelChange)="asignar()" [options]="itemsAutoComplte"></app-input-multi-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-[#748EB8] text-white font-medium p-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-11 lg:grid-cols-11 gap-x-4 w-full">
+                                <div class="flex flex-col flex-auto">Fecha</div>
+                                <div class="flex flex-col flex-auto">Hora entrada</div>
+                                <div class="flex flex-col flex-auto">Hora salida</div>
+                                <div class="flex flex-col flex-auto">Cédula</div>
+                                <div class="flex flex-col flex-auto">Sexo</div>
+                                <div class="flex flex-col flex-auto">Genero</div>
+                                <div class="flex flex-col flex-auto">EPS</div>
+                                <div class="flex flex-col flex-auto">ARL</div>
+                                <div class="flex flex-col flex-auto">Firma</div>
+                                <div class="flex flex-col flex-auto">Observaciones</div>
+                            </div>
+
+                            <div formArrayName="data" class="w-full" *ngFor="let aprv of formInit.get('data')['controls']; let i = index">
+                                <div [formGroupName]="i" class="w-full">
+                                    <div class="flex flex-col my-2  rounded">
+                                        <div *ngIf="formId" class="grid grid-cols-1 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-4 w-full">
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field class="flex-auto" appearance="legacy">
+                                                    <input matInput formControlName="employeeName">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Motivo" (ngModelChange)="addFormValue()" formControlName="reason">
+                                                        <mat-option value="">Seleccione una opción</mat-option>
+                                                        <mat-option *ngFor="let option of reason" [value]="option.code">
+                                                            {{option.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field class="flex-auto" appearance="legacy">
+                                                    <textarea matInput (keyup)="addFormValue()" formControlName="observations" cols="2" rows="2"></textarea>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field class="flex-auto" appearance="legacy">
+                                                    <input matInput formControlName="createdAt">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Acción" (ngModelChange)="addFormValue()" formControlName="state">
+                                                        <mat-option value="">Seleccione una opción</mat-option>
+                                                        <mat-option *ngFor="let option of actions" [value]="option.code">
+                                                            {{option.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!formId" class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field class="flex-auto" appearance="legacy">
+                                                    <input matInput formControlName="employeeName">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Motivo" (ngModelChange)="addFormValue()" formControlName="reason">
+                                                        <mat-option value="">Seleccione una opción</mat-option>
+                                                        <mat-option *ngFor="let option of reason" [value]="option.code">
+                                                            {{option.name}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="flex flex-col flex-auto">
+                                                <mat-form-field class="flex-auto" appearance="legacy">
+                                                    <textarea matInput (keyup)="addFormValue()" formControlName="observations" cols="2" rows="2"></textarea>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Asistentes">
+                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
+                </mat-tab>
+                <mat-tab label="Evidencias" class="sign">
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="pl-18">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
+                            <span class="ml-14">Guardar</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-14">Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</app-content>
