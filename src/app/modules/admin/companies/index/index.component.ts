@@ -21,7 +21,8 @@ export class IndexComponent implements OnInit {
         { name: 'address', name2: false, styleEnable: false, label: 'Dirección' },
         { name: 'legalRepresentative', name2: false, styleEnable: false, label: 'Rep legal' },
         { name: 'email', name2: false, styleEnable: false, label: 'Correo' },
-        { name: 'phone', name2: false, styleEnable: false, label: 'Teléfono' }
+        { name: 'phone', name2: false, styleEnable: false, label: 'Teléfono' },
+        { name: 'id', name2: false, styleEnable: false, label: 'Editar', edit: true, editModule: 'companies'  }
     ];
 
     constructor(

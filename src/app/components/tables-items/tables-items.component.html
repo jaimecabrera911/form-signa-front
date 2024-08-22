@@ -42,43 +42,49 @@
     <div [ngClass]="!searchPanel ? 'mt-6' : 'mt-5'">
         <table mat-table [dataSource]="dataSource" matSort class="table-list-items">
             <div *ngFor="let column of colums; let i = index">
-                <ng-container [matColumnDef]="colums[i].name">
+                <ng-container [matColumnDef]="colums[i]?.name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header [style.background-color]="background" [style.color]="color">
-                        {{ colums[i].label }}
+                        {{ colums[i]?.label }}
                     </th>
                     <td mat-cell *matCellDef="let elements">
-                        <div *ngIf="colums[i].name2 && !colums[i].styles" class="w-full">
-                            <div *ngIf="colums[i].name2 !== null || !colums[i].name2">
+                        <div *ngIf="colums[i]?.name2 && !colums[i]?.styles" class="w-full">
+                            <div *ngIf="colums[i]?.name2 !== null || !colums[i]?.name2">
                                 {{ elements[colums[i]['name']][colums[i]['name2']] ? elements[colums[i]['name']][colums[i]['name2']] : '' }} </div>
                         </div>
-                        <div *ngIf="colums[i].styles" class="w-full">
-                            <div *ngFor="let item of colums[i].styles">
-                                <div *ngIf="((elements[colums[i].name][colums[i].name2] ===  item.label)  ||
-                                         (elements[colums[i].name] && (elements[colums[i].name] === item.label)) )" class="w-full content-center">
+                        <div *ngIf="colums[i]?.styles" class="w-full">
+                            <div *ngFor="let item of colums[i]?.styles">
+                                <div *ngIf="((elements[colums[i]?.name][colums[i]?.name2] ===  item.label)  ||
+                                         (elements[colums[i]?.name] && (elements[colums[i]?.name] === item.label)) )" class="w-full content-center">
                                     <div class="p-1 w-full content-center rounded-2xl text-center" [style.background-color]="item.backgroundColor" [style.color]="item.textColor">
-                                        <div *ngIf="!colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i].name] }} </div>
-                                        <div *ngIf="colums[i].name2 && colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
-                                        <div *ngIf="!colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i].name] }}</div>
-                                        <div *ngIf="colums[i].name2 && !colums[i].styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
+                                        <div *ngIf="!colums[i]?.name2 && colums[i]?.styleEnable">{{ elements[colums[i]?.name] }} </div>
+                                        <div *ngIf="colums[i]?.name2 && colums[i]?.styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
+                                        <div *ngIf="!colums[i]?.name2 && !colums[i]?.styleEnable">{{ elements[colums[i]?.name] }}</div>
+                                        <div *ngIf="colums[i]?.name2 && !colums[i]?.styleEnable">{{ elements[colums[i]['name']][colums[i]['name2']] }} </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!colums[i].styles && !colums[i].name2 && colums[i].function && colums[i].functionName">
-                            <button (click)="functionTable(elements[colums[i].name],colums[i].functionName)">
+                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && colums[i]?.function && colums[i]?.functionName">
+                            <button (click)="functionTable(elements[colums[i]?.name],colums[i]?.functionName)">
                                 <mat-icon class="icon-size-6" [svgIcon]="'heroicons_outline:pencil'"></mat-icon>
                             </button>
                             <!---
-                            <div><button *ngIf="elements[colums[i].name]">
+                            <div><button *ngIf="elements[colums[i]?.name]">
                                     <mat-icon  class="icon-size-5" [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
                                     {{'Ya firmo'}}</button>
                             </div>-->
                         </div>
-                        <div *ngIf="!colums[i].styles && !colums[i].name2 && !colums[i].function && !colums[i].functionName && colums[i].item">
-                            {{ elements[colums[i].name] ? 'Firmo' : 'Sin firmar' }}
+                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.function && !colums[i]?.functionName && colums[i]?.item">
+                            {{ elements[colums[i]?.name] ? 'Firmo' : 'Sin firmar' }}
                         </div>
-                        <div *ngIf="!colums[i].styles && !colums[i].name2 && !colums[i].function && !colums[i].functionName && !colums[i].item">
-                            {{ elements[colums[i].name] }}
+                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.function && !colums[i]?.functionName && !colums[i]?.item && !colums[i]?.edit">
+                            {{ elements[colums[i]?.name] }}
+                        </div>
+
+                        <div *ngIf="colums[i]?.edit" class="w-full pl-8">
+                            <a (click)="routerLink(elements[colums[i]?.name],elements[colums[i]?.name2],colums[i]?.editModule)" class="cursor-pointer content-center">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:pencil'"></mat-icon>
+                            </a>
                         </div>
                     </td>
                 </ng-container>

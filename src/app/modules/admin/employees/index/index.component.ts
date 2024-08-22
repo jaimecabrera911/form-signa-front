@@ -26,7 +26,8 @@ export class IndexComponent implements OnInit {
                 { label: 'Activo', textColor: '#0D7D62', backgroundColor: '#ADE2C2' },
                 { label: 'Inactivo', textColor: '#C92C2C', backgroundColor: '#F4B2B6' }
             ]
-        }
+        },
+        { name: 'id', name2: false, styleEnable: false, label: 'Editar', edit: true, editModule: 'employees'  }
     ];
 
     constructor(protected api: ApiService) { }

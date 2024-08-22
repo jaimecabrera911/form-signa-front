@@ -236,8 +236,9 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
         });
     }
 
-    routerLink(): void {
-        this.router.navigateByUrl(this.routeBottom);
+    routerLink(param: any, param2: any, module: any): void {
+        const router = param2 ? `${module}/${param2.toLowerCase()}/edit/${param}` : `${module}/edit/${param}`;
+        this.router.navigateByUrl(router);
     }
 
 }

@@ -115,8 +115,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
 
     getValueField(code: any): any {
         return this.itemsCurrent[0].fields
-        .filter(item => item.name === code)
-        .map(item => item.value);
+                .filter(item => item.name === code)
+                .map(item => item.value);
     };
 
     cleanSelect(item): void { return item.pop(); }
@@ -318,6 +318,9 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     }
 
     async formSave(): Promise<void> {
+        const form = this.formInit.value;
+        form.name = this.title;
+
         this.assignFields();
         let observable: Observable<Form>;
         if (this.id) {

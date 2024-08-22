@@ -11,6 +11,9 @@ export interface TableItems {
     idPrimary?: boolean;
     function?: boolean;
     functionName?: string | boolean;
+    edit?: boolean;
+    editRoute?: string;
+    editModule?: string;
     item?: string | boolean;
     options?: ActionsTable[];
 }

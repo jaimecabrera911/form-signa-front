@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Functions} from 'app/components/functions/functions';
-import {ApiService} from 'app/services/api.service';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Functions } from 'app/components/functions/functions';
+import { IdentificationTypes } from 'app/models/identification-types';
+import { ApiService } from 'app/services/api.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-list-items',
     template: '<p> </p>',
-    styles: []
+    styles: [
+    ]
 })
-export abstract class ListItemsFormComponent implements OnInit {
+export abstract class ListItemsFormComponent  implements OnInit {
 
     function = new Functions();
 
@@ -45,10 +48,8 @@ export abstract class ListItemsFormComponent implements OnInit {
         this.api.employeesService().subscribe({
             next: (response: any) => {
                 response.data.forEach((item: any) => {
-                    this.employeesList.push({
-                        code: item.id,
-                        name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname)
-                    });
+                    this.employeesList.push({ code: item.id,
+                        name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname)});
                 });
             }, error: (e: any) => console.error(e)
         });
