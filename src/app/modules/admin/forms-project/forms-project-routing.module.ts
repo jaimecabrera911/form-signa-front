@@ -37,47 +37,14 @@ const routes: Routes = [
             {   path: 'sg-lc-24/edit/:id', component: Sglc24Component },
             {   path: 'sg-fr-86', component: Sgfr86Component },
             {   path: 'sg-fr-86/edit/:id', component: Sgfr86Component },
-
-
-            {   path: 'sg-fr-76',
-                component: Sgfr76Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sgfr76Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-fr-32',
-                component: Sgfr32Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sgfr32Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-fr-56',
-                component: Sgfr56Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sgfr56Component
-                    }
-                ]
-            },
-            {
-                path: 'sg-fr-78',
-                component: Sgfr78Component,
-                children: [
-                    {
-                        path: 'edit/:id',
-                        component: Sgfr78Component
-                    }
-                ]
-            }
+            {   path: 'sg-fr-78', component: Sgfr78Component },
+            {   path: 'sg-fr-78/edit/:id', component: Sgfr78Component },
+            {   path: 'sg-fr-32', component: Sgfr32Component },
+            {   path: 'sg-fr-32/edit/:id', component: Sgfr32Component },
+            {   path: 'sg-fr-76', component: Sgfr76Component },
+            {   path: 'sg-fr-76/edit/:id', component: Sgfr76Component },
+            {   path: 'sg-fr-56', component: Sgfr56Component },
+            {   path: 'sg-fr-56/edit/:id', component: Sgfr56Component }
         ]
     }
 ];

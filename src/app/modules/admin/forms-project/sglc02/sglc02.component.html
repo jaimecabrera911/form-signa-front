@@ -4,286 +4,315 @@
             <mat-tab-group class="mt-8">
                 <mat-tab label="Formulario">
                     <div class="form-employee flex flex-col flex-auto">
-                        <div class="flex flex-col px-4 mx-3 mb-6">
+                        <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                             </div>
                             <div formGroupName="fieldsItems">
-                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="Ubicación de Botiquín" formControlName="firstAidKitLocation" [required]="formInit.get('fieldsItems').controls['firstAidKitLocation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="Código de Botiquín" formControlName="firstAidKitCode" [required]="formInit.get('fieldsItems').controls['firstAidKitCode'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select label="Capacitador" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-text label="{{ filterParamValue('firstAidKitLocation') }}" formControlName="firstAidKitLocation" [required]="formInit.get('fieldsItems').controls['firstAidKitLocation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('firstAidKitCode') }}" formControlName="firstAidKitCode" [required]="formInit.get('fieldsItems').controls['firstAidKitCode'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-4 font-semibold">Bolsa Plástica</div>
+                                        <div class="pt-4 font-semibold">{{ filterParamValue('plasticBag') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="plasticBagCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="plasticBagApproved" [required]="formInit.get('fieldsItems').controls['plasticBagApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="plasticBagObservations" [required]="formInit.get('fieldsItems').controls['plasticBagObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="plasticBagCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="plasticBagApproved" [required]="formInit.get('fieldsItems').controls['plasticBagApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="plasticBagObservations" [required]="formInit.get('fieldsItems').controls['plasticBagObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold">Alcohol antiséptico 70 ml</div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('antisepticAlcohol') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="antisepticAlcoholCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="antisepticAlcoholApproved" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="antisepticAlcoholObservations" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticAlcoholCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticAlcoholApproved" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticAlcoholObservations" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold">Algodón (Bolsa pequeña)</div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('cotton') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="cottonCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="cottonApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="cottonObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="cottonCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="cottonApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="cottonObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Apositos de Gasa (3 unidades) </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('applicators') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="gauzeDressingsCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="gauzeDressingsApproved" [required]="formInit.get('fieldsItems').controls['gauzeDressingsApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="pgauzeDressingsObservations" [required]="formInit.get('fieldsItems').controls['pgauzeDressingsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="applicatorsCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="applicatorsApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="applicatorsObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Baja lenguas </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('gauzeDressings') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="tongueDepressorCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="tongueDepressorApproved" [required]="formInit.get('fieldsItems').controls['tongueDepressorApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="tongueDepressorObservations" [required]="formInit.get('fieldsItems').controls['tongueDepressorObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="gauzeDressingsCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="gauzeDressingsApproved" [required]="formInit.get('fieldsItems').controls['gauzeDressingsApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="pgauzeDressingsObservations" [required]="formInit.get('fieldsItems').controls['pgauzeDressingsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Cabestrillo </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('tongueDepressor') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="slingCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="slingApproved" [required]="formInit.get('fieldsItems').controls['slingApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="slingObservations" [required]="formInit.get('fieldsItems').controls['slingObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="tongueDepressorCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="tongueDepressorApproved" [required]="formInit.get('fieldsItems').controls['tongueDepressorApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tongueDepressorObservations" [required]="formInit.get('fieldsItems').controls['tongueDepressorObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Curas </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('sling') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="curesCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="curesApproved" [required]="formInit.get('fieldsItems').controls['curesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="curesObservations" [required]="formInit.get('fieldsItems').controls['curesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="slingCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="slingApproved" [required]="formInit.get('fieldsItems').controls['slingApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="slingObservations" [required]="formInit.get('fieldsItems').controls['slingObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Esparadrapo, rollo de cinta adhesiva </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('cures') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="stickingPlasterCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="stickingPlasterApproved" [required]="formInit.get('fieldsItems').controls['stickingPlasterApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="stickingPlasterObservations" [required]="formInit.get('fieldsItems').controls['stickingPlasterObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="curesCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="curesApproved" [required]="formInit.get('fieldsItems').controls['curesApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="curesObservations" [required]="formInit.get('fieldsItems').controls['curesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Gasa Antiséptica (Caja pequeña) </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('stickingPlaster') }}</div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="antisepticGauzeCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="antisepticGauzeApproved" [required]="formInit.get('fieldsItems').controls['antisepticGauzeApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="antisepticGauzeObservations" [required]="formInit.get('fieldsItems').controls['antisepticGauzeObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="stickingPlasterCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="stickingPlasterApproved" [required]="formInit.get('fieldsItems').controls['stickingPlasterApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="stickingPlasterObservations" [required]="formInit.get('fieldsItems').controls['stickingPlasterObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Guantes desechables esterilizados </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('antisepticGauze') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="disposableGlovesCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="disposableGlovesApproved" [required]="formInit.get('fieldsItems').controls['disposableGlovesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="disposableGlovesObservations" [required]="formInit.get('fieldsItems').controls['disposableGlovesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticGauzeCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticGauzeApproved" [required]="formInit.get('fieldsItems').controls['antisepticGauzeApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticGauzeObservations" [required]="formInit.get('fieldsItems').controls['antisepticGauzeObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Inmovilizador de cuello </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('disposableGloves') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="neckImmobilizerCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="neckImmobilizerApproved" [required]="formInit.get('fieldsItems').controls['neckImmobilizerApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="neckImmobilizerObservations" [required]="formInit.get('fieldsItems').controls['neckImmobilizerObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableGlovesCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableGlovesApproved" [required]="formInit.get('fieldsItems').controls['disposableGlovesApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableGlovesObservations" [required]="formInit.get('fieldsItems').controls['disposableGlovesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Isodine solución (60 cc) </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('neckImmobilizer') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="isodineSolutionCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="isodineSolutionApproved" [required]="formInit.get('fieldsItems').controls['isodineSolutionApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="isodineSolutionObservations" [required]="formInit.get('fieldsItems').controls['isodineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="neckImmobilizerCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="neckImmobilizerApproved" [required]="formInit.get('fieldsItems').controls['neckImmobilizerApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="neckImmobilizerObservations" [required]="formInit.get('fieldsItems').controls['neckImmobilizerObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Isodine Espuma (60 cc) </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('isodineSolution') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="isodineFoamCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="isodineFoamApproved" [required]="formInit.get('fieldsItems').controls['isodineFoamApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="isodineFoamObservations" [required]="formInit.get('fieldsItems').controls['isodineFoamObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineSolutionCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineSolutionApproved" [required]="formInit.get('fieldsItems').controls['isodineSolutionApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineSolutionObservations" [required]="formInit.get('fieldsItems').controls['isodineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Jeringas desechables </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('isodineFoam') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="disposableSyringesCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="disposableSyringesApproved" [required]="formInit.get('fieldsItems').controls['disposableSyringesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="disposableSyringesObservations" [required]="formInit.get('fieldsItems').controls['disposableSyringesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineFoamCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineFoamApproved" [required]="formInit.get('fieldsItems').controls['isodineFoamApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineFoamObservations" [required]="formInit.get('fieldsItems').controls['isodineFoamObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Kit Inmovilizador de extremidades </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('disposableSyringes') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="limbImmobilizerKitCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="limbImmobilizerKitApproved" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="limbImmobilizerKitObservations" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableSyringesCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableSyringesApproved" [required]="formInit.get('fieldsItems').controls['disposableSyringesApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableSyringesObservations" [required]="formInit.get('fieldsItems').controls['disposableSyringesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Libreta de apuntes y esfero </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('limbImmobilizerKit') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="notebookCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="notebookApproved" [required]="formInit.get('fieldsItems').controls['notebookApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="notebookObservations" [required]="formInit.get('fieldsItems').controls['notebookObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="limbImmobilizerKitCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="limbImmobilizerKitApproved" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="limbImmobilizerKitObservations" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Linterna con baterías </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('notebook') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="flashlightCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="flashlightApproved" [required]="formInit.get('fieldsItems').controls['flashlightApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="flashlightObservations" [required]="formInit.get('fieldsItems').controls['flashlightObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="notebookCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="notebookApproved" [required]="formInit.get('fieldsItems').controls['notebookApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="notebookObservations" [required]="formInit.get('fieldsItems').controls['notebookObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Manual de Primeros Auxilios</div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('flashlight') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="firstAidManualCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="firstAidManualApproved" [required]="formInit.get('fieldsItems').controls['firstAidManualApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="firstAidManualObservations" [required]="formInit.get('fieldsItems').controls['firstAidManualObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="flashlightCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="flashlightApproved" [required]="formInit.get('fieldsItems').controls['flashlightApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="flashlightObservations" [required]="formInit.get('fieldsItems').controls['flashlightObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Mascarilla </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('firstAidManual') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="maskCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="maskApproved" [required]="formInit.get('fieldsItems').controls['maskApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="maskObservations" [required]="formInit.get('fieldsItems').controls['maskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="firstAidManualCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="firstAidManualApproved" [required]="formInit.get('fieldsItems').controls['firstAidManualApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="firstAidManualObservations" [required]="formInit.get('fieldsItems').controls['firstAidManualObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Parche Ocular </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('mask') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="eyePatchCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="eyePatchApproved" [required]="formInit.get('fieldsItems').controls['eyePatchApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="eyePatchObservations" [required]="formInit.get('fieldsItems').controls['eyePatchObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="maskCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="maskApproved" [required]="formInit.get('fieldsItems').controls['maskApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="maskObservations" [required]="formInit.get('fieldsItems').controls['maskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Solución Salina al 0,9% 500 ml</div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('eyePatch') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="salineSolutionCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="salineSolutionApproved" [required]="formInit.get('fieldsItems').controls['salineSolutionApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="salineSolutionObservations" [required]="formInit.get('fieldsItems').controls['salineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="eyePatchCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="eyePatchApproved" [required]="formInit.get('fieldsItems').controls['eyePatchApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="eyePatchObservations" [required]="formInit.get('fieldsItems').controls['eyePatchObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Silvato </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('salineSolution') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="whistleCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="whistleApproved" [required]="formInit.get('fieldsItems').controls['whistleApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="whistleObservations" [required]="formInit.get('fieldsItems').controls['whistleObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="salineSolutionCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="salineSolutionApproved" [required]="formInit.get('fieldsItems').controls['salineSolutionApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="salineSolutionObservations" [required]="formInit.get('fieldsItems').controls['salineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Tapabocas </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('whistle') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="faceMaskCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="faceMaskApproved" [required]="formInit.get('fieldsItems').controls['faceMaskApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="faceMaskObservations" [required]="formInit.get('fieldsItems').controls['faceMaskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="whistleCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="whistleApproved" [required]="formInit.get('fieldsItems').controls['whistleApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="whistleObservations" [required]="formInit.get('fieldsItems').controls['whistleObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Tijeras </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('faceMask') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="scissorsCant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="scissorsApproved" [required]="formInit.get('fieldsItems').controls['scissorsApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="scissorsObservations" [required]="formInit.get('fieldsItems').controls['scissorsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="faceMaskCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="faceMaskApproved" [required]="formInit.get('fieldsItems').controls['faceMaskApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="faceMaskObservations" [required]="formInit.get('fieldsItems').controls['faceMaskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Venda elastica 6" </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('scissors') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="elasticBandage6Cant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="elasticBandage6Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage6Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="elasticBandage6Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage6Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="scissorsCant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="scissorsApproved" [required]="formInit.get('fieldsItems').controls['scissorsApproved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="scissorsObservations" [required]="formInit.get('fieldsItems').controls['scissorsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Venda elastica color piel 2" </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage6') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="elasticBandage2Cant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="elasticBandage2Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage2Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="elasticBandage2Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage2Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage6Cant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage6Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage6Approved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage6Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage6Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
-                                        <div class="pt-2  font-semibold"> Venda elastica color piel 4" </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage2') }}
+                                        </div>
                                     </div>
-                                    <app-input-qty label="Cantidad" formControlName="elasticBandage4Cant"></app-input-qty>
-                                    <app-input-bool label="Cumple" formControlName="elasticBandage4Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage4Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="elasticBandage4Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage4Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage2Cant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage2Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage2Approved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage2Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage2Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
+                                        [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage4') }}
+                                        </div>
+                                    </div>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage4Cant"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage4Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage4Approved'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage4Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage4Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
@@ -291,26 +320,29 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Correas de Amarre </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('tieDownStraps') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="tieDownStrapsState" [required]="formInit.get('fieldsItems').controls['tieDownStrapsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="tieDownStrapsObservations" [required]="formInit.get('fieldsItems').controls['tieDownStrapsObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tieDownStrapsObservations" [required]="formInit.get('fieldsItems').controls['tieDownStrapsObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Señalización </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('signaling') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="signalingState" [required]="formInit.get('fieldsItems').controls['signalingState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="signalingObservations" [required]="formInit.get('fieldsItems').controls['signalingObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="signalingObservations" [required]="formInit.get('fieldsItems').controls['signalingObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Ubicación </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('location') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">OBSERVACIONES ADICIONALES
@@ -318,54 +350,53 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Estado General del botiquin </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('generalCondition') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="generalConditionState" [required]="formInit.get('fieldsItems').controls['generalConditionState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="generalConditionObserv" [required]="formInit.get('fieldsItems').controls['generalConditionObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="generalConditionObserv" [required]="formInit.get('fieldsItems').controls['generalConditionObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Orden y Aseo, organización y protección a la intemperie
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('orderCleanliness') }}
                                         </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="orderCleanlinessState" [required]="formInit.get('fieldsItems').controls['orderCleanlinessState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="orderCleanlinessObserv" [required]="formInit.get('fieldsItems').controls['orderCleanlinessObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="orderCleanlinessObserv" [required]="formInit.get('fieldsItems').controls['orderCleanlinessObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Ubicación y señalización adecuados </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('locationSignage') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="locationSignageState" [required]="formInit.get('fieldsItems').controls['locationSignageState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="locationSignageObserv" [required]="formInit.get('fieldsItems').controls['locationSignageObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationSignageObserv" [required]="formInit.get('fieldsItems').controls['locationSignageObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Presencia de elementos vencidos o en mal estado </div>
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('presenceExpiredItems') }}
+                                        </div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceExpiredItemsState" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="presenceExpiredItemsObserv" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceExpiredItemsObserv" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> Presencia de medicamentos de formulación </div>
+                                        <div class="pt-2  font-semibold"> {{ filterParamValue('presenceMedications') }}</div>
                                     </div>
                                     <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceMedicationsState" [required]="formInit.get('fieldsItems').controls['presenceMedicationsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="Observaciones" formControlName="presenceMedicationsObserv" [required]="formInit.get('fieldsItems').controls['presenceMedicationsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceMedicationsObserv" [required]="formInit.get('fieldsItems').controls['presenceMedicationsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
+
                             </div>
-
-                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
                             <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
-
                         </div>
                     </div>
-                </mat-tab>
-                <mat-tab label="Asistentes">
-                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
                     <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>

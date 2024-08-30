@@ -4,140 +4,147 @@
             <mat-tab-group class="mt-8">
                 <mat-tab label="Formulario">
                     <div class="form-employee flex flex-col flex-auto">
-                        <div class="flex flex-col px-4 mx-3 mb-6">
+                        <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
-
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="Contratista" formControlName="contractor" [required]="formInit.get('fieldsItems').controls['contractor'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select label="Capacitador" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="{{ filterParamLabel('contractor') }}" formControlName="contractor" [required]="formInit.get('fieldsItems').controls['contractor'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select label="{{ filterParamValue('employee') }}" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-date label="Fecha de inspección" formControlName="inspectionDate" [required]="formInit.get('fieldsItems').controls['inspectionDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
-                                    <app-input-text label="Lugar y/o area donde se realizara el trabajo" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-date label="{{ filterParamValue('inspectionDate') }}" formControlName="inspectionDate" [required]="formInit.get('fieldsItems').controls['inspectionDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
+                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-textarea label="Descripcion del trabajo a realizar" formControlName="descriptionOfWork" [required]="formInit.get('fieldsItems').controls['descriptionOfWork'].hasError('required')" rows="2" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamValue('descriptionOfWork') }}" formControlName="descriptionOfWork" [required]="formInit.get('fieldsItems').controls['descriptionOfWork'].hasError('required')" rows="2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">Andamio Certificado, Tubular Multidireccional.
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('certifiedScaffolding') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="certifiedScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="certifiedScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('allPartsScaffolding') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="Aprobar?" formControlName="certifiedScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="certifiedScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="allPartsScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="allPartsScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
                                         rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">Todas las partes del Andamio Cuerpo (Base Collar, Tornillo Nivelador, Horizontales, Verticales, Diagonales, Rodapies, Patas Niveladoras, Llantas, Pines de Seguridad y Escaleras de Acceso, Plataformas estan libres
-                                            de Oxido, Rotura, Dobleces, Grietas o Secciones que muestren Debilidad)
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('baseScaffoldingLeveled') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="baseScaffoldingLeveled" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="baseScaffoldingLeveledObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveDockingStation') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveDockingStation" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveDockingStationObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveWheelsForRide') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveWheelsForRide" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveWheelsForRideObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveSecurityPins') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSecurityPins" [required]="formInit.get('fieldsItems').controls['haveSecurityPins'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveSecurityPinsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveSecurityPinsObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('accessPlatformsGoodUse') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="Aprobar?" formControlName="allPartsScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="allPartsScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="accessPlatformsGoodUse" [required]="formInit.get('fieldsItems').controls['accessPlatformsGoodUse'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="accessPlatformsGoodUseObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['accessPlatformsGoodUseObser'].hasError('required')"
                                         rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿Se Nivelo Base del Andamio?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="baseScaffoldingLeveled" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="baseScaffoldingLeveledObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿ Se Cuenta con una Base Firme y Acoplada?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveDockingStation" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveDockingStationObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿ Se Cuenta con Llantas para el Desplazamiento y Estas se encuentran con su Respectivo Freno?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveWheelsForRide" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveWheelsForRideObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿Cuenta con los Pines de Seguridad?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveSecurityPins" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveSecurityPinsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿Plataformas de Acceso en Buenas condiciones de Uso?
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('structureAdequatelyAssembledSec') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="Aprobar?" formControlName="accessPlatformsGoodUse" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="accessPlatformsGoodUseObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="structureAdequatelyAssembledSec" [required]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSec'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="structureAdequatelyAssembledSecObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSecObser'].hasError('required')"
                                         rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿Estructura adecuadamente armada y asegurada?
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('scaffoldingAttachedStableS') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="scaffoldingAttachedStableS" [required]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableS'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="scaffoldingAttachedStableSObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableSObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveSkirtingBoards') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSkirtingBoards" [required]="formInit.get('fieldsItems').controls['haveSkirtingBoards'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveSkirtingBoardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveSkirtingBoardsObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveAccessStairs') }}</div>
+                                    </div>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveAccessStairs" [required]="formInit.get('fieldsItems').controls['haveAccessStairs'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveAccessStairsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveAccessStairsObser'].hasError('required')"
+                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveScaffoldErectersCertificate') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="Aprobar?" formControlName="structureAdequatelyAssembledSec" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="structureAdequatelyAssembledSecObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldErectersCertificate" [required]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificate'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveScaffoldErectersCertificateObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificateObser'].hasError('required')"
                                         rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿El andamio esta sujeto a una estructura estable (aplicable para andamios de 3 cuerpos/Secciones o más?)</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveSkirtingBoards" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveSkirtingBoardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿ Se Cuenta con los Rodapies?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveAccessStairs" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveAccessStairsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿Se Cuenta Con las Escaleras de Acceso?</div>
-                                    </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveScaffoldErectersCertificate" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveScaffoldErectersCertificateObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
-                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">¿ Se Cuenta Con el Certificado del Armador de Andamio?
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveScaffoldingUsageCards') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="Aprobar?" formControlName="haveScaffoldingUsageCards" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="Observaciones" formControlName="haveScaffoldingUsageCardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldingUsageCards" [required]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCards'].hasError('required')"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="haveScaffoldingUsageCardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCardsObser'].hasError('required')"
                                         rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
                             </div>
@@ -147,19 +154,18 @@
                                     <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
                                         <img [src]="image" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
                                         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
-                                            <span class="text-white text-xl font-bold">Ampliar</span>
+                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge') }}</span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
+                                    <div class="pt-2 font-semibold">{{ filterParamValue('certifyEquipmentOperator') }}</div>
+                                </div>
                             </div>
-
-                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
                             <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
                         </div>
                     </div>
-                </mat-tab>
-                <mat-tab label="Asistentes">
-                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
                     <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
@@ -169,12 +175,12 @@
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
-                            <span class="ml-14">Guardar</span>
+                            <span class="ml-14">{{ filterParamLabel('save') }}</span>
                         </a>
                     </div>
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
-                            <span class="ml-14">Cancelar</span>
+                            <span class="ml-14">{{ filterParamLabel('cancel') }}</span>
                         </a>
                     </div>
                 </div>

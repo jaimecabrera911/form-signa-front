@@ -1,7 +1,5 @@
 <div class="w-full">
     <div class="mt-3">
-        <!-- <pre>{{ formInit.value.selectAutoComplete | json }}
-        </pre>-->
         <form [formGroup]="formInit">
             <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3 bg-card shadow rounded-2xl  mat-item-card">
                 <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full">
@@ -13,7 +11,6 @@
         </form>
     </div>
     <br>
-    <!-- <pre>{{ formApproval.value | json }}</pre> -->
     <form [formGroup]="formApproval">
         <div *ngIf="formId" class="bg-[#748EB8] text-white font-medium grid grid-cols-1 p-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-4 w-full">
             <div class="flex flex-col flex-auto">Empleado</div>

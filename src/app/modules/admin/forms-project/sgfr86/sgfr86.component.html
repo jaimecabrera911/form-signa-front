@@ -4,30 +4,30 @@
             <mat-tab-group class="mt-8">
                 <mat-tab label="Formulario">
                     <div class="form-employee flex flex-col flex-auto">
-                        <div class="flex flex-col px-4 mx-3 mb-6">
+                        <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">EQUIPO DE SOLDAR</div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('WELDINGEQUIPMENT') }}</div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="Localización" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="Operador" formControlName="operatorName" [required]="formInit.get('fieldsItems').controls['operatorName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('location') }}" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('operatorName') }}" formControlName="operatorName" [required]="formInit.get('fieldsItems').controls['operatorName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="Marca" formControlName="brand" [required]="formInit.get('fieldsItems').controls['brand'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="Serial" formControlName="serial" [required]="formInit.get('fieldsItems').controls['serial'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="Modelo Fabricación" formControlName="manufacturingModel" [required]="formInit.get('fieldsItems').controls['manufacturingModel'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('brand') }}" formControlName="brand" [required]="formInit.get('fieldsItems').controls['brand'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('serial') }}" formControlName="serial" [required]="formInit.get('fieldsItems').controls['serial'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('manufacturingModel') }}" formControlName="manufacturingModel" [required]="formInit.get('fieldsItems').controls['manufacturingModel'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('generalCondition') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="generalConditionMonday" [required]="formInit.get('fieldsItems').controls['generalConditionMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="generalConditionTuesday" [required]="formInit.get('fieldsItems').controls['generalConditionTuesday'].hasError('required')"></app-input-bool>
@@ -40,7 +40,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('electricalSystem') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="electricalSystemMonday" [required]="formInit.get('fieldsItems').controls['electricalSystemMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="electricalSystemTuesday" [required]="formInit.get('fieldsItems').controls['electricalSystemTuesday'].hasError('required')"></app-input-bool>
@@ -53,7 +53,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('coolingSystemConditions') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="coolingSystemConditionsMonday" [required]="formInit.get('fieldsItems').controls['coolingSystemConditionsMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="coolingSystemConditionsTuesday" [required]="formInit.get('fieldsItems').controls['coolingSystemConditionsTuesday'].hasError('required')"></app-input-bool>
@@ -66,7 +66,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('operationControlPanel') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="operationControlPanelMonday" [required]="formInit.get('fieldsItems').controls['operationControlPanelMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="operationControlPanelTuesday" [required]="formInit.get('fieldsItems').controls['operationControlPanelTuesday'].hasError('required')"></app-input-bool>
@@ -79,7 +79,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('testingDifferentialCircuitBreaker') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="testingDifferentialCircuitBreakerMonday" [required]="formInit.get('fieldsItems').controls['testingDifferentialCircuitBreakerMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="testingDifferentialCircuitBreakerTuesday" [required]="formInit.get('fieldsItems').controls['testingDifferentialCircuitBreakerTuesday'].hasError('required')"></app-input-bool>
@@ -92,7 +92,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('ignitionStatus') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="ignitionStatusMonday" [required]="formInit.get('fieldsItems').controls['ignitionStatusMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="ignitionStatusTuesday" [required]="formInit.get('fieldsItems').controls['ignitionStatusTuesday'].hasError('required')"></app-input-bool>
@@ -105,7 +105,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('engineOperation') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="engineOperationMonday" [required]="formInit.get('fieldsItems').controls['engineOperationMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="engineOperationTuesday" [required]="formInit.get('fieldsItems').controls['engineOperationTuesday'].hasError('required')"></app-input-bool>
@@ -118,7 +118,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('energySource') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="energySourceMonday" [required]="formInit.get('fieldsItems').controls['energySourceMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="energySourceTuesday" [required]="formInit.get('fieldsItems').controls['energySourceTuesday'].hasError('required')"></app-input-bool>
@@ -131,7 +131,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('conditionCables') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="conditionCablesMonday" [required]="formInit.get('fieldsItems').controls['conditionCablesMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="conditionCablesTuesday" [required]="formInit.get('fieldsItems').controls['conditionCablesTuesday'].hasError('required')"></app-input-bool>
@@ -144,7 +144,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('insulationSystem') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="insulationSystemMonday" [required]="formInit.get('fieldsItems').controls['insulationSystemMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="insulationSystemTuesday" [required]="formInit.get('fieldsItems').controls['insulationSystemTuesday'].hasError('required')"></app-input-bool>
@@ -157,7 +157,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('connectionSystem') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="connectionSystemMonday" [required]="formInit.get('fieldsItems').controls['connectionSystemMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="connectionSystemTuesday" [required]="formInit.get('fieldsItems').controls['connectionSystemTuesday'].hasError('required')"></app-input-bool>
@@ -171,7 +171,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('ground') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="groundMonday" [required]="formInit.get('fieldsItems').controls['groundMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="groundTuesday" [required]="formInit.get('fieldsItems').controls['groundTuesday'].hasError('required')"></app-input-bool>
@@ -184,7 +184,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('caliperStatus') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="caliperStatusMonday" [required]="formInit.get('fieldsItems').controls['caliperStatusMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="caliperStatusTuesday" [required]="formInit.get('fieldsItems').controls['caliperStatusTuesday'].hasError('required')"></app-input-bool>
@@ -197,7 +197,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('weldingMask') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="weldingMaskMonday" [required]="formInit.get('fieldsItems').controls['weldingMaskMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="weldingMaskTuesday" [required]="formInit.get('fieldsItems').controls['weldingMaskTuesday'].hasError('required')"></app-input-bool>
@@ -210,7 +210,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('breastplateLeatherApronLegGaiters') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="breastplateLeatherApronLegGaitersMonday" [required]="formInit.get('fieldsItems').controls['breastplateLeatherApronLegGaitersMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="breastplateLeatherApronLegGaitersTuesday" [required]="formInit.get('fieldsItems').controls['breastplateLeatherApronLegGaitersTuesday'].hasError('required')"></app-input-bool>
@@ -223,7 +223,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('safetyGlasses') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="safetyGlassesMonday" [required]="formInit.get('fieldsItems').controls['safetyGlassesMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="safetyGlassesTuesday" [required]="formInit.get('fieldsItems').controls['safetyGlassesTuesday'].hasError('required')"></app-input-bool>
@@ -236,7 +236,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('gloves') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="glovesMonday" [required]="formInit.get('fieldsItems').controls['glovesMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="glovesTuesday" [required]="formInit.get('fieldsItems').controls['glovesTuesday'].hasError('required')"></app-input-bool>
@@ -249,7 +249,7 @@
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">xxxxxxxxxxxxxxx</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('faceShield') }}</div>
                                     </div>
                                     <app-input-bool [label]="days.monday" formControlName="faceShieldMonday" [required]="formInit.get('fieldsItems').controls['faceShieldMonday'].hasError('required')"></app-input-bool>
                                     <app-input-bool [label]="days.tuesday" formControlName="faceShieldTuesday" [required]="formInit.get('fieldsItems').controls['faceShieldTuesday'].hasError('required')"></app-input-bool>
@@ -260,7 +260,7 @@
                                     <app-input-bool [label]="days.sunday" formControlName="faceShieldSunday" [required]="formInit.get('fieldsItems').controls['faceShieldSunday'].hasError('required')"></app-input-bool>
                                 </div>
 
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">OBSERVACIONES</div>
+                                <div class="bg-[#CADAF6] my-3 py-3 text-center font-semibold text-xl">{{ filterParamLabel('OBSERVATIONST') }}</div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
                                     <app-input-textarea label="Observaciones" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
@@ -270,19 +270,16 @@
                                     <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
                                         <img [src]="image" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
                                         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
-                                            <span class="text-white text-xl font-bold">Ampliar</span>
+                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge') }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
+                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
                             <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
                         </div>
                     </div>
-                </mat-tab>
-                <mat-tab label="Asistentes">
-                    <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
                     <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>

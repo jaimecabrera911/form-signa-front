@@ -33,7 +33,6 @@ export class Sgfr78Component extends ControllerFormsComponent implements OnInit 
         this.getProject();
     }
 
-
     validateForm(): void {
         this.formInit = this._formBuilder.group({
             code: new FormControl(this.code),
@@ -64,7 +63,7 @@ export class Sgfr78Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'tags', value: '', type: this.getTypeValue(9) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl(''),
+            project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -120,6 +119,14 @@ export class Sgfr78Component extends ControllerFormsComponent implements OnInit 
                 tags: this.cleanSelect(this.getValueField('tags')),
             });
         }
+    }
+
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
     }
 
     onSubmit(): void {

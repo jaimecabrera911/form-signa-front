@@ -140,7 +140,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 this._formBuilder.group({ name: 'diskStatusSunday', value:   '', type: this.getTypeValue(5) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl(''),
+            project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -266,7 +266,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusMonday: this.cleanSelect(this.getValueField('handleInstallationStatusMonday')),
                 fireWitchSafetyLockStatusMonday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusMonday')),
                 statusGuardGuideMonday: this.cleanSelect(this.getValueField('statusGuardGuideMonday')),
-                appropriateAccessoriesRpmMonday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvMonday')),
+                appropriateAccessoriesRpmMonday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmMonday')),
                 appropriateAccessoriesTaskMonday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskMonday')),
                 generalConditionPolisherMonday: this.cleanSelect(this.getValueField('generalConditionPolisherMonday')),
                 eppUsedAppropriatelyWorkMonday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkMonday')),
@@ -279,7 +279,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusTuesday: this.cleanSelect(this.getValueField('handleInstallationStatusTuesday')),
                 fireWitchSafetyLockStatusTuesday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusTuesday')),
                 statusGuardGuideTuesday: this.cleanSelect(this.getValueField('statusGuardGuideTuesday')),
-                appropriateAccessoriesRpmTuesday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvTuesday')),
+                appropriateAccessoriesRpmTuesday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmTuesday')),
                 appropriateAccessoriesTaskTuesday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskTuesday')),
                 generalConditionPolisherTuesday: this.cleanSelect(this.getValueField('generalConditionPolisherTuesday')),
                 eppUsedAppropriatelyWorkTuesday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkTuesday')),
@@ -305,7 +305,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusThursday: this.cleanSelect(this.getValueField('handleInstallationStatusThursday')),
                 fireWitchSafetyLockStatusThursday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusThursday')),
                 statusGuardGuideThursday: this.cleanSelect(this.getValueField('statusGuardGuideThursday')),
-                appropriateAccessoriesRpmThursday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvThursday')),
+                appropriateAccessoriesRpmThursday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmThursday')),
                 appropriateAccessoriesTaskThursday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskThursday')),
                 generalConditionPolisherThursday: this.cleanSelect(this.getValueField('generalConditionPolisherThursday')),
                 eppUsedAppropriatelyWorkThursday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkThursday')),
@@ -318,7 +318,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusFriday: this.cleanSelect(this.getValueField('handleInstallationStatusFriday')),
                 fireWitchSafetyLockStatusFriday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusFriday')),
                 statusGuardGuideFriday: this.cleanSelect(this.getValueField('statusGuardGuideFriday')),
-                appropriateAccessoriesRpmFriday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvFriday')),
+                appropriateAccessoriesRpmFriday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmFriday')),
                 appropriateAccessoriesTaskFriday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskFriday')),
                 generalConditionPolisherFriday: this.cleanSelect(this.getValueField('generalConditionPolisherFriday')),
                 eppUsedAppropriatelyWorkFriday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkFriday')),
@@ -331,7 +331,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusSaturday: this.cleanSelect(this.getValueField('handleInstallationStatusSaturday')),
                 fireWitchSafetyLockStatusSaturday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusSaturday')),
                 statusGuardGuideSaturday: this.cleanSelect(this.getValueField('statusGuardGuideSaturday')),
-                appropriateAccessoriesRpmSaturday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvSaturday')),
+                appropriateAccessoriesRpmSaturday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmSaturday')),
                 appropriateAccessoriesTaskSaturday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskSaturday')),
                 generalConditionPolisherSaturday: this.cleanSelect(this.getValueField('generalConditionPolisherSaturday')),
                 eppUsedAppropriatelyWorkSaturday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkSaturday')),
@@ -344,7 +344,7 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
                 handleInstallationStatusSunday: this.cleanSelect(this.getValueField('handleInstallationStatusSunday')),
                 fireWitchSafetyLockStatusSunday: this.cleanSelect(this.getValueField('fireWitchSafetyLockStatusSunday')),
                 statusGuardGuideSunday: this.cleanSelect(this.getValueField('statusGuardGuideSunday')),
-                appropriateAccessoriesRpmSunday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvSunday')),
+                appropriateAccessoriesRpmSunday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmSunday')),
                 appropriateAccessoriesTaskSunday: this.cleanSelect(this.getValueField('appropriateAccessoriesTaskSunday')),
                 generalConditionPolisherSunday: this.cleanSelect(this.getValueField('generalConditionPolisherSunday')),
                 eppUsedAppropriatelyWorkSunday: this.cleanSelect(this.getValueField('eppUsedAppropriatelyWorkSunday')),
@@ -354,6 +354,13 @@ export class Sglc24Component  extends ControllerFormsComponent implements OnInit
         }
     }
 
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
+    }
 
     onSubmit(): void {
         this.validationSubmit();

@@ -4,7 +4,7 @@
             <mat-tab-group class="mt-8">
                 <mat-tab label="Formulario">
                     <div class="form-employee flex flex-col flex-auto">
-                        <div class="flex flex-col px-4 mx-3 mb-6">
+                        <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
                                 <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
                                 <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>

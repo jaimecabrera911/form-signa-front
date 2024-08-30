@@ -4,36 +4,446 @@
             <mat-tab-group class="mt-8">
                 <mat-tab label="Formulario">
                     <div class="form-employee flex flex-col flex-auto">
-                        <div class="flex flex-col px-4 mx-3 mb-6">
+                        <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="Código formulario" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="Versión" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="ID proyecto" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
                             </div>
                             <div formGroupName="fieldsItems">
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">1. GENERALIDADES</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">MEDIDAS COLECTIVAS DE PREVENCIÓN</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">MEDIDAS ACTIVAS DE PROTECCIÓN</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">ELEMENTOS DE PROTECCIÓN PERSONAL</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">SISTEMA DE ACCESO</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">2. LISTA DE VERIFICACIÓN</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.1 APLICA PARA TODOS LOS TRABAJOS</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.2 TRABAJOS EN ALTURA</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.3 TRABAJOS EN EXCACACIONES Y ZANJAS</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.4 IZAJE Y MOVILIZACIÓN DE CARGAS</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.5 TRABAJOS EN CALIENTE</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.6 TRABAJOS ELÉCTRICOS</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.7 TRABAJOS CON EXPLOSIVOS</div>
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.8 TRABAJOS EN ESPACIOS CONFINADOS</div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('GENERALITIES') }}</div>
 
-                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">2.6 TRABAJOS ELÉCTRICOS</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select label="{{ filterParamValue('typeWork') }}" [options]="typeWork" formControlName="typeWork" [required]="formInit.get('fieldsItems').controls['typeWork'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
+                                    <app-input-textarea label="{{ filterParamValue('workDescriptionProcedure') }}" formControlName="workDescriptionProcedure" [required]="formInit.get('fieldsItems').controls['workDescriptionProcedure'].hasError('required')" rows="2" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
+                                    <app-input-textarea label="{{ filterParamValue('toolsUse') }}" formControlName="toolsUse" [required]="formInit.get('fieldsItems').controls['toolsUse'].hasError('required')" rows="2" [validateFormSumt]="validate"></app-input-textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-date label="{{ filterParamValue('estimateWorkTimeStart') }}" formControlName="estimateWorkTimeStart" [required]="formInit.get('fieldsItems').controls['estimateWorkTimeStart'].hasError('required')" maxInputDate="{{ formInit.get('fieldsItems').controls['estimateWorkTimeEnd'] ? formInit.get('fieldsItems').controls['estimateWorkTimeEnd'] : '' }}"
+                                        [validateFormSumt]="validate"></app-input-date>
+                                    <app-input-date label="{{ filterParamValue('estimateWorkTimeEnd') }}" formControlName="estimateWorkTimeEnd" [required]="formInit.get('fieldsItems').controls['estimateWorkTimeEnd'].hasError('required')" minInputDate="{{ formInit.get('fieldsItems').controls['estimateWorkTimeStart'] ? formInit.get('fieldsItems').controls['estimateWorkTimeStart'] : '' }}"
+                                        [validateFormSumt]="validate"></app-input-date>
+                                    <app-input-text label="{{ filterParamValue('approximateHeight') }}" formControlName="approximateHeight" [required]="formInit.get('fieldsItems').controls['approximateHeight'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('COLLECTIVE_PREVENTION_MEASURES') }} </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-select label="{{ filterParamValue('mcpDelimitationArea') }}" [options]="state2" formControlName="mcpDelimitationArea" [required]="formInit.get('fieldsItems').controls['mcpDelimitationArea'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mcpWarningLine') }}" [options]="state2" formControlName="mcpWarningLine" [required]="formInit.get('fieldsItems').controls['mcpWarningLine'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mcpHandlingUnevennessGaps') }}" [options]="state2" formControlName="mcpHandlingUnevennessGaps" [required]="formInit.get('fieldsItems').controls['mcpHandlingUnevennessGaps'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mcpAreaSignage') }}" [options]="state2" formControlName="mcpAreaSignage" [required]="formInit.get('fieldsItems').controls['mcpAreaSignage'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mcpSafetyRaillings') }}" [options]="state2" formControlName="mcpSafetyRaillings" [required]="formInit.get('fieldsItems').controls['mcpSafetyRaillings'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mcpSecurityAssitant') }}" [options]="state2" formControlName="mcpSecurityAssitant" [required]="formInit.get('fieldsItems').controls['mcpSecurityAssitant'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('ACTIVE_PROTECTION_MEASURES') }}</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
+                                    <app-input-select label="{{ filterParamValue('mapFixedAnchorPoint') }}" [options]="state2" formControlName="mapFixedAnchorPoint" [required]="formInit.get('fieldsItems').controls['mapFixedAnchorPoint'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapPortableAnchoringDevices') }}" [options]="state2" formControlName="mapPortableAnchoringDevices" [required]="formInit.get('fieldsItems').controls['mapPortableAnchoringDevices'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapHorizontalLifelinePF') }}" [options]="state2" formControlName="mapHorizontalLifelinePF" [required]="formInit.get('fieldsItems').controls['mapHorizontalLifelinePF'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <app-input-select label="{{ filterParamValue('mapVerticalLifelinesPF') }}" [options]="state2" formControlName="mapVerticalLifelinesPF" [required]="formInit.get('fieldsItems').controls['mapVerticalLifelinesPF'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapSafetyHooks') }}" [options]="state2" formControlName="mapSafetyHooks" [required]="formInit.get('fieldsItems').controls['mapSafetyHooks'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapCarabiners') }}" [options]="state2" formControlName="mapCarabiners" [required]="formInit.get('fieldsItems').controls['mapCarabiners'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <app-input-select label="{{ filterParamValue('mapFallRestraintConnectors') }}" [options]="state2" formControlName="mapFallRestraintConnectors" [required]="formInit.get('fieldsItems').controls['mapFallRestraintConnectors'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapPositioningConnectors') }}" [options]="state2" formControlName="mapPositioningConnectors" [required]="formInit.get('fieldsItems').controls['mapPositioningConnectors'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapFallArrestConnectors') }}" [options]="state2" formControlName="mapFallArrestConnectors" [required]="formInit.get('fieldsItems').controls['mapFallArrestConnectors'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <app-input-select label="{{ filterParamValue('mapSlingsWithEnergyAbsorber') }}" [options]="state2" formControlName="mapSlingsWithEnergyAbsorber" [required]="formInit.get('fieldsItems').controls['mapSlingsWithEnergyAbsorber'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapSelfRetractingLifelines') }}" [options]="state2" formControlName="mapSelfRetractingLifelines" [required]="formInit.get('fieldsItems').controls['mapSelfRetractingLifelines'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapVerticalTransitConnectors') }}" [options]="state2" formControlName="mapVerticalTransitConnectors" [required]="formInit.get('fieldsItems').controls['mapVerticalTransitConnectors'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <app-input-select label="{{ filterParamValue('mapBrakesFixedLifelines') }}" [options]="state2" formControlName="mapBrakesFixedLifelines" [required]="formInit.get('fieldsItems').controls['mapBrakesFixedLifelines'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('mapBrakesPortableLifelines') }}" [options]="state2" formControlName="mapBrakesPortableLifelines" [required]="formInit.get('fieldsItems').controls['mapBrakesPortableLifelines'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('PERSONAL_PROTECTION_ELEMENTS') }} </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-select label="{{ filterParamValue('eppHelmetChinStrap') }}" [options]="state2" formControlName="eppHelmetChinStrap" [required]="formInit.get('fieldsItems').controls['eppHelmetChinStrap'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppFaceProtection') }}" [options]="state2" formControlName="eppFaceProtection" [required]="formInit.get('fieldsItems').controls['eppFaceProtection'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppSafetyBoots') }}" [options]="state2" formControlName="eppSafetyBoots" [required]="formInit.get('fieldsItems').controls['eppSafetyBoots'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppHearingProtection') }}" [options]="state2" formControlName="eppHearingProtection" [required]="formInit.get('fieldsItems').controls['eppHearingProtection'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppOrganicVaporMask') }}" [options]="state2" formControlName="eppOrganicVaporMask" [required]="formInit.get('fieldsItems').controls['eppOrganicVaporMask'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppTyvekSuit') }}" [options]="state2" formControlName="eppTyvekSuit" [required]="formInit.get('fieldsItems').controls['eppTyvekSuit'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppSafetyGlasses') }}" [options]="state2" formControlName="eppSafetyGlasses" [required]="formInit.get('fieldsItems').controls['eppSafetyGlasses'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppGloves') }}" [options]="state2" formControlName="eppGloves" [required]="formInit.get('fieldsItems').controls['eppGloves'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('eppRespiratoryProtection') }}" [options]="state2" formControlName="eppRespiratoryProtection" [required]="formInit.get('fieldsItems').controls['eppRespiratoryProtection'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('ACCESS_SYSTEM') }}</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <app-input-select label="{{ filterParamValue('accessSystem') }}" [options]="accessSystem" formControlName="accessSystem" [required]="formInit.get('fieldsItems').controls['accessSystem'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('accessSystemStatus') }}" [options]="state3" formControlName="accessSystemStatus" [required]="formInit.get('fieldsItems').controls['accessSystemStatus'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('CHECKLIST') }}
+                                </div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('APPLIES_ALL_JOBS') }}</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question1') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question1" [required]="formInit.get('fieldsItems').controls['aaj21Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question2') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question2" [required]="formInit.get('fieldsItems').controls['aaj21Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question3') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question3" [required]="formInit.get('fieldsItems').controls['aaj21Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question4') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question4" [required]="formInit.get('fieldsItems').controls['aaj21Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question5') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question5" [required]="formInit.get('fieldsItems').controls['aaj21Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question6') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question6" [required]="formInit.get('fieldsItems').controls['aaj21Question6'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question7') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question7" [required]="formInit.get('fieldsItems').controls['aaj21Question7'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('aaj21Question8') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="aaj21Question8" [required]="formInit.get('fieldsItems').controls['aaj21Question8'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('WORK_HEIGHT') }}
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question1') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question1" [required]="formInit.get('fieldsItems').controls['wh22Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question2') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question2" [required]="formInit.get('fieldsItems').controls['wh22Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question3') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question3" [required]="formInit.get('fieldsItems').controls['wh22Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question4') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question4" [required]="formInit.get('fieldsItems').controls['wh22Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question5') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question5" [required]="formInit.get('fieldsItems').controls['wh22Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question6') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question6" [required]="formInit.get('fieldsItems').controls['wh22Question6'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question7') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question7" [required]="formInit.get('fieldsItems').controls['wh22Question7'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question8') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question8" [required]="formInit.get('fieldsItems').controls['wh22Question8'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question9') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question9" [required]="formInit.get('fieldsItems').controls['wh22Question9'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question10') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question10" [required]="formInit.get('fieldsItems').controls['wh22Question10'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wh22Question11') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wh22Question11" [required]="formInit.get('fieldsItems').controls['wh22Question11'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('WORK_EXCAVATIONS_TRENCHES') }}</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wet23Question1') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wet23Question1" [required]="formInit.get('fieldsItems').controls['wet23Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wet23Question2') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wet23Question2" [required]="formInit.get('fieldsItems').controls['wet23Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wet23Question3') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wet23Question3" [required]="formInit.get('fieldsItems').controls['wet23Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wet23Question4') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wet23Question4" [required]="formInit.get('fieldsItems').controls['wet23Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wet23Question5') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wet23Question5" [required]="formInit.get('fieldsItems').controls['wet23Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                </div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('LIFTING_MOBILIZATION_LOADS') }}</div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question1') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question1" [required]="formInit.get('fieldsItems').controls['lml24Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question2') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question2" [required]="formInit.get('fieldsItems').controls['lml24Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question3') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question3" [required]="formInit.get('fieldsItems').controls['lml24Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question4') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question4" [required]="formInit.get('fieldsItems').controls['lml24Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question5') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question5" [required]="formInit.get('fieldsItems').controls['lml24Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question6') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question6" [required]="formInit.get('fieldsItems').controls['lml24Question6'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question7') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question7" [required]="formInit.get('fieldsItems').controls['lml24Question7'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question8') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question8" [required]="formInit.get('fieldsItems').controls['lml24Question8'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question9') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question9" [required]="formInit.get('fieldsItems').controls['lml24Question9'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('lml24Question10') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="lml24Question10" [required]="formInit.get('fieldsItems').controls['lml24Question10'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('HOT_WORK') }}
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question1') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question1" [required]="formInit.get('fieldsItems').controls['hw25Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question2') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question2" [required]="formInit.get('fieldsItems').controls['hw25Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question3') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question3" [required]="formInit.get('fieldsItems').controls['hw25Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question4') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question4" [required]="formInit.get('fieldsItems').controls['hw25Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question5') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question5" [required]="formInit.get('fieldsItems').controls['hw25Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question6') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question6" [required]="formInit.get('fieldsItems').controls['hw25Question6'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question7') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question7" [required]="formInit.get('fieldsItems').controls['hw25Question7'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question8') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question8" [required]="formInit.get('fieldsItems').controls['hw25Question8'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('hw25Question9') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="hw25Question9" [required]="formInit.get('fieldsItems').controls['hw25Question9'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('ELECTRICAL_WORK') }}
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('ew26Question1') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="ew26Question1" [required]="formInit.get('fieldsItems').controls['ew26Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('ew26Question2') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="ew26Question2" [required]="formInit.get('fieldsItems').controls['ew26Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('ew26Question3') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="ew26Question3" [required]="formInit.get('fieldsItems').controls['ew26Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('WORK_WITH_EXPLOSIVES') }}
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('we27Question1') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="we27Question1" [required]="formInit.get('fieldsItems').controls['we27Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('we27Question2') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="we27Question2" [required]="formInit.get('fieldsItems').controls['we27Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('we27Question3') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="we27Question3" [required]="formInit.get('fieldsItems').controls['we27Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('we27Question4') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="we27Question4" [required]="formInit.get('fieldsItems').controls['we27Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('we27Question5') }}
+                                        </div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="we27Question5" [required]="formInit.get('fieldsItems').controls['we27Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-base">{{ filterParamValue('WORK_CONFINED_SPACES') }}</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question1') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question1" [required]="formInit.get('fieldsItems').controls['wcs28Question1'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question2') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question2" [required]="formInit.get('fieldsItems').controls['wcs28Question2'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question3') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question3" [required]="formInit.get('fieldsItems').controls['wcs28Question3'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question4') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question4" [required]="formInit.get('fieldsItems').controls['wcs28Question4'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question5') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question5" [required]="formInit.get('fieldsItems').controls['wcs28Question5'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question6') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question6" [required]="formInit.get('fieldsItems').controls['wcs28Question6'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+
+                                    <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
+                                        <div class="pt-2  font-semibold">{{ filterParamValue('wcs28Question7') }}</div>
+                                    </div>
+                                    <app-input-select [options]="state2" formControlName="wcs28Question7" [required]="formInit.get('fieldsItems').controls['wcs28Question7'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                </div>
+
                             </div>
-
-                            <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">Firmas</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
-
                         </div>
                     </div>
+                    <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
+                    <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+
                 </mat-tab>
                 <mat-tab label="Asistentes">
                     <app-tables-items [data]="apiItems$" [selectedItems]="assistantsItems" [formId]="id" [colums]="iterableColumns" formControlName="assignedAssistants" typeTable="add"></app-tables-items>
@@ -46,12 +456,12 @@
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">
-                            <span class="ml-14">Guardar</span>
+                            <span class="ml-14">{{ filterParamLabel('save') }}</span>
                         </a>
                     </div>
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
-                            <span class="ml-14">Cancelar</span>
+                            <span class="ml-14">{{ filterParamLabel('cancel') }}</span>
                         </a>
                     </div>
                 </div>

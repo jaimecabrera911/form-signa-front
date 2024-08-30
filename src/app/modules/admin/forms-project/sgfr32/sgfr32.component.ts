@@ -28,14 +28,17 @@ export class Sgfr32Component extends ControllerFormsComponent implements OnInit 
         super.ngOnInit();
         this.validateForm();
         this.getProject();
-        this.getState();
+        this.getState2();
+        this.getState3();
+        this.getTypeWork();
+        this.getAccessSystem();
         this.getEmployees();
     }
 
     validateForm(): void {
         this.formInit = this._formBuilder.group({
             code: new FormControl(this.code),
-            uid: new FormControl(),
+            uid: new FormControl(''),
             name: new FormControl(this.title),
             version: new FormControl('1.0'),
             company: new FormControl(1),
@@ -113,7 +116,6 @@ export class Sgfr32Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'wet23Question3', value: '', type: this.getTypeValue(1) }),
                 this._formBuilder.group({ name: 'wet23Question4', value: '', type: this.getTypeValue(1) }),
                 this._formBuilder.group({ name: 'wet23Question5', value: '', type: this.getTypeValue(1) }),
-                this._formBuilder.group({ name: 'wet23Question6', value: '', type: this.getTypeValue(1) }),
 
                 this._formBuilder.group({ name: 'lml24Question1', value: '', type: this.getTypeValue(1) }),
                 this._formBuilder.group({ name: 'lml24Question2', value: '', type: this.getTypeValue(1) }),
@@ -165,119 +167,123 @@ export class Sgfr32Component extends ControllerFormsComponent implements OnInit 
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
-                typeWork: new FormControl('', [Validators.required]),
-                typeWorkOther: new FormControl('', [Validators.required]),
+                typeWork: new FormControl(''),
+                typeWorkOther: new FormControl(''),
+
                 workplace: new FormControl(''),
-                estimateWorkTimeStart: new FormControl('', [Validators.required]),
-                workDescriptionProcedure: new FormControl('', [Validators.required]),
-                toolsUse: new FormControl(),
-                estimateWorkTimeEnd: new FormControl('', [Validators.required]),
-                approximateHeight: new FormControl(),
+                workDescriptionProcedure: new FormControl(''),
+                toolsUse: new FormControl(''),
+                estimateWorkTimeStart: new FormControl(''),
+                estimateWorkTimeEnd: new FormControl(''),
+                approximateHeight: new FormControl(''),
 
                 mcpDelimitationArea: new FormControl(''),
-                mcpAreaSignage: new FormControl('', [Validators.required]),
-                mcpWarningLine: new FormControl(),
+                mcpWarningLine: new FormControl(''),
+                mcpHandlingUnevennessGaps: new FormControl(''),
+                mcpAreaSignage: new FormControl(''),
                 mcpSafetyRaillings: new FormControl(''),
-                mcpHandlingUnevennessGaps: new FormControl('', [Validators.required]),
-                mcpSecurityAssitant: new FormControl(),
+                mcpSecurityAssitant: new FormControl(''),
+
                 mapFixedAnchorPoint: new FormControl(''),
-                mapPortableAnchoringDevices: new FormControl('', [Validators.required]),
-                mapHorizontalLifelinePF: new FormControl(),
+                mapPortableAnchoringDevices: new FormControl(''),
+                mapHorizontalLifelinePF: new FormControl(''),
                 mapVerticalLifelinesPF: new FormControl(''),
-                mapSafetyHooks: new FormControl('', [Validators.required]),
-                mapCarabiners: new FormControl(),
+                mapSafetyHooks: new FormControl(''),
+                mapCarabiners: new FormControl(''),
                 mapFallRestraintConnectors: new FormControl(''),
-                mapPositioningConnectors: new FormControl('', [Validators.required]),
-                mapFallArrestConnectors: new FormControl(),
+                mapPositioningConnectors: new FormControl(''),
+                mapFallArrestConnectors: new FormControl(''),
                 mapSlingsWithEnergyAbsorber: new FormControl(''),
-                mapSelfRetractingLifelines: new FormControl('', [Validators.required]),
-                mapVerticalTransitConnectors: new FormControl(),
+                mapSelfRetractingLifelines: new FormControl(''),
+                mapVerticalTransitConnectors: new FormControl(''),
                 mapBrakesFixedLifelines: new FormControl(''),
-                mapBrakesPortableLifelines: new FormControl('', [Validators.required]),
+                mapBrakesPortableLifelines: new FormControl(''),
 
-                eppHelmetChinStrap: new FormControl(),
+                eppHelmetChinStrap: new FormControl(''),
                 eppFaceProtection: new FormControl(''),
-                eppSafetyBoots: new FormControl('', [Validators.required]),
-                eppHearingProtection: new FormControl(),
+                eppSafetyBoots: new FormControl(''),
+                eppHearingProtection: new FormControl(''),
                 eppOrganicVaporMask: new FormControl(''),
-                eppTyvekSuit: new FormControl('', [Validators.required]),
-                eppSafetyGlasses: new FormControl(),
+                eppTyvekSuit: new FormControl(''),
+                eppSafetyGlasses: new FormControl(''),
                 eppGloves: new FormControl(''),
-                eppRespiratoryProtection: new FormControl('', [Validators.required]),
+                eppRespiratoryProtection: new FormControl(''),
 
-                accessSystem: new FormControl(),
+                accessSystem: new FormControl(''),
                 accessSystemOther: new FormControl(''),
-                accessSystemStatus: new FormControl('', [Validators.required]),
-                aaj21Question1: new FormControl(),
+                accessSystemStatus: new FormControl(''),
+
+
+                aaj21Question1: new FormControl(''),
                 aaj21Question2: new FormControl(''),
-                aaj21Question3: new FormControl('', [Validators.required]),
-                aaj21Question4: new FormControl(),
+                aaj21Question3: new FormControl(''),
+                aaj21Question4: new FormControl(''),
                 aaj21Question5: new FormControl(''),
-                aaj21Question6: new FormControl('', [Validators.required]),
-                aaj21Question7: new FormControl(),
+                aaj21Question6: new FormControl(''),
+                aaj21Question7: new FormControl(''),
                 aaj21Question8: new FormControl(''),
 
-                wh22Question1: new FormControl('', [Validators.required]),
-                wh22Question2: new FormControl(),
+                wh22Question1: new FormControl(''),
+                wh22Question2: new FormControl(''),
                 wh22Question3: new FormControl(''),
-                wh22Question4: new FormControl('', [Validators.required]),
-                wh22Question5: new FormControl(),
+                wh22Question4: new FormControl(''),
+                wh22Question5: new FormControl(''),
                 wh22Question6: new FormControl(''),
-                wh22Question7: new FormControl('', [Validators.required]),
-                wh22Question8: new FormControl(),
+                wh22Question7: new FormControl(''),
+                wh22Question8: new FormControl(''),
                 wh22Question9: new FormControl(''),
-                wh22Question10: new FormControl('', [Validators.required]),
-                wh22Question11: new FormControl(),
+                wh22Question10: new FormControl(''),
+                wh22Question11: new FormControl(''),
+
                 wet23Question1: new FormControl(''),
-                wet23Question2: new FormControl('', [Validators.required]),
-                wet23Question3: new FormControl(),
+                wet23Question2: new FormControl(''),
+                wet23Question3: new FormControl(''),
                 wet23Question4: new FormControl(''),
-                wet23Question5: new FormControl('', [Validators.required]),
-                wet23Question6: new FormControl(),
+                wet23Question5: new FormControl(''),
 
                 lml24Question1: new FormControl(''),
-                lml24Question2: new FormControl('', [Validators.required]),
-                lml24Question3: new FormControl(),
+                lml24Question2: new FormControl(''),
+                lml24Question3: new FormControl(''),
                 lml24Question4: new FormControl(''),
-                lml24Question5: new FormControl('', [Validators.required]),
-                lml24Question6: new FormControl(),
+                lml24Question5: new FormControl(''),
+                lml24Question6: new FormControl(''),
                 lml24Question7: new FormControl(''),
-                lml24Question8: new FormControl('', [Validators.required]),
-                lml24Question9: new FormControl(),
+                lml24Question8: new FormControl(''),
+                lml24Question9: new FormControl(''),
                 lml24Question10: new FormControl(''),
 
-                hw25Question1: new FormControl('', [Validators.required]),
-                hw25Question2: new FormControl(),
+                hw25Question1: new FormControl(''),
+                hw25Question2: new FormControl(''),
                 hw25Question3: new FormControl(''),
-                hw25Question4: new FormControl('', [Validators.required]),
-                hw25Question5: new FormControl(),
+                hw25Question4: new FormControl(''),
+                hw25Question5: new FormControl(''),
                 hw25Question6: new FormControl(''),
-                hw25Question7: new FormControl('', [Validators.required]),
-                hw25Question8: new FormControl(),
+                hw25Question7: new FormControl(''),
+                hw25Question8: new FormControl(''),
                 hw25Question9: new FormControl(''),
 
-                ew26Question1: new FormControl('', [Validators.required]),
-                ew26Question2: new FormControl(),
+                ew26Question1: new FormControl(''),
+                ew26Question2: new FormControl(''),
                 ew26Question3: new FormControl(''),
 
-                we27Question1: new FormControl('', [Validators.required]),
-                we27Question2: new FormControl('', [Validators.required]),
-                we27Question3: new FormControl('', [Validators.required]),
-                we27Question4: new FormControl('', [Validators.required]),
-                we27Question5: new FormControl('', [Validators.required]),
+                we27Question1: new FormControl(''),
+                we27Question2: new FormControl(''),
+                we27Question3: new FormControl(''),
+                we27Question4: new FormControl(''),
+                we27Question5: new FormControl(''),
 
-                wcs28Question1: new FormControl('', [Validators.required]),
-                wcs28Question2: new FormControl('', [Validators.required]),
-                wcs28Question3: new FormControl('', [Validators.required]),
-                wcs28Question4: new FormControl('', [Validators.required]),
-                wcs28Question5: new FormControl('', [Validators.required]),
-                wcs28Question6: new FormControl('', [Validators.required]),
-                wcs28Question7: new FormControl('', [Validators.required]),
+                wcs28Question1: new FormControl(''),
+                wcs28Question2: new FormControl(''),
+                wcs28Question3: new FormControl(''),
+                wcs28Question4: new FormControl(''),
+                wcs28Question5: new FormControl(''),
+                wcs28Question6: new FormControl(''),
+                wcs28Question7: new FormControl(''),
 
-                coordinatorHeights: new FormControl('', [Validators.required]),
-                presenceExpiredItemsObserv: new FormControl('', [Validators.required]),
-                presenceMedicationsState: new FormControl('', [Validators.required]),
-                presenceMedicationsObserv: new FormControl('', [Validators.required])
+                coordinatorHeights: new FormControl(''),
+                presenceExpiredItemsObserv: new FormControl(''),
+                presenceMedicationsState: new FormControl(''),
+                presenceMedicationsObserv: new FormControl('')
             }),
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
@@ -405,6 +411,14 @@ export class Sgfr32Component extends ControllerFormsComponent implements OnInit 
             });
             console.log(this.formInit.value);
         }
+    }
+
+    filterParamLabel(param): void {
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void {
+        return this.getParamLabel(param);
     }
 
 

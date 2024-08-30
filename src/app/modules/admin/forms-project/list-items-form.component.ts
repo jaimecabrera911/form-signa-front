@@ -26,8 +26,14 @@ export abstract class ListItemsFormComponent  implements OnInit {
     employeesList: any = [];
     toolsInspectionStatus: any = [];
     state: any = [];
+    state2: any = [];
     stateVerification: any = [];
     typeStairs: any = [];
+    typeWork: any = [];
+    paramsForms: any = [];
+    paramLabels: any = [];
+    accessSystem: any = [];
+    state3: any = [];
 
     constructor(protected api: ApiService) {
     }
@@ -36,16 +42,16 @@ export abstract class ListItemsFormComponent  implements OnInit {
 
     }
 
-    getProject(): void {
-        this.api.projectService(1).subscribe({
+    async getProject(): Promise<void> {
+        await  this.api.projectService(1).subscribe({
             next: (items: any) => {
                 this.projectList = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getEmployees(): void {
-        this.api.employeesService().subscribe({
+    async getEmployees(): Promise<void> {
+        await  this.api.employeesService().subscribe({
             next: (response: any) => {
                 response.data.forEach((item: any) => {
                     this.employeesList.push({ code: item.id,
@@ -55,40 +61,40 @@ export abstract class ListItemsFormComponent  implements OnInit {
         });
     }
 
-    getActivityType(): void {
-        this.api.dataFieldService('activityType').subscribe({
+    async getActivityType(): Promise<void> {
+        await  this.api.dataFieldService('activityType').subscribe({
             next: (response: any) => {
                 this.activityTypeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getPlace(): void {
-        this.api.dataFieldService('place').subscribe({
+    async getPlace(): Promise<void> {
+        await  this.api.dataFieldService('place').subscribe({
             next: (response: any) => {
                 this.placeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getNumberPeopleInvited(): void {
-        this.api.dataFieldService('numberPeopleInvited').subscribe({
+    async getNumberPeopleInvited(): Promise<void> {
+        await  this.api.dataFieldService('numberPeopleInvited').subscribe({
             next: (response: any) => {
                 this.numberPeopleInvitedList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getImprovementAction(): void {
-        this.api.dataFieldService('improvementAction').subscribe({
+    async getImprovementAction(): Promise<void> {
+        await  this.api.dataFieldService('improvementAction').subscribe({
             next: (response: any) => {
                 this.improvementActionActionList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getEfficacyEvaluation(): void {
-        this.api.dataFieldService('efficacyEvaluation').subscribe({
+    async getEfficacyEvaluation(): Promise<void> {
+        await  this.api.dataFieldService('efficacyEvaluation').subscribe({
             next: (response: any) => {
                 this.efficacyEvaluationList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
@@ -96,64 +102,111 @@ export abstract class ListItemsFormComponent  implements OnInit {
     }
 
 
-    getEvaluationMethod(): void {
-        this.api.dataFieldService('evaluationMethod').subscribe({
+    async getEvaluationMethod(): Promise<void> {
+        await  this.api.dataFieldService('evaluationMethod').subscribe({
             next: (response: any) => {
                 this.evaluationMethodList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getStartTime(): void {
-        this.api.dataFieldService('startTime').subscribe({
+    async getStartTime(): Promise<void> {
+        await  this.api.dataFieldService('startTime').subscribe({
             next: (response: any) => {
                 this.startTimeList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getNumberPeopleAttending(): void {
-        this.api.dataFieldService('numberPeopleAttending').subscribe({
+    async getNumberPeopleAttending(): Promise<void> {
+        await  this.api.dataFieldService('numberPeopleAttending').subscribe({
             next: (response: any) => {
                 this.numberPeopleAttendingList = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getToolsInspectionStatus(): void {
-        this.api.dataFieldService('toolsInspectionStatus').subscribe({
+    async getToolsInspectionStatus(): Promise<void> {
+        await  this.api.dataFieldService('toolsInspectionStatus').subscribe({
             next: (response: any) => {
                 this.toolsInspectionStatus = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getState(): void {
-        this.api.dataFieldService('state').subscribe({
+    async getState(): Promise<void> {
+        await  this.api.dataFieldService('state').subscribe({
             next: (response: any) => {
                 this.state = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getStateVerification(): void {
-        this.api.dataFieldService('stateVerification').subscribe({
+    async getState2(): Promise<void> {
+        await  this.api.dataFieldService('state2').subscribe({
+            next: (response: any) => {
+                this.state2 = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getStateVerification(): Promise<void> {
+        await  this.api.dataFieldService('stateVerification').subscribe({
             next: (response: any) => {
                 this.stateVerification = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
-    getTypeStairs(): void {
-        this.api.dataFieldService('typeStairs').subscribe({
+    async getTypeStairs(): Promise<void> {
+        await  this.api.dataFieldService('typeStairs').subscribe({
             next: (response: any) => {
                 this.typeStairs = response?.data[0]?.values;
             }, error: (e: any) => console.error(e)
         });
     }
 
+    async getTypeWork(): Promise<void> {
+        await  this.api.dataFieldService('typeWork').subscribe({
+            next: (response: any) => {
+                this.typeWork = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
 
-    formatSelectData(elements: any): void {
+    async getLabels(): Promise<void> {
+        await  this.api.dataFieldService('labels').subscribe({
+            next: (response: any) => {
+                this.paramLabels = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getParam(item: any): Promise<void> {
+        await  this.api.dataFieldService(item).subscribe({
+            next: (response: any) => {
+                this.paramsForms = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getAccessSystem(): Promise<void> {
+        await  this.api.dataFieldService('accessSystem').subscribe({
+            next: (response: any) => {
+                this.accessSystem = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getState3(): Promise<void> {
+        await  this.api.dataFieldService('state3').subscribe({
+            next: (response: any) => {
+                this.state3 = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    formatSelectData(elements: any): Promise<void> {
         let index: number;
         const elementsData: any = [];
         for (index = 0; index < elements.data.length; index++) {

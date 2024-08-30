@@ -168,7 +168,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
 
             ]),
             evidences: new FormControl([]),
-            project: new FormControl(''),
+            project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -323,7 +323,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionMonday: this.cleanSelect(this.getValueField('lockButtonGoodConditionMonday')),
                 forwardReverseSlidingGuideWorksMonday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksMonday')),
                 equipmentFreeWaterMonday: this.cleanSelect(this.getValueField('equipmentFreeWaterMonday')),
-                drillingModeSelectorWorksMonday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvMonday')),
+                drillingModeSelectorWorksMonday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksMonday')),
                 chuckWorksMonday: this.cleanSelect(this.getValueField('chuckWorksMonday')),
                 depthStopWorksMonday: this.cleanSelect(this.getValueField('depthStopWorksMonday')),
                 mandrillGoodConditionMonday: this.cleanSelect(this.getValueField('mandrillGoodConditionMonday')),
@@ -340,7 +340,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionTuesday: this.cleanSelect(this.getValueField('lockButtonGoodConditionTuesday')),
                 forwardReverseSlidingGuideWorksTuesday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksTuesday')),
                 equipmentFreeWaterTuesday: this.cleanSelect(this.getValueField('equipmentFreeWaterTuesday')),
-                drillingModeSelectorWorksTuesday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvTuesday')),
+                drillingModeSelectorWorksTuesday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksTuesday')),
                 chuckWorksTuesday: this.cleanSelect(this.getValueField('chuckWorksTuesday')),
                 depthStopWorksTuesday: this.cleanSelect(this.getValueField('depthStopWorksTuesday')),
                 mandrillGoodConditionTuesday: this.cleanSelect(this.getValueField('mandrillGoodConditionTuesday')),
@@ -357,7 +357,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionWednesday: this.cleanSelect(this.getValueField('lockButtonGoodConditionWednesday')),
                 forwardReverseSlidingGuideWorksWednesday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksWednesday')),
                 equipmentFreeWaterWednesday: this.cleanSelect(this.getValueField('equipmentFreeWaterWednesday')),
-                drillingModeSelectorWorksWednesday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvWednesday')),
+                drillingModeSelectorWorksWednesday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksWednesday')),
                 chuckWorksWednesday: this.cleanSelect(this.getValueField('chuckWorksWednesday')),
                 depthStopWorksWednesday: this.cleanSelect(this.getValueField('depthStopWorksWednesday')),
                 mandrillGoodConditionWednesday: this.cleanSelect(this.getValueField('mandrillGoodConditionWednesday')),
@@ -374,7 +374,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionThursday: this.cleanSelect(this.getValueField('lockButtonGoodConditionThursday')),
                 forwardReverseSlidingGuideWorksThursday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksThursday')),
                 equipmentFreeWaterThursday: this.cleanSelect(this.getValueField('equipmentFreeWaterThursday')),
-                drillingModeSelectorWorksThursday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvThursday')),
+                drillingModeSelectorWorksThursday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksThursday')),
                 chuckWorksThursday: this.cleanSelect(this.getValueField('chuckWorksThursday')),
                 depthStopWorksThursday: this.cleanSelect(this.getValueField('depthStopWorksThursday')),
                 mandrillGoodConditionThursday: this.cleanSelect(this.getValueField('mandrillGoodConditionThursday')),
@@ -391,7 +391,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionFriday: this.cleanSelect(this.getValueField('lockButtonGoodConditionFriday')),
                 forwardReverseSlidingGuideWorksFriday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksFriday')),
                 equipmentFreeWaterFriday: this.cleanSelect(this.getValueField('equipmentFreeWaterFriday')),
-                drillingModeSelectorWorksFriday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvFriday')),
+                drillingModeSelectorWorksFriday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksFriday')),
                 chuckWorksFriday: this.cleanSelect(this.getValueField('chuckWorksFriday')),
                 depthStopWorksFriday: this.cleanSelect(this.getValueField('depthStopWorksFriday')),
                 mandrillGoodConditionFriday: this.cleanSelect(this.getValueField('mandrillGoodConditionFriday')),
@@ -408,7 +408,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionSaturday: this.cleanSelect(this.getValueField('lockButtonGoodConditionSaturday')),
                 forwardReverseSlidingGuideWorksSaturday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksSaturday')),
                 equipmentFreeWaterSaturday: this.cleanSelect(this.getValueField('equipmentFreeWaterSaturday')),
-                drillingModeSelectorWorksSaturday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvSaturday')),
+                drillingModeSelectorWorksSaturday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksSaturday')),
                 chuckWorksSaturday: this.cleanSelect(this.getValueField('chuckWorksSaturday')),
                 depthStopWorksSaturday: this.cleanSelect(this.getValueField('depthStopWorksSaturday')),
                 mandrillGoodConditionSaturday: this.cleanSelect(this.getValueField('mandrillGoodConditionSaturday')),
@@ -425,7 +425,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
                 lockButtonGoodConditionSunday: this.cleanSelect(this.getValueField('lockButtonGoodConditionSunday')),
                 forwardReverseSlidingGuideWorksSunday: this.cleanSelect(this.getValueField('forwardReverseSlidingGuideWorksSunday')),
                 equipmentFreeWaterSunday: this.cleanSelect(this.getValueField('equipmentFreeWaterSunday')),
-                drillingModeSelectorWorksSunday: this.cleanSelect(this.getValueField('appropriateAccessoriesRpmvSunday')),
+                drillingModeSelectorWorksSunday: this.cleanSelect(this.getValueField('drillingModeSelectorWorksSunday')),
                 chuckWorksSunday: this.cleanSelect(this.getValueField('chuckWorksSunday')),
                 depthStopWorksSunday: this.cleanSelect(this.getValueField('depthStopWorksSunday')),
                 mandrillGoodConditionSunday: this.cleanSelect(this.getValueField('mandrillGoodConditionSunday')),
@@ -439,6 +439,13 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
         }
     }
 
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
+    }
 
     onSubmit(): void {
         this.validationSubmit();

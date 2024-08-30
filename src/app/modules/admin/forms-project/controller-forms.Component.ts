@@ -48,7 +48,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     assistantsForm: any = [];
     approvalsForm: any = [];
     filesUploadDelete: any[] = [];
-    days: any = {'monday': 'Lunes', 'tuesday': 'Martes', 'wednesday': 'Miercoles', 'thursday': 'Jueves', 'friday': 'Viernes', 'saturday': 'Sabado', 'sunday': 'Domingo'};
+    days: any = { 'monday': 'Lunes', 'tuesday': 'Martes', 'wednesday': 'Miercoles', 'thursday': 'Jueves', 'friday': 'Viernes', 'saturday': 'Sabado', 'sunday': 'Domingo' };
 
     iterableColumns: TableItems[] = [
         { name: 'fullName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
@@ -69,6 +69,9 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     override ngOnInit(): void {
         const str = window.location.pathname;
         this.getTemplateId();
+        this.getLabels();
+        console.log('code:: ',this.code.toLowerCase());
+        this.getParam(this.code.toLowerCase());
         this.apiItems$ = this.api.employeesService();
         this.getFormId();
         super.ngOnInit();
@@ -109,15 +112,27 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     }
 
     getTypeValue = (id: any) => typeValues.filter(item => item.id === id)
-      .map(item => item.value);
+        .map(item => item.value);
 
     getForm(): void { }
 
     getValueField(code: any): any {
         return this.itemsCurrent[0].fields
-                .filter(item => item.name === code)
-                .map(item => item.value);
+            .filter(item => item.name === code)
+            .map(item => item.value);
     };
+
+    getLabel(code: any): any {
+        const param = this.paramLabels?.filter((item: any) => item.code === code)
+            .map((item: any) => item.name ? item.name : '');
+        return param[0] ? param[0] : '';
+    }
+
+    getParamLabel(code: any): any {
+        const param = this.paramsForms?.filter((item: any) => item.code === code)
+            .map((item: any) => item.name ? item.name : '');
+        return param[0] ? param[0] : '';
+    }
 
     cleanSelect(item): void { return item.pop(); }
 
@@ -138,9 +153,10 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             return;
         }
         this.validDeleFile();
-        const uploadFiles = this.formInit.value.filesUpload?.filter((item: any) => item.id === null).map((item: any) => item.filesUploads ? item.filesUploads : null);
-        if (this.formInit.value.filesUpload) {
-            if(uploadFiles[0] !== undefined){
+        console.log('upl ', this.formInit?.value?.filesUpload);
+        const uploadFiles = this.formInit?.value?.filesUpload?.filter((item: any) => item.id === null).map((item: any) => item.filesUploads ? item.filesUploads : null);
+        if (this.formInit?.value?.filesUpload) {
+            if (uploadFiles[0] !== undefined) {
                 this.uploadSave(uploadFiles[0]);
             } else {
                 this.formSave();
@@ -298,7 +314,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (validIdEmp[0] === undefined || !validIdEmp[0]) {
             await this.api.createAssistantService(request).subscribe({
                 next: (response) => {
-                    if(response){
+                    if (response) {
                         const toast = this.swaAlert.toast();
                         toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
                             location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;

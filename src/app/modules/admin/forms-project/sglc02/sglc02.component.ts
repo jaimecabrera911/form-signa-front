@@ -43,7 +43,6 @@ export class Sglc02Component extends ControllerFormsComponent implements OnInit 
             fields: new FormArray([
                 this._formBuilder.group({ name: 'firstAidKitLocation', value: '', type: this.getTypeValue(1) }),
                 this._formBuilder.group({ name: 'firstAidKitCode', value: '', type: this.getTypeValue(1) }),
-                this._formBuilder.group({ name: 'employee', value: '', type: this.getTypeValue(1) }),
 
                 this._formBuilder.group({ name: 'plasticBagCant', value: '', type: this.getTypeValue(2) }),
                 this._formBuilder.group({ name: 'plasticBagApproved', value: '', type: this.getTypeValue(5) }),
@@ -188,143 +187,142 @@ export class Sglc02Component extends ControllerFormsComponent implements OnInit 
             fieldsItems: this._formBuilder.group({
                 firstAidKitLocation: new FormControl('', [Validators.required]),
                 firstAidKitCode: new FormControl('', [Validators.required]),
-                employee: new FormControl(''),
 
-                plasticBagObservations: new FormControl('', [Validators.required]),
-                plasticBagCant: new FormControl('', [Validators.required]),
+                plasticBagObservations: new FormControl(''),
+                plasticBagCant: new FormControl(''),
                 plasticBagApproved: new FormControl(),
 
-                antisepticAlcoholCant: new FormControl('', [Validators.required]),
+                antisepticAlcoholCant: new FormControl(''),
                 antisepticAlcoholApproved: new FormControl(),
                 antisepticAlcoholObservations: new FormControl(''),
 
-                cottonCant: new FormControl('', [Validators.required]),
+                cottonCant: new FormControl(''),
                 cottonApproved: new FormControl(),
                 cottonObservations: new FormControl(''),
 
-                applicatorsCant: new FormControl('', [Validators.required]),
+                applicatorsCant: new FormControl(''),
                 applicatorsApproved: new FormControl(),
                 aapplicatorsObservations: new FormControl(''),
 
-                gauzeDressingsCant: new FormControl('', [Validators.required]),
+                gauzeDressingsCant: new FormControl(''),
                 gauzeDressingsApproved: new FormControl(),
                 pgauzeDressingsObservations: new FormControl(''),
 
-                tongueDepressorCant: new FormControl('', [Validators.required]),
+                tongueDepressorCant: new FormControl(''),
                 tongueDepressorApproved: new FormControl(),
                 tongueDepressorObservations: new FormControl(''),
 
-                slingCant: new FormControl('', [Validators.required]),
+                slingCant: new FormControl(''),
                 slingApproved: new FormControl(),
                 slingObservations: new FormControl(''),
 
-                curesCant: new FormControl('', [Validators.required]),
+                curesCant: new FormControl(''),
                 curesApproved: new FormControl(),
                 curesObservations: new FormControl(''),
 
-                stickingPlasterCant: new FormControl('', [Validators.required]),
+                stickingPlasterCant: new FormControl(''),
                 stickingPlasterApproved: new FormControl(),
                 stickingPlasterObservations: new FormControl(''),
 
-                antisepticGauzeCant: new FormControl('', [Validators.required]),
+                antisepticGauzeCant: new FormControl(''),
                 antisepticGauzeApproved: new FormControl(),
                 antisepticGauzeObservations: new FormControl(''),
 
-                disposableGlovesCant: new FormControl('', [Validators.required]),
+                disposableGlovesCant: new FormControl(''),
                 disposableGlovesApproved: new FormControl(),
                 disposableGlovesObservations: new FormControl(''),
 
-                neckImmobilizerCant: new FormControl('', [Validators.required]),
+                neckImmobilizerCant: new FormControl(''),
                 neckImmobilizerApproved: new FormControl(),
                 neckImmobilizerObservations: new FormControl(''),
 
-                isodineSolutionCant: new FormControl('', [Validators.required]),
+                isodineSolutionCant: new FormControl(''),
                 isodineSolutionApproved: new FormControl(),
                 isodineSolutionObservations: new FormControl(''),
 
-                isodineFoamCant: new FormControl('', [Validators.required]),
+                isodineFoamCant: new FormControl(''),
                 isodineFoamApproved: new FormControl(),
                 isodineFoamObservations: new FormControl(''),
 
-                disposableSyringesCant: new FormControl('', [Validators.required]),
+                disposableSyringesCant: new FormControl(''),
                 disposableSyringesApproved: new FormControl(),
                 disposableSyringesObservations: new FormControl(''),
 
-                limbImmobilizerKitCant: new FormControl('', [Validators.required]),
+                limbImmobilizerKitCant: new FormControl(''),
                 limbImmobilizerKitApproved: new FormControl(),
                 limbImmobilizerKitObservations: new FormControl(''),
 
-                notebookCant: new FormControl('', [Validators.required]),
+                notebookCant: new FormControl(''),
                 notebookApproved: new FormControl(),
                 notebookObservations: new FormControl(''),
 
-                flashlightCant: new FormControl('', [Validators.required]),
+                flashlightCant: new FormControl(''),
                 flashlightApproved: new FormControl(),
                 flashlightObservations: new FormControl(''),
 
-                firstAidManualCant: new FormControl('', [Validators.required]),
+                firstAidManualCant: new FormControl(''),
                 firstAidManualApproved: new FormControl(),
                 firstAidManualObservations: new FormControl(''),
 
-                maskCant: new FormControl('', [Validators.required]),
+                maskCant: new FormControl(''),
                 maskApproved: new FormControl(),
                 maskObservations: new FormControl(''),
 
-                eyePatchCant: new FormControl('', [Validators.required]),
+                eyePatchCant: new FormControl(''),
                 eyePatchApproved: new FormControl(),
                 eyePatchObservations: new FormControl(''),
 
-                salineSolutionCant: new FormControl('', [Validators.required]),
+                salineSolutionCant: new FormControl(''),
                 salineSolutionApproved: new FormControl(),
                 salineSolutionObservations: new FormControl(''),
 
-                whistleCant: new FormControl('', [Validators.required]),
+                whistleCant: new FormControl(''),
                 whistleApproved: new FormControl(),
                 whistleObservations: new FormControl(''),
 
-                faceMaskCant: new FormControl('', [Validators.required]),
+                faceMaskCant: new FormControl(''),
                 faceMaskApproved: new FormControl(),
                 faceMaskObservations: new FormControl(''),
 
-                scissorsCant: new FormControl('', [Validators.required]),
+                scissorsCant: new FormControl(''),
                 scissorsApproved: new FormControl(),
                 scissorsObservations: new FormControl(''),
 
-                elasticBandage6Cant: new FormControl('', [Validators.required]),
+                elasticBandage6Cant: new FormControl(''),
                 elasticBandage6Approved: new FormControl(),
                 elasticBandage6Observations: new FormControl(''),
 
-                elasticBandage2Cant: new FormControl('', [Validators.required]),
+                elasticBandage2Cant: new FormControl(''),
                 elasticBandage2Approved: new FormControl(),
                 elasticBandage2Observations: new FormControl(''),
 
-                elasticBandage4Cant: new FormControl('', [Validators.required]),
+                elasticBandage4Cant: new FormControl(''),
                 elasticBandage4Approved: new FormControl(),
                 elasticBandage4Observations: new FormControl(''),
 
-                tieDownStrapsState: new FormControl('', [Validators.required]),
-                tieDownStrapsObservations: new FormControl('', [Validators.required]),
+                tieDownStrapsState: new FormControl(''),
+                tieDownStrapsObservations: new FormControl(''),
 
-                signalingState: new FormControl('', [Validators.required]),
-                signalingObservations: new FormControl('', [Validators.required]),
+                signalingState: new FormControl(''),
+                signalingObservations: new FormControl(''),
 
-                locationState: new FormControl('', [Validators.required]),
-                locationObservations: new FormControl('', [Validators.required]),
+                locationState: new FormControl(''),
+                locationObservations: new FormControl(''),
 
-                generalConditionState: new FormControl('', [Validators.required]),
-                generalConditionObserv: new FormControl('', [Validators.required]),
+                generalConditionState: new FormControl(''),
+                generalConditionObserv: new FormControl(''),
 
-                orderCleanlinessState: new FormControl('', [Validators.required]),
-                orderCleanlinessObserv: new FormControl('', [Validators.required]),
+                orderCleanlinessState: new FormControl(''),
+                orderCleanlinessObserv: new FormControl(''),
 
-                locationSignageState: new FormControl('', [Validators.required]),
-                locationSignageObserv: new FormControl('', [Validators.required]),
+                locationSignageState: new FormControl(''),
+                locationSignageObserv: new FormControl(''),
 
-                presenceExpiredItemsState: new FormControl('', [Validators.required]),
-                presenceExpiredItemsObserv: new FormControl('', [Validators.required]),
+                presenceExpiredItemsState: new FormControl(''),
+                presenceExpiredItemsObserv: new FormControl(''),
 
-                presenceMedicationsState: new FormControl('', [Validators.required]),
-                presenceMedicationsObserv: new FormControl('', [Validators.required])
+                presenceMedicationsState: new FormControl(''),
+                presenceMedicationsObserv: new FormControl('')
             }),
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
@@ -337,7 +335,6 @@ export class Sglc02Component extends ControllerFormsComponent implements OnInit 
             this.formInit.get('fieldsItems').patchValue({
                 firstAidKitLocation: this.cleanSelect(this.getValueField('firstAidKitLocation')),
                 firstAidKitCode: this.cleanSelect(this.getValueField('firstAidKitCode')),
-                employee: this.cleanSelect(this.getValueField('employee')),
 
                 plasticBagCant: this.cleanSelect(this.getValueField('plasticBagCant')),
                 plasticBagApproved: this.cleanSelect(this.getValueField('plasticBagApproved')),
@@ -479,6 +476,13 @@ export class Sglc02Component extends ControllerFormsComponent implements OnInit 
         }
     }
 
+    filterParamLabel(param): void {
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void {
+        return this.getParamLabel(param);
+    }
 
     onSubmit(): void {
         this.validationSubmit();

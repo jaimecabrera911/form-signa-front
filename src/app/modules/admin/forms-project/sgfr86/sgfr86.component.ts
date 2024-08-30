@@ -182,7 +182,7 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'faceShieldSunday', value:   '', type: this.getTypeValue(5) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl(''),
+            project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -480,6 +480,14 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 faceShieldSunday: this.cleanSelect(this.getValueField('electricalSystemSunday'))
             });
         }
+    }
+
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
     }
 
     onSubmit(): void {

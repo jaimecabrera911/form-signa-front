@@ -147,6 +147,13 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         }
     }
 
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
+    }
 
     onSubmit(): void {
         this.validationSubmit();

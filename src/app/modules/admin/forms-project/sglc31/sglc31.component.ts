@@ -61,6 +61,8 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'accessPlatformsGoodUseObser', value: '', type: this.getTypeValue(9) }),
                 this._formBuilder.group({ name: 'structureAdequatelyAssembledSec', value: '', type: this.getTypeValue(5) }),
                 this._formBuilder.group({ name: 'structureAdequatelyAssembledSecObser', value: '', type: this.getTypeValue(9) }),
+                this._formBuilder.group({ name: 'scaffoldingAttachedStableS', value: '', type: this.getTypeValue(5) }),
+                this._formBuilder.group({ name: 'scaffoldingAttachedStableSObser', value: '', type: this.getTypeValue(9) }),
                 this._formBuilder.group({ name: 'haveSkirtingBoards', value: '', type: this.getTypeValue(5) }),
                 this._formBuilder.group({ name: 'haveSkirtingBoardsObser', value: '', type: this.getTypeValue(9) }),
                 this._formBuilder.group({ name: 'haveAccessStairs', value: '', type: this.getTypeValue(5) }),
@@ -71,7 +73,7 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'haveScaffoldingUsageCardsObser', value: '', type: this.getTypeValue(9) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl(''),
+            project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -96,6 +98,8 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 accessPlatformsGoodUseObser: new FormControl(''),
                 structureAdequatelyAssembledSec: new FormControl(),
                 structureAdequatelyAssembledSecObser: new FormControl(''),
+                scaffoldingAttachedStableS : new FormControl(),
+                scaffoldingAttachedStableSObser: new FormControl(),
                 haveSkirtingBoards: new FormControl(),
                 haveSkirtingBoardsObser: new FormControl(''),
                 haveAccessStairs: new FormControl(),
@@ -135,6 +139,8 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 accessPlatformsGoodUseObser: this.cleanSelect(this.getValueField('accessPlatformsGoodUseObser')),
                 structureAdequatelyAssembledSec: this.cleanSelect(this.getValueField('structureAdequatelyAssembledSec')),
                 structureAdequatelyAssembledSecObser: this.cleanSelect(this.getValueField('structureAdequatelyAssembledSecObser')),
+                scaffoldingAttachedStableS: this.cleanSelect(this.getValueField('scaffoldingAttachedStableS')),
+                scaffoldingAttachedStableSObser: this.cleanSelect(this.getValueField('scaffoldingAttachedStableSObser')),
                 haveSkirtingBoards: this.cleanSelect(this.getValueField('haveSkirtingBoards')),
                 haveSkirtingBoardsObser: this.cleanSelect(this.getValueField('haveSkirtingBoardsObser')),
                 haveAccessStairs: this.cleanSelect(this.getValueField('haveAccessStairs')),
@@ -145,6 +151,14 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 haveScaffoldingUsageCardsObser: this.cleanSelect(this.getValueField('haveScaffoldingUsageCardsObser')),
             });
         }
+    }
+
+    filterParamLabel(param): void{
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void{
+        return this.getParamLabel(param);
     }
 
     onSubmit(): void {
