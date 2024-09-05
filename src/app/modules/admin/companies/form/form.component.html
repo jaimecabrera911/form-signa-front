@@ -17,15 +17,15 @@
                 </div>
             </div>
             <div class="pl-10">
-                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
-                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
-                            <span class="ml-14">Guardar</span>
+                        <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                            <span class="ml-7">{{ filterParamLabel('save') }}</span>
                         </a>
                     </div>
                     <div class="flex flex-col flex-auto">
-                        <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
-                            <span class="ml-14">Cancelar</span>
+                        <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button (click)="formInit.reset()">
+                            <span class="ml-7">{{ filterParamLabel('cancel') }}</span>
                         </a>
                     </div>
                 </div>

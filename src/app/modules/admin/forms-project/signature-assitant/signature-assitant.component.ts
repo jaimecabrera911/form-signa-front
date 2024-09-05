@@ -42,13 +42,15 @@ export class SignatureAssitantComponent implements OnInit {
     }
 
     asssitantId(): void{
+        console.log(' form ',Number(this.data.idForm),' - ',this.data.employee);
         this.api.assistantFormEmpService(Number(this.data.idForm),this.data.employee).subscribe({
             next: (response: any) => {
+                console.log(' response ',response?.data[0]);
                 this.items = response?.data[0];
                 const employee = response?.data[0]?.employee;
-                this.fullName = employee.fullName;
-                this.idAssitant = response.data[0].id;
-                this.imageSignature = response.data[0].signature ? this.urlImage(response.data[0]?.signature.formats.thumbnail.url) : null;
+                this.fullName = employee?.fullName;
+                this.idAssitant = response?.data[0].id;
+                this.imageSignature = response?.data[0].signature ? this.urlImage(response?.data[0]?.signature.formats.thumbnail.url) : null;
             }, error: (e: any) => console.log(e)
         });
     }

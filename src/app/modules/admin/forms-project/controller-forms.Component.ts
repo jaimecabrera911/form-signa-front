@@ -41,9 +41,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     formInit: FormGroup;
     code: string;
     validateItems: any[] = [];
+    validateArrayItems: any[] = [];
     apiItems$: Observable<any>;
     itemsCurrent: any[] = [];
     filesItems: any[] = [];
+    filesArrays: any = {};
     infoForm: any[] = [];
     assistantsForm: any = [];
     approvalsForm: any = [];
@@ -70,7 +72,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         const str = window.location.pathname;
         this.getTemplateId();
         this.getLabels();
-        console.log('code:: ',this.code.toLowerCase());
+        console.log('code:: ', this.code.toLowerCase());
         this.getParam(this.code.toLowerCase());
         this.apiItems$ = this.api.employeesService();
         this.getFormId();
@@ -94,6 +96,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                 next: (response: any) => {
                     this.itemsCurrent = response.data;
                     this.filesItems = this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : '';
+                    this.filesArrays = this.itemsCurrent[0]?.dataFields ? this.itemsCurrent[0]?.dataFields.map((item: any) => item.fields) : '';
                     this.formInit.patchValue({
                         code: this.itemsCurrent[0]?.code,
                         uid: this.itemsCurrent[0]?.uid,
@@ -102,6 +105,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                         project: this.itemsCurrent[0]?.project?.id,
                         evidences: this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : null,
                         assistants: this.itemsCurrent[0]?.assistants ? this.itemsCurrent[0]?.assistants : null,
+                        dataFields: this.filesArrays >=1 ? this.filesArrays : null
                     });
                     this.getForm();
                     this.getAssistantsId();
@@ -141,19 +145,35 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         this.formInit.value.fields = [...this.validateItems];
     }
 
+    updateDataForm(position, ...itemsArray): void {
+        this.validateArrayItems.push({
+            position: position,
+            fields: itemsArray});
+        this.formInit.value.dataFields = [...this.validateArrayItems];
+    }
+
     assignFields(): void {
         const form = this.formInit.value;
         form.fields.forEach((items: any) => {
             this.updateValueForm(items.name, form.fieldsItems[items.name], items.type);
         });
+        const dataForm = form?.data ? form.data.length : 0;
+        if (dataForm >= 1) {
+            form.data.forEach((elements: any, index: any) => {
+                this.updateDataForm(index, elements);
+            });
+        }
     }
 
     validationSubmit(): void {
         if (this.formInit.invalid) {
             return;
         }
+
+        /*this.assignFields();
+        console.log('dataFields :: ',this.formInit.value.dataFields);
+        console.log('formInit :: ',this.formInit.value);*/
         this.validDeleFile();
-        console.log('upl ', this.formInit?.value?.filesUpload);
         const uploadFiles = this.formInit?.value?.filesUpload?.filter((item: any) => item.id === null).map((item: any) => item.filesUploads ? item.filesUploads : null);
         if (this.formInit?.value?.filesUpload) {
             if (uploadFiles[0] !== undefined) {
@@ -171,6 +191,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             await this.api.assistantFormService(this.id).subscribe({
                 next: (response: any) => {
                     this.assistantsForm = response.data;
+                    console.log('firmas ',this.assistantsForm);
                 }, error: (e: any) => console.log('')
             });
         }
@@ -338,6 +359,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         form.name = this.title;
 
         this.assignFields();
+        //console.log('assignedAssistants:::: ',this.formInit.value.assignedAssistants);
+
         let observable: Observable<Form>;
         if (this.id) {
             observable = await this.api.updateFormService(this.formInit.value, this.id);
@@ -347,15 +370,18 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         }
         observable.subscribe({
             next: (response: any) => {
+                console.log('can: 0 ',this.formInit.value.assignedAssistants);
                 if (response) {
                     if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
                         if (this.formInit.value.trainingApproval.length > 0) {
                             this.assignApprovals(response.data.id);
                         }
                     }
-
+                    console.log('can: 1 ',this.formInit.value);
                     if (this.formInit.value.assignedAssistants !== undefined && this.formInit.value.assignedAssistants !== null) {
+                        console.log('can: 11 ');
                         if (this.formInit.value.assignedAssistants.length > 0 && this.formInit.value.assignedAssistants !== null) {
+                            console.log('can: 111 ');
                             this.validationAssitant(response.data.id);
                         }
                     }

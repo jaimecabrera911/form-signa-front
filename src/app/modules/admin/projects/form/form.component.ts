@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SwalAlert } from 'app/components/alerts/swalAlert';
 import { ListItemsComponent } from 'app/components/fomsigna/list-items/list-items.component';
 import { Path } from 'app/components/routers/path';
+import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,6 +23,12 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     searchPanel: boolean = false;
     swaAlert = new SwalAlert();
     validate: boolean = false;
+    iterableColumns: TableItems[] = [
+        { name: 'code', name2: false, styleEnable: false, label: 'Formulario' },
+        { name: 'name', name2: false, styleEnable: false, label: 'Descripción' },
+        { name: 'createdAt', name2: false, styleEnable: false, label: 'Fecha recibido' },
+        { name: 'id', name2: 'code', styleEnable: false, label: 'Editar', edit: true, editModule: 'forms-project' }
+    ];
 
     formInit: any = this._formBuilder.group({
         uid: new FormControl(),
@@ -52,6 +59,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.getCities();
         this.getStateProject();
         this.getEmployees();
+        this.getFormId();
     }
 
     getProjectId(): void {
@@ -61,6 +69,12 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                    this.setFormProjects(items.data);
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
+        }
+    }
+
+    getFormId(): void {
+        if (this.id) {
+            this.apiItems$ = this.api.formsIdProjectService(this.id);
         }
     }
 

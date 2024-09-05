@@ -174,6 +174,12 @@ export class ApiService {
         return this.http.get<Form>(url);
     }
 
+    formsIdProjectService(id): Observable<Form> {
+        //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
+        const url = `${environment.apiUrl}forms?populate=project&filters%5Bproject%5D=${id}`;
+        return this.http.get<Form>(url);
+    }
+
     formIdService(id): Observable<Form> {
         //const headers = new HttpHeaders({ 'Authorization': `Bearer ${environment.token}`});
         const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bid%5D=${id}`;

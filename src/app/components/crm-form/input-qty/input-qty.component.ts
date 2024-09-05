@@ -40,7 +40,7 @@ export class InputQtyComponent extends DefaultInput implements OnInit, ControlVa
     /**
      * @description Max limit of quantity
      */
-    value: any = 1;
+    //value: any = 1;
 
 
 

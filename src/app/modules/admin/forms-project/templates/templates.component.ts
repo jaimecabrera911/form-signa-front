@@ -17,9 +17,9 @@ export class TemplatesComponent implements OnInit, OnDestroy {
 
     title = 'Plantilla formularios';
     subtitle = new Path().getModule();
-    pageSizeOptions = [6, 12, 18, 24, 30, 36];
+    pageSizeOptions = [12, 18, 24, 30, 36];
     page = 0;
-    size = 6;
+    size = 12;
     value: any;
     obs: Observable<any>;
     items: any[] = [];

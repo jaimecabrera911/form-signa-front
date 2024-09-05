@@ -31,12 +31,14 @@
                                 </ng-container>
                             </div>
                             <div class="flex flex-col flex-auto sm:col-span-2 md:grid-cols-2 lg:col-span-2">
-                                <div [routerLink]="[templatePreview?.route]" class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
-                                    <img [src]="templatePreview.urlImage" class="w-full h-auto relative z-0 rounded-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
-                                        <span class="text-white text-xl font-bold">ABRIR</span>
+                                <a [routerLink]="[templatePreview?.route]" target="_blank">
+                                    <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
+                                        <img [src]="templatePreview.urlImage" class="w-full h-auto relative z-0 rounded-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
+                                            <span class="text-white text-xl font-bold">ABRIR</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>

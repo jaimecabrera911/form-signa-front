@@ -29,7 +29,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         super(_formBuilder, matDialog, api);
     }
 
-     override ngOnInit(): void {
+    override ngOnInit(): void {
         super.ngOnInit();
         this.validateForm();
         this.getProject();
@@ -155,8 +155,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         return this.getParamLabel(param);
     }
 
-    onSubmit(): void {
+    Submit(): void{
         this.validationSubmit();
     }
-
 }

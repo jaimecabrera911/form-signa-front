@@ -34,6 +34,8 @@ export abstract class ListItemsFormComponent  implements OnInit {
     paramLabels: any = [];
     accessSystem: any = [];
     state3: any = [];
+    elementsHealthcareProvider: any = [];
+    elementsOccupationRiskManager: any = [];
 
     constructor(protected api: ApiService) {
     }
@@ -202,6 +204,22 @@ export abstract class ListItemsFormComponent  implements OnInit {
         await  this.api.dataFieldService('state3').subscribe({
             next: (response: any) => {
                 this.state3 = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    getHealthcareProvider(): void {
+        this.api.healthcareProviderService().subscribe({
+            next: (items: any) => {
+                this.elementsHealthcareProvider = this.formatSelectData(items);
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    getOccupationRiskManager(): void {
+        this.api.occupationRiskManagerService().subscribe({
+            next: (items: any) => {
+                this.elementsOccupationRiskManager = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
         });
     }

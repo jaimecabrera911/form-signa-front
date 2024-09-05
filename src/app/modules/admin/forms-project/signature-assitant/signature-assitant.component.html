@@ -1,7 +1,7 @@
 <form [formGroup]="formInit" class="w-full">
     <div *ngIf="items" class="grid grid-cols-1 md:grid-cols-6 sm:grid-cols-6 lg:grid-cols-6 w-full">
 
-        <div class="flex flex-col flex-auto sm:col-span-1 md:grid-cols-1 lg:col-span-4">
+        <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-4 lg:col-span-4">
             <div class="office-viewer">
                 <div *ngIf="imageSignature" class="mx-10 bg-contain bg-center">
                     <div class="w-full mt-10  pb-3 pt-2 text-center text-2xl font-bold  border-b border-gray-200">
@@ -15,7 +15,7 @@
                 <app-input-signature-canvas *ngIf="!imageSignature" label="Firma" formControlName="signatureUpload" class="w-full" ng-readonly="true" icon="heroicons_outline:device-mobile"></app-input-signature-canvas>
             </div>
         </div>
-        <div class="flex-col flex-auto lg:col-span-2">
+        <div class="flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
             <div class="flex flex-col flex-auto p-6">
                 <!-- Preview -->
                 <div class="aspect-w-20 mt-2 aspect-h-6">
@@ -55,12 +55,12 @@
                 <div *ngIf="!imageSignature" class="mt-3 w-full float-right">
                     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
                         <div class="flex flex-col flex-auto">
-                            <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                            <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">
                                 <span class="ml-5">Guardar</span>
                             </a>
                         </div>
                         <div class="flex flex-col flex-auto">
-                            <a class="mt-1 pl-2 px-12 text-center" mat-button mat-flat-button (click)="formInit.reset()">
+                            <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button (click)="formInit.reset()">
                                 <span class="ml-5">Cancelar</span>
                             </a>
                         </div>

@@ -1,12 +1,15 @@
+import { filter } from 'rxjs';
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import { ControllerFormsComponent } from '../controller-forms.Component';
 import { DatePipe } from '@angular/common';
 import { Functions } from 'app/components/functions/functions';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { SignatureAssitantComponent } from '../signature-assitant/signature-assitant.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-sgfr56',
@@ -14,6 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['./sgfr56.component.scss']
 })
 export class Sgfr56Component extends ControllerFormsComponent implements OnInit {
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     override code = 'SG-FR-56';
     override id = this.activatedRouter.snapshot?.paramMap.get('id');
@@ -23,10 +28,8 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
     itemsAutoComplte: any = [];
     approvalsItems: any = [];
     formI: FormGroup;
-
     itemsAprv!: FormArray;
     function: any = new Functions();
-
 
     constructor(protected router: Router,
         protected _formBuilder: FormBuilder,
@@ -41,18 +44,27 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
     override ngOnInit(): void {
         super.ngOnInit();
         this.validateForm();
+        this.getProject();
         this.getItemsTable();
+        this.getHealthcareProvider();
+        this.getOccupationRiskManager();
     }
 
     validateForm(): void {
         this.formInit = this._formBuilder.group({
             code: new FormControl(this.code),
             version: new FormControl('1.0'),
+            project: new FormControl('', [Validators.required]),
+            assistants: new FormControl([]),
             company: new FormControl(1),
+            fields: new FormArray([
+                this._formBuilder.group({ name: 'workplace', value: '', type: this.getTypeValue(1) }),
+                this._formBuilder.group({ name: 'companyName', value: '', type: this.getTypeValue(1) })
+            ]),
+            dataFields: this._formBuilder.array([]),
             fieldsItems: this._formBuilder.group({
-                place: new FormControl(''),
-                compnayName: new FormControl(''),
-                employee: new FormControl('', [Validators.required]),
+                workplace: new FormControl(''),
+                companyName: new FormControl(''),
             }),
             data: this._formBuilder.array([]),
             filesUpload: new FormControl(),
@@ -62,6 +74,15 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
         });
     }
 
+    override getForm(): void {
+        if (this.id) {
+            this.formInit.get('fieldsItems').patchValue({
+                workplace: this.cleanSelect(this.getValueField('workplace')),
+                companyName: this.cleanSelect(this.getValueField('companyName'))
+            });
+        }
+    }
+
     getItemsTable(): void {
         this.api.employeesManagerService().subscribe({
             next: (elements: any) => {
@@ -69,107 +90,132 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
                     this.elements = this.function.validateResponse(elements.data);
                     this.elements.forEach((item: any) => { item.enabled ? item.enabled = 'Activo' : item.enabled = 'Inactivo'; });
                     this.selectAutocomplte(this.elements);
-                    /*if (this.formId) {
-                        this.getApprovalsId();
-                    }*/
+                    if (this.id) {
+                        this.getSelectEmployeesId(this.elements);
+                    }
                 }
             }, error: (e: any) => console.error(e)
         });
     }
 
-    /*getApprovalsId(): void {
-        if (this.formId) {
-            const itemsSelect: any[] = [];
-            this.api.approvalFormService(this.formId).subscribe({
-                next: (response: any) => {
-                    this.approvalsForm = response.data;
-                    response?.data?.forEach((item: any) => {
-                        itemsSelect.push({
-                            id: item?.employee?.id,
-                            name: item?.employee?.fullName
-                        });
-                    });
-                    this.approvalsItems = [...itemsSelect];
-                    if (this.approvalsItems) {
-                        this.formInit.value.selectAutoComplete = this.approvalsItems;
-                        this.editarAsignar(response.data);
-                    }
+    getSelectEmployeesId(...listEmployees): void {
+        const idsEmp = this.filesArrays.map((item: any) => item[0].id);
+        const employes = listEmployees[0]
+            .filter((item: any) => idsEmp.includes(item.id))
+            .map((item: any) => ({ 'id': item.id, 'name': item.fullName }));
+        this.approvalsItems = [...employes];
+        this.editarAsignar(this.filesArrays);
+    }
 
-                }, error: (e: any) => console.log('')
-            });
-        }
-    }*/
+    filterParamLabel(param): void {
+        return this.getLabel(param);
+    }
+
+    filterParamValue(param): void {
+        return this.getParamLabel(param);
+    }
 
     selectAutocomplte(items): void {
         const itemsSelect: any[] = [];
         items.forEach((item: any) =>
-            itemsSelect.push({ id: item.id, name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname) }));
+            itemsSelect.push({ id: item.id, name: item.fullName }));
         this.itemsAutoComplte = [...itemsSelect];
     }
 
-    formData(empId, empName): FormGroup {
-        return this._formBuilder.group({
-            id: [null],
-            employee: [empId],
-            employeeName: [{ value: empName, disabled: true }],
-            state: ['pendiente'],
-            reason: [''],
-            createdAt: [null],
-            enabled: [true],
-            observations: []
+    asignar(): void {
+        const idEmployeesFilter = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
+        const employees = this.elements.filter((item: any) => idEmployeesFilter.includes(item.id));
+        employees.forEach((element: any, i: number) => {
+            this.addDataGroup(element.id, element.fullName, element.identificationNumber, element.gender.name, element.healthcareProvider.id, element.occupationRiskManager.id);
         });
     }
 
-    addDataGroup(empId, empName): void {
+    addDataGroup(empId, empName, empCedula, gender, empEPS, empARL): void {
         this.itemsAprv = this.formInit.get('data') as FormArray;
         this.deleteDataGroup();
-        const data = this.formInit.get('data').value.filter((item: any) => item.employee === empId);
+        const data = this.formInit.get('data').value.filter((item: any) => item.id === empId);
         if (!data[0]) {
-            this.itemsAprv.push(this.formData(empId, empName));
+            this.itemsAprv.push(this.formData(empId, empName, empCedula, gender, empEPS, empARL));
         }
-        //this.addFormValue();
+    }
+
+    formData(empId, empName, empCedula, gender, empEPS, empARL): FormGroup {
+        this.signature();
+        return this._formBuilder.group({
+            id: [empId],
+            employeeName: [{ value: empName, disabled: true }],
+            identificationNumber: [{ value: empCedula, disabled: true }],
+            gender: [{ value: gender, disabled: true }],
+            createdAt: [],
+            healthcareProvider: [  { value: empEPS, disabled: true }],
+            occupationRiskManager: [ { value: empARL, disabled: true }],
+            checkInTime: [],
+            checkOutTime: []
+        });
     }
 
 
     deleteDataGroup(): void {
         const idSelect = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
-        const filterDelete = this.formInit.get('data').value.filter((item: any) => !idSelect.includes(item.employee)).map((item: any) => item.employee);
+        const filterDelete = this.formInit.get('data').value.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
         const filterEditDelete = this.approvalsItems.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
         if (filterDelete[0] || filterDelete[0] !== undefined) {
-            const index = this.formInit.get('data').value.findIndex(item => item.employee === filterDelete[0]);
+            const index = this.formInit.get('data').value.findIndex(item => item.id === filterDelete[0]);
             const add = this.formInit.get('data') as FormArray;
             add.removeAt(index);
         }
+        this.signature();
     }
 
-    asignar(): void {
-        this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
-            this.addDataGroup(element.id, element.name);
+    editarAsignar(...items): void {
+        items[0]?.forEach((element: any, i: number) => {
+            this.editDataGroup(element);
         });
     }
 
-    editarAsignar(items): void {
-        items.forEach((element: any, i: number) => {
-            this.editDataGroup(element.id, element.employee.id,
-                element.employee.fullName,
-                element.state, element.reason, element.observations, element.createdAt);
-        });
+    getIdEmployee(id): void {
+        return this.elements.filter((item: any) => item.id === id);
     }
 
-    editDataGroup(id, empId, empName, state, reason, observations, createdAt): void {
-        const itemsAprv = this.formInit.get('data') as FormArray;
-        itemsAprv.push(this.formEditData(id, empId, empName, state, reason, observations, createdAt));
+    editDataGroup(...elements): void {
+        const editItem = this.formInit.get('data') as FormArray;
+        const employee = this.getIdEmployee(elements[0][0]?.id);
+        editItem.push(this.formEditData(elements[0][0]?.id, employee[0]?.fullName, employee[0]?.identificationNumber,
+            employee[0]?.gender?.name, elements[0][0]?.createdAt, elements[0][0]?.checkInTime, elements[0][0]?.checkOutTime,
+            employee[0]?.healthcareProvider?.id, employee[0]?.occupationRiskManager?.id));
     }
 
-    formEditData(id, empId, empName, state, reason, observations, createdAt): FormGroup {
+    formEditData(id, name, identificationNumber, gender, createdAt, checkInTime, checkOutTime, healthcareProvider, occupationRiskManager): FormGroup {
         return this._formBuilder.group({
             id: [id],
-            employee: [empId],
-            employeeName: [{ value: empName, disabled: true }],
-            state: [state],
-            reason: [reason],
-            createdAt: [{ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }],
-            observations: [observations]
+            employeeName: [name],
+            identificationNumber: [identificationNumber],
+            gender: [gender],
+            createdAt: [createdAt],
+            healthcareProvider: [healthcareProvider],
+            occupationRiskManager: [occupationRiskManager],
+            checkInTime: [checkInTime],
+            checkOutTime: [checkOutTime]
         });
+    }
+
+    getPreviewSignature(id): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '85%';
+        dialogConfig.data = {
+            employee: id,
+            idForm: this.id
+        };
+
+        const dialog = this.matDialog.open(SignatureAssitantComponent, dialogConfig);
+    }
+
+    signature(): void{
+        const form = this.formInit.value;
+        form.assignedAssistants = this.formInit.value.data.map((item: any) => item.id);
+    }
+
+    submit(): void {
+        this.validationSubmit();
     }
 }
