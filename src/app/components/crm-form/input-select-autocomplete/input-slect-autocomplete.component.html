@@ -1,3 +1,4 @@
+<!--
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label> {{ value }}
     <div class="ng-autocomplete">
@@ -13,13 +14,9 @@
             <div [innerHTML]="notFound"></div>
         </ng-template>
     </div>
-    <!--
-        historyIdentifier="countries"
-        <mat-form-field class="flex-auto" appearance="legacy">
-        <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
-            <mat-error>Campo Obligatorio</mat-error>
-        </mat-hint>
-        <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
-    </mat-form-field>
-   -->
+</div>
+-->
+
+<div class="flex flex-col flex-auto">
+    <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
 </div>

@@ -1,5 +1,5 @@
 <div class="flex flex-col flex-auto">
     <ng-multiselect-dropdown [placeholder]="label" [(ngModel)]="selectedItem" [data]="options" [settings]="dropdownSettings" (selectionChange)="writeValue($event)" (onFilterChange)="onFilterChange($event)" (onDropDownClose)="onDropDownClose($event)" (onSelect)="onItemSelect($event)"
-        (onDeSelect)="onDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+        (onDeSelect)="onDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" [disabled]="disabled">
     </ng-multiselect-dropdown>
 </div>

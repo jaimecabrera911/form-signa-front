@@ -6,21 +6,21 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamValue('companyName') }}" formControlName="companyName" [required]="formInit.get('fieldsItems').controls['companyName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['workplace']?.disabled"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('companyName') }}" formControlName="companyName" [required]="formInit.get('fieldsItems').controls['companyName'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['companyName']?.disabled"></app-input-text>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('workDone') }}" formControlName="workDone" [required]="formInit.get('fieldsItems').controls['workDone'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('workDone') }}" formControlName="workDone" [required]="formInit.get('fieldsItems').controls['workDone'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['workDone']?.disabled"></app-input-text>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('toolsMachines') }}" formControlName="toolsMachines" [required]="formInit.get('fieldsItems').controls['toolsMachines'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('toolsMachines') }}" formControlName="toolsMachines" [required]="formInit.get('fieldsItems').controls['toolsMachines'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['toolsMachines']?.disabled"></app-input-text>
                                 </div>
                             </div>
 
@@ -33,19 +33,19 @@
                                                 </div>
                                             </div>
                                             <div class="flex flex-col flex-auto">
-                                                <a class="mb-2 px-6 ml-3 w-36" mat-button mat-flat-button [color]="'warn'" (click)="deleteDataGroup(i)">
+                                                <a *ngIf="modView" class="mb-2 px-6 ml-3 w-36" mat-button mat-flat-button [color]="'warn'" (click)="deleteDataGroup(i)">
                                                     <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
                                                     <span class="ml-2">{{ filterParamLabel('remove') }}</span>
                                                 </a>
                                             </div>
-                                            <app-input-textarea label="{{ filterParamValue('stepStepSequence') }}" formControlName="stepSequence" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('dangers') }}" formControlName="hazards" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('consequences') }}" formControlName="consequences" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('controlActions') }}" formControlName="controlActions" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('environmentalAspect') }}" formControlName="environmentalAspect" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('environmentalImpact') }}" formControlName="environmentalImpact" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('environmentalControls') }}" formControlName="environmentalControls" rows="2"></app-input-textarea>
-                                            <app-input-textarea label="{{ filterParamValue('ResponsibleComplyingControls') }}" formControlName="responsibleComplyingControls" rows="2"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('stepStepSequence') }}" formControlName="stepSequence" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['stepSequence']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('dangers') }}" formControlName="hazards" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['hazards']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('consequences') }}" formControlName="consequences" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['consequences']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('controlActions') }}" formControlName="controlActions" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['controlActions']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('environmentalAspect') }}" formControlName="environmentalAspect" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['environmentalAspect']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('environmentalImpact') }}" formControlName="environmentalImpact" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['environmentalImpact']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('environmentalControls') }}" formControlName="environmentalControls" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['environmentalControls']?.disabled"></app-input-textarea>
+                                            <app-input-textarea label="{{ filterParamValue('ResponsibleComplyingControls') }}" formControlName="responsibleComplyingControls" rows="2" [disabled]="formInit.controls['data'].controls[i].controls['responsibleComplyingControls']?.disabled"></app-input-textarea>
                                         </div>
                                         <div class="col-span-12 my-2 border-b border-zinc-400"></div>
                                     </div>
@@ -54,7 +54,7 @@
                             <div class="flex flex-col my-2  rounded">
                                 <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto">
-                                        <a class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="addDataGroup()">
+                                        <a *ngIf="modView" class="mt-1 px-6 ml-3" mat-button mat-flat-button [color]="'primary'" (click)="addDataGroup()">
                                             <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
                                             <span class="ml-2">{{ filterParamLabel('add') }}</span>
                                         </a>
@@ -62,15 +62,15 @@
                                 </div>
                             </div>
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="submit()">

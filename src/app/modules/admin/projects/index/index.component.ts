@@ -28,7 +28,8 @@ export class IndexComponent  implements OnInit {
                 { label: 'Suspendido', textColor: '#C92C2C', backgroundColor: '#F4B2B6' }
             ]
         },
-        { name: 'id', name2: false, styleEnable: false, label: 'Editar', edit: true, editModule: 'projects'  }
+        { name: 'view', name2: false, id: 'id', styleEnable: false, label: 'Ver', view: true, editModule: 'projects' },
+        { name: 'edit', name2: false, id: 'id', styleEnable: false, label: 'Editar', edit: true, editModule: 'projects' }
     ];
 
     constructor(

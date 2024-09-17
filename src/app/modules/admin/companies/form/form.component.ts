@@ -22,6 +22,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     searchPanel = false;
     swaAlert = new SwalAlert();
     validate: boolean = false;
+    modView: boolean = true;
 
     formInit: any = this._formBuilder.group({
         identificationType: new FormControl(2, [Validators.required]),
@@ -50,6 +51,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         super.ngOnInit();
         this.getCompanyId();
         this.getCities();
+        this.getLabels();
         this.getRegimes();
     }
 
@@ -58,6 +60,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             this.api.companyIdService(this.id).subscribe({
                 next: (items: any) => {
                    this.setFormCompanies(items.data);
+                   this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
@@ -77,6 +80,21 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             employees: form[0]?.employees?.id,
             workspaces: form[0]?.workspaces?.id
         });
+    }
+
+    getView(): void {
+        const route = window.location.pathname;
+        const type = route.split('/');
+        if (type[2] === 'view') {
+            this.formInit.disable();
+            this.modView = false;
+        }
+    }
+
+    filterParamLabel(code: any): any {
+        const param = this.paramLabels?.filter((item: any) => item.code === code)
+            .map((item: any) => item.name ? item.name : '');
+        return param[0] ? param[0] : '';
     }
 
     onSubmit(): void {

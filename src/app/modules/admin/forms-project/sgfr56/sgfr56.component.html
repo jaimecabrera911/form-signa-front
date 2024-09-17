@@ -6,23 +6,23 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-2 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
                             <div class="grid grid-cols-1 p-4 gap-x-4 w-full bg-white text-sm">{{ filterParamValue('conditions') }}</div>
 
                             <div formGroupName="fieldsItems">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamLabel('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamLabel('companyName') }}" formControlName="companyName" [required]="formInit.get('fieldsItems').controls['companyName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['workplace']?.disabled"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('companyName') }}" formControlName="companyName" [required]="formInit.get('fieldsItems').controls['companyName'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['companyName']?.disabled"></app-input-text>
                                 </div>
                             </div>
 
                             <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-3 bg-card shadow rounded-2xl  mat-item-card">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-3 md:grid-cols-3 lg:col-span-3">
-                                        <app-input-multi-select label="{{ filterParamLabel('workers') }}" class="mt-1" formControlName="selectAutoComplete" [selectedItem]="approvalsItems" (ngModelChange)="asignar()" [options]="itemsAutoComplte"></app-input-multi-select>
+                                        <app-input-multi-select label="{{ filterParamLabel('workers') }}" class="mt-1" formControlName="selectAutoComplete" [selectedItem]="approvalsItems" (ngModelChange)="asignar()" [options]="itemsAutoComplte" [disabled]="formInit.get('selectAutoComplete')?.disabled"></app-input-multi-select>
                                     </div>
                                 </div>
                             </div>
@@ -31,12 +31,12 @@
                                 <div [formGroupName]="i" class="w-full">
                                     <div class="flex flex-col my-2  rounded">
                                         <div class="grid grid-cols-1 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-2 w-full">
-                                            <app-input-text label="{{ filterParamLabel('employeeName') }}" formControlName="employeeName" disabled="true" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2"></app-input-text>
-                                            <app-input-text label="{{ filterParamLabel('identificationNumber') }}" formControlName="identificationNumber" disabled="true"></app-input-text>
-                                            <app-input-text label="{{ filterParamLabel('gender') }}" formControlName="gender" disabled="true"></app-input-text>
-                                            <app-input-select [options]="elementsHealthcareProvider" label="{{ filterParamLabel('healthcareProvider') }}" formControlName="healthcareProvider" disabled="true"></app-input-select>
-                                            <app-input-select [options]="elementsOccupationRiskManager" label="{{ filterParamLabel('occupationRiskManager') }}" formControlName="occupationRiskManager" disabled="true"></app-input-select>
-                                            <app-input-date label="{{ filterParamLabel('createdAt') }}" formControlName="createdAt"></app-input-date>
+                                            <app-input-text label="{{ filterParamLabel('employeeName') }}" formControlName="employeeName" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [disabled]="formInit.controls['data'].controls[i].controls['employeeName']?.disabled"></app-input-text>
+                                            <app-input-text label="{{ filterParamLabel('identificationNumber') }}" formControlName="identificationNumber" [disabled]="formInit.controls['data'].controls[i].controls['identificationNumber']?.disabled"></app-input-text>
+                                            <app-input-text label="{{ filterParamLabel('gender') }}" formControlName="gender" [disabled]="formInit.controls['data'].controls[i].controls['gender']?.disabled"></app-input-text>
+                                            <app-input-select [options]="elementsHealthcareProvider" label="{{ filterParamLabel('healthcareProvider') }}" formControlName="healthcareProvider" [disabled]="formInit.controls['data'].controls[i].controls['healthcareProvider']?.disabled"></app-input-select>
+                                            <app-input-select [options]="elementsOccupationRiskManager" label="{{ filterParamLabel('occupationRiskManager') }}" formControlName="occupationRiskManager" [disabled]="formInit.controls['data'].controls[i].controls['occupationRiskManager']?.disabled"></app-input-select>
+                                            <app-input-date label="{{ filterParamLabel('createdAt') }}" formControlName="createdAt" [disabled]="formInit.controls['data'].controls[i].controls['createdAt']?.disabled"></app-input-date>
                                             <div class="flex flex-col flex-auto">
                                                 <label>{{ filterParamValue('checkInTime') }}</label>
                                                 <mat-form-field class="flex-auto" appearance="legacy">
@@ -56,20 +56,21 @@
                                                         [svgIcon]="'heroicons_outline:pencil'"></mat-icon>
                                                 </button>
                                             </div>
+                                            <div *ngIf="!modView">{{ this.formInit.get('data')?.disable() }}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="submit()">

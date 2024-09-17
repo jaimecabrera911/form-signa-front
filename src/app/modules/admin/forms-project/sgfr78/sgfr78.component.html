@@ -6,23 +6,23 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamLabel('location') }}" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamValue('numberStairs') }}" formControlName="numberStairs" [required]="formInit.get('fieldsItems').controls['numberStairs'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamLabel('height') }}" formControlName="height" [required]="formInit.get('fieldsItems').controls['height'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('location') }}" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['location']?.disabled"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('numberStairs') }}" formControlName="numberStairs" [required]="formInit.get('fieldsItems').controls['numberStairs'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['numberStairs']?.disabled"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('height') }}" formControlName="height" [required]="formInit.get('fieldsItems').controls['height'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['height']?.disabled"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('strength') }}" formControlName="strength" [required]="formInit.get('fieldsItems').controls['strength'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamValue('material') }}" formControlName="material" [required]="formInit.get('fieldsItems').controls['material'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select [options]="typeStairs" label="{{ filterParamValue('typeStairs') }}" formControlName="typeStairs" [required]="formInit.get('fieldsItems').controls['typeStairs'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="{{ filterParamValue('strength') }}" formControlName="strength" [required]="formInit.get('fieldsItems').controls['strength'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['strength']?.disabled"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('material') }}" formControlName="material" [required]="formInit.get('fieldsItems').controls['material'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['material']?.disabled"></app-input-text>
+                                    <app-input-select [options]="typeStairs" label="{{ filterParamValue('typeStairs') }}" formControlName="typeStairs" [required]="formInit.get('fieldsItems').controls['typeStairs'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['typeStairs']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('VERIFICATION') }}</div>
@@ -34,7 +34,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('pawsS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="paws" [required]="formInit.get('fieldsItems').controls['paws'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="paws" [required]="formInit.get('fieldsItems').controls['paws'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['paws']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -44,7 +44,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('railsS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="rails" [required]="formInit.get('fieldsItems').controls['rails'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="rails" [required]="formInit.get('fieldsItems').controls['rails'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['rails']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -54,7 +54,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('stepS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="step" [required]="formInit.get('fieldsItems').controls['step'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="step" [required]="formInit.get('fieldsItems').controls['step'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['step']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -64,7 +64,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('topStopS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="topStop" [required]="formInit.get('fieldsItems').controls['topStop'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="topStop" [required]="formInit.get('fieldsItems').controls['topStop'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['topStop']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -74,7 +74,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('staircaseInsuranceS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="staircaseInsurance" [required]="formInit.get('fieldsItems').controls['staircaseInsurance'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="staircaseInsurance" [required]="formInit.get('fieldsItems').controls['staircaseInsurance'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['staircaseInsurance']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -84,7 +84,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('hingesS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="hinges" [required]="formInit.get('fieldsItems').controls['hinges'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="hinges" [required]="formInit.get('fieldsItems').controls['hinges'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['hinges']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -94,7 +94,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('pulleyS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="pulley" [required]="formInit.get('fieldsItems').controls['pulley'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="pulley" [required]="formInit.get('fieldsItems').controls['pulley'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['pulley']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -104,7 +104,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('stringerGuidesS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="stringerGuides" [required]="formInit.get('fieldsItems').controls['stringerGuides'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="stringerGuides" [required]="formInit.get('fieldsItems').controls['stringerGuides'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['stringerGuides']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -114,7 +114,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('platformS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="platform" [required]="formInit.get('fieldsItems').controls['platform'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="platform" [required]="formInit.get('fieldsItems').controls['platform'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['platform']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -124,7 +124,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('railingS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="railing" [required]="formInit.get('fieldsItems').controls['railing'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="railing" [required]="formInit.get('fieldsItems').controls['railing'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['railing']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -134,7 +134,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('wheelsBrakesS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="wheelsBrakes" [required]="formInit.get('fieldsItems').controls['wheelsBrakes'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="wheelsBrakes" [required]="formInit.get('fieldsItems').controls['wheelsBrakes'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['wheelsBrakes']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -144,7 +144,7 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('cleaningS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="cleaning" [required]="formInit.get('fieldsItems').controls['cleaning'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="cleaning" [required]="formInit.get('fieldsItems').controls['cleaning'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['cleaning']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -154,12 +154,12 @@
                                     <div class="flex flex-col flex-auto">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('tagsS') }}</div>
                                     </div>
-                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="tags" [required]="formInit.get('fieldsItems').controls['tags'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select [options]="stateVerification" label="{{ filterParamLabel('state') }}" formControlName="tags" [required]="formInit.get('fieldsItems').controls['tags'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['tags']?.disabled"></app-input-select>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-3 text-center font-semibold text-xl">{{ filterParamLabel('OBSERVATIONST') }}</div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [validateFormSumt]="validate" [disabled]="formInit.get('fieldsItems').controls['observations']?.disabled"></app-input-textarea>
                                 </div>
                             </div>
 
@@ -191,15 +191,15 @@
                             </div>
 
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">

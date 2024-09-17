@@ -75,6 +75,10 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         public datepipe: DatePipe,
         private _formBuilder: FormBuilder) {
         super();
+        /*if(this.disabled){
+            //this.formApproval.disable();
+            //this.formApproval.controls['data'].disable();
+        }*/
     }
 
 
@@ -133,14 +137,14 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     formData(empId, empName): FormGroup {
         return this._formBuilder.group({
-            id: [null],
-            employee: [empId],
-            employeeName: [{ value: empName, disabled: true }],
-            state: ['pendiente'],
-            reason: [''],
-            createdAt: [null],
-            enabled: [true],
-            observations: []
+            id: new FormControl(null),
+            employee: new FormControl(empId),
+            employeeName: new FormControl({ value: empName, disabled: true }),
+            state: new FormControl('pendiente'),
+            reason: new FormControl(''),
+            createdAt: new FormControl(null),
+            enabled: new FormControl(true),
+            observations: new FormControl()
         });
     }
 
@@ -189,14 +193,15 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     formEditData(id, empId, empName, state, reason, observations, createdAt): FormGroup {
+        //console.log('disable ', this.disabled);
         return this._formBuilder.group({
-            id: [id],
-            employee: [empId],
-            employeeName: [{ value: empName, disabled: true }],
-            state: [state],
-            reason: [reason],
-            createdAt: [{ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }],
-            observations: [observations]
+            id: new FormControl({ value: id, disabled: false }),
+            employee: new FormControl({ value: empId, disabled: true }),
+            employeeName: new FormControl({ value: empName, disabled: true }),
+            state: new FormControl({ value: state, disabled: false }),
+            reason: new FormControl({ value: reason, disabled: false }),
+            createdAt: new FormControl({ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }),
+            observations: new FormControl(observations)
         });
     }
 

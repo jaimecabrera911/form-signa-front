@@ -1,7 +1,7 @@
 <div *ngIf="maxInputDate" class="flex flex-col flex-auto">
     <label [ngClass]="required === true ? 'required-item' : ''">{{ label }}</label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <input matInput max="{{ minInputDate ? (minInputDate | date:'yyyy-MM-dd') : (date | date:'yyyy-MM-dd') }}" [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required">
+        <input matInput max="{{ minInputDate ? (minInputDate | date:'yyyy-MM-dd') : (date | date:'yyyy-MM-dd') }}" [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required" [disabled]="disabled">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
@@ -14,7 +14,7 @@
 <div *ngIf="!maxInputDate && !minInputDate" class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }} </label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <input matInput [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required" [disabled]="disabled">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
@@ -29,7 +29,7 @@
 <div *ngIf="minInputDate" class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }} </label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <input matInput min="{{ minInputDate ? (minInputDate | date:'yyyy-MM-dd') : (date | date:'yyyy-MM-dd') }}" [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required">
+        <input matInput min="{{ minInputDate ? (minInputDate | date:'yyyy-MM-dd') : (date | date:'yyyy-MM-dd') }}" [matDatepicker]="picker" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (dateChange)="addEvent($event)" [required]="required" [disabled]="disabled">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">

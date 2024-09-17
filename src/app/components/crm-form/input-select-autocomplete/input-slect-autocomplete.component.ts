@@ -2,7 +2,6 @@ import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { DefaultInput } from '../default-input';
 import { MatSelectChange } from '@angular/material/select';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 @Component({
   selector: 'app-input-slect-autocomplete',
   templateUrl: './input-slect-autocomplete.component.html',
@@ -18,7 +17,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class InputSelectAutocompleteComponent extends DefaultInput implements OnInit, ControlValueAccessor {
 
   @Input() options: any;
-  keyword = 'name';
 
   constructor() {
       super();

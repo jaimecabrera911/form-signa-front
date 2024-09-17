@@ -1,11 +1,10 @@
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
     <div class="mt-1">
-        <quantity-input color='primary' [limit]="15" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (click)="writeValue(value)"></quantity-input>
+        <quantity-input color='primary' [limit]="15" [(ngModel)]="valueCont" name="valueCont" #valueCtrl="ngModel" (click)="writeCantValue(valueCont)" [disabled]="disabled"></quantity-input>
         <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
             <mat-error>Campo Obligatorio</mat-error>
         </mat-hint>
         <mat-error *ngIf="valueCtrl.hasError('required') && !validateFormSumt">Campo Obligatorio</mat-error>
     </div>
-
 </div>

@@ -17,21 +17,21 @@ export abstract class DefaultInput implements ControlValueAccessor {
     @Input() field?: any;
     @Input() validateFormSumt?: boolean = false;
     @Input() formGroupChild?: FormGroup;
-    @Input() disabled: boolean = false;
+    @Input() disabled?: boolean = false;
     @Input() required: boolean;
     @Input() readonly?: boolean = false;
     @Input() fields?: string[] = [];
     value: any = '';
-    valueCont: number = 0;
+    valueCont: any = '';
 
 
     protected constructor() {
+        this.valueCont = this.valueCont ? this.valueCont : 0;
     }
 
     // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     ngOnInit(): void {
     }
-
 
     change($event: KeyboardEvent): void {
         this.propagateChange(this.value);
@@ -43,9 +43,6 @@ export abstract class DefaultInput implements ControlValueAccessor {
     };
     propagateChange: any = (_: any) => {
     };
-
-
-
 
     registerOnChange(fn: any): void {
         this.propagateChange = fn;
@@ -62,7 +59,15 @@ export abstract class DefaultInput implements ControlValueAccessor {
     writeValue(value: any): void {
         if (value !== undefined) {
             this.value = value;
+            this.valueCont = value;
             this.propagateChange(this.value);
+        }
+    }
+
+    writeCantValue(item: any): void {
+        if (item !== undefined) {
+            this.valueCont = item;
+            this.propagateChange(this.valueCont);
         }
     }
 }

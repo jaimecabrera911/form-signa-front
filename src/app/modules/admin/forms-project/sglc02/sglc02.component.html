@@ -6,24 +6,26 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
                             <div formGroupName="fieldsItems">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('firstAidKitLocation') }}" formControlName="firstAidKitLocation" [required]="formInit.get('fieldsItems').controls['firstAidKitLocation'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamValue('firstAidKitCode') }}" formControlName="firstAidKitCode" [required]="formInit.get('fieldsItems').controls['firstAidKitCode'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('firstAidKitLocation') }}" formControlName="firstAidKitLocation" [required]="formInit.get('fieldsItems').controls['firstAidKitLocation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['firstAidKitLocation']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('firstAidKitCode') }}" formControlName="firstAidKitCode" [required]="formInit.get('fieldsItems').controls['firstAidKitCode'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['firstAidKitCode']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-4 font-semibold">{{ filterParamValue('plasticBag') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="plasticBagCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="plasticBagApproved" [required]="formInit.get('fieldsItems').controls['plasticBagApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="plasticBagObservations" [required]="formInit.get('fieldsItems').controls['plasticBagObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="plasticBagCant" [required]="formInit.get('fieldsItems').controls['plasticBagCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['plasticBagCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="plasticBagApproved" [required]="formInit.get('fieldsItems').controls['plasticBagApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['plasticBagApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="plasticBagObservations" [required]="formInit.get('fieldsItems').controls['plasticBagObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['plasticBagObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -31,80 +33,80 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('antisepticAlcohol') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticAlcoholCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticAlcoholApproved" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticAlcoholObservations" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticAlcoholCant" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticAlcoholCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticAlcoholApproved" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticAlcoholApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticAlcoholObservations" [required]="formInit.get('fieldsItems').controls['antisepticAlcoholObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticAlcoholObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('cotton') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="cottonCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="cottonApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="cottonObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="cottonCant" [required]="formInit.get('fieldsItems').controls['cottonCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['cottonCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="cottonApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['cottonApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="cottonObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['cottonObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('applicators') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="applicatorsCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="applicatorsApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="applicatorsObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="applicatorsCant" [required]="formInit.get('fieldsItems').controls['applicatorsCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['applicatorsCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="applicatorsApproved" [required]="formInit.get('fieldsItems').controls['cottonApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['cottonApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="applicatorsObservations" [required]="formInit.get('fieldsItems').controls['cottonObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['cottonObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('gauzeDressings') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="gauzeDressingsCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="gauzeDressingsApproved" [required]="formInit.get('fieldsItems').controls['gauzeDressingsApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="pgauzeDressingsObservations" [required]="formInit.get('fieldsItems').controls['pgauzeDressingsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="gauzeDressingsCant" [required]="formInit.get('fieldsItems').controls['gauzeDressingsCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['gauzeDressingsCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="gauzeDressingsApproved" [required]="formInit.get('fieldsItems').controls['gauzeDressingsApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['gauzeDressingsApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="pgauzeDressingsObservations" [required]="formInit.get('fieldsItems').controls['pgauzeDressingsObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['pgauzeDressingsObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('tongueDepressor') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="tongueDepressorCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="tongueDepressorApproved" [required]="formInit.get('fieldsItems').controls['tongueDepressorApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tongueDepressorObservations" [required]="formInit.get('fieldsItems').controls['tongueDepressorObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="tongueDepressorCant" [required]="formInit.get('fieldsItems').controls['tongueDepressorCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['tongueDepressorCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="tongueDepressorApproved" [required]="formInit.get('fieldsItems').controls['tongueDepressorApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['tongueDepressorApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tongueDepressorObservations" [required]="formInit.get('fieldsItems').controls['tongueDepressorObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['tongueDepressorObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('sling') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="slingCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="slingApproved" [required]="formInit.get('fieldsItems').controls['slingApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="slingObservations" [required]="formInit.get('fieldsItems').controls['slingObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="slingCant" [required]="formInit.get('fieldsItems').controls['slingCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['slingCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="slingApproved" [required]="formInit.get('fieldsItems').controls['slingApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['slingApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="slingObservations" [required]="formInit.get('fieldsItems').controls['slingObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['slingObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('cures') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="curesCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="curesApproved" [required]="formInit.get('fieldsItems').controls['curesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="curesObservations" [required]="formInit.get('fieldsItems').controls['curesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="curesCant" [required]="formInit.get('fieldsItems').controls['curesCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['curesCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="curesApproved" [required]="formInit.get('fieldsItems').controls['curesApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['curesApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="curesObservations" [required]="formInit.get('fieldsItems').controls['curesObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['curesObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2">
                                         <div class="pt-2  font-semibold">{{ filterParamValue('stickingPlaster') }}</div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="stickingPlasterCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="stickingPlasterApproved" [required]="formInit.get('fieldsItems').controls['stickingPlasterApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="stickingPlasterObservations" [required]="formInit.get('fieldsItems').controls['stickingPlasterObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="stickingPlasterCant" [required]="formInit.get('fieldsItems').controls['stickingPlasterCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['stickingPlasterCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="stickingPlasterApproved" [required]="formInit.get('fieldsItems').controls['stickingPlasterApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['stickingPlasterApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="stickingPlasterObservations" [required]="formInit.get('fieldsItems').controls['stickingPlasterObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['stickingPlasterObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -112,10 +114,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('antisepticGauze') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticGauzeCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticGauzeApproved" [required]="formInit.get('fieldsItems').controls['antisepticGauzeApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticGauzeObservations" [required]="formInit.get('fieldsItems').controls['antisepticGauzeObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="antisepticGauzeCant" [required]="formInit.get('fieldsItems').controls['antisepticGauzeCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticGauzeCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="antisepticGauzeApproved" [required]="formInit.get('fieldsItems').controls['antisepticGauzeApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticGauzeApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="antisepticGauzeObservations" [required]="formInit.get('fieldsItems').controls['antisepticGauzeObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['antisepticGauzeObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -123,10 +125,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('disposableGloves') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableGlovesCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableGlovesApproved" [required]="formInit.get('fieldsItems').controls['disposableGlovesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableGlovesObservations" [required]="formInit.get('fieldsItems').controls['disposableGlovesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableGlovesCant" [required]="formInit.get('fieldsItems').controls['disposableGlovesCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableGlovesCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableGlovesApproved" [required]="formInit.get('fieldsItems').controls['disposableGlovesApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableGlovesApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableGlovesObservations" [required]="formInit.get('fieldsItems').controls['disposableGlovesObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableGlovesObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -134,10 +136,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('neckImmobilizer') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="neckImmobilizerCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="neckImmobilizerApproved" [required]="formInit.get('fieldsItems').controls['neckImmobilizerApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="neckImmobilizerObservations" [required]="formInit.get('fieldsItems').controls['neckImmobilizerObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="neckImmobilizerCant" [required]="formInit.get('fieldsItems').controls['neckImmobilizerCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['neckImmobilizerCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="neckImmobilizerApproved" [required]="formInit.get('fieldsItems').controls['neckImmobilizerApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['neckImmobilizerApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="neckImmobilizerObservations" [required]="formInit.get('fieldsItems').controls['neckImmobilizerObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['neckImmobilizerObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -145,10 +147,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('isodineSolution') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineSolutionCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineSolutionApproved" [required]="formInit.get('fieldsItems').controls['isodineSolutionApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineSolutionObservations" [required]="formInit.get('fieldsItems').controls['isodineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineSolutionCant" [required]="formInit.get('fieldsItems').controls['isodineSolutionCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineSolutionCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineSolutionApproved" [required]="formInit.get('fieldsItems').controls['isodineSolutionApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineSolutionApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineSolutionObservations" [required]="formInit.get('fieldsItems').controls['isodineSolutionObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineSolutionObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -156,10 +158,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('isodineFoam') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineFoamCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineFoamApproved" [required]="formInit.get('fieldsItems').controls['isodineFoamApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineFoamObservations" [required]="formInit.get('fieldsItems').controls['isodineFoamObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="isodineFoamCant" [required]="formInit.get('fieldsItems').controls['isodineFoamCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineFoamCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="isodineFoamApproved" [required]="formInit.get('fieldsItems').controls['isodineFoamApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineFoamApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="isodineFoamObservations" [required]="formInit.get('fieldsItems').controls['isodineFoamObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['isodineFoamObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -167,10 +169,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('disposableSyringes') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableSyringesCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableSyringesApproved" [required]="formInit.get('fieldsItems').controls['disposableSyringesApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableSyringesObservations" [required]="formInit.get('fieldsItems').controls['disposableSyringesObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="disposableSyringesCant" [required]="formInit.get('fieldsItems').controls['disposableSyringesCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableSyringesCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="disposableSyringesApproved" [required]="formInit.get('fieldsItems').controls['disposableSyringesApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableSyringesApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="disposableSyringesObservations" [required]="formInit.get('fieldsItems').controls['disposableSyringesObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['disposableSyringesObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -178,10 +180,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('limbImmobilizerKit') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="limbImmobilizerKitCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="limbImmobilizerKitApproved" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="limbImmobilizerKitObservations" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="limbImmobilizerKitCant" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['limbImmobilizerKitCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="limbImmobilizerKitApproved" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['limbImmobilizerKitApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="limbImmobilizerKitObservations" [required]="formInit.get('fieldsItems').controls['limbImmobilizerKitObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['limbImmobilizerKitObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -189,10 +191,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('notebook') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="notebookCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="notebookApproved" [required]="formInit.get('fieldsItems').controls['notebookApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="notebookObservations" [required]="formInit.get('fieldsItems').controls['notebookObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="notebookCant" [required]="formInit.get('fieldsItems').controls['notebookCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['notebookCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="notebookApproved" [required]="formInit.get('fieldsItems').controls['notebookApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['notebookApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="notebookObservations" [required]="formInit.get('fieldsItems').controls['notebookObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['notebookObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -200,10 +202,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('flashlight') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="flashlightCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="flashlightApproved" [required]="formInit.get('fieldsItems').controls['flashlightApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="flashlightObservations" [required]="formInit.get('fieldsItems').controls['flashlightObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="flashlightCant" [required]="formInit.get('fieldsItems').controls['flashlightCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['flashlightCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="flashlightApproved" [required]="formInit.get('fieldsItems').controls['flashlightApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['flashlightApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="flashlightObservations" [required]="formInit.get('fieldsItems').controls['flashlightObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['flashlightObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -211,10 +213,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('firstAidManual') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="firstAidManualCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="firstAidManualApproved" [required]="formInit.get('fieldsItems').controls['firstAidManualApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="firstAidManualObservations" [required]="formInit.get('fieldsItems').controls['firstAidManualObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="firstAidManualCant" [required]="formInit.get('fieldsItems').controls['firstAidManualCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['firstAidManualCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="firstAidManualApproved" [required]="formInit.get('fieldsItems').controls['firstAidManualApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['firstAidManualApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="firstAidManualObservations" [required]="formInit.get('fieldsItems').controls['firstAidManualObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['firstAidManualObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -222,10 +224,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('mask') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="maskCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="maskApproved" [required]="formInit.get('fieldsItems').controls['maskApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="maskObservations" [required]="formInit.get('fieldsItems').controls['maskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="maskCant" [required]="formInit.get('fieldsItems').controls['maskCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['maskCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="maskApproved" [required]="formInit.get('fieldsItems').controls['maskApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['maskApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="maskObservations" [required]="formInit.get('fieldsItems').controls['maskObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['maskObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -233,10 +235,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('eyePatch') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="eyePatchCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="eyePatchApproved" [required]="formInit.get('fieldsItems').controls['eyePatchApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="eyePatchObservations" [required]="formInit.get('fieldsItems').controls['eyePatchObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="eyePatchCant" [required]="formInit.get('fieldsItems').controls['eyePatchCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eyePatchCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="eyePatchApproved" [required]="formInit.get('fieldsItems').controls['eyePatchApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eyePatchApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="eyePatchObservations" [required]="formInit.get('fieldsItems').controls['eyePatchObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eyePatchObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -244,10 +246,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('salineSolution') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="salineSolutionCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="salineSolutionApproved" [required]="formInit.get('fieldsItems').controls['salineSolutionApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="salineSolutionObservations" [required]="formInit.get('fieldsItems').controls['salineSolutionObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="salineSolutionCant" [required]="formInit.get('fieldsItems').controls['salineSolutionCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['salineSolutionCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="salineSolutionApproved" [required]="formInit.get('fieldsItems').controls['salineSolutionApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['salineSolutionApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="salineSolutionObservations" [required]="formInit.get('fieldsItems').controls['salineSolutionObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['salineSolutionObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -255,10 +257,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('whistle') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="whistleCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="whistleApproved" [required]="formInit.get('fieldsItems').controls['whistleApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="whistleObservations" [required]="formInit.get('fieldsItems').controls['whistleObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="whistleCant" [required]="formInit.get('fieldsItems').controls['whistleCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['whistleCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="whistleApproved" [required]="formInit.get('fieldsItems').controls['whistleApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['whistleApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="whistleObservations" [required]="formInit.get('fieldsItems').controls['whistleObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['whistleObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -266,10 +268,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('faceMask') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="faceMaskCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="faceMaskApproved" [required]="formInit.get('fieldsItems').controls['faceMaskApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="faceMaskObservations" [required]="formInit.get('fieldsItems').controls['faceMaskObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="faceMaskCant" [required]="formInit.get('fieldsItems').controls['faceMaskCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['faceMaskCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="faceMaskApproved" [required]="formInit.get('fieldsItems').controls['faceMaskApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['faceMaskApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="faceMaskObservations" [required]="formInit.get('fieldsItems').controls['faceMaskObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['faceMaskObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -277,10 +279,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('scissors') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="scissorsCant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="scissorsApproved" [required]="formInit.get('fieldsItems').controls['scissorsApproved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="scissorsObservations" [required]="formInit.get('fieldsItems').controls['scissorsObservations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="scissorsCant" [required]="formInit.get('fieldsItems').controls['scissorsCant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['scissorsCant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="scissorsApproved" [required]="formInit.get('fieldsItems').controls['scissorsApproved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['scissorsApproved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="scissorsObservations" [required]="formInit.get('fieldsItems').controls['scissorsObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['scissorsObservations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -288,10 +290,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage6') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage6Cant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage6Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage6Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage6Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage6Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage6Cant" [required]="formInit.get('fieldsItems').controls['elasticBandage6Cant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage6Cant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage6Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage6Approved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage6Approved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage6Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage6Observations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage6Observations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -299,10 +301,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage2') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage2Cant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage2Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage2Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage2Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage2Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage2Cant" [required]="formInit.get('fieldsItems').controls['elasticBandage2Cant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage2Cant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage2Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage2Approved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage2Approved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage2Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage2Observations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage2Observations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-x-4 w-full">
@@ -310,10 +312,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('elasticBandage4') }}
                                         </div>
                                     </div>
-                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage4Cant"></app-input-qty>
-                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage4Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage4Approved'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage4Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage4Observations'].hasError('required')" rows="1" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2"
-                                        [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-qty label="{{ filterParamLabel('amount') }}" formControlName="elasticBandage4Cant" [required]="formInit.get('fieldsItems').controls['elasticBandage4Cant'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage4Cant']?.disabled"></app-input-qty>
+                                    <app-input-bool label="{{ filterParamLabel('fulfills') }}" formControlName="elasticBandage4Approved" [required]="formInit.get('fieldsItems').controls['elasticBandage4Approved'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage4Approved']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="elasticBandage4Observations" [required]="formInit.get('fieldsItems').controls['elasticBandage4Observations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['elasticBandage4Observations']?.disabled"
+                                        class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">CAMILLA</div>
@@ -323,8 +325,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('tieDownStraps') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="tieDownStrapsState" [required]="formInit.get('fieldsItems').controls['tieDownStrapsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tieDownStrapsObservations" [required]="formInit.get('fieldsItems').controls['tieDownStrapsObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="tieDownStrapsState" [required]="formInit.get('fieldsItems').controls['tieDownStrapsState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['tieDownStrapsState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="tieDownStrapsObservations" [required]="formInit.get('fieldsItems').controls['tieDownStrapsObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['tieDownStrapsObservations']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -332,8 +336,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('signaling') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="signalingState" [required]="formInit.get('fieldsItems').controls['signalingState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="signalingObservations" [required]="formInit.get('fieldsItems').controls['signalingObservations'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="signalingState" [required]="formInit.get('fieldsItems').controls['signalingState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['signalingState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="signalingObservations" [required]="formInit.get('fieldsItems').controls['signalingObservations'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['signalingObservations']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -341,8 +347,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('location') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['locationState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationState" [required]="formInit.get('fieldsItems').controls['locationState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['locationState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">OBSERVACIONES ADICIONALES
@@ -353,8 +361,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('generalCondition') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="generalConditionState" [required]="formInit.get('fieldsItems').controls['generalConditionState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="generalConditionObserv" [required]="formInit.get('fieldsItems').controls['generalConditionObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="generalConditionState" [required]="formInit.get('fieldsItems').controls['generalConditionState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="generalConditionObserv" [required]="formInit.get('fieldsItems').controls['generalConditionObserv'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionObserv']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -362,8 +372,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('orderCleanliness') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="orderCleanlinessState" [required]="formInit.get('fieldsItems').controls['orderCleanlinessState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="orderCleanlinessObserv" [required]="formInit.get('fieldsItems').controls['orderCleanlinessObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="orderCleanlinessState" [required]="formInit.get('fieldsItems').controls['orderCleanlinessState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['orderCleanlinessState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="orderCleanlinessObserv" [required]="formInit.get('fieldsItems').controls['orderCleanlinessObserv'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['orderCleanlinessObserv']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -371,8 +383,10 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('locationSignage') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="locationSignageState" [required]="formInit.get('fieldsItems').controls['locationSignageState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationSignageObserv" [required]="formInit.get('fieldsItems').controls['locationSignageObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="locationSignageState" [required]="formInit.get('fieldsItems').controls['locationSignageState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['locationSignageState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="locationSignageObserv" [required]="formInit.get('fieldsItems').controls['locationSignageObserv'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['locationSignageObserv']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
@@ -380,29 +394,34 @@
                                         <div class="pt-2  font-semibold">{{ filterParamValue('presenceExpiredItems') }}
                                         </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceExpiredItemsState" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceExpiredItemsObserv" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceExpiredItemsState" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['presenceExpiredItemsState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceExpiredItemsObserv" [required]="formInit.get('fieldsItems').controls['presenceExpiredItemsObserv'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['presenceExpiredItemsObserv']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-1 lg:col-span-1">
-                                        <div class="pt-2  font-semibold"> {{ filterParamValue('presenceMedications') }}</div>
+                                        <div class="pt-2  font-semibold"> {{ filterParamValue('presenceMedications') }}
+                                        </div>
                                     </div>
-                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceMedicationsState" [required]="formInit.get('fieldsItems').controls['presenceMedicationsState'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceMedicationsObserv" [required]="formInit.get('fieldsItems').controls['presenceMedicationsObserv'].hasError('required')" rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-select [options]="state" label="Revisión Estado" formControlName="presenceMedicationsState" [required]="formInit.get('fieldsItems').controls['presenceMedicationsState'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['presenceMedicationsState']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="presenceMedicationsObserv" [required]="formInit.get('fieldsItems').controls['presenceMedicationsObserv'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['presenceMedicationsObserv']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                             </div>
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">

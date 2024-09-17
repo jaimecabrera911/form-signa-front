@@ -1,5 +1,5 @@
-import { Component, forwardRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DefaultInput } from '../default-input';
 
 @Component({
@@ -24,7 +24,7 @@ export class InputQtyComponent extends DefaultInput implements OnInit, ControlVa
     /**
      * @description Max limit of quantity
      */
-    @Input() limit = 10000000;
+    @Input() limit = 100;
 
     /**
      * @description Disables quantity input
@@ -40,15 +40,13 @@ export class InputQtyComponent extends DefaultInput implements OnInit, ControlVa
     /**
      * @description Max limit of quantity
      */
-    //value: any = 1;
 
-
-
-    constructor() {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         super();
     }
 
     ngOnInit(): void {
+        this.changeDetectorRef.detectChanges();
     }
 
 }

@@ -23,6 +23,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     searchPanel: boolean = false;
     swaAlert = new SwalAlert();
     validate: boolean = false;
+    modView: boolean = true;
+
     iterableColumns: TableItems[] = [
         { name: 'code', name2: false, styleEnable: false, label: 'Formulario' },
         { name: 'name', name2: false, styleEnable: false, label: 'Descripción' },
@@ -59,6 +61,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.getCities();
         this.getStateProject();
         this.getEmployees();
+        this.getLabels();
         this.getFormId();
     }
 
@@ -67,9 +70,25 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             this.api.projectIdService(this.id).subscribe({
                 next: (items: any) => {
                    this.setFormProjects(items.data);
+                   this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
+    }
+
+    getView(): void {
+        const route = window.location.pathname;
+        const type = route.split('/');
+        if (type[2] === 'view') {
+            this.formInit.disable();
+            this.modView = false;
+        }
+    }
+
+    filterParamLabel(code: any): any {
+        const param = this.paramLabels?.filter((item: any) => item.code === code)
+            .map((item: any) => item.name ? item.name : '');
+        return param[0] ? param[0] : '';
     }
 
     getFormId(): void {
@@ -79,6 +98,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     }
 
     setFormProjects(form): void {
+        console.log('employee ',form);
         this.formInit.patchValue({
             uid: form[0]?.uid,
             code: form[0]?.code,

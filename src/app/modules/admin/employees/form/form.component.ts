@@ -37,6 +37,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     filesUploadDelete: any[] = [];
     checkUpload: any[] = [{ profile: false, signature: false, files: false }];
     date: any;
+    modView: boolean = true;
 
     formInit: FormGroup = this._formBuilder.group({
         identificationType: new FormControl('', [Validators.required]),
@@ -105,6 +106,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.getWorkspace();
         this.getPosition();
         this.getEmployees();
+        this.getLabels();
         super.ngOnInit();
         this.getEmployeesId();
         this.nameEmployee = this.formInit.value.names;
@@ -116,6 +118,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             await this.api.employeIdService(this.id).subscribe({
                 next: (items: any) => {
                     this.setFormEmployees(items.data);
+                    this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
@@ -154,7 +157,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             gender: form[0]?.gender?.id,
             city: form[0]?.city?.id,
             birthCountry: form[0]?.birthCountry?.id,
-            user: form[0]?.user.id ? form[0]?.user.id : null
+            user: form[0]?.user?.id ? form[0]?.user?.id : null
         });
         this.imageProfile = form[0]?.profilePicture ? this.urlImage(form[0]?.profilePicture.url) : null;
         if (this.imageProfile) {
@@ -166,10 +169,24 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.usernameValidate = form[0]?.username ? form[0]?.username : '';
     }
 
+    getView(): void {
+        const route = window.location.pathname;
+        const type = route.split('/');
+        if (type[2] === 'view') {
+            this.formInit.disable();
+            this.modView = false;
+        }
+    }
+
     urlImage(url: any): string {
         return environment.urlApp + url;
     }
 
+    filterParamLabel(code: any): any {
+        const param = this.paramLabels?.filter((item: any) => item.code === code)
+            .map((item: any) => item.name ? item.name : '');
+        return param[0] ? param[0] : '';
+    }
 
     createUsername($event, type): void {
         const form = this.formInit.value;

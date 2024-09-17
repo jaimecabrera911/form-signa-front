@@ -6,33 +6,37 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamLabel('contractor') }}" formControlName="contractor" [required]="formInit.get('fieldsItems').controls['contractor'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select label="{{ filterParamValue('employee') }}" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="{{ filterParamLabel('contractor') }}" formControlName="contractor" [required]="formInit.get('fieldsItems').controls['contractor'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['contractor']?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-select label="{{ filterParamValue('employee') }}" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['employee']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-date label="{{ filterParamValue('inspectionDate') }}" formControlName="inspectionDate" [required]="formInit.get('fieldsItems').controls['inspectionDate'].hasError('required')" [validateFormSumt]="validate"></app-input-date>
-                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-date label="{{ filterParamValue('inspectionDate') }}" formControlName="inspectionDate" [required]="formInit.get('fieldsItems').controls['inspectionDate'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['inspectionDate']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-date>
+                                    <app-input-text label="{{ filterParamValue('workplace') }}" formControlName="workplace" [required]="formInit.get('fieldsItems').controls['workplace'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['workplace']?.disabled" [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-textarea label="{{ filterParamValue('descriptionOfWork') }}" formControlName="descriptionOfWork" [required]="formInit.get('fieldsItems').controls['descriptionOfWork'].hasError('required')" rows="2" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamValue('descriptionOfWork') }}" formControlName="descriptionOfWork" [required]="formInit.get('fieldsItems').controls['descriptionOfWork'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['descriptionOfWork']?.disabled"
+                                        rows="2" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('certifiedScaffolding') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('certifiedScaffolding') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="certifiedScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="certifiedScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['certifiedScaffolding']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="certifiedScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2 lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -40,45 +44,48 @@
                                         <div class="pt-2 font-semibold">{{ filterParamValue('allPartsScaffolding') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="allPartsScaffolding" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="allPartsScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="allPartsScaffolding" [required]="formInit.get('fieldsItems').controls['allPartsScaffolding'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['allPartsScaffolding']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="allPartsScaffoldingObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['allPartsScaffoldingObser'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['allPartsScaffoldingObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('baseScaffoldingLeveled') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('baseScaffoldingLeveled') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="baseScaffoldingLeveled" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="baseScaffoldingLeveledObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="baseScaffoldingLeveled" [required]="formInit.get('fieldsItems').controls['baseScaffoldingLeveled'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['baseScaffoldingLeveled']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="baseScaffoldingLeveledObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['baseScaffoldingLeveledObser'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['baseScaffoldingLeveledObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveDockingStation') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveDockingStation') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveDockingStation" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveDockingStationObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveDockingStation" [required]="formInit.get('fieldsItems').controls['haveDockingStation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveDockingStation']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveDockingStationObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveDockingStationObser'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['haveDockingStationObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveWheelsForRide') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveWheelsForRide') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveWheelsForRide" [required]="formInit.get('fieldsItems').controls['certifiedScaffolding'].hasError('required')"></app-input-bool>
-                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveWheelsForRideObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['certifiedScaffoldingObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveWheelsForRide" [required]="formInit.get('fieldsItems').controls['haveWheelsForRide'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveWheelsForRide']?.disabled"></app-input-bool>
+                                    <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveWheelsForRideObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveWheelsForRideObser'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['haveWheelsForRideObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('haveSecurityPins') }}</div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSecurityPins" [required]="formInit.get('fieldsItems').controls['haveSecurityPins'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSecurityPins" [required]="formInit.get('fieldsItems').controls['haveSecurityPins'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveSecurityPins']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveSecurityPinsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveSecurityPinsObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['haveSecurityPinsObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -86,9 +93,9 @@
                                         <div class="pt-2 font-semibold">{{ filterParamValue('accessPlatformsGoodUse') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="accessPlatformsGoodUse" [required]="formInit.get('fieldsItems').controls['accessPlatformsGoodUse'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="accessPlatformsGoodUse" [required]="formInit.get('fieldsItems').controls['accessPlatformsGoodUse'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['accessPlatformsGoodUse']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="accessPlatformsGoodUseObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['accessPlatformsGoodUseObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['accessPlatformsGoodUseObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -96,36 +103,37 @@
                                         <div class="pt-2 font-semibold">{{ filterParamValue('structureAdequatelyAssembledSec') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="structureAdequatelyAssembledSec" [required]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSec'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="structureAdequatelyAssembledSec" [required]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSec'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSec']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="structureAdequatelyAssembledSecObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSecObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['structureAdequatelyAssembledSecObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('scaffoldingAttachedStableS') }}</div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="scaffoldingAttachedStableS" [required]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableS'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="scaffoldingAttachedStableS" [required]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableS'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableS']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="scaffoldingAttachedStableSObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableSObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['scaffoldingAttachedStableSObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveSkirtingBoards') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('haveSkirtingBoards') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSkirtingBoards" [required]="formInit.get('fieldsItems').controls['haveSkirtingBoards'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveSkirtingBoards" [required]="formInit.get('fieldsItems').controls['haveSkirtingBoards'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveSkirtingBoards']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveSkirtingBoardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveSkirtingBoardsObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['haveSkirtingBoardsObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('haveAccessStairs') }}</div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveAccessStairs" [required]="formInit.get('fieldsItems').controls['haveAccessStairs'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveAccessStairs" [required]="formInit.get('fieldsItems').controls['haveAccessStairs'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveAccessStairs']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveAccessStairsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveAccessStairsObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['haveAccessStairsObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -133,9 +141,9 @@
                                         <div class="pt-2 font-semibold">{{ filterParamValue('haveScaffoldErectersCertificate') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldErectersCertificate" [required]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificate'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldErectersCertificate" [required]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificate'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificate']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamValue('observations') }}" formControlName="haveScaffoldErectersCertificateObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificateObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['haveScaffoldErectersCertificateObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -143,9 +151,9 @@
                                         <div class="pt-2 font-semibold">{{ filterParamValue('haveScaffoldingUsageCards') }}
                                         </div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldingUsageCards" [required]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCards'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamValue('approve') }}" formControlName="haveScaffoldingUsageCards" [required]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCards'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCards']?.disabled"></app-input-bool>
                                     <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="haveScaffoldingUsageCardsObser" class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2" [required]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCardsObser'].hasError('required')"
-                                        rows="1" [validateFormSumt]="validate"></app-input-textarea>
+                                        [disabled]="formInit.get('fieldsItems').controls['haveScaffoldingUsageCardsObser']?.disabled" rows="1" [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
                             </div>
 
@@ -154,24 +162,26 @@
                                     <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
                                         <img [src]="image" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
                                         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
-                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge') }}</span>
+                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge')
+                                                }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                    <div class="pt-2 font-semibold">{{ filterParamValue('certifyEquipmentOperator') }}</div>
+                                    <div class="pt-2 font-semibold">{{ filterParamValue('certifyEquipmentOperator') }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">

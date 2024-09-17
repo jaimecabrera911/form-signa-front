@@ -15,6 +15,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalImageComponent } from '@fuse/components/modal-image/modal-image.component';
 
 
+
 const typeValues = [
     { id: 1, value: 'string' },
     { id: 2, value: 'integer' },
@@ -50,6 +51,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     assistantsForm: any = [];
     approvalsForm: any = [];
     filesUploadDelete: any[] = [];
+    function: any = new Path();
+    modView: boolean = true;
     days: any = { 'monday': 'Lunes', 'tuesday': 'Martes', 'wednesday': 'Miercoles', 'thursday': 'Jueves', 'friday': 'Viernes', 'saturday': 'Sabado', 'sunday': 'Domingo' };
 
     iterableColumns: TableItems[] = [
@@ -72,7 +75,6 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         const str = window.location.pathname;
         this.getTemplateId();
         this.getLabels();
-        console.log('code:: ', this.code.toLowerCase());
         this.getParam(this.code.toLowerCase());
         this.apiItems$ = this.api.employeesService();
         this.getFormId();
@@ -105,13 +107,25 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                         project: this.itemsCurrent[0]?.project?.id,
                         evidences: this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : null,
                         assistants: this.itemsCurrent[0]?.assistants ? this.itemsCurrent[0]?.assistants : null,
-                        dataFields: this.filesArrays >=1 ? this.filesArrays : null
+                        dataFields: this.filesArrays >= 1 ? this.filesArrays : null
                     });
                     this.getForm();
                     this.getAssistantsId();
                     this.getApprovalsId();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
+
+            this.getView();
+        }
+    }
+
+    getView(): void {
+        const route = window.location.pathname;
+        const type = route.split('/');
+        if (type[3] === 'view') {
+            this.formInit.disable();
+            this.formInit.controls['data'].disable();
+            this.modView = false;
         }
     }
 
@@ -148,7 +162,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     updateDataForm(position, ...itemsArray): void {
         this.validateArrayItems.push({
             position: position,
-            fields: itemsArray});
+            fields: itemsArray
+        });
         this.formInit.value.dataFields = [...this.validateArrayItems];
     }
 
@@ -170,11 +185,9 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             return;
         }
 
-        /*this.assignFields();
-        console.log('dataFields :: ',this.formInit.value.dataFields);
-        console.log('formInit :: ',this.formInit.value);*/
         this.validDeleFile();
-        const uploadFiles = this.formInit?.value?.filesUpload?.filter((item: any) => item.id === null).map((item: any) => item.filesUploads ? item.filesUploads : null);
+        const uploadFiles = this.formInit?.value?.filesUpload?.filter((item: any) => item.id === null)
+            .map((item: any) => item.filesUploads ? item.filesUploads : null);
         if (this.formInit?.value?.filesUpload) {
             if (uploadFiles[0] !== undefined) {
                 this.uploadSave(uploadFiles[0]);
@@ -191,7 +204,6 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             await this.api.assistantFormService(this.id).subscribe({
                 next: (response: any) => {
                     this.assistantsForm = response.data;
-                    console.log('firmas ',this.assistantsForm);
                 }, error: (e: any) => console.log('')
             });
         }
@@ -357,9 +369,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     async formSave(): Promise<void> {
         const form = this.formInit.value;
         form.name = this.title;
-
         this.assignFields();
-        //console.log('assignedAssistants:::: ',this.formInit.value.assignedAssistants);
 
         let observable: Observable<Form>;
         if (this.id) {
@@ -370,18 +380,14 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         }
         observable.subscribe({
             next: (response: any) => {
-                console.log('can: 0 ',this.formInit.value.assignedAssistants);
                 if (response) {
                     if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
                         if (this.formInit.value.trainingApproval.length > 0) {
                             this.assignApprovals(response.data.id);
                         }
                     }
-                    console.log('can: 1 ',this.formInit.value);
                     if (this.formInit.value.assignedAssistants !== undefined && this.formInit.value.assignedAssistants !== null) {
-                        console.log('can: 11 ');
                         if (this.formInit.value.assignedAssistants.length > 0 && this.formInit.value.assignedAssistants !== null) {
-                            console.log('can: 111 ');
                             this.validationAssitant(response.data.id);
                         }
                     }

@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required === true ? 'required-item' : ''">{{ label }}</label>
     <mat-form-field class="w-full" appearance="legacy">
-        <textarea matInput [cols]="cols" [rows]="rows" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (keyup)="change($event)"></textarea>
+        <textarea matInput [cols]="cols" [rows]="rows" [(ngModel)]="value" name="value" #valueCtrl="ngModel" (keyup)="change($event)" [disabled]="disabled"></textarea>
         <mat-hint *ngIf="valueCtrl.invalid && validateFormSumt">
             <mat-error>Campo Obligatorio</mat-error>
         </mat-hint>

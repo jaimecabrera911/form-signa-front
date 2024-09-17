@@ -47,8 +47,8 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
 
     validateForm(): void {
         this.formInit = this._formBuilder.group({
-            code: new FormControl(this.code),
-            version: new FormControl('1.0'),
+            code: new FormControl({ value: this.code, disabled: true }),
+            version: new FormControl({ value:'1.0', disabled: true }),
             project: new FormControl('', [Validators.required]),
             company: new FormControl(1),
             fields: new FormArray([
@@ -81,6 +81,7 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
                 toolsMachines: this.cleanSelect(this.getValueField('toolsMachines')),
             });
             this.editarAsignar(this.filesArrays);
+            this.getView();
         }
     }
 
@@ -95,14 +96,14 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
 
     formData(): FormGroup {
         return this._formBuilder.group({
-            stepSequence: [''],
-            hazards: [''],
-            consequences: [''],
-            controlActions: [''],
-            environmentalAspect: [''],
-            environmentalImpact: [''],
-            environmentalControls: [''],
-            responsibleComplyingControls: ['']
+            stepSequence: new FormControl(),
+            hazards: new FormControl(),
+            consequences: new FormControl(),
+            controlActions: new FormControl(),
+            environmentalAspect: new FormControl(),
+            environmentalImpact: new FormControl(),
+            environmentalControls: new FormControl(),
+            responsibleComplyingControls: new FormControl()
         });
     }
 
@@ -133,14 +134,14 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
         environmentalImpact, hazards, responsibleComplyingControls, stepSequence): FormGroup {
 
         return this._formBuilder.group({
-            stepSequence: [stepSequence],
-            hazards: [hazards],
-            consequences: [consequences],
-            controlActions: [controlActions],
-            environmentalAspect: [environmentalAspect],
-            environmentalImpact: [environmentalImpact],
-            environmentalControls: [environmentalControls],
-            responsibleComplyingControls: [responsibleComplyingControls]
+            stepSequence:  new FormControl(stepSequence),
+            hazards: new FormControl(hazards),
+            consequences: new FormControl(consequences),
+            controlActions: new FormControl(controlActions),
+            environmentalAspect: new FormControl(environmentalAspect),
+            environmentalImpact: new FormControl(environmentalImpact),
+            environmentalControls: new FormControl(environmentalControls),
+            responsibleComplyingControls: new FormControl(responsibleComplyingControls)
         });
     }
 

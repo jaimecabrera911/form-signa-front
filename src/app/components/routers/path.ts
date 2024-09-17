@@ -14,7 +14,12 @@ export class Path{
         return this.items[0].title;
     }
 
-    public getModuleId(): void {
+    getRoute(): void {
+        this.items = window.location.pathname;
+        return this.items;
+    }
+
+    getModuleId(): void {
         const str = window.location.pathname;
         const splitted = str.split('/');
         this.items = compactNavigation.filter(

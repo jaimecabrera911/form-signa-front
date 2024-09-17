@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InputTextComponent } from './input-text/input-text.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputSelectComponent } from './input-select/input-select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { InputNumberComponent } from './input-number/input-number.component';
@@ -37,10 +37,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { TableItemsComponent } from './table-items/table-items.component';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InputEmailComponent } from './input-email/input-email.component';
 import { InputSelectAutocompleteComponent } from './input-select-autocomplete/input-slect-autocomplete.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 @NgModule({
     declarations: [
         InputTextComponent,
@@ -107,8 +106,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
         MatPaginatorModule,
         MatSortModule,
         MatMenuModule,
-        NgxDocViewerModule,
-        AutocompleteLibModule
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class CrmFormModule { }

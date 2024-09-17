@@ -34,10 +34,10 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
 
     validateForm(): void {
         this.formInit = this._formBuilder.group({
-            code: new FormControl(this.code),
+            code: new FormControl({ value: this.code, disabled: true }),
             uid: new FormControl(),
             name: new FormControl(this.title),
-            version: new FormControl('1.0'),
+            version: new FormControl({ value:'1.0', disabled: true }),
             company: new FormControl(1),
             fields: new FormArray([
                 this._formBuilder.group({ name: 'contractor', value: '', type: this.getTypeValue(1) }),

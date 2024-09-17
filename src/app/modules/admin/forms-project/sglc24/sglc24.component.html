@@ -6,23 +6,25 @@
                     <div class="form-employee flex flex-col flex-auto">
                         <div class="flex flex-col px-4 mx-1 mb-6">
                             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
+                                <app-input-text label="{{ filterParamLabel('code') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [disabled]="formInit.get('code')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" [disabled]="formInit.get('version')?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate"></app-input-select>
                             </div>
 
                             <div formGroupName="fieldsItems">
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('weldingEquipment') }}</div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamLabel('location') }}" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamLabel('operatorName') }}" formControlName="operatorName" [required]="formInit.get('fieldsItems').controls['operatorName'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('location') }}" formControlName="location" [required]="formInit.get('fieldsItems').controls['location'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['location']?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('operatorName') }}" formControlName="operatorName" [required]="formInit.get('fieldsItems').controls['operatorName'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['operatorName']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamLabel('brand') }}" formControlName="brand" [required]="formInit.get('fieldsItems').controls['brand'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamLabel('serial') }}" formControlName="serial" [required]="formInit.get('fieldsItems').controls['serial'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-text label="{{ filterParamLabel('manufacturingModel') }}" formControlName="manufacturingModel" [required]="formInit.get('fieldsItems').controls['manufacturingModel'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('brand') }}" formControlName="brand" [required]="formInit.get('fieldsItems').controls['brand'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['brand']?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('serial') }}" formControlName="serial" [required]="formInit.get('fieldsItems').controls['serial'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['serial']?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamLabel('manufacturingModel') }}" formControlName="manufacturingModel" [required]="formInit.get('fieldsItems').controls['manufacturingModel'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['manufacturingModel']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('MECHANICALCONDITIONOPERATINGELEMENTS') }}</div>
@@ -31,143 +33,150 @@
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('statusElectricalConnections') }}</div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="statusElectricalConnectionsMonday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="statusElectricalConnectionsTuesday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="statusElectricalConnectionsWednesday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="statusElectricalConnectionsThursday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="statusElectricalConnectionsFriday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="statusElectricalConnectionsSaturday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="statusElectricalConnectionsSunday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="statusElectricalConnectionsMonday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="statusElectricalConnectionsTuesday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="statusElectricalConnectionsWednesday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="statusElectricalConnectionsThursday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="statusElectricalConnectionsFriday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="statusElectricalConnectionsSaturday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="statusElectricalConnectionsSunday" [required]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusElectricalConnectionsSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('diskInstallationStatus') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('diskInstallationStatus') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="diskInstallationStatusMonday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="diskInstallationStatusTuesday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="diskInstallationStatusWednesday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="diskInstallationStatusThursday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="diskInstallationStatusFriday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="diskInstallationStatusSaturday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="diskInstallationStatusSunday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="diskInstallationStatusMonday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="diskInstallationStatusTuesday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="diskInstallationStatusWednesday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="diskInstallationStatusThursday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="diskInstallationStatusFriday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="diskInstallationStatusSaturday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="diskInstallationStatusSunday" [required]="formInit.get('fieldsItems').controls['diskInstallationStatusSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskInstallationStatusSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('suitableCouplingsAccessories') }}</div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="suitableCouplingsAccessoriesMonday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="suitableCouplingsAccessoriesTuesday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="suitableCouplingsAccessoriesWednesday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="suitableCouplingsAccessoriesThursday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="suitableCouplingsAccessoriesFriday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="suitableCouplingsAccessoriesSaturday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="suitableCouplingsAccessoriesSunday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="suitableCouplingsAccessoriesMonday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="suitableCouplingsAccessoriesTuesday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="suitableCouplingsAccessoriesWednesday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="suitableCouplingsAccessoriesThursday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="suitableCouplingsAccessoriesFriday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="suitableCouplingsAccessoriesSaturday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="suitableCouplingsAccessoriesSunday" [required]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['suitableCouplingsAccessoriesSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('handleInstallationStatus') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('handleInstallationStatus') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="handleInstallationStatusMonday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="handleInstallationStatusTuesday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="handleInstallationStatusWednesday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="handleInstallationStatusThursday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="handleInstallationStatusFriday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="handleInstallationStatusSaturday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="handleInstallationStatusSunday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="handleInstallationStatusMonday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="handleInstallationStatusTuesday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="handleInstallationStatusWednesday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="handleInstallationStatusThursday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="handleInstallationStatusFriday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="handleInstallationStatusSaturday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="handleInstallationStatusSunday" [required]="formInit.get('fieldsItems').controls['handleInstallationStatusSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['handleInstallationStatusSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('fireWitchSafetyLockStatus') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('fireWitchSafetyLockStatus') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="fireWitchSafetyLockStatusMonday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="fireWitchSafetyLockStatusTuesday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="fireWitchSafetyLockStatusWednesday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="fireWitchSafetyLockStatusThursday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="fireWitchSafetyLockStatusFriday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="fireWitchSafetyLockStatusSaturday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="fireWitchSafetyLockStatusSunday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="fireWitchSafetyLockStatusMonday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="fireWitchSafetyLockStatusTuesday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="fireWitchSafetyLockStatusWednesday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="fireWitchSafetyLockStatusThursday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="fireWitchSafetyLockStatusFriday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="fireWitchSafetyLockStatusSaturday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="fireWitchSafetyLockStatusSunday" [required]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['fireWitchSafetyLockStatusSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('statusGuardGuide') }}</div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="statusGuardGuideMonday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="statusGuardGuideTuesday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="statusGuardGuideWednesday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="statusGuardGuideThursday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="statusGuardGuideFriday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="statusGuardGuideSaturday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="statusGuardGuideSunday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="statusGuardGuideMonday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="statusGuardGuideTuesday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="statusGuardGuideWednesday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="statusGuardGuideThursday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="statusGuardGuideFriday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="statusGuardGuideSaturday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="statusGuardGuideSunday" [required]="formInit.get('fieldsItems').controls['statusGuardGuideSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['statusGuardGuideSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('appropriateAccessoriesRpm') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('appropriateAccessoriesRpm') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="appropriateAccessoriesRpmMonday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateAccessoriesRpmTuesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateAccessoriesRpmWednesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="appropriateAccessoriesRpmThursday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="appropriateAccessoriesRpmFriday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="appropriateAccessoriesRpmSaturday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="appropriateAccessoriesRpmSunday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="appropriateAccessoriesRpmMonday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateAccessoriesRpmTuesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateAccessoriesRpmWednesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="appropriateAccessoriesRpmThursday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="appropriateAccessoriesRpmFriday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="appropriateAccessoriesRpmSaturday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="appropriateAccessoriesRpmSunday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesRpmSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('appropriateAccessoriesTask') }}</div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="appropriateAccessoriesTaskMonday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateAccessoriesTaskTuesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateAccessoriesTaskWednesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="appropriateAccessoriesTaskThursday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="appropriateAccessoriesTaskFriday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="appropriateAccessoriesTaskSaturday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="appropriateAccessoriesTaskSunday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="appropriateAccessoriesTaskMonday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateAccessoriesTaskTuesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateAccessoriesTaskWednesday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="appropriateAccessoriesTaskThursday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="appropriateAccessoriesTaskFriday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="appropriateAccessoriesTaskSaturday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="appropriateAccessoriesTaskSunday" [required]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateAccessoriesTaskSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('generalConditionPolisher') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('generalConditionPolisher') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="generalConditionPolisherMonday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="generalConditionPolisherTuesday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="generalConditionPolisherWednesday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="generalConditionPolisherThursday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="generalConditionPolisherFriday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="generalConditionPolisherSaturday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="generalConditionPolisherSunday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="generalConditionPolisherMonday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="generalConditionPolisherTuesday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="generalConditionPolisherWednesday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="generalConditionPolisherThursday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="generalConditionPolisherFriday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="generalConditionPolisherSaturday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="generalConditionPolisherSunday" [required]="formInit.get('fieldsItems').controls['generalConditionPolisherSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['generalConditionPolisherSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('eppUsedAppropriatelyWork') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('eppUsedAppropriatelyWork') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="eppUsedAppropriatelyWorkMonday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="eppUsedAppropriatelyWorkTuesday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="eppUsedAppropriatelyWorkWednesday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="eppUsedAppropriatelyWorkThursday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="eppUsedAppropriatelyWorkFriday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="eppUsedAppropriatelyWorkSaturday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="eppUsedAppropriatelyWorkSunday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="eppUsedAppropriatelyWorkMonday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="eppUsedAppropriatelyWorkTuesday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="eppUsedAppropriatelyWorkWednesday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="eppUsedAppropriatelyWorkThursday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="eppUsedAppropriatelyWorkFriday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="eppUsedAppropriatelyWorkSaturday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="eppUsedAppropriatelyWorkSunday" [required]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['eppUsedAppropriatelyWorkSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
-                                        <div class="pt-2 font-semibold">{{ filterParamValue('appropriateBarriers') }}</div>
+                                        <div class="pt-2 font-semibold">{{ filterParamValue('appropriateBarriers') }}
+                                        </div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="appropriateBarriersMonday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateBarriersTuesday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateBarriersWednesday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="appropriateBarriersThursday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="appropriateBarriersFriday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="appropriateBarriersSaturday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="appropriateBarriersSunday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="appropriateBarriersMonday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="appropriateBarriersTuesday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="appropriateBarriersWednesday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="appropriateBarriersThursday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="appropriateBarriersFriday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="appropriateBarriersSaturday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="appropriateBarriersSunday" [required]="formInit.get('fieldsItems').controls['appropriateBarriersSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['appropriateBarriersSunday']?.disabled"></app-input-bool>
                                 </div>
 
 
@@ -175,25 +184,26 @@
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('diskStatus') }}</div>
                                     </div>
-                                    <app-input-bool [label]="days.monday" formControlName="diskStatusMonday" [required]="formInit.get('fieldsItems').controls['diskStatusMonday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.tuesday" formControlName="diskStatusTuesday" [required]="formInit.get('fieldsItems').controls['diskStatusTuesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.wednesday" formControlName="diskStatusWednesday" [required]="formInit.get('fieldsItems').controls['diskStatusWednesday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.thursday" formControlName="diskStatusThursday" [required]="formInit.get('fieldsItems').controls['diskStatusThursday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.friday" formControlName="diskStatusFriday" [required]="formInit.get('fieldsItems').controls['diskStatusFriday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.saturday" formControlName="diskStatusSaturday" [required]="formInit.get('fieldsItems').controls['diskStatusSaturday'].hasError('required')"></app-input-bool>
-                                    <app-input-bool [label]="days.sunday" formControlName="diskStatusSunday" [required]="formInit.get('fieldsItems').controls['diskStatusSunday'].hasError('required')"></app-input-bool>
+                                    <app-input-bool [label]="days.monday" formControlName="diskStatusMonday" [required]="formInit.get('fieldsItems').controls['diskStatusMonday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusMonday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.tuesday" formControlName="diskStatusTuesday" [required]="formInit.get('fieldsItems').controls['diskStatusTuesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusTuesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.wednesday" formControlName="diskStatusWednesday" [required]="formInit.get('fieldsItems').controls['diskStatusWednesday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusWednesday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.thursday" formControlName="diskStatusThursday" [required]="formInit.get('fieldsItems').controls['diskStatusThursday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusThursday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.friday" formControlName="diskStatusFriday" [required]="formInit.get('fieldsItems').controls['diskStatusFriday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusFriday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.saturday" formControlName="diskStatusSaturday" [required]="formInit.get('fieldsItems').controls['diskStatusSaturday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusSaturday']?.disabled"></app-input-bool>
+                                    <app-input-bool [label]="days.sunday" formControlName="diskStatusSunday" [required]="formInit.get('fieldsItems').controls['diskStatusSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['diskStatusSunday']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3  lg:grid-cols-3 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('warning') }}</div>
                                     </div>
-                                    <app-input-bool label="{{ filterParamLabel('inspectionResult') }}" formControlName="inspectionResult" [required]="formInit.get('fieldsItems').controls['inspectionResult'].hasError('required')"></app-input-bool>
+                                    <app-input-bool label="{{ filterParamLabel('inspectionResult') }}" formControlName="inspectionResult" [required]="formInit.get('fieldsItems').controls['inspectionResult'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['inspectionResult']?.disabled"></app-input-bool>
                                 </div>
 
                                 <div class="bg-[#CADAF6] my-3 py-3 text-center font-semibold text-xl">{{ filterParamLabel('OBSERVATIONST') }}</div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [validateFormSumt]="validate"></app-input-textarea>
+                                    <app-input-textarea label="{{ filterParamLabel('observations') }}" formControlName="observations" [required]="formInit.get('fieldsItems').controls['observations'].hasError('required')" rows="5" [disabled]="formInit.get('fieldsItems').controls['observations']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  lg:grid-cols-5 gap-x-4 w-full">
@@ -201,22 +211,23 @@
                                     <div class="relative max-w-xs overflow-hidden bg-cover bg-no-repeat">
                                         <img [src]="image" class="rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800 cursor-pointer">
                                         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gray-800 bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-50 content-center pl-32 cursor-pointer">
-                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge') }}</span>
+                                            <span class="text-white text-xl font-bold">{{ filterParamLabel('enlarge')
+                                                }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamLabel('signatures') }}</div>
-                            <app-approval [formId]="id" formControlName="trainingApproval"></app-approval>
+                            <app-approval [formId]="id" formControlName="trainingApproval" [disabled]="formInit.get('trainingApproval')?.disabled"></app-approval>
                         </div>
                     </div>
                 </mat-tab>
                 <mat-tab label="Evidencias" class="sign">
-                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload"></app-multimedia>
+                    <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
             </mat-tab-group>
-            <div class="pl-18">
+            <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" [disabled]="formInit.invalid" (click)="onSubmit()">

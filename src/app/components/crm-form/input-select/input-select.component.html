@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto">
     <label [ngClass]="required ? 'required-item' : ''">{{ label }}</label>
     <mat-form-field class="flex-auto" appearance="legacy">
-        <mat-select [(ngModel)]="value" name="value" #valueCtrl="ngModel" (selectionChange)="select($event)" [required]="required">
+        <mat-select [(ngModel)]="value" name="value" #valueCtrl="ngModel" (selectionChange)="select($event)" [required]="required" [disabled]="disabled">
             <mat-option value="">Seleccione una opción</mat-option>
             <mat-option *ngFor="let option of options" [value]="option.code">
                 {{option.name}}

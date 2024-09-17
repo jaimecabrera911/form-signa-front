@@ -52,8 +52,8 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
 
     validateForm(): void {
         this.formInit = this._formBuilder.group({
-            code: new FormControl(this.code),
-            version: new FormControl('1.0'),
+            code: new FormControl({ value: this.code, disabled: true }),
+            version: new FormControl({ value:'1.0', disabled: true }),
             project: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             company: new FormControl(1),
@@ -70,7 +70,7 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
             trainingApproval: new FormControl(),
-            selectAutoComplete: new FormControl('')
+            selectAutoComplete: new FormControl()
         });
     }
 
@@ -80,7 +80,8 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
                 workplace: this.cleanSelect(this.getValueField('workplace')),
                 companyName: this.cleanSelect(this.getValueField('companyName'))
             });
-        }
+            this.getView();
+        };
     }
 
     getItemsTable(): void {
@@ -142,15 +143,15 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
     formData(empId, empName, empCedula, gender, empEPS, empARL): FormGroup {
         this.signature();
         return this._formBuilder.group({
-            id: [empId],
-            employeeName: [{ value: empName, disabled: true }],
-            identificationNumber: [{ value: empCedula, disabled: true }],
-            gender: [{ value: gender, disabled: true }],
-            createdAt: [],
-            healthcareProvider: [  { value: empEPS, disabled: true }],
-            occupationRiskManager: [ { value: empARL, disabled: true }],
-            checkInTime: [],
-            checkOutTime: []
+            id: new FormControl(empId),
+            employeeName: new FormControl({ value: empName, disabled: true }),
+            identificationNumber: new FormControl({ value: empCedula, disabled: true }),
+            gender: new FormControl({ value: gender, disabled: true }),
+            createdAt: new FormControl(),
+            healthcareProvider: new FormControl(  { value: empEPS, disabled: true }),
+            occupationRiskManager: new FormControl( { value: empARL, disabled: true }),
+            checkInTime: new FormControl(),
+            checkOutTime: new FormControl()
         });
     }
 
@@ -187,15 +188,15 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
 
     formEditData(id, name, identificationNumber, gender, createdAt, checkInTime, checkOutTime, healthcareProvider, occupationRiskManager): FormGroup {
         return this._formBuilder.group({
-            id: [id],
-            employeeName: [name],
-            identificationNumber: [identificationNumber],
-            gender: [gender],
-            createdAt: [createdAt],
-            healthcareProvider: [healthcareProvider],
-            occupationRiskManager: [occupationRiskManager],
-            checkInTime: [checkInTime],
-            checkOutTime: [checkOutTime]
+            id: new FormControl(id),
+            employeeName: new FormControl({ value: name, disabled: true }),
+            identificationNumber: new FormControl( {value: identificationNumber, disabled: true }),
+            gender: new FormControl({value: gender, disabled: true }),
+            createdAt: new FormControl(createdAt),
+            healthcareProvider: new FormControl({value: healthcareProvider, disabled: true } ),
+            occupationRiskManager: new FormControl({value: occupationRiskManager, disabled: true } ),
+            checkInTime: new FormControl(checkInTime),
+            checkOutTime: new FormControl(checkOutTime)
         });
     }
 

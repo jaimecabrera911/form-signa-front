@@ -4,19 +4,19 @@
             <div class="flex flex-col flex-auto mt-2">
                 <div class="flex flex-col px-8 my-6   rounded">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
-                        <app-input-text label="NIT de la empresa" formControlName="identificationNumber" [required]="formInit.controls['identificationNumber'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-text label="Razón Social" formControlName="name" [required]="formInit.controls['name'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-text label="Representante Legal" formControlName="legalRepresentative" [required]="formInit.controls['legalRepresentative'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-select label="Regimen" [options]="elementsRegimes" formControlName="regime" [required]="formInit.controls['regime'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                        <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" [required]="formInit.controls['city'].hasError('required')" [validateFormSumt]="validate"></app-input-select>
-                        <app-input-text label="Dirección" formControlName="address" [required]="formInit.controls['address'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-text label="Teléfono" formControlName="phone" [required]="formInit.controls['phone'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-text label="Correo de contacto" formControlName="email" [required]="formInit.controls['email'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
-                        <app-input-text label="Página web" formControlName="webSite" [required]="formInit.controls['webSite'].hasError('required')" [validateFormSumt]="validate"></app-input-text>
+                        <app-input-text label="NIT de la empresa" formControlName="identificationNumber" [required]="formInit.controls['identificationNumber'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('identificationNumber')?.disabled"></app-input-text>
+                        <app-input-text label="Razón Social" formControlName="name" [required]="formInit.controls['name'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('name')?.disabled"></app-input-text>
+                        <app-input-text label="Representante Legal" formControlName="legalRepresentative" [required]="formInit.controls['legalRepresentative'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('legalRepresentative')?.disabled"></app-input-text>
+                        <app-input-select label="Regimen" [options]="elementsRegimes" formControlName="regime" [required]="formInit.controls['regime'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('regime')?.disabled"></app-input-select>
+                        <app-input-select label="Ciudad" [options]="elementsCities" formControlName="city" [required]="formInit.controls['city'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('city')?.disabled"></app-input-select>
+                        <app-input-text label="Dirección" formControlName="address" [required]="formInit.controls['address'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('address')?.disabled"></app-input-text>
+                        <app-input-text label="Teléfono" formControlName="phone" [required]="formInit.controls['phone'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('phone')?.disabled"></app-input-text>
+                        <app-input-text label="Correo de contacto" formControlName="email" [required]="formInit.controls['email'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('email')?.disabled"></app-input-text>
+                        <app-input-text label="Página web" formControlName="webSite" [required]="formInit.controls['webSite'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('webSite')?.disabled"></app-input-text>
                     </div>
                 </div>
             </div>
-            <div class="pl-10">
+            <div *ngIf="modView" class="pl-10">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                     <div class="flex flex-col flex-auto">
                         <a class="mt-1 pl-2 px-12 text-center  w-32" mat-button mat-flat-button [color]="'primary'" (click)="onSubmit()">

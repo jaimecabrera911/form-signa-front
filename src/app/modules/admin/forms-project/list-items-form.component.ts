@@ -57,7 +57,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
             next: (response: any) => {
                 response.data.forEach((item: any) => {
                     this.employeesList.push({ code: item.id,
-                        name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname)});
+                        name: item.fullName });
                 });
             }, error: (e: any) => console.error(e)
         });
