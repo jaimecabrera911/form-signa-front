@@ -12,13 +12,10 @@ import { ListComponent } from 'app/components/list/list-component';
 
 @Component({
     selector: 'app-list-items',
-    template: `<p> </p>
-  `,
-    styles: [
-    ]
+    template: `<p> </p>`,
+    styles: []
 })
 export abstract class ListItemsComponent extends ListComponent implements OnInit {
-
 
     identificationTypes: Observable<IdentificationTypes>;
     elementsIdentificationTypes: any = [];
@@ -41,6 +38,7 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
     elementsPosition: any = [];
     elementsStateProject: any = [];
     elementsEmployees: any = [];
+    paramLabels: any = [];
 
     constructor(protected api: ApiService) {
         super(api);
@@ -138,7 +136,7 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
                         name: data.data[i].type
                     });
                 }
-            },error: (e: any) => console.error(e)
+            }, error: (e: any) => console.error(e)
         });
     }
 
@@ -191,6 +189,14 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         });
     }
 
+    async getLabels(): Promise<void> {
+        await this.api.dataFieldService('labels').subscribe({
+            next: (response: any) => {
+                this.paramLabels = response?.data[0]?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
 
     getCompanies(): void {
         this.api.companyService().subscribe({
@@ -200,9 +206,10 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
                     this.elementsCompanies.push({
                         code: data[index].uuid,
                         name: data[index].name
+
                     });
                 }
-            },error: (e: any) => console.error(e)
+            }, error: (e: any) => console.error(e)
         });
     }
 
