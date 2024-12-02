@@ -168,7 +168,7 @@ export class Sglc25Component  extends ControllerFormsComponent  implements OnIni
 
             ]),
             evidences: new FormControl([]),
-            project: new FormControl('', [Validators.required]),
+            projectUid: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({

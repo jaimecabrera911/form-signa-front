@@ -30,6 +30,7 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
         this.validateForm();
         this.getProject();
         this.getEmployees();
+        this.getCompanies();
     }
 
     validateForm(): void {
@@ -38,7 +39,6 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
             uid: new FormControl(),
             name: new FormControl(this.title),
             version: new FormControl({ value:'1.0', disabled: true }),
-            company: new FormControl(1),
             fields: new FormArray([
                 this._formBuilder.group({ name: 'location', value:   '', type: this.getTypeValue(1) }),
                 this._formBuilder.group({ name: 'operatorName', value:   '', type: this.getTypeValue(1) }),
@@ -182,7 +182,8 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'faceShieldSunday', value:   '', type: this.getTypeValue(5) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl('', [Validators.required]),
+            //projectUid: new FormControl('', [Validators.required]),
+            projectUid: new FormControl(''),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
@@ -326,9 +327,8 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 safetyGlassesSunday: new FormControl(),
                 glovesSunday: new FormControl(),
                 faceShieldSunday: new FormControl(),
-
-
             }),
+            status: new FormControl('created'),
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
             trainingApproval: new FormControl()
@@ -359,11 +359,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemMonday: this.cleanSelect(this.getValueField('connectionSystemMonday')),
                 groundMonday: this.cleanSelect(this.getValueField('groundMonday')),
                 caliperStatusMonday: this.cleanSelect(this.getValueField('caliperStatusMonday')),
-                weldingMaskMonday: this.cleanSelect(this.getValueField('electricalSystemMonday')),
-                breastplateLeatherApronLegGaitersMonday: this.cleanSelect(this.getValueField('coolingSystemConditionsMonday')),
-                safetyGlassesMonday: this.cleanSelect(this.getValueField('operationControlPanelMonday')),
-                glovesMonday: this.cleanSelect(this.getValueField('generalConditionMonday')),
-                faceShieldMonday: this.cleanSelect(this.getValueField('electricalSystemMonday')),
+                weldingMaskMonday: this.cleanSelect(this.getValueField('weldingMaskMonday')),
+                breastplateLeatherApronLegGaitersMonday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersMonday')),
+                safetyGlassesMonday: this.cleanSelect(this.getValueField('safetyGlassesMonday')),
+                glovesMonday: this.cleanSelect(this.getValueField('glovesMonday')),
+                faceShieldMonday: this.cleanSelect(this.getValueField('faceShieldMonday')),
 
                 generalConditionTuesday: this.cleanSelect(this.getValueField('generalConditionTuesday')),
                 electricalSystemTuesday: this.cleanSelect(this.getValueField('electricalSystemTuesday')),
@@ -378,11 +378,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemTuesday: this.cleanSelect(this.getValueField('connectionSystemTuesday')),
                 groundTuesday: this.cleanSelect(this.getValueField('groundTuesday')),
                 caliperStatusTuesday: this.cleanSelect(this.getValueField('caliperStatusTuesday')),
-                weldingMaskTuesday: this.cleanSelect(this.getValueField('electricalSystemTuesday')),
-                breastplateLeatherApronLegGaitersTuesday: this.cleanSelect(this.getValueField('coolingSystemConditionsTuesday')),
-                safetyGlassesTuesday: this.cleanSelect(this.getValueField('operationControlPanelTuesday')),
-                glovesTuesday: this.cleanSelect(this.getValueField('generalConditionTuesday')),
-                faceShieldTuesday: this.cleanSelect(this.getValueField('electricalSystemTuesday')),
+                weldingMaskTuesday: this.cleanSelect(this.getValueField('weldingMaskTuesday')),
+                breastplateLeatherApronLegGaitersTuesday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersTuesday')),
+                safetyGlassesTuesday: this.cleanSelect(this.getValueField('safetyGlassesTuesday')),
+                glovesTuesday: this.cleanSelect(this.getValueField('glovesTuesday')),
+                faceShieldTuesday: this.cleanSelect(this.getValueField('faceShieldTuesday')),
 
                 generalConditionWednesday: this.cleanSelect(this.getValueField('generalConditionWednesday')),
                 electricalSystemWednesday: this.cleanSelect(this.getValueField('electricalSystemWednesday')),
@@ -397,11 +397,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemWednesday: this.cleanSelect(this.getValueField('connectionSystemWednesday')),
                 groundWednesday: this.cleanSelect(this.getValueField('groundWednesday')),
                 caliperStatusWednesday: this.cleanSelect(this.getValueField('caliperStatusWednesday')),
-                weldingMaskWednesday: this.cleanSelect(this.getValueField('electricalSystemWednesday')),
-                breastplateLeatherApronLegGaitersWednesday: this.cleanSelect(this.getValueField('coolingSystemConditionsWednesday')),
-                safetyGlassesWednesday: this.cleanSelect(this.getValueField('operationControlPanelWednesday')),
-                glovesWednesday: this.cleanSelect(this.getValueField('generalConditionWednesday')),
-                faceShieldWednesday: this.cleanSelect(this.getValueField('electricalSystemWednesday')),
+                weldingMaskWednesday: this.cleanSelect(this.getValueField('weldingMaskWednesday')),
+                breastplateLeatherApronLegGaitersWednesday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersWednesday')),
+                safetyGlassesWednesday: this.cleanSelect(this.getValueField('safetyGlassesWednesday')),
+                glovesWednesday: this.cleanSelect(this.getValueField('glovesWednesday')),
+                faceShieldWednesday: this.cleanSelect(this.getValueField('faceShieldWednesday')),
 
                 generalConditionThursday: this.cleanSelect(this.getValueField('generalConditionThursday')),
                 electricalSystemThursday: this.cleanSelect(this.getValueField('electricalSystemThursday')),
@@ -416,11 +416,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemThursday: this.cleanSelect(this.getValueField('connectionSystemThursday')),
                 groundThursday: this.cleanSelect(this.getValueField('groundThursday')),
                 caliperStatusThursday: this.cleanSelect(this.getValueField('caliperStatusThursday')),
-                weldingMaskThursday: this.cleanSelect(this.getValueField('electricalSystemThursday')),
-                breastplateLeatherApronLegGaitersThursday: this.cleanSelect(this.getValueField('coolingSystemConditionsThursday')),
-                safetyGlassesThursday: this.cleanSelect(this.getValueField('operationControlPanelThursday')),
-                glovesThursday: this.cleanSelect(this.getValueField('generalConditionThursday')),
-                faceShieldThursday: this.cleanSelect(this.getValueField('electricalSystemThursday')),
+                weldingMaskThursday: this.cleanSelect(this.getValueField('weldingMaskThursday')),
+                breastplateLeatherApronLegGaitersThursday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersThursday')),
+                safetyGlassesThursday: this.cleanSelect(this.getValueField('safetyGlassesThursday')),
+                glovesThursday: this.cleanSelect(this.getValueField('glovesThursday')),
+                faceShieldThursday: this.cleanSelect(this.getValueField('faceShieldThursday')),
 
                 generalConditionFriday: this.cleanSelect(this.getValueField('generalConditionFriday')),
                 electricalSystemFriday: this.cleanSelect(this.getValueField('electricalSystemFriday')),
@@ -435,11 +435,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemFriday: this.cleanSelect(this.getValueField('connectionSystemFriday')),
                 groundFriday: this.cleanSelect(this.getValueField('groundFriday')),
                 caliperStatusFriday: this.cleanSelect(this.getValueField('caliperStatusFriday')),
-                weldingMaskFriday: this.cleanSelect(this.getValueField('electricalSystemFriday')),
-                breastplateLeatherApronLegGaitersFriday: this.cleanSelect(this.getValueField('coolingSystemConditionsFriday')),
-                safetyGlassesFriday: this.cleanSelect(this.getValueField('operationControlPanelFriday')),
-                glovesFriday: this.cleanSelect(this.getValueField('generalConditionFriday')),
-                faceShieldFriday: this.cleanSelect(this.getValueField('electricalSystemFriday')),
+                weldingMaskFriday: this.cleanSelect(this.getValueField('weldingMaskFriday')),
+                breastplateLeatherApronLegGaitersFriday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersFriday')),
+                safetyGlassesFriday: this.cleanSelect(this.getValueField('safetyGlassesFriday')),
+                glovesFriday: this.cleanSelect(this.getValueField('glovesFriday')),
+                faceShieldFriday: this.cleanSelect(this.getValueField('faceShieldFriday')),
 
                 generalConditionSaturday: this.cleanSelect(this.getValueField('generalConditionSaturday')),
                 electricalSystemSaturday: this.cleanSelect(this.getValueField('electricalSystemSaturday')),
@@ -454,11 +454,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemSaturday: this.cleanSelect(this.getValueField('connectionSystemSaturday')),
                 groundSaturday: this.cleanSelect(this.getValueField('groundSaturday')),
                 caliperStatusSaturday: this.cleanSelect(this.getValueField('caliperStatusSaturday')),
-                weldingMaskSaturday: this.cleanSelect(this.getValueField('electricalSystemSaturday')),
-                breastplateLeatherApronLegGaitersSaturday: this.cleanSelect(this.getValueField('coolingSystemConditionsSaturday')),
-                safetyGlassesSaturday: this.cleanSelect(this.getValueField('operationControlPanelSaturday')),
-                glovesSaturday: this.cleanSelect(this.getValueField('generalConditionSaturday')),
-                faceShieldSaturday: this.cleanSelect(this.getValueField('electricalSystemSaturday')),
+                weldingMaskSaturday: this.cleanSelect(this.getValueField('weldingMaskSaturday')),
+                breastplateLeatherApronLegGaitersSaturday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersSaturday')),
+                safetyGlassesSaturday: this.cleanSelect(this.getValueField('safetyGlassesSaturday')),
+                glovesSaturday: this.cleanSelect(this.getValueField('glovesSaturday')),
+                faceShieldSaturday: this.cleanSelect(this.getValueField('faceShieldSaturday')),
 
                 generalConditionSunday: this.cleanSelect(this.getValueField('generalConditionSunday')),
                 electricalSystemSunday: this.cleanSelect(this.getValueField('electricalSystemSunday')),
@@ -473,11 +473,11 @@ export class Sgfr86Component extends ControllerFormsComponent implements OnInit 
                 connectionSystemSunday: this.cleanSelect(this.getValueField('connectionSystemSunday')),
                 groundSunday: this.cleanSelect(this.getValueField('groundSunday')),
                 caliperStatusSunday: this.cleanSelect(this.getValueField('caliperStatusSunday')),
-                weldingMaskSunday: this.cleanSelect(this.getValueField('electricalSystemSunday')),
-                breastplateLeatherApronLegGaitersSunday: this.cleanSelect(this.getValueField('coolingSystemConditionsSunday')),
-                safetyGlassesSunday: this.cleanSelect(this.getValueField('operationControlPanelSunday')),
-                glovesSunday: this.cleanSelect(this.getValueField('generalConditionSunday')),
-                faceShieldSunday: this.cleanSelect(this.getValueField('electricalSystemSunday'))
+                weldingMaskSunday: this.cleanSelect(this.getValueField('weldingMaskSunday')),
+                breastplateLeatherApronLegGaitersSunday: this.cleanSelect(this.getValueField('breastplateLeatherApronLegGaitersSunday')),
+                safetyGlassesSunday: this.cleanSelect(this.getValueField('safetyGlassesSunday')),
+                glovesSunday: this.cleanSelect(this.getValueField('glovesSunday')),
+                faceShieldSunday: this.cleanSelect(this.getValueField('faceShieldSunday'))
             });
         }
     }

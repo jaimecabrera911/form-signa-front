@@ -164,6 +164,7 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     deleteDataGroup(): void {
         const idSelect = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
+        console.log('idSelect ',idSelect);
         const filterDelete = this.formApproval.get('data').value.filter((item: any) => !idSelect.includes(item.employee)).map((item: any) => item.employee);
         const filterEditDelete = this.approvalsItems.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
         if (filterDelete[0] || filterDelete[0] !== undefined) {

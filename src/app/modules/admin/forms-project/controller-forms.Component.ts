@@ -41,10 +41,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     id: any;
     formInit: FormGroup;
     code: string;
+    version: string;
     validateItems: any[] = [];
     validateArrayItems: any[] = [];
     apiItems$: Observable<any>;
-    itemsCurrent: any[] = [];
+    itemsCurrent: any = [];
     filesItems: any[] = [];
     filesArrays: any = {};
     infoForm: any[] = [];
@@ -84,9 +85,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     async getTemplateId(): Promise<void> {
         await this.api.templatesIdService(this.code).subscribe({
             next: (items: any) => {
-                if (items.data) {
+                if (items) {
                     this.infoForm = items?.data;
-                    this.title = `${items?.data[0]?.code} ${items?.data[0]?.name}`;
+                    this.title = `${items?.code} ${items?.name}`;
+                    this.code = `${items?.code}`;
+                    this.version = `${items?.version}`;
                 }
             }, error: (e: any) => console.error(e)
         });
@@ -96,18 +99,17 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (this.id) {
             await this.api.formIdService(this.id).subscribe({
                 next: (response: any) => {
-                    this.itemsCurrent = response.data;
-                    this.filesItems = this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : '';
-                    this.filesArrays = this.itemsCurrent[0]?.dataFields ? this.itemsCurrent[0]?.dataFields.map((item: any) => item.fields) : '';
+                    this.itemsCurrent = response;
+                    this.filesItems = this.itemsCurrent?.evidences ? this.itemsCurrent?.evidences : '';
+                    this.filesArrays = this.itemsCurrent?.data ? this.itemsCurrent?.data : '';
                     this.formInit.patchValue({
-                        code: this.itemsCurrent[0]?.code,
-                        uid: this.itemsCurrent[0]?.uid,
-                        name: this.itemsCurrent[0]?.name,
-                        version: this.itemsCurrent[0]?.version,
-                        project: this.itemsCurrent[0]?.project?.id,
-                        evidences: this.itemsCurrent[0]?.evidences ? this.itemsCurrent[0]?.evidences : null,
-                        assistants: this.itemsCurrent[0]?.assistants ? this.itemsCurrent[0]?.assistants : null,
-                        dataFields: this.filesArrays >= 1 ? this.filesArrays : null
+                        code: this.itemsCurrent?.code,
+                        uid: this.itemsCurrent?.uid,
+                        name: this.itemsCurrent?.name,
+                        version: this.itemsCurrent?.version,
+                        projectUid: this.itemsCurrent?.project?.uid,
+                        evidences: this.itemsCurrent?.evidences ? this.itemsCurrent?.evidences : null,
+                        assistants: this.itemsCurrent?.assistants ? this.itemsCurrent?.assistants : null,
                     });
                     this.getForm();
                     this.getAssistantsId();
@@ -135,7 +137,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     getForm(): void { }
 
     getValueField(code: any): any {
-        return this.itemsCurrent[0].fields
+        return this.itemsCurrent.fields
             .filter(item => item.name === code)
             .map(item => item.value);
     };
@@ -159,25 +161,25 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         this.formInit.value.fields = [...this.validateItems];
     }
 
-    updateDataForm(position, ...itemsArray): void {
+    /*updateDataForm(...itemsArray): void {
         this.validateArrayItems.push({
-            position: position,
             fields: itemsArray
         });
         this.formInit.value.dataFields = [...this.validateArrayItems];
-    }
+    }*/
 
     assignFields(): void {
         const form = this.formInit.value;
         form.fields.forEach((items: any) => {
             this.updateValueForm(items.name, form.fieldsItems[items.name], items.type);
         });
+        /*
         const dataForm = form?.data ? form.data.length : 0;
         if (dataForm >= 1) {
             form.data.forEach((elements: any, index: any) => {
-                this.updateDataForm(index, elements);
+                this.updateDataForm(elements);
             });
-        }
+        }*/
     }
 
     validationSubmit(): void {
@@ -203,7 +205,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         if (this.id) {
             await this.api.assistantFormService(this.id).subscribe({
                 next: (response: any) => {
-                    this.assistantsForm = response.data;
+                    this.assistantsForm = response;
                 }, error: (e: any) => console.log('')
             });
         }
@@ -214,7 +216,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             const itemsSelect: any[] = [];
             await this.api.approvalFormService(this.id).subscribe({
                 next: (response: any) => {
-                    this.approvalsForm = response.data;
+                    this.approvalsForm = response;
                 }, error: (e: any) => console.log('')
             });
         }
@@ -249,7 +251,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             if (this.formInit.value.filesUpload !== undefined && this.formInit.value.filesUpload !== null) {
                 const uploadDelete = this.formInit.value.filesUpload.filter((item: any) => item.id !== null && item.stateDelete === true).map((item: any) => item.id);
                 if (uploadDelete.length > 0) {
-                    const vadidDeleteFile = this.itemsCurrent[0]?.evidences.filter((item: any) => !uploadDelete.includes(item.id));
+                    const vadidDeleteFile = this.itemsCurrent?.evidences.filter((item: any) => !uploadDelete.includes(item.id));
                     if (vadidDeleteFile) {
                         this.formInit.value.evidences = vadidDeleteFile;
                         this.filesUploadDelete = uploadDelete;
@@ -369,32 +371,37 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     async formSave(): Promise<void> {
         const form = this.formInit.value;
         form.name = this.title;
+        form.code = this.code;
+        form.version = '1';
         this.assignFields();
 
+        console.log('value:: ',this.formInit.value);
         let observable: Observable<Form>;
         if (this.id) {
             observable = await this.api.updateFormService(this.formInit.value, this.id);
         } else {
-            this.formInit.value.uid = uuidv4();
+            //this.formInit.value.uid = uuidv4();
             observable = await this.api.createFormSevice(this.formInit.value);
         }
+
         observable.subscribe({
             next: (response: any) => {
                 if (response) {
                     if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
                         if (this.formInit.value.trainingApproval.length > 0) {
-                            this.assignApprovals(response.data.id);
+                            this.assignApprovals(response.id);
                         }
                     }
                     if (this.formInit.value.assignedAssistants !== undefined && this.formInit.value.assignedAssistants !== null) {
                         if (this.formInit.value.assignedAssistants.length > 0 && this.formInit.value.assignedAssistants !== null) {
-                            this.validationAssitant(response.data.id);
+                            this.validationAssitant(response.id);
                         }
                     }
+                    /*
                     const toast = this.swaAlert.toast();
                     toast.fire({ icon: 'success', title: 'Formulario guardado correctamente' }).then((() => {
-                        location.href = `/forms-project/${this.code.toLowerCase()}/edit/${response.data.id}`;
-                    }));
+                        location.href = `/forms-project/${this.code.toLowerCase()}/edit/${response.id}`;
+                    }));*/
                 }
             }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });

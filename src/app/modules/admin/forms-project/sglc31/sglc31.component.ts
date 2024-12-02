@@ -73,7 +73,7 @@ export class Sglc31Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({ name: 'haveScaffoldingUsageCardsObser', value: '', type: this.getTypeValue(9) })
             ]),
             evidences: new FormControl([]),
-            project: new FormControl('', [Validators.required]),
+            projectUid: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({

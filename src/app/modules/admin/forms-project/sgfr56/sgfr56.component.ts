@@ -54,7 +54,7 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
         this.formInit = this._formBuilder.group({
             code: new FormControl({ value: this.code, disabled: true }),
             version: new FormControl({ value:'1.0', disabled: true }),
-            project: new FormControl('', [Validators.required]),
+            projectUid: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             company: new FormControl(1),
             fields: new FormArray([

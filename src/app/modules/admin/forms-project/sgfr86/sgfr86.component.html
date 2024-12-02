@@ -10,7 +10,7 @@
                                 </app-input-text>
                                 <app-input-text label="{{ filterParamLabel('version') }}" formControlName="version" [required]="formInit.controls['version'].hasError('required')" disabled="true" [validateFormSumt]="validate">
                                 </app-input-text>
-                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="project" [required]="formInit.controls['project'].hasError('required')" [disabled]="formInit.get('project')?.disabled" [validateFormSumt]="validate">
+                                <app-input-select label="{{ filterParamLabel('project') }}" [options]="projectList" formControlName="projectUid" [required]="formInit.controls['projectUid'].hasError('required')" [disabled]="formInit.get('projectUid')?.disabled" [validateFormSumt]="validate">
                                 </app-input-select>
                             </div>
 
@@ -34,6 +34,8 @@
                                         [validateFormSumt]="validate">
                                     </app-input-text>
                                 </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('EQUIPMENT') }}</div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
@@ -177,6 +179,7 @@
                                         [validateFormSumt]="validate"></app-input-bool>
                                 </div>
 
+
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
                                         <div class="pt-2 font-semibold">{{ filterParamValue('energySource') }}</div>
@@ -193,6 +196,8 @@
                                         [validateFormSumt]="validate"></app-input-bool>
                                     <app-input-bool [label]="days.sunday" formControlName="energySourceSunday" [required]="formInit.get('fieldsItems').controls['energySourceSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['energySourceSunday']?.disabled" [validateFormSumt]="validate"></app-input-bool>
                                 </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('CABLES') }}</div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">
@@ -287,6 +292,8 @@
                                     <app-input-bool [label]="days.sunday" formControlName="caliperStatusSunday" [required]="formInit.get('fieldsItems').controls['caliperStatusSunday'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['caliperStatusSunday']?.disabled"
                                         [validateFormSumt]="validate"></app-input-bool>
                                 </div>
+
+                                <div class="bg-[#CADAF6] my-3 py-2 text-center font-semibold text-xl">{{ filterParamValue('PERSONAL_PROTECTION') }}</div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-9  lg:grid-cols-9 gap-x-4 w-full mt-6">
                                     <div class="flex flex-col flex-auto sm:col-span-1 md:col-span-2  lg:col-span-2">

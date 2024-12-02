@@ -19,7 +19,7 @@ export class GeneratedComponent implements OnInit {
     iterableColumns: TableItems[] = [
         { name: 'code', name2: false, styleEnable: false, label: 'Formulario' },
         { name: 'name', name2: false, styleEnable: false, label: 'Descripción' },
-        { name: 'createdAt', name2: false, styleEnable: false, label: 'Fecha recibido' },
+        { name: 'createdAt', name2: false, formatDate: true, styleEnable: false, label: 'Fecha recibido' },
         { name: 'project', name2: 'code', styleEnable: false, label: 'Id proyecto' },
         { name: 'view', name2: 'code', id: 'id', styleEnable: false, label: 'Ver', view: true, editModule: 'forms-project' },
         { name: 'edit', name2: 'code', id: 'id', styleEnable: false, label: 'Editar', edit: true, editModule: 'forms-project' }

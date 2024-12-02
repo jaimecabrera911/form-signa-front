@@ -49,7 +49,7 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
         this.formInit = this._formBuilder.group({
             code: new FormControl({ value: this.code, disabled: true }),
             version: new FormControl({ value:'1.0', disabled: true }),
-            project: new FormControl('', [Validators.required]),
+            projectUid: new FormControl('', [Validators.required]),
             company: new FormControl(1),
             fields: new FormArray([
                 this._formBuilder.group({ name: 'workplace', value: '', type: this.getTypeValue(1) }),
@@ -65,6 +65,7 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
                 toolsMachines: new FormControl(''),
             }),
             data: this._formBuilder.array([]),
+            status: new FormControl('created'),
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
             trainingApproval: new FormControl(),
@@ -125,9 +126,9 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
 
     editDataGroup(...elements): void {
         const editItem = this.formInit.get('data') as FormArray;
-        editItem.push(this.formEditData(elements[0][0]?.consequences, elements[0][0]?.controlActions, elements[0][0]?.environmentalAspect,
-            elements[0][0]?.environmentalControls, elements[0][0]?.environmentalImpact, elements[0][0]?.hazards,
-            elements[0][0]?.responsibleComplyingControls, elements[0][0]?.stepSequence));
+        editItem.push(this.formEditData(elements[0]?.consequences, elements[0]?.controlActions, elements[0]?.environmentalAspect,
+            elements[0]?.environmentalControls, elements[0]?.environmentalImpact, elements[0]?.hazards,
+            elements[0]?.responsibleComplyingControls, elements[0]?.stepSequence));
     }
 
     formEditData(consequences, controlActions, environmentalAspect, environmentalControls,

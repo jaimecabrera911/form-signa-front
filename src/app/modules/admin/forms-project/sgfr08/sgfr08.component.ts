@@ -80,7 +80,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
                 this._formBuilder.group({name: 'dateApproved', value: '',  type: this.getTypeValue(3)})
             ]),
             evidences: new FormControl([]),
-            project: new FormControl('', [Validators.required]),
+            projectUid: new FormControl('', [Validators.required]),
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
