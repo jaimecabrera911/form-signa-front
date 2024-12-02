@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
     ){}
 
     ngOnInit(): void {
-        this.user = this.login.currentEmployeeValue ? this.login.currentEmployeeValue[0].firstName : 'Cargando' ;
-        this.profilePicture = this.login.currentEmployeeValue ? this.urlImage(this.login.currentEmployeeValue[0].profilePicture.url) : 'Cargando' ;
+        this.user = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.firstName : 'Cargando' ;
+        this.profilePicture = this.login.currentEmployeeValue ? this.urlImage(this.login?.currentEmployeeValue[0]?.profilePicture.url) : 'Cargando' ;
     }
 
     urlImage(url: any): string {

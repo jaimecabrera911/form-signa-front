@@ -27,6 +27,7 @@ export class InputBoolComponent extends DefaultInput implements OnInit {
 
     onChangeCheckbox($event: MatSlideToggleChange): void {
         this.changeValue.emit($event.checked);
-        this.writeValue($event.checked === null ? false : $event.checked);
+        const valid = $event.checked? true : false;
+        this.writeValue(valid);
     }
 }

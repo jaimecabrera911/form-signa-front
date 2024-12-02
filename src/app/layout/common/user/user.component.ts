@@ -49,7 +49,7 @@ export class UserComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.username = this.login.currentEmployeeValue ? this.login.currentEmployeeValue[0].fullName : 'Cargando' ;
+        this.username = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.fullName : 'Cargando' ;
 
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -61,7 +61,7 @@ export class UserComponent implements OnInit, OnDestroy
     }
 
     profile(): void
-    {   const id = this.login.currentEmployeeValue ? this.login.currentEmployeeValue[0].id : 0 ;
+    {   const id = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.id : 0 ;
         this._router.navigate(['/employees/edit/',id]);
     }
 

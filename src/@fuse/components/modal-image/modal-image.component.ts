@@ -21,7 +21,6 @@ export class ModalImageComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.urlSafe = this.image.image;
-        //console.log(this.urlSafe.image);
     }
 
     closeModal(): void{
