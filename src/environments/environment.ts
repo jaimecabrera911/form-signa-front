@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    urlApp: 'http://localhost:1337',
-    apiUrl: 'http://localhost:1337/api/',
+    urlApp: 'http://localhost:3000',
+    apiUrl: 'http://localhost:3000/',
     cookieName: 'Auth-Token-Fomsigna',
     cookieNameEmp: 'Auth-Token-Fomsigna-Employee',
     pathLogin: '/login/sign-in',

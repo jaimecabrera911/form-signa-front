@@ -41,13 +41,13 @@ export class ApiService {
         projects               |
      -------------------------*/
 
-    projectService(id: number): Observable<Project> {
-        const url = `${environment.apiUrl}projects?populate=%2A&filters%5Bcompany%5D[id]=${id}`;
+    projectService(): Observable<Project> {
+        const url = `${environment.apiUrl}projects/all`;
         return this.http.get<any>(url);
     }
 
     projectIdService(id: number): Observable<Project> {
-        const url = `${environment.apiUrl}projects?populate=%2A&filters%5Bid%5D=${id}`;
+        const url = `${environment.apiUrl}projects/${id}`;
         return this.http.get<Project>(url);
     }
 
@@ -86,7 +86,7 @@ export class ApiService {
     --------------------------*/
 
     employeesService(): Observable<Employee> {
-        const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bcompany%5D=${this.company}`;
+        const url = `${environment.apiUrl}employees`;
         return this.http.get<Employee>(url);
     }
 
@@ -106,7 +106,7 @@ export class ApiService {
     }
 
     employeIdService(id: number): Observable<Employee> {
-        const url = `${environment.apiUrl}employees?populate=%2A&filters%5Bid%5D=${id}&filters%5Bcompany%5D=${this.company}`;
+        const url = `${environment.apiUrl}employees/${id}`;
         return this.http.get<Employee>(url);
     }
 
@@ -124,14 +124,13 @@ export class ApiService {
        Company                 |
     -------------------------*/
 
-    companyService(): Observable<Company> {
-        const url = `${environment.apiUrl}companies`;
-        return this.http.get<Company>(url);
+    companyService(): Observable<any> {
+        const url = `${environment.apiUrl}companies/all`;
+        return this.http.get<any>(url);
     }
 
-    companyIdService(id: number): Observable<Company> {
-        const filetrs = 'regime%2Ccity%2Cprojacts%2Cemployees%2Cpositions%2Cworkspaces&filters%5Bid%5D';
-        const url = `${environment.apiUrl}companies?populate=${filetrs}=${id}`;
+    companyIdService(id: string): Observable<Company> {
+        const url = `${environment.apiUrl}companies/${id}`;
         return this.http.get<Company>(url);
     }
 
@@ -160,17 +159,17 @@ export class ApiService {
     }
 
     formIdService(id): Observable<Form> {
-        const url = `${environment.apiUrl}forms?populate=%2A&filters%5Bid%5D=${id}`;
+        const url = `${environment.apiUrl}form/${id}`;
         return this.http.get<Form>(url);
     }
 
     createFormSevice(data): Observable<Form> {
-        const url = `${environment.apiUrl}forms`;
+        const url = `${environment.apiUrl}form`;
         return this.http.post<Form>(url, data);
     }
 
     updateFormService(data,id): Observable<Form> {
-        const url = `${environment.apiUrl}forms/${id}`;
+        const url = `${environment.apiUrl}form/${id}`;
         return this.http.put<Form>(url, data);
     }
 
@@ -185,7 +184,7 @@ export class ApiService {
     }
 
     templatesIdService(code: string): Observable<Template> {
-        const url = `${environment.apiUrl}form-templates?filters%5Bcode%5D=${code}`;
+        const url = `${environment.apiUrl}form-templates/${code}`;
         return this.http.get<Template>(url);
     }
 
@@ -194,17 +193,17 @@ export class ApiService {
     -------------------------*/
 
     assistantIdService(id): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bid%5D=${id}`;
+        const url = `${environment.apiUrl}assistants/${id}`;
         return this.http.get<Assistants>(url);
     }
 
     assistantFormEmpService(form, employee): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${form}&filters%5Bemployee%5D=${employee}`;
+        const url = `${environment.apiUrl}/${form}/${employee}`;
         return this.http.get<Assistants>(url);
     }
 
     assistantFormService(id): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants?populate=%2A&filters%5Bform%5D=${id}`;
+        const url = `${environment.apiUrl}assistants/${id}`;
         return this.http.get<Assistants>(url);
     }
 
@@ -233,7 +232,7 @@ export class ApiService {
     }
 
     approvalFormService(id): Observable<any> {
-        const url = `${environment.apiUrl}approvals?populate=%2A&filters%5Bform%5D=${id}`;
+        const url = `${environment.apiUrl}approvals/${id}`;
         return this.http.get<any>(url);
     }
 
@@ -252,8 +251,8 @@ export class ApiService {
         Cities                 |
     -------------------------*/
 
-    citiesService(): Observable<City> {
-        const url = `${environment.apiUrl}cities`;
+    citiesService(departmentCode: any): Observable<City> {
+        const url = `${environment.apiUrl}locations/cities/${departmentCode}`;
         return this.http.get<City>(url);
     }
 
@@ -261,8 +260,8 @@ export class ApiService {
         Department             |
     -------------------------*/
 
-    departmentService(): Observable<Department> {
-        const url = `${environment.apiUrl}departments`;
+    departmentService(countryCode: any): Observable<Department> {
+        const url = `${environment.apiUrl}locations/departments/${countryCode}`;
         return this.http.get<Department>(url);
     }
 
@@ -271,7 +270,7 @@ export class ApiService {
     -------------------------*/
 
     countriesService(): Observable<Country> {
-        const url = `${environment.apiUrl}countries`;
+        const url = `${environment.apiUrl}locations/countries`;
         return this.http.get<Country>(url);
     }
 
@@ -280,7 +279,17 @@ export class ApiService {
     --------------------------*/
 
     identificationTypesService(): Observable<any> {
-        const url = `${environment.apiUrl}identification-types`;
+        const url = `${environment.apiUrl}identifications`;
+        return this.http.get<any>(url);
+    }
+
+
+     /*-------------------------|
+        Social Entities                |
+    --------------------------*/
+
+    socialEntities(type: string): Observable<any> {
+        const url = `${environment.apiUrl}social-entities/type/${type}`;
         return this.http.get<any>(url);
     }
 
@@ -289,7 +298,7 @@ export class ApiService {
     --------------------------*/
 
     regimesService(): Observable<any> {
-        const url = `${environment.apiUrl}regimes`;
+        const url = `${environment.apiUrl}regimes/all`;
         return this.http.get<any>(url);
     }
 
@@ -352,7 +361,7 @@ export class ApiService {
     --------------------------*/
 
     gendersService(): Observable<any> {
-        const url = `${environment.apiUrl}genders`;
+        const url = `${environment.apiUrl}genders/all`;
         return this.http.get<any>(url);
     }
 
@@ -370,12 +379,13 @@ export class ApiService {
     -------------------------*/
 
     uploadService(data): Observable<any> {
-        const url = `${environment.apiUrl}upload`;
+        //const url = `${environment.apiUrl}employees/files`;
+        const url = 'https://forma-figma-api.vercel.app/employees/files';
         return this.http.post<any>(url, data);
     }
 
     deleteUploadService(id): Observable<any>{
-        const url = `${environment.apiUrl}upload/files/${id}`;
+        const url = `${environment.apiUrl}files/${id}`;
         return this.http.delete<any>(url);
     }
 
@@ -384,8 +394,13 @@ export class ApiService {
     -------------------------*/
 
 
-    dataFieldService(name: string): Observable<any> {
-        const url = `${environment.apiUrl}data-fields?filters%5Bname%5D=${name}`;
+    dataFieldService(): Observable<any> {
+        const url = `${environment.apiUrl}data/all`;
+        return this.http.get<any>(url);
+    }
+
+    dataFieldIdService(id: string): Observable<any> {
+        const url = `${environment.apiUrl}data/${id}`;
         return this.http.get<any>(url);
     }
 
