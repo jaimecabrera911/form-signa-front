@@ -89,7 +89,7 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
                 next: (elements: any) => {
                     if (elements) {
                         this.elements = this.function.validateResponse(elements);
-                        this.elements.forEach((item: any) => { item.enabled ? item.enabled = 'Activo' : item.enabled = 'Inactivo'; });
+                        this.elements.forEach((item: any) => { item.enable ? item.enable = 'Activo' : item.enable = 'Inactivo'; });
                         this.validateTable(this.elements);
                         if(this.formId){
                             this.getAssistantsId();

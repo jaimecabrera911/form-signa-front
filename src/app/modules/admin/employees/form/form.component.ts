@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 import { environment } from 'environments/environment';
 import { Users } from 'app/models/users';
 import { Functions } from 'app/components/functions/functions';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'app-form',
@@ -56,14 +57,14 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         position: new FormControl(''),
         contactName: new FormControl(''),
         contactNumber: new FormControl(''),
-        enabled: new FormControl(true),
+        enable: new FormControl(true),
         user: new FormControl(),
         isManager: new FormControl(),
-        company: new FormControl(1),
-        healthcareProvider: new FormControl(''),
-        occupationRiskManager: new FormControl(''),
+        company: new FormControl(),
+        eps: new FormControl(''),
+        arl: new FormControl(''),
         pension: new FormControl(''),
-        compensationFund: new FormControl(''),
+        ccf: new FormControl(''),
         workspace: new FormControl(''),
         gender: new FormControl(''),
         city: new FormControl('', [Validators.required]),
@@ -77,9 +78,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         files: new FormControl(),
         filesUpload: new FormControl(null),
         showUpload: new FormControl(false),
-        username: new FormControl(),
-        permissions: new FormControl('ADMIN'),
-        roles: new FormControl('TRAINER'),
+        username: new FormControl()
     });
 
 
@@ -94,7 +93,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     override ngOnInit(): void {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
-        this.getCities();
+        this.getCompanies();
+        this.getCities(11);
         this.getIdentificationTypes();
         this.getHealthcareProvider();
         this.getOccupationRiskManager();
@@ -102,7 +102,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.getPension();
         this.getGenders();
         this.getCountries();
-        this.getDepartments();
+        this.getDepartments('057');
         this.getWorkspace();
         this.getPosition();
         this.getEmployees();
@@ -117,7 +117,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         if (this.id) {
             await this.api.employeIdService(this.id).subscribe({
                 next: (items: any) => {
-                    this.setFormEmployees(items.data);
+                    console.log('emp id',items);
+                    this.setFormEmployees(items);
                     this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
@@ -126,47 +127,47 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     setFormEmployees(form): void {
         this.formInit.patchValue({
-            identificationNumber: form[0]?.identificationNumber ? form[0]?.identificationNumber : '',
-            firstName: form[0]?.firstName ? form[0]?.firstName : '',
-            secondName: form[0]?.secondName ? form[0]?.secondName : '',
-            firstSurname: form[0]?.firstSurname ? form[0]?.firstSurname : '',
-            secondSurname: form[0]?.secondSurname ? form[0]?.secondSurname : '',
-            birthdate: form[0]?.birthdate ? form[0]?.birthdate : '',
-            email: form[0]?.email ? form[0]?.email : '',
-            address: form[0]?.address ? form[0]?.address : '',
-            cellphoneNumber: form[0]?.cellphoneNumber ? form[0]?.cellphoneNumber : '',
-            phoneNumber: form[0]?.phoneNumber ? form[0]?.phoneNumber : '',
-            contactName: form[0]?.contactName ? form[0]?.contactName : '',
-            contactNumber: form[0]?.contactNumber ? form[0]?.contactNumber : '',
-            enabled: form[0]?.enabled ? form[0]?.enabled : '',
-            dateAdmission: form[0]?.dateAdmission ? form[0]?.dateAdmission : '',
-            withdrawalDate: form[0]?.withdrawalDate ? form[0]?.withdrawalDate : '',
-            username: form[0]?.username ? form[0]?.username : '',
-            isManager: form[0]?.isManager ? form[0]?.isManager : false,
-            profilePicture: form[0]?.profilePicture ? form[0]?.profilePicture.id : null,
-            signature: form[0]?.signature ? form[0]?.signature.id : null,
-            files: form[0]?.files ? form[0]?.files.map((items: any) => items.id) : null,
-            identificationType: form[0]?.identificationType ? form[0]?.identificationType?.id : '',
-            position: form[0]?.position?.id ? form[0]?.position.id : '',
-            company: form[0]?.company?.id,
-            healthcareProvider: form[0]?.healthcareProvider?.id ? form[0]?.healthcareProvider?.id : '',
-            pension: form[0]?.pension?.id ? form[0]?.pension?.id : '',
-            occupationRiskManager: form[0]?.occupationRiskManager?.id ? form[0]?.occupationRiskManager?.id : '',
-            compensationFund: form[0]?.compensationFund?.id ? form[0]?.compensationFund?.id : '',
-            workspace: form[0]?.workspace?.id ? form[0]?.workspace?.id : '',
-            gender: form[0]?.gender?.id,
-            city: form[0]?.city?.id,
-            birthCountry: form[0]?.birthCountry?.id,
-            user: form[0]?.user?.id ? form[0]?.user?.id : null
+            identificationNumber: form?.identificationNumber ? form?.identificationNumber : '',
+            firstName: form?.firstName ? form?.firstName : '',
+            secondName: form?.secondName ? form?.secondName : '',
+            firstSurname: form?.firstSurname ? form?.firstSurname : '',
+            secondSurname: form?.secondSurname ? form?.secondSurname : '',
+            birthdate: form?.birthdate ? form?.birthdate : '',
+            email: form?.email ? form?.email : '',
+            address: form?.address ? form?.address : '',
+            cellphoneNumber: form?.cellphoneNumber ? form?.cellphoneNumber : '',
+            phoneNumber: form?.phoneNumber ? form?.phoneNumber : '',
+            contactName: form?.contactName ? form?.contactName : '',
+            contactNumber: form?.contactNumber ? form?.contactNumber : '',
+            enabled: form?.enabled ? form?.enabled : '',
+            dateAdmission: form?.dateAdmission ? form?.dateAdmission : '',
+            withdrawalDate: form?.withdrawalDate ? form?.withdrawalDate : '',
+            username: form?.username ? form?.username : '',
+            isManager: form?.isManager ? form?.isManager : false,
+            profilePicture: form?.profilePicture ? form?.profilePicture.uid : null,
+            signature: form?.signature ? form?.signature.id : null,
+            files: form?.files ? form?.files.map((items: any) => items.uid) : null,
+            identificationType: form?.identificationType?.code ? form?.identificationType?.code : '',
+            position: form?.position?.code ? form?.position.code : '',
+            company: form?.company?.uid ? form?.company?.uid : '',
+            eps: form?.eps?.name ? form?.eps?.name : '',
+            pension: form?.pension?.name ? form?.pension?.name : '',
+            arl: form?.arl?.name ? form?.arl?.name : '',
+            ccf: form?.ccf?.name ? form?.ccf?.name : '',
+            workspace: form?.workspace?.id ? form?.workspace?.id : '',
+            gender: form?.gender?.code ? form?.gender?.code : '',
+            city: form?.city?.code ? form?.city?.code : '',
+            birthCountry: form?.birthCountry?.code ? form?.birthCountry?.code : '',
+            user: form?.user?.id ? form?.user?.id : null
         });
-        this.imageProfile = form[0]?.profilePicture ? this.urlImage(form[0]?.profilePicture.url) : null;
+        this.imageProfile = form?.profilePicture[0] ? form?.profilePicture[0].url : null;
         if (this.imageProfile) {
             this.uploadProfile = false;
         }
-        this.imageSignature = form[0]?.signature ? this.urlImage(form[0]?.signature.formats.thumbnail.url) : null;
-        this.filesItems = form[0]?.files ? form[0]?.files : '';
-        this.filesCurrent = form[0]?.files ? form[0]?.files.map((items: any) => items.id) : [];
-        this.usernameValidate = form[0]?.username ? form[0]?.username : '';
+        this.imageSignature = form?.signature ? form?.signature[0].url : null;
+        this.filesItems = form?.files ? form?.files : '';
+        this.filesCurrent = form?.files ? form?.files.map((items: any) => items.id) : [];
+        this.usernameValidate = form?.username ? form?.username : '';
     }
 
     getView(): void {
@@ -179,7 +180,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     }
 
     urlImage(url: any): string {
-        return environment.urlApp + url;
+
+        return url;
     }
 
     filterParamLabel(code: any): any {
@@ -188,14 +190,11 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         return param[0] ? param[0] : '';
     }
 
-    createUsername($event, type): void {
-        const form = this.formInit.value;
-        form.firstName = type === 'fn' ? $event.target.value : form.firstName;
-        form.firstSurname = type === 'pa' ? $event.target.value : form.firstSurname;
-        form.secondSurname = type === 'sa' ? $event.target.value : form.secondSurname;
-        const user = `${form.firstName.slice(0, 2)}${form.firstSurname}${form.secondSurname.slice(0, 1)}`;
-        this.formInit.patchValue({ username: user ? user.toLowerCase() : '' });
+    test12(event: Event): void {
+        console.log('event ',event);
     }
+
+
 
     validateFilesUpload(data: any): any {
         const filesId = data.map((items: any) => items.id);
@@ -208,7 +207,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
     }
 
-    async validateExistingUser(): Promise<void> {
+   /* async validateExistingUser(): Promise<void> {
         if (!this.id) {
             const form = this.formInit.value;
             await this.api.employeUsernameService(form.username).subscribe({
@@ -228,7 +227,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             this.validateUser();
             this.validateFiles();
         }
-    }
+    }*/
 
     onSubmit(): void {
         const form = this.formInit.value;
@@ -236,7 +235,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
             this.validate = true;
             return;
         }
-        this.validateExistingUser();
+        this.formSave();
     }
 
 
@@ -244,9 +243,9 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         const form = this.formInit.value;
         const user: any = { username: this.formInit.value.username, email: this.formInit.value.email, password: '', role: 3 };
         const userUpdate: any = { username: this.formInit.value.username, email: this.formInit.value.email };
-        user.username = form.username;
+        user.username = form.email;
         user.email = form.email;
-        user.password = form.identificationNumber;
+        //user.password = form.identificationNumber;
         let observable: Observable<Users>;
 
         if (!this.id || (this.id && form.username !== this.usernameValidate)) {
@@ -264,20 +263,23 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     }
 
 
-    validateFiles(): any {
+    validateFiles(uid: any): any {
         this.validDeleFile();
         const form = this.formInit.value;
-        //if (this.formInit.value.filesUpload !== undefined && this.formInit.value.filesUpload !== null) {
-
-        if (!form.profilePictureUpload && !form.signatureUpload && !form.filesUpload) {
-            this.formSave();
-        } else {
+        const formData = new FormData();
+        if (form.profilePictureUpload.length > 0 || form.signatureUpload.length > 0 || form.filesUpload.length > 0) {
             if (form.profilePictureUpload) {
+                formData.append('files', this.formInit.value.profilePictureUpload.get('files'));
+                formData.append('field', 'profilePicture');
+                form.profilePictureUpload =  formData;
                 this.uploadSave(form.profilePictureUpload, 'profilePicture');
             } else {
                 this.checkUpload[0].profile = true;
             }
             if (form.signatureUpload) {
+                formData.append('files', this.formInit.value.signatureUpload.get('files'));
+                formData.append('field', 'signature');
+                form.signatureUpload =  formData;
                 this.uploadSave(form.signatureUpload, 'signature');
             } else {
                 this.checkUpload[0].signature = true;
@@ -286,7 +288,17 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                 .map((item: any) => item.filesUploads ? item.filesUploads : 0);
             if (this.formInit.value.filesUpload) {
                 if (uploadFiles[0] !== undefined) {
-                    this.uploadSave(uploadFiles[0], 'files');
+                    form.filesUpload[0].filesUploads.forEach((file: any) => {
+                        if (file instanceof File) {
+                            formData.append('files', file);
+                        } else {
+                            console.warn('Archivo no válido:', file);
+                        }
+                    });
+
+                    formData.append('field', 'files');
+                    form.filesUpload =  formData;
+                    this.uploadSave(form.filesUpload, 'files');
                 }
             } else {
                 this.checkUpload[0].files = true;
@@ -301,26 +313,23 @@ export class FormComponent extends ListItemsComponent implements OnInit {
                 next: (data: any) => {
                     if (data) {
                         if (type === 'profilePicture') {
-                            form.profilePicture = data[0].id;
                             this.checkUpload[0].profile = true;
                         }
                         if (type === 'signature') {
-                            form.signature = data[0].id;
                             this.checkUpload[0].signature = true;
                         }
                         if (type === 'files') {
-                            const filesId = data.map((items: any) => items.id);
+                            const filesId = data.files.map((items: any) => items.uid);
                             if (this.id) {
-                                filesId.forEach((id: any) => this.filesCurrent.push(id));
                                 this.updateUploadDelete();
                             } else {
                                 form.files = filesId;
                             }
                             this.checkUpload[0].files = true;
                         }
-                        if (this.checkUpload[0].profile && this.checkUpload[0].signature && this.checkUpload[0].files) {
+                        /*if (this.checkUpload[0].profile && this.checkUpload[0].signature && this.checkUpload[0].files) {
                             this.formSave();
-                        }
+                        }*/
                     }
                 }, error: (e: any) => this.swaAlert.toastErrorUpload()
             });
@@ -373,18 +382,18 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         form.withdrawalDate = this.function.validateDate(form.withdrawalDate);
         form.isManager = this.function.validateBoolean(form.isManager);
         form.fullName = this.function.setNameEmployee(form.firstName, form.secondName, form.firstSurname, form.secondSurname);
-        form.healthcareProvider = this.function.validateSelect(form.healthcareProvider);
+        form.eps = this.function.validateSelect(form.eps);
         form.position = this.function.validateSelect(form.position);
-        form.occupationRiskManager = this.function.validateSelect(form.occupationRiskManager);
+        form.arl = this.function.validateSelect(form.arl);
         form.pension = this.function.validateSelect(form.pension);
-        form.compensationFund = this.function.validateSelect(form.compensationFund);
+        form.ccf = this.function.validateSelect(form.ccf);
         form.workspace = this.function.validateSelect(form.workspace);
     }
-
 
     async formSave(): Promise<void> {
         this.validateSpecialFields();
         let observable: Observable<Employee>;
+        console.log('form ',this.formInit.value);
         if (this.id) {
             observable = await this.api.updateEmployeeService(this.formInit.value, this.id);
         } else {
@@ -392,14 +401,13 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
         observable.subscribe({
             next: (item: any) => {
-                //const route = `/employees/edit/${item.data.id}`;
-                //this.router.navigateByUrl(route);
-                const toast = this.swaAlert.toast();
+                this.validateFiles(item.uid);
+                this.validateSpecialFields();
+                /*const toast = this.swaAlert.toast();
                 toast.fire({ icon: 'success', title: 'Datos guardados correctamente' }).then((() => {
-                    //this.getEmployeesId();
-                    location.href = `/employees/edit/${item.data.id}`;
+                    location.href = `/employees/edit/${item.uid}`;
                     this.ngOnInit();
-                }));
+                }));*/
             }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });
     }

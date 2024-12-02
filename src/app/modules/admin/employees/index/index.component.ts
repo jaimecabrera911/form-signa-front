@@ -22,13 +22,13 @@ export class IndexComponent implements OnInit {
         { name: 'identificationNumber', name2: false, styleEnable:false, label: 'Documento' },
         { name: 'position', name2: 'name', styleEnable:false, label: 'Cargo' },
         { name: 'email', name2: false, styleEnable:false, label: 'Correo' },
-        { name: 'enabled', name2: false, label: 'Estado', styleEnable:true,  styles: [
+        { name: 'enable', name2: false, label: 'Estado', styleEnable:true,  styles: [
                 { label: 'Activo', textColor: '#0D7D62', backgroundColor: '#ADE2C2' },
                 { label: 'Inactivo', textColor: '#C92C2C', backgroundColor: '#F4B2B6' }
             ]
         },
-        { name: 'view', name2: false, id: 'id', styleEnable: false, label: 'Ver', view: true, editModule: 'employees' },
-        { name: 'edit', name2: false, id: 'id', styleEnable: false, label: 'Editar', edit: true, editModule: 'employees' }
+        { name: 'view', name2: false, id: 'uid', styleEnable: false, label: 'Ver', view: true, editModule: 'employees' },
+        { name: 'edit', name2: false, id: 'uid', styleEnable: false, label: 'Editar', edit: true, editModule: 'employees' }
     ];
 
     constructor(protected api: ApiService) { }
