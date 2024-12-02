@@ -58,14 +58,21 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
         private matDialog: MatDialog
     ) {
         super();
+        //this.itemsList = false;
+        setTimeout(() => {
+            this.itemsList = false;
+            console.log('items ',this.items);
+            this.onLoadFiles();
+        }, 1900);
     }
 
     async ngOnInit(): Promise<void> {
-        this.changeDetectorRef.detectChanges();
-        setTimeout(() => {
+        //this.changeDetectorRef.detectChanges();
+        this.itemsList = false;
+        /*setTimeout(() => {
             this.itemsList = false;
             this.onLoadFiles();
-        }, 9900);
+        }, 9900);*/
     }
 
     onLoadFiles(): void {
@@ -104,9 +111,9 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
     }
 
     addItem(id): void {
-        setTimeout(() => {
+        //setTimeout(() => {
             this.writeValue(this.formEditUpload.get('dataFile').value);
-        }, 1000);
+        //}, 1000);
     }
 
 
@@ -130,7 +137,7 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
 
     editFileGroup(id, stateDelete, filesUploads): void {
         const itemsFile = this.formEditUpload.get('dataFile') as FormArray;
-        const data = this.formEditUpload.get('dataFile').value.filter((item: any) => item.id === id).map((item: any) => item.id);
+        const data = this.formEditUpload.get('dataFile').value.filter((item: any) => item.uid === id).map((item: any) => item.uid);
         if (data[0] !== id) {
             itemsFile.push(this.formEditFile(id, stateDelete, filesUploads));
         }
@@ -145,6 +152,11 @@ export class MultimediaComponent extends DefaultInput implements OnInit, OnDestr
             stateDelete: [stateDelete],
             filesUploads: [filesUploads]
         });
+    }
+
+    extensionFile(item): void{
+        const file = item.split('.');
+        return file ? file[1] : '';
     }
 
     ngOnDestroy(): void {

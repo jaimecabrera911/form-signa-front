@@ -16,6 +16,7 @@ import { environment } from 'environments/environment';
 export class DetailUploadComponent implements OnInit, OnDestroy {
 
     urlSafe: SafeResourceUrl;
+    url: string;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     // eslint-disable-next-line max-len, @typescript-eslint/member-ordering
     urlDoc: string = 'https://view.officeapps.live.com/op/embed.aspx?src=https://stackblitz.com/storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdkpMIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e75389b18343665404852ed4cba8bd25938fa9bd/file-sample_1MB.doc';
@@ -29,6 +30,7 @@ export class DetailUploadComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         const urlDocument  = `${environment.urlApp}${this.file.file.url}`;
+        this.url  = `${environment.urlApp}${this.file.file.url}`;
         if(urlDocument){
             this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(urlDocument);
         }
@@ -36,6 +38,10 @@ export class DetailUploadComponent implements OnInit, OnDestroy {
 
     closeModal(): void{
         this.dialogRef.close();
+    }
+
+    goToLink(url: string): void{
+        window.open(url, '_blank');
     }
 
     ngOnDestroy(): void {
