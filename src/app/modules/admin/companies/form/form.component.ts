@@ -26,7 +26,8 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     modView: boolean = true;
 
     formInit: any = this._formBuilder.group({
-        identificationType: new FormControl(2, [Validators.required]),
+        logo: new FormControl('https://www.acmecorp.com/logo.png'),
+        identificationType: new FormControl('NIT', [Validators.required]),
         identificationNumber: new FormControl('', [Validators.required]),
         legalRepresentative: new FormControl('', [Validators.required]),
         regime: new FormControl('', [Validators.required]),
@@ -51,7 +52,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
         super.ngOnInit();
         this.getCompanyId();
-        this.getCities();
+        this.getCities(11);
         this.getLabels();
         this.getRegimes();
     }
@@ -60,7 +61,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         if (this.id) {
             this.api.companyIdService(this.id).subscribe({
                 next: (items: any) => {
-                   this.setFormCompanies(items.data);
+                   this.setFormCompanies(items);
                    this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
@@ -69,17 +70,17 @@ export class FormComponent extends ListItemsComponent implements OnInit {
 
     setFormCompanies(form): void {
         this.formInit.patchValue({
-            identificationNumber: form[0]?.identificationNumber,
-            name: form[0]?.name,
-            legalRepresentative: form[0]?.legalRepresentative,
-            email: form[0]?.email,
-            webSite: form[0]?.webSite,
-            phone: form[0]?.phone,
-            address: form[0]?.address,
-            regime: form[0]?.regime?.id,
-            city: form[0]?.city?.id,
-            employees: form[0]?.employees?.id,
-            workspaces: form[0]?.workspaces?.id
+            identificationNumber: form?.identificationNumber,
+            name: form?.name,
+            legalRepresentative: form?.legalRepresentative,
+            email: form?.email,
+            webSite: form?.webSite,
+            phone: form?.phone,
+            address: form?.address,
+            regime: form?.regime?.code,
+            city: form?.city?.code,
+            employees: form?.employees?.id,
+            workspaces: form?.workspaces?.id
         });
     }
 
@@ -95,7 +96,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     filterParamLabel(code: any): any {
         const param = this.paramLabels?.filter((item: any) => item.code === code)
             .map((item: any) => item.name ? item.name : '');
-        return param[0] ? param[0] : '';
+        return param ? param[0] : '';
     }
 
     onSubmit(): void {
@@ -115,7 +116,7 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         }
         observable.subscribe({
             next: (item: any) => {
-                const route = `/companies/edit/${item.data.id}`;
+                const route = `/companies/edit/${item.uid}`;
                 this.router.navigateByUrl(route);
                 const toast = this.swaAlert.toast();
                 toast.fire({ icon: 'success', title: 'Datos guardados correctamente' })
