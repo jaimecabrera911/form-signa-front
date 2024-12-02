@@ -6,14 +6,14 @@
                     <div class="flex flex-col flex-auto">
                         <div class="flex flex-col px-8 my-6 rounded">
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-x-9 w-full">
+                                <app-input-select label="{{ filterParamLabel('companyName') }}" [options]="elementsCompanies" formControlName="company" [required]="formInit.controls['company'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('company')?.disabled"></app-input-select>
                                 <app-input-text label="{{ filterParamLabel('projectID') }}" formControlName="code" [required]="formInit.controls['code'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('code')?.disabled"></app-input-text>
                                 <app-input-text label="{{ filterParamLabel('projectName') }}" formControlName="name" [required]="formInit.controls['name'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('name')?.disabled"></app-input-text>
                                 <app-input-date label="{{ filterParamLabel('creationDate') }}" formControlName="startDate" [required]="formInit.controls['startDate'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('startDate')?.disabled"></app-input-date>
                                 <app-input-date label="{{ filterParamLabel('endDate') }}" formControlName="endDate" [required]="formInit.controls['endDate'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('endDate')?.disabled"></app-input-date>
-                                <app-input-select label="{{ filterParamLabel('geographicLocation') }}" [options]="elementsCities" formControlName="city" [required]="formInit.controls['endDate'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('city')?.disabled"></app-input-select>
-                                <app-input-select label="{{ filterParamLabel('personResponsible') }}" [options]="elementsEmployees" formControlName="employee" [required]="formInit.controls['employee'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('employee')?.disabled"></app-input-select>
+                                <app-input-select label="{{ filterParamLabel('personResponsible') }}" [options]="elementsEmployees" formControlName="responsible" [required]="formInit.controls['responsible'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('responsible')?.disabled"></app-input-select>
                                 <app-input-text label="{{ filterParamLabel('description') }}" formControlName="description" [required]="formInit.controls['description'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('description')?.disabled"></app-input-text>
-                                <app-input-select label="{{ filterParamLabel('state') }}" [options]="elementsStateProject" formControlName="state" [required]="formInit.controls['state'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('state')?.disabled"></app-input-select>
+                                <app-input-select label="{{ filterParamLabel('status') }}" [options]="elementsStateProject" formControlName="status" [required]="formInit.controls['status'].hasError('required')" [validateFormSumt]="validate" [disabled]="formInit.get('status')?.disabled"></app-input-select>
                             </div>
                         </div>
                     </div>
@@ -37,6 +37,13 @@
             <mat-tab *ngIf="id" label="Formularios">
                 <app-tables-items [data]="apiItems$" [colums]="iterableColumns" [searchPanel]="searchPanel" [placeHolderSearch]="subtitle" typeTable="list" routeBottom="employees/create">
                 </app-tables-items>
+                <div class="pl-8">
+                    <div class="flex flex-col flex-auto">
+                        <a class="mt-1 pl-2 px-12 text-center w-44" [routerLink]="['/forms-project']" mat-button mat-flat-button [color]="'primary'">
+                            <span class="ml-7">Crear Proyecto</span>
+                        </a>
+                    </div>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>

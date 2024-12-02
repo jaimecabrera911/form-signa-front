@@ -28,21 +28,19 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     iterableColumns: TableItems[] = [
         { name: 'code', name2: false, styleEnable: false, label: 'Formulario' },
         { name: 'name', name2: false, styleEnable: false, label: 'Descripción' },
-        { name: 'createdAt', name2: false, styleEnable: false, label: 'Fecha recibido' },
+        { name: 'createdAt', name2: false, formatDate: true, styleEnable: false, label: 'Fecha recibido' },
         { name: 'id', name2: 'code', styleEnable: false, label: 'Editar', edit: true, editModule: 'forms-project' }
     ];
 
     formInit: any = this._formBuilder.group({
-        uid: new FormControl(),
         code: new FormControl(),
         name: new FormControl('', [Validators.required]),
         description: new FormControl(),
-        city: new FormControl(),
         startDate: new FormControl(),
         endDate: new FormControl(),
-        company: new FormControl(1),
-        employee: new FormControl(),
-        state: new FormControl('')
+        company: new FormControl(),
+        responsible: new FormControl(),
+        status: new FormControl('pending')
     });
 
     constructor(
@@ -58,18 +56,18 @@ export class FormComponent extends ListItemsComponent implements OnInit {
         this.id = this.activatedRouter.snapshot?.paramMap.get('id');
         super.ngOnInit();
         this.getProjectId();
-        this.getCities();
         this.getStateProject();
         this.getEmployees();
         this.getLabels();
         this.getFormId();
+        this.getCompanies();
     }
 
     getProjectId(): void {
         if (this.id) {
             this.api.projectIdService(this.id).subscribe({
                 next: (items: any) => {
-                   this.setFormProjects(items.data);
+                   this.setFormProjects(items);
                    this.getView();
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
@@ -88,28 +86,25 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     filterParamLabel(code: any): any {
         const param = this.paramLabels?.filter((item: any) => item.code === code)
             .map((item: any) => item.name ? item.name : '');
-        return param[0] ? param[0] : '';
+        return param.length >= 1 ? param[0] : '';
     }
 
     getFormId(): void {
-        if (this.id) {
+        /*if (this.id) {
             this.apiItems$ = this.api.formsIdProjectService(this.id);
-        }
+        }*/
     }
 
     setFormProjects(form): void {
-        console.log('employee ',form);
         this.formInit.patchValue({
-            uid: form[0]?.uid,
-            code: form[0]?.code,
-            name: form[0]?.name,
-            description: form[0]?.description,
-            startDate: form[0]?.startDate,
-            endDate: form[0]?.endDate,
-            city: form[0]?.city?.id,
-            company: form[0]?.company?.id,
-            employee: form[0]?.employee?.id,
-            state: form[0]?.state?.id
+            code: form?.code,
+            name: form?.name,
+            description: form?.description,
+            startDate: form?.startDate,
+            endDate: form?.endDate,
+            company: form?.company?.uid,
+            responsible: form?.responsible?.email,
+            state: form?.state?.id
         });
     }
 
@@ -125,15 +120,13 @@ export class FormComponent extends ListItemsComponent implements OnInit {
     formSave(): void {
         let observable: Observable<any>;
         if (this.id) {
-            this.formInit.value.uid = this.formInit.value.uid;
             observable = this.api.updateProjectService(this.formInit.value,this.id);
         } else {
-            this.formInit.value.uid = uuidv4();
             observable = this.api.createProjectService(this.formInit.value);
         }
         observable.subscribe({
             next: (item: any) => {
-                const route = `/projects/edit/${item.data.id}`;
+                const route = `/projects/edit/${item.uid}`;
                 this.router.navigateByUrl(route);
                 const toast = this.swaAlert.toast();
                 toast.fire({ icon: 'success', title: 'Datos guardados correctamente' })
