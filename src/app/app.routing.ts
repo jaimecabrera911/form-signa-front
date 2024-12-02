@@ -33,7 +33,7 @@ export const appRoutes: Route[] = [
             { path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule) },
             { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule) },
             { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule) },*/
-            { path: 'sign-in', canActivate: [AccountGuard], loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
+            { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) }, //canActivate: [AccountGuard]
             { path: 'sign-out',loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) }
         ]
     },
@@ -41,7 +41,7 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        canActivate: [LoginGuard],
+        //canActivate: [LoginGuard],
         //canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {

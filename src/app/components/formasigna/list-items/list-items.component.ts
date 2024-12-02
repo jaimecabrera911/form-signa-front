@@ -12,7 +12,7 @@ import { ListComponent } from 'app/components/list/list-component';
 
 @Component({
     selector: 'app-list-items',
-    template: `<p> </p>`,
+    template: '<p> </p>',
     styles: []
 })
 export abstract class ListItemsComponent extends ListComponent implements OnInit {
@@ -52,10 +52,22 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
     formatSelectData(elements: any): void {
         let index: number;
         const elementsData: any = [];
-        for (index = 0; index < elements.data.length; index++) {
+        for (index = 0; index < elements.length; index++) {
             elementsData.push({
-                code: elements.data[index].id,
-                name: elements.data[index].name
+                code: elements[index].code,
+                name: elements[index].name
+            });
+        }
+        return elementsData;
+    }
+
+    formatSelectDataSocialEntity(elements: any): void {
+        let index: number;
+        const elementsData: any = [];
+        for (index = 0; index < elements.length; index++) {
+            elementsData.push({
+                code: elements[index].name,
+                name: elements[index].name
             });
         }
         return elementsData;
@@ -66,10 +78,10 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         this.api.employeesService().subscribe({
             next: (items: any) => {
                 let i: number;
-                for (i = 0; i < items.data.length; i++) {
+                for (i = 0; i < items.length; i++) {
                     this.elementsEmployees.push({
-                        code: items.data[i].id,
-                        name: `${items.data[i].firstName} ${items.data[i].secondName} ${items.data[i].firstSurname} ${items.data[i].secondSurname}`
+                        code: items[i].email,
+                        name: `${items[i].fullName}`
                     });
                 }
             }, error: (e: any) => console.error(e)
@@ -94,33 +106,33 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
 
 
     getHealthcareProvider(): void {
-        this.api.healthcareProviderService().subscribe({
+        this.api.socialEntities('EPS').subscribe({
             next: (items: any) => {
-                this.elementsHealthcareProvider = this.formatSelectData(items);
+                this.elementsHealthcareProvider = this.formatSelectDataSocialEntity(items);
             }, error: (e: any) => console.error(e)
         });
     }
 
     getOccupationRiskManager(): void {
-        this.api.occupationRiskManagerService().subscribe({
+        this.api.socialEntities('ARL').subscribe({
             next: (items: any) => {
-                this.elementsOccupationRiskManager = this.formatSelectData(items);
+                this.elementsOccupationRiskManager = this.formatSelectDataSocialEntity(items);
             }, error: (e: any) => console.error(e)
         });
     }
 
     getPension(): void {
-        this.api.pensionService().subscribe({
+        this.api.socialEntities('PENSION').subscribe({
             next: (items: any) => {
-                this.elementsPension = this.formatSelectData(items);
+                this.elementsPension = this.formatSelectDataSocialEntity(items);
             }, error: (e: any) => console.error(e)
         });
     }
 
     getCompensationFund(): void {
-        this.api.compensationFundService().subscribe({
+        this.api.socialEntities('CCF').subscribe({
             next: (items: any) => {
-                this.elementsCompensationFund = this.formatSelectData(items);
+                this.elementsCompensationFund = this.formatSelectDataSocialEntity(items);
             }, error: (e: any) => console.error(e)
         });
     }
@@ -130,10 +142,10 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         this.api.identificationTypesService().subscribe({
             next: (data: any) => {
                 let i: number;
-                for (i = 0; i < data.data.length; i++) {
+                for (i = 0; i < data.length; i++) {
                     this.elementsIdentificationTypes.push({
-                        code: data.data[i].id,
-                        name: data.data[i].type
+                        code: data[i].code,
+                        name: data[i].name
                     });
                 }
             }, error: (e: any) => console.error(e)
@@ -148,8 +160,8 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         });
     }
 
-    getCities(): void {
-        this.api.citiesService().subscribe({
+    getCities(codeDepartment: any): void {
+        this.api.citiesService(codeDepartment).subscribe({
             next: (items: any) => {
                 this.elementsCities = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
@@ -160,6 +172,7 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         this.api.regimesService().subscribe({
             next: (items: any) => {
                 this.elementsRegimes = this.formatSelectData(items);
+                console.log('elementsRegimes :: ',this.elementsRegimes);
             }, error: (e: any) => console.error(e)
         });
     }
@@ -172,8 +185,8 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
         });
     }
 
-    getDepartments(): void {
-        this.api.departmentService().subscribe({
+    getDepartments(codeCountry: any): void {
+        this.api.departmentService(codeCountry).subscribe({
             next: (items: any) => {
                 this.elementsDepartaments = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
@@ -181,18 +194,25 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
     }
 
 
-    getStateProject(): void {
-        this.api.stateProjectService().subscribe({
+    async getStateProject(): Promise<void> {
+        await this.api.dataFieldIdService('statusProject').subscribe({
+            next: (response: any) => {
+                console.log('response 1 :: ',response);
+                this.elementsStateProject = response?.values;
+            }, error: (e: any) => console.error(e)
+        });
+
+        /*this.api.stateProjectService().subscribe({
             next: (items: any) => {
                 this.elementsStateProject = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
-        });
+        });*/
     }
 
     async getLabels(): Promise<void> {
-        await this.api.dataFieldService('labels').subscribe({
+        await this.api.dataFieldIdService('labels').subscribe({
             next: (response: any) => {
-                this.paramLabels = response?.data[0]?.values;
+                this.paramLabels = response?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -204,7 +224,7 @@ export abstract class ListItemsComponent extends ListComponent implements OnInit
                 let index: number;
                 for (index = 0; index < data.length; index++) {
                     this.elementsCompanies.push({
-                        code: data[index].uuid,
+                        code: data[index].uid,
                         name: data[index].name
 
                     });

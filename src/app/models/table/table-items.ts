@@ -9,6 +9,7 @@ export interface TableItems {
     panel?: boolean;
     styleEnable?: boolean;
     styles?: styleColumn[];
+    formatDate?: boolean;
     idPrimary?: boolean;
     function?: boolean;
     functionName?: string | boolean;

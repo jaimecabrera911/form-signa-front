@@ -49,7 +49,8 @@
                     <td mat-cell *matCellDef="let elements">
                         <div *ngIf="colums[i]?.name2 && !colums[i]?.styles && !colums[i]?.view && !colums[i]?.edit" class="w-full">
                             <div *ngIf="colums[i]?.name2 !== null || !colums[i]?.name2">
-                                {{ elements[colums[i]['name']][colums[i]['name2']] ? elements[colums[i]['name']][colums[i]['name2']] : '' }} </div>
+                                {{ colums[i]?.name2 }} - {{ colums[i]?.name2 }}
+                            </div>
                         </div>
                         <div *ngIf="colums[i]?.styles" class="w-full">
                             <div *ngFor="let item of colums[i]?.styles">
@@ -72,7 +73,10 @@
                         <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.function && !colums[i]?.functionName && colums[i]?.item">
                             {{ elements[colums[i]?.name] ? 'Firmo' : 'Sin firmar' }}
                         </div>
-                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.function && !colums[i]?.functionName && !colums[i]?.item && !colums[i]?.edit">
+                        <div *ngIf="colums[i]?.formatDate && !colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.function && !colums[i]?.functionName && !colums[i]?.item && !colums[i]?.edit">
+                            {{ elements[colums[i]?.name] | date:'yyyy-MM-dd' }}
+                        </div>
+                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && !colums[i]?.formatDate && !colums[i]?.function && !colums[i]?.functionName && !colums[i]?.item && !colums[i]?.edit">
                             {{ elements[colums[i]?.name] }}
                         </div>
                         <div *ngIf="colums[i]?.view" class="w-full pl-8">
