@@ -31,7 +31,7 @@ export class TemplatesComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.changeDetectorRef.detectChanges();
-        this.api.templatesFormService(1).subscribe({
+        this.api.templatesFormService().subscribe({
             next: (elements: any) => {
                 if (elements.data) {
                     this.items = elements.data;

@@ -407,6 +407,14 @@
                 <mat-tab label="{{ filterParamLabel('evidence') }}" class="sign">
                     <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
                 </mat-tab>
+                <mat-tab *ngIf="id" label="{{ filterParamLabel('reports') }}">
+                    <div (click)="generatePDF()" class="bg-card m-4 flex max-h-30 min-h-30 min-w-36 max-w-36 cursor-pointer flex-col items-center justify-center rounded border-2 p-4 ng-star-inserted">
+                        <div class="mb-3 flex items-center justify-center">
+                            <mat-icon svgIcon="mat_solid:picture_as_pdf"></mat-icon>
+                        </div>
+                        <div class="text-secondary break-all text-center text-sm"> Exportar PDF </div>
+                    </div>
+                </mat-tab>
             </mat-tab-group>
             <div *ngIf="modView" class="pl-18">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
