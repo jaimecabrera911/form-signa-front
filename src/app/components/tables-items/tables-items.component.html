@@ -65,8 +65,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && colums[i]?.function && colums[i]?.functionName">
-                            <button (click)="functionTable(elements[colums[i]?.name],colums[i]?.functionName)">
+                        <div *ngIf="!colums[i]?.styles && !colums[i]?.name2 && colums[i]?.function">
+                            <button *ngIf="!colums[i]?.styles && !colums[i]?.name2 && colums[i]?.function" (click)="functionTable(elements[colums[i]?.name],colums[i]?.functionName)">
                                 <mat-icon class="icon-size-6" [svgIcon]="'heroicons_outline:pencil'"></mat-icon>
                             </button>
                         </div>

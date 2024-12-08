@@ -28,6 +28,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     state: any = [];
     state2: any = [];
     stateVerification: any = [];
+    typeCapacitation: any = [];
     typeStairs: any = [];
     typeWork: any = [];
     paramsForms: any = [];
@@ -37,6 +38,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
     elementsCompanies: any = [];
     elementsHealthcareProvider: any = [];
     elementsOccupationRiskManager: any = [];
+    optionsList: any = [];
 
     constructor(protected api: ApiService) {
     }
@@ -57,7 +59,7 @@ export abstract class ListItemsFormComponent  implements OnInit {
         await  this.api.employeesService().subscribe({
             next: (response: any) => {
                 response.forEach((item: any) => {
-                    this.employeesList.push({ code: item.id,
+                    this.employeesList.push({ code: item.uid,
                         name: item.fullName });
                 });
             }, error: (e: any) => console.error(e)
@@ -100,6 +102,14 @@ export abstract class ListItemsFormComponent  implements OnInit {
         await  this.api.dataFieldIdService('efficacyEvaluation').subscribe({
             next: (response: any) => {
                 this.efficacyEvaluationList = response?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getOptions(): Promise<void> {
+        await  this.api.dataFieldIdService('options').subscribe({
+            next: (response: any) => {
+                this.optionsList = response?.values;
             }, error: (e: any) => console.error(e)
         });
     }
@@ -157,6 +167,14 @@ export abstract class ListItemsFormComponent  implements OnInit {
         await  this.api.dataFieldIdService('stateVerification').subscribe({
             next: (response: any) => {
                 this.stateVerification = response?.values;
+            }, error: (e: any) => console.error(e)
+        });
+    }
+
+    async getTypeCapacitation(): Promise<void> {
+        await  this.api.dataFieldIdService('typeCapacitation').subscribe({
+            next: (response: any) => {
+                this.typeCapacitation = response?.values;
             }, error: (e: any) => console.error(e)
         });
     }

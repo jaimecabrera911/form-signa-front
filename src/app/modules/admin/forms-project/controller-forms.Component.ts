@@ -10,11 +10,8 @@ import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
 import { Observable } from 'rxjs';
 import { ListItemsFormComponent } from './list-items-form.component';
-import { v4 as uuidv4 } from 'uuid';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalImageComponent } from '@fuse/components/modal-image/modal-image.component';
-
-
 
 const typeValues = [
     { id: 1, value: 'string' },
@@ -48,7 +45,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     itemsCurrent: any = [];
     filesItems: any[] = [];
     filesArrays: any = {};
-    infoForm: any[] = [];
+    infoForm: any | any[]= [];
     assistantsForm: any = [];
     approvalsForm: any = [];
     filesUploadDelete: any[] = [];
@@ -60,8 +57,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         { name: 'fullName', name2: false, styleEnable: false, label: 'Nombres', function: false, functionName: false, item: false },
         { name: 'identificationNumber', name2: false, styleEnable: false, label: 'Documento', function: false, functionName: false, item: false },
         { name: 'position', name2: 'name', styleEnable: false, label: 'Cargo', function: false, functionName: false, item: true },
-        { name: 'isSignature', name2: false, styleEnable: false, label: 'Estado', function: false, functionName: false, item: true },
-        { name: 'id', name2: false, styleEnable: false, label: 'Firma', function: true, functionName: 'isSignature', item: false }
+        { name: 'isSigned', name2: false, styleEnable: false, label: 'Estado', function: false, functionName: false, item: true },
+        { name: 'uid', name2: false, styleEnable: false, label: 'Firma', function: true, functionName: 'isSignature', item: false }
     ];
 
     constructor(
@@ -78,6 +75,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         this.getLabels();
         this.getParam(this.code.toLowerCase());
         this.apiItems$ = this.api.employeesService();
+          this.api.assistantFormService(this.id);
         this.getFormId();
         super.ngOnInit();
     }
@@ -86,7 +84,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         await this.api.templatesIdService(this.code).subscribe({
             next: (items: any) => {
                 if (items) {
-                    this.infoForm = items?.data;
+                    this.infoForm = items;
                     this.title = `${items?.code} ${items?.name}`;
                     this.code = `${items?.code}`;
                     this.version = `${items?.version}`;
@@ -130,6 +128,14 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             this.modView = false;
         }
     }
+    async generatePDF(): Promise<void> {
+        if (this.id) {
+            const formItems = {data: {...this.itemsCurrent}};
+            this.api.downloadPDF(formItems).subscribe((blob) => {
+                this.api.savePDF(blob, 'output.pdf');
+              });
+        }
+    }
 
     getTypeValue = (id: any) => typeValues.filter(item => item.id === id)
         .map(item => item.value);
@@ -161,25 +167,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         this.formInit.value.fields = [...this.validateItems];
     }
 
-    /*updateDataForm(...itemsArray): void {
-        this.validateArrayItems.push({
-            fields: itemsArray
-        });
-        this.formInit.value.dataFields = [...this.validateArrayItems];
-    }*/
-
     assignFields(): void {
         const form = this.formInit.value;
         form.fields.forEach((items: any) => {
             this.updateValueForm(items.name, form.fieldsItems[items.name], items.type);
         });
-        /*
-        const dataForm = form?.data ? form.data.length : 0;
-        if (dataForm >= 1) {
-            form.data.forEach((elements: any, index: any) => {
-                this.updateDataForm(elements);
-            });
-        }*/
     }
 
     validationSubmit(): void {
@@ -331,25 +323,30 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         const form = this.formInit.value;
         form.assistants = null;
         form.assistants = form.assignedAssistants;
-        form.assignedAssistants.forEach((element: any) => {
-            this.saveAssistants(element, idForm);
-        });
+
         if (this.id) {
             const idSelect = this.formInit.value.assignedAssistants.map((item: any) => item);
-            const filterDelete = this.assistantsForm.filter((item: any) => !idSelect.includes(item.employee.id)).map((item: any) => item.id);
+            const filterDelete = this.assistantsForm.filter((item: any) => !idSelect.includes(item.employee.uid))
+                                                    .map((item: any) => item.id);
             filterDelete.forEach((element: any) => {
                 this.deleteAssistant(element);
             });
         }
+
+        form.assignedAssistants.forEach((element: any) => {
+            this.saveAssistants(element, idForm);
+        });
     }
 
     async saveAssistants(idEmployee, idForm): Promise<void> {
-        const validIdEmp = this.assistantsForm.filter((item: any) => item.employee.id === idEmployee).map((item: any) => item.employee.id);
-        const request: any = { employee: idEmployee, signature: null, date: new Date(), isSigned: false, form: idForm };
-        if (validIdEmp[0] === undefined || !validIdEmp[0]) {
+        const validIdEmp =  this.assistantsForm ? this.assistantsForm?.filter((item: any) => item?.employee?.uid === idEmployee)
+                                               .map((item: any) => item?.employee?.uid) : '';
+        const request = { formId: idForm , employeeUid: idEmployee };
+        if (validIdEmp.length <= 0){
             await this.api.createAssistantService(request).subscribe({
                 next: (response) => {
                     if (response) {
+                        console.log('asistant CREATE ',response);
                         const toast = this.swaAlert.toast();
                         toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
                             location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;
@@ -375,33 +372,28 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         form.version = '1';
         this.assignFields();
 
-        console.log('value:: ',this.formInit.value);
         let observable: Observable<Form>;
         if (this.id) {
             observable = await this.api.updateFormService(this.formInit.value, this.id);
         } else {
-            //this.formInit.value.uid = uuidv4();
             observable = await this.api.createFormSevice(this.formInit.value);
         }
 
         observable.subscribe({
             next: (response: any) => {
                 if (response) {
-                    if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
+                    /*if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
                         if (this.formInit.value.trainingApproval.length > 0) {
                             this.assignApprovals(response.id);
                         }
-                    }
-                    if (this.formInit.value.assignedAssistants !== undefined && this.formInit.value.assignedAssistants !== null) {
-                        if (this.formInit.value.assignedAssistants.length > 0 && this.formInit.value.assignedAssistants !== null) {
-                            this.validationAssitant(response.id);
-                        }
-                    }
-                    /*
+                    }*/
+
+                   this.validationAssitant(response.id);
+
                     const toast = this.swaAlert.toast();
                     toast.fire({ icon: 'success', title: 'Formulario guardado correctamente' }).then((() => {
                         location.href = `/forms-project/${this.code.toLowerCase()}/edit/${response.id}`;
-                    }));*/
+                    }));
                 }
             }, error: (e: any) => this.swaAlert.toastErrorUpdate()
         });

@@ -24,7 +24,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         protected _formBuilder: FormBuilder,
         protected activatedRouter: ActivatedRoute,
         protected matDialog: MatDialog,
-        protected api: ApiService
+        protected api: ApiService,
     ) {
         super(_formBuilder, matDialog, api);
     }
@@ -42,6 +42,8 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
         this.getStartTime();
         this.getNumberPeopleAttending();
         this.getEmployees();
+        this.getTypeCapacitation();
+        this.getOptions();
     }
 
     validateForm(): void{
@@ -50,16 +52,13 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
             uid: new FormControl(),
             name: new FormControl(this.title),
             version: new FormControl({ value:'1.0', disabled: true }),
-            company: new FormControl(1),
             fields: new FormArray([
-                this._formBuilder.group({name: 'date', value: '',  type: this.getTypeValue(3)}),
                 this._formBuilder.group({name: 'novetly', value: '',  type: this.getTypeValue(1)}),
-                this._formBuilder.group({name: 'creationDate', value: '',  type: this.getTypeValue(3)}),
                 this._formBuilder.group({name: 'typeActivity', value: '',  type: this.getTypeValue(1)}),
-                this._formBuilder.group({name: 'descriptionActivity', value: '',  type: this.getTypeValue(1)}),
                 this._formBuilder.group({name: 'nameCapacitation', value: '',  type: this.getTypeValue(1)}),
-                this._formBuilder.group({name: 'employee', value: '',  type: this.getTypeValue(1)}),
-                this._formBuilder.group({name: 'objetiveCapacitation', value: '',  type: this.getTypeValue(9)}),
+                this._formBuilder.group({name: 'typeTrainer', value: '',  type: this.getTypeValue(1)}),
+                this._formBuilder.group({name: 'trainerName', value: '',  type: this.getTypeValue(1)}),
+                this._formBuilder.group({name: 'objectiveCapacitation', value: '',  type: this.getTypeValue(9)}),
                 this._formBuilder.group({name: 'contentCapacitation', value: '',  type: this.getTypeValue(9)}),
                 this._formBuilder.group({name: 'dateCapacitation', value: '',  type: this.getTypeValue(3)}),
                 this._formBuilder.group({name: 'place', value: '',  type: this.getTypeValue(1)}),
@@ -84,22 +83,20 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
             assistants: new FormControl([]),
             approval: new FormControl([]),
             fieldsItems: this._formBuilder.group({
-                date: new FormControl(new Date(), [Validators.required]),
                 novetly: new FormControl('', [Validators.required]),
-                creationDate: new FormControl('', [Validators.required]),
                 typeActivity: new FormControl('', [Validators.required]),
-                descriptionActivity: new FormControl(''),
-                nameCapacitation: new FormControl('', [Validators.required]),
-                employee: new FormControl('', [Validators.required]),
-                objetiveCapacitation: new FormControl('', [Validators.required]),
+                nameCapacitation: new FormControl(''),
+                typeTrainer: new FormControl('', [Validators.required]),
+                trainerName: new FormControl('', [Validators.required]),
+                objectiveCapacitation: new FormControl('', [Validators.required]),
                 contentCapacitation: new FormControl('', [Validators.required]),
                 dateCapacitation: new FormControl('', [Validators.required]),
                 place: new FormControl('', [Validators.required]),
                 startTime: new FormControl('', [Validators.required]),
                 duration: new FormControl('', [Validators.required]),
-                peopleInvited: new FormControl('', [Validators.required]),
-                peopleAttending: new FormControl('', [Validators.required]),
-                percentageAttendance: new FormControl('', [Validators.required]),
+                peopleInvited: new FormControl( [Validators.required]),
+                peopleAttending: new FormControl( [Validators.required]),
+                percentageAttendance: new FormControl({disabled: true} , [Validators.required]),
                 methodEvaluation: new FormControl('', [Validators.required]),
                 descriptionEvaluation: new FormControl(),
                 effectivenessEvaluation: new FormControl('', [Validators.required]),
@@ -111,6 +108,7 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
                 trainer: new FormControl(),
                 dateApproved: new FormControl()
             }),
+            status: new FormControl('created'),
             filesUpload: new FormControl(),
             assignedAssistants: new FormControl(),
             trainingApproval: new FormControl()
@@ -121,14 +119,12 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
     override getForm(): void{
         if(this.id){
             this.formInit.get('fieldsItems').patchValue({
-                date: this.cleanSelect(this.getValueField('date')),
                 novetly: this.cleanSelect(this.getValueField('novetly')),
-                creationDate: this.cleanSelect(this.getValueField('creationDate')),
                 typeActivity: this.cleanSelect(this.getValueField('typeActivity')),
-                descriptionActivity: this.cleanSelect(this.getValueField('descriptionActivity')),
                 nameCapacitation: this.cleanSelect(this.getValueField('nameCapacitation')),
-                employee: this.cleanSelect(this.getValueField('employee')),
-                objetiveCapacitation: this.cleanSelect(this.getValueField('objetiveCapacitation')),
+                typeTrainer: this.cleanSelect(this.getValueField('typeTrainer')),
+                trainerName: this.cleanSelect(this.getValueField('trainerName')),
+                objectiveCapacitation: this.cleanSelect(this.getValueField('objectiveCapacitation')),
                 contentCapacitation: this.cleanSelect(this.getValueField('contentCapacitation')),
                 dateCapacitation: this.cleanSelect(this.getValueField('dateCapacitation')),
                 place: this.cleanSelect(this.getValueField('place')),
@@ -144,6 +140,16 @@ export class SGFR08Component extends ControllerFormsComponent implements OnInit 
                 generateImprovementActionEvaluation: this.cleanSelect(this.getValueField('generateImprovementActionEvaluation')),
                 dateFollowUpDateEvaluation: this.cleanSelect(this.getValueField('dateFollowUpDateEvaluation')),
             });
+        }
+    }
+
+    attendancePercentage($event, type): void {
+        const form = this.formInit.get('fieldsItems').value;
+        form.peopleInvited  = type === 'pi' ? Number($event.target.value) : form.peopleInvited;
+        form.peopleAttending  = type === 'at' ? Number($event.target.value) : form.peopleAttending;
+        const percentageAttendance = form.peopleAttending >=1 && form.peopleInvited >=1 ? ((form.peopleAttending / form.peopleInvited) * 100) : '0';
+        if(form.peopleAttending >= 1  && form.peopleInvited >=1 && percentageAttendance){
+            this.formInit.get('fieldsItems').patchValue({ percentageAttendance: percentageAttendance ? percentageAttendance : '' });
         }
     }
 

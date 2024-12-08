@@ -15,6 +15,7 @@ import { Users } from 'app/models/users';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Assistants } from 'app/models/assitant';
 import { Form } from 'app/models/form';
+import { saveAs } from 'file-saver';
 
 @Injectable({
     providedIn: 'root'
@@ -149,7 +150,7 @@ export class ApiService {
     -------------------------*/
 
     formsService(): Observable<Form> {
-        const url = `${environment.apiUrl}forms?populate=project%20`;
+        const url = `${environment.apiUrl}form/all`;
         return this.http.get<Form>(url);
     }
 
@@ -174,12 +175,28 @@ export class ApiService {
     }
 
      /*-------------------------|
-       Templates Forms          |
-    -------------------------*/
+        Reportes                |
+     -------------------------*/
+     exportPDF(data): Observable<any> {
+        const url = `${environment.apiUrl}pdf/generate`;
+        return this.http.post<any>(url, data);
+    }
 
-    templatesFormService(id: number): Observable<Template> {
-        const filetrs = 'company%2Cimage&filters%5Bcompany%5D[id]';
-        const url = `${environment.apiUrl}form-templates?populate=${filetrs}=${id}`;
+    downloadPDF(data): Observable<Blob> {
+        const url = `${environment.apiUrl}pdf/generate`;
+        return this.http.post(url, data, { responseType: 'blob' });
+    }
+
+    savePDF(blob: Blob, filename: string): void {
+        saveAs(blob, filename);
+      }
+
+     /*-------------------------|
+        Templates Forms         |
+    --------------------------*/
+
+    templatesFormService(): Observable<Template> {
+        const url = `${environment.apiUrl}form-templates/all`;
         return this.http.get<Template>(url);
     }
 
@@ -193,7 +210,7 @@ export class ApiService {
     -------------------------*/
 
     assistantIdService(id): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants/${id}`;
+        const url = `${environment.apiUrl}assistant/${id}`;
         return this.http.get<Assistants>(url);
     }
 
@@ -203,22 +220,31 @@ export class ApiService {
     }
 
     assistantFormService(id): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants/${id}`;
+        const url = `${environment.apiUrl}assistant/form/${id}`;
         return this.http.get<Assistants>(url);
     }
 
     createAssistantService(data): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants`;
-        return this.http.post<Assistants>(url,data);
+        const url = `${environment.apiUrl}assistant`;
+        console.log('DATA INSERT ',data);
+        const formData = new FormData();
+        formData.append('body', JSON.stringify(data));  // Por ejemplo un campo de texto
+        if(data.file !== null || data.file !== undefined){
+            formData.append('file', data.file);
+        }
+        return this.http.post<Assistants>(url,formData);
     }
 
     updateAssitantService(data,id): Observable<Assistants> {
-        const url = `${environment.apiUrl}assistants/${id}`;
-        return this.http.put<Assistants>(url, data);
+        console.log('DATA  ',data);
+        const url = `https://forma-figma-api.vercel.app/assistant/${id}`;
+        //const url = `https://hxhc2v74-3000.use2.devtunnels.ms/assistant/${id}`;
+        //const url = `${environment.apiUrl}assistant/${id}`;
+        return this.http.put<Assistants>(url, data, { headers: { 'accept': '*/*' } });
     }
 
     deleteAssitantService(id): Observable<Assistants>{
-        const url = `${environment.apiUrl}assistants/${id}`;
+        const url = `${environment.apiUrl}assistant/${id}`;
         return this.http.delete<Assistants>(url);
     }
 

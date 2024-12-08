@@ -13,25 +13,22 @@
 
                             <div formGroupName="fieldsItems">
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('date') }}" formControlName="date" [required]="formInit.get('fieldsItems').controls['date'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['date']?.disabled" [validateFormSumt]="validate"></app-input-text>
                                     <app-input-text label="{{ filterParamValue('novetly') }}" formControlName="novetly" [required]="formInit.get('fieldsItems').controls['novetly'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['novetly']?.disabled" [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-date label="{{ filterParamValue('creationDate') }}" formControlName="creationDate" [required]="formInit.get('fieldsItems').controls['creationDate'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['creationDate']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-date>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
                                     <app-input-select [options]="activityTypeList" label="{{ filterParamValue('typeActivity') }}" formControlName="typeActivity" [required]="formInit.get('fieldsItems').controls['typeActivity'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['typeActivity']?.disabled"
                                         [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-text label="{{ filterParamValue('descriptionActivity') }}" formControlName="descriptionActivity" [required]="formInit.get('fieldsItems').controls['descriptionActivity'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['descriptionActivity']?.disabled"
+                                    <app-input-text label="{{ filterParamValue('nameCapacitation') }}" formControlName="nameCapacitation" [required]="formInit.get('fieldsItems').controls['nameCapacitation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['nameCapacitation']?.disabled"
                                         [validateFormSumt]="validate"></app-input-text>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 w-full">
-                                    <app-input-text label="{{ filterParamValue('nameCapacitation') }}" formControlName="nameCapacitation" [required]="formInit.get('fieldsItems').controls['nameCapacitation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['nameCapacitation']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select label="{{ filterParamValue('employee') }}" [options]="employeesList" formControlName="employee" [required]="formInit.get('fieldsItems').controls['employee'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['employee']?.disabled"
+                                    <app-input-select label="{{ filterParamValue('typeTrainer') }}" [options]="typeCapacitation" formControlName="typeTrainer" [required]="formInit.get('fieldsItems').controls['typeTrainer'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['typeTrainer']?.disabled"
                                         [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="{{ filterParamValue('trainerName') }}" formControlName="trainerName" [required]="formInit.get('fieldsItems').controls['trainerName'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['trainerName']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
-                                    <app-input-textarea label="{{ filterParamValue('objetiveCapacitation') }}" formControlName="objetiveCapacitation" [required]="formInit.get('fieldsItems').controls['objetiveCapacitation'].hasError('required')" rows="5" [disabled]="formInit.get('fieldsItems').controls['objetiveCapacitation']?.disabled"
+                                    <app-input-textarea label="{{ filterParamValue('objectiveCapacitation') }}" formControlName="objectiveCapacitation" [required]="formInit.get('fieldsItems').controls['objectiveCapacitation'].hasError('required')" rows="5" [disabled]="formInit.get('fieldsItems').controls['objectiveCapacitation']?.disabled"
                                         [validateFormSumt]="validate"></app-input-textarea>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-4 w-full">
@@ -41,17 +38,16 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 w-full">
                                     <app-input-date label="{{ filterParamValue('dateCapacitation') }}" formControlName="dateCapacitation" [required]="formInit.get('fieldsItems').controls['dateCapacitation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['dateCapacitation']?.disabled"
                                         [validateFormSumt]="validate"></app-input-date>
-                                    <app-input-select label="{{ filterParamValue('place') }}" [options]="placeList" formControlName="place" [required]="formInit.get('fieldsItems').controls['place'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['place']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-select label="{{ filterParamValue('startTime') }}" [options]="startTimeList" formControlName="startTime" [required]="formInit.get('fieldsItems').controls['startTime'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['startTime']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-text label="{{ filterParamValue('place') }}" formControlName="place" [required]="formInit.get('fieldsItems').controls['place'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['place']?.disabled" [validateFormSumt]="validate"></app-input-text>
+                                    <app-input-text label="{{ filterParamValue('startTime') }}" [options]="startTimeList" formControlName="startTime" [required]="formInit.get('fieldsItems').controls['startTime'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['startTime']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-text>
                                     <app-input-text label="{{ filterParamValue('duration') }}" formControlName="duration" [required]="formInit.get('fieldsItems').controls['duration'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['duration']?.disabled" [validateFormSumt]="validate"></app-input-text>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
-                                    <app-input-select label="{{ filterParamValue('peopleInvited') }}" [options]="numberPeopleInvitedList" formControlName="peopleInvited" [required]="formInit.get('fieldsItems').controls['peopleInvited'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['peopleInvited']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-select label="{{ filterParamValue('peopleAttending') }}" [options]="numberPeopleAttendingList" formControlName="peopleAttending" [required]="formInit.get('fieldsItems').controls['peopleAttending'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['peopleAttending']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-int label="{{ filterParamValue('peopleInvited') }}" (keyup)="attendancePercentage($event,'pi')" [options]="numberPeopleInvitedList" formControlName="peopleInvited" [required]="formInit.get('fieldsItems').controls['peopleInvited'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['peopleInvited']?.disabled" [validateFormSumt]="validate"></app-input-int>
+                                    <app-input-int label="{{ filterParamValue('peopleAttending') }}" (keyup)="attendancePercentage($event,'at')" [options]="numberPeopleAttendingList" formControlName="peopleAttending" [required]="formInit.get('fieldsItems').controls['peopleAttending'].hasError('required')"
+                                        [disabled]="formInit.get('fieldsItems').controls['peopleAttending']?.disabled" [validateFormSumt]="validate"></app-input-int>
                                     <app-input-text label="{{ filterParamValue('percentageAttendance') }}" formControlName="percentageAttendance" [required]="formInit.get('fieldsItems').controls['percentageAttendance'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['percentageAttendance']?.disabled"
                                         [validateFormSumt]="validate"></app-input-text>
                                 </div>
@@ -68,9 +64,9 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
                                     <app-input-select label="{{ filterParamValue('effectivenessEvaluation') }}" [options]="efficacyEvaluationList" formControlName="effectivenessEvaluation" [required]="formInit.get('fieldsItems').controls['effectivenessEvaluation'].hasError('required')"
                                         [disabled]="formInit.get('fieldsItems').controls['effectivenessEvaluation']?.disabled" [validateFormSumt]="validate"></app-input-select>
-                                    <app-input-text label="{{ filterParamValue('effectiveEvaluation') }}" formControlName="effectiveEvaluation" [required]="formInit.get('fieldsItems').controls['effectiveEvaluation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['effectiveEvaluation']?.disabled"
-                                        [validateFormSumt]="validate"></app-input-text>
-                                    <app-input-select label="{{ filterParamValue('generateImprovementActionEvaluation') }}" [options]="improvementActionActionList" formControlName="generateImprovementActionEvaluation" [required]="formInit.get('fieldsItems').controls['generateImprovementActionEvaluation'].hasError('required')"
+                                    <app-input-select label="{{ filterParamValue('effectiveEvaluation') }}" [options]="optionsList" formControlName="effectiveEvaluation" [required]="formInit.get('fieldsItems').controls['effectiveEvaluation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['effectiveEvaluation']?.disabled"
+                                        [validateFormSumt]="validate"></app-input-select>
+                                    <app-input-select label="{{ filterParamValue('generateImprovementActionEvaluation') }}" [options]="optionsList" formControlName="generateImprovementActionEvaluation" [required]="formInit.get('fieldsItems').controls['generateImprovementActionEvaluation'].hasError('required')"
                                         [disabled]="formInit.get('fieldsItems').controls['generateImprovementActionEvaluation']?.disabled" [validateFormSumt]="validate"></app-input-select>
                                     <app-input-date label="{{ filterParamValue('dateFollowUpDateEvaluation') }}" formControlName="dateFollowUpDateEvaluation" [required]="formInit.get('fieldsItems').controls['dateFollowUpDateEvaluation'].hasError('required')" [disabled]="formInit.get('fieldsItems').controls['dateFollowUpDateEvaluation']?.disabled"
                                         [validateFormSumt]="validate"></app-input-date>
@@ -86,6 +82,14 @@
                 </mat-tab>
                 <mat-tab label="{{ filterParamLabel('evidence') }}" class="sign">
                     <app-multimedia [items]="filesItems" searchPanel="true" formControlName="filesUpload" [disabled]="modView"></app-multimedia>
+                </mat-tab>
+                <mat-tab *ngIf="id" label="{{ filterParamLabel('reports') }}">
+                    <div (click)="generatePDF()" class="bg-card m-4 flex max-h-30 min-h-30 min-w-36 max-w-36 cursor-pointer flex-col items-center justify-center rounded border-2 p-4 ng-star-inserted">
+                        <div class="mb-3 flex items-center justify-center">
+                            <mat-icon svgIcon="mat_solid:picture_as_pdf"></mat-icon>
+                        </div>
+                        <div class="text-secondary break-all text-center text-sm"> Exportar PDF </div>
+                    </div>
                 </mat-tab>
             </mat-tab-group>
             <div *ngIf="modView" class="pl-18">

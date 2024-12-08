@@ -33,7 +33,7 @@ import { TableItems } from 'app/models/table/table-items';
         }
     ]
 })
-export class TablesItemsComponent extends DefaultInput implements AfterViewInit, OnInit {
+export class TablesItemsComponent extends DefaultInput implements  OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -74,8 +74,8 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
         super();
     }
 
-    ngAfterViewInit(): void {
-    }
+    /*ngAfterViewInit(): void {
+    }*/
 
     ngOnInit(): void {
         this.getItemsTable();
@@ -114,7 +114,7 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
     selectAutocomplte(items): void {
         const itemsSelect: any[] = [];
         items.forEach((item: any) =>
-            itemsSelect.push({ id: item?.id, name: item?.fullName }));
+            itemsSelect.push({ id: item?.uid, name: item?.fullName }));
         this.itemsAutoComplte = [...itemsSelect];
     }
 
@@ -123,16 +123,15 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
             const itemsSelect: any[] = [];
             await this.api.assistantFormService(this.formId).subscribe({
                 next: (response: any) => {
-                    response.data.forEach((item: any) => {
-                        this.assistantsForm = response.data;
+                    this.assistantsForm = response;
+                    response?.forEach((item: any) => {
                         itemsSelect.push({
-                            id: item.employee.id,
-                            name: this.function.setNameEmployee(item.employee.firstName, item.employee.secondName, item.employee.firstSurname, item.employee.secondSurname)
+                            id: item?.employee?.uid,
+                            name: item?.employee?.fullName
                         });
                         this.assistantsItems = [...itemsSelect];
                         if (this.elements) {
-                            this.elements = this.formatData(this.elements,23);
-                            //this.elements.forEach((item: any) => { item.isSigned === true ? item.isSigned = 'Firmo' : item.isSigned = 'No firmo'; });
+                            this.elements = this.formatData(this.elements);
                             this.addItemsTable(this.assistantsItems);
                         }
                     });
@@ -141,31 +140,29 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
         }
     }
 
-    formatData(elements: any, length: any): any {
-        const elementsData: any = [];
-        for (let i: number = 0; i < length; i++) {
-            elementsData.push(elements[i]);
-        }
-        for (let j: number = 0; j < length; j++) {
-            Object.assign(elementsData[j], { isSignature: this.assistantForm(elements[j].id) });
-        }
+    formatData(elements: any): any {
+        const elementsData: any[] = elements.map((element: any) => ({
+            ...element,
+            isSigned: this.assistantForm(element.uid),
+            idAssistant: this.assistantFormEmp(element.uid)
+        }));
+
         return elementsData;
     }
 
     assistantForm(idEmp): void{
-        const value = this.assistantsForm.filter((item: any) => item.employee.id === idEmp)
+        const value = this.assistantsForm.filter((item: any) => item.employee.uid === idEmp)
         .map((item: any) => item.isSigned);
+
         return value[0] === undefined ? false : value[0];
     }
 
-
-    /*onSubmit(): void {
-        if (this.formInit.value.selectAutoComplete) {
-            this.addItemsTable(this.formInit.value.selectAutoComplete);
-            const idEmployees = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
-            this.writeValue(idEmployees);
-        }
-    }*/
+    assistantFormEmp(idEmp): void{
+        const value = this.assistantsForm.filter((item: any) => item.employee.uid === idEmp)
+        .map((item: any) => item.id);
+        console.log('value ',value[0]);
+        return value[0] ? value[0] : '0';
+    }
 
     asignar(): void {
         if (this.formInit.value.selectAutoComplete) {
@@ -178,7 +175,7 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
 
     addItemsTable(items): void {
         const employeeId = items.map((item: any) => item.id);
-        const itemsSeleted = this.elements.filter(item => employeeId.includes(item.id));
+        const itemsSeleted = this.elements.filter(item => employeeId.includes(item.uid));
         this.configurationTable(itemsSeleted);
     }
 
@@ -214,17 +211,18 @@ export class TablesItemsComponent extends DefaultInput implements AfterViewInit,
     }
 
 
-    functionTable(id: any, namefunction: any): any {
+    functionTable(uid: any, namefunction: any): any {
         if (namefunction === 'isSignature') {
-            this.getPreview(id, this.formId);
+            const idAssistant =  this.assistantFormEmp(uid);
+            this.getPreview(idAssistant, this.formId);
         }
     }
 
-    getPreview(id, idForm): void {
+    getPreview(uid, idForm): void {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.width = '75%';
         dialogConfig.data = {
-            employee: id,
+            idAssistant: uid,
             idForm: idForm
         };
 

@@ -19,6 +19,7 @@ export class SignatureAssitantComponent implements OnInit {
     imageSignature: string = '';
     swaAlert = new SwalAlert();
     function: any = new Functions();
+    someProperty: boolean = false;
 
     formInit: any = this._formBuilder.group({
         isSigned: new FormControl(true),
@@ -37,20 +38,24 @@ export class SignatureAssitantComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.cdref.detectChanges();
+        //this.cdref.detectChanges();
+
+        /*setTimeout(() => {
+            this.someProperty = true;
+            this.cdref.detectChanges(); // Fuerza una nueva verificación de cambios
+          }, 0);*/
+
         this.asssitantId();
     }
 
     asssitantId(): void{
-        console.log(' form ',Number(this.data.idForm),' - ',this.data.employee);
-        this.api.assistantFormEmpService(Number(this.data.idForm),this.data.employee).subscribe({
+        this.api.assistantIdService(this.data.idAssistant).subscribe({
             next: (response: any) => {
-                console.log(' response ',response?.data[0]);
-                this.items = response?.data[0];
-                const employee = response?.data[0]?.employee;
+                this.items = response;
+                const employee = response?.employee;
                 this.fullName = employee?.fullName;
-                this.idAssitant = response?.data[0].id;
-                this.imageSignature = response?.data[0].signature ? this.urlImage(response?.data[0]?.signature.formats.thumbnail.url) : null;
+                this.idAssitant = response?.id;
+                this.imageSignature =  response?.signature?.url ?? '';
             }, error: (e: any) => console.log(e)
         });
     }
@@ -65,42 +70,30 @@ export class SignatureAssitantComponent implements OnInit {
 
     onSubmit(): void{
         if (this.formInit.value.signatureUpload) {
-            this.uploadSave(this.formInit.value.signatureUpload);
+            const request = {
+                'formId': this.items.form.id,
+                'employeeUid': this.items.employee.uid
+              };
+            this.uploadSave(this.formInit.value.signatureUpload,request);
         }
     }
 
-    async uploadSave(file): Promise<void> {
+    async uploadSave(file,data): Promise<void> {
         if (file) {
+            const formData = new FormData();
+            formData.append('file', file.get('files'));
+            formData.append('body', JSON.stringify(data));
+
             const form = this.formInit.value;
-            await this.api.uploadService(file).subscribe({
-                next: (data: any) => {
-                    if (data) {
-                        form.signature = data[0].id;
-                        this.formSave();
+            await this.api.updateAssitantService(formData,this.data.idAssistant).subscribe({
+                next: (response: any) => {
+                    if (response) {
+                            const toast = this.swaAlert.toast();
+                            this.closeModal();
+                            toast.fire({ icon: 'success', title: 'Firma guardada correctamente' }).then((() => {  }));
                     }
                 }, error: (e: any) => this.swaAlert.toastErrorUpload()
             });
         }
     }
-
-    async formSave(): Promise<void>{
-        await this.api.updateAssitantService(this.formInit.value,this.idAssitant)
-           .subscribe({
-              next: (item: any) => {
-                if(item){
-                    const toast = this.swaAlert.toast();
-                    this.closeModal();
-                    toast.fire({ icon: 'success', title: 'Firma guardada correctamente' }).then((() => {  }));
-                }
-              },error: (e: any) => this.swaAlert.toastErrorUpdate()
-           });
-    }
-
-    /*
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
-    }*/
-
 }
