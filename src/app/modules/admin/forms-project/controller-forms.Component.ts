@@ -181,7 +181,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
 
         this.validDeleFile();
         const uploadFiles = this.formInit?.value?.filesUpload?.filter((item: any) => item.id === null)
-            .map((item: any) => item.filesUploads ? item.filesUploads : null);
+                            .map((item: any) => item.filesUploads ? item.filesUploads : null);
         if (this.formInit?.value?.filesUpload) {
             if (uploadFiles[0] !== undefined) {
                 this.uploadSave(uploadFiles[0]);
@@ -273,21 +273,20 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     /*---- Approvals ---*/
 
     assignApprovals(idForm): void {
-        this.formInit.value.trainingApproval.forEach((element: any, i: number) => {
-            if (element.id && this.id) {
-                Object.assign(this.formInit.value.trainingApproval[i], { form: this.id });
-            } else {
-                Object.assign(this.formInit.value.trainingApproval[i], { form: idForm });
-            }
-        });
+        const approval = this.formInit.value?.trainingApproval || [];
+        const trainingApproval = approval
+                                      .map((item: any) => ({...item, formId: idForm })) || '';
         if (this.id) {
-            const idSelect = this.formInit.value.trainingApproval.map((item: any) => item.id);
-            const filterDelete = this.approvalsForm.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
+            const idSelect = trainingApproval?.map((item: any) => item.id);
+            const filterDelete = this.approvalsForm.filter((item: any) =>
+                                !idSelect?.includes(item.id))
+                                         .map((item: any) => item.id);
+
             filterDelete.forEach((element: any) => {
                 this.deleteApproval(element);
             });
         }
-        this.formInit.value.trainingApproval.forEach((request: any) => {
+        trainingApproval.forEach((request: any) => {
             this.saveApproval(request);
         });
     }
@@ -346,7 +345,6 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             await this.api.createAssistantService(request).subscribe({
                 next: (response) => {
                     if (response) {
-                        console.log('asistant CREATE ',response);
                         const toast = this.swaAlert.toast();
                         toast.fire({ icon: 'success', title: 'Asistentes  asignados correctamente' }).then((() => {
                             location.href = `/forms-project/${this.code.toLowerCase()}/edit/${idForm}`;
@@ -355,7 +353,6 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
         }
-
     }
 
     async deleteAssistant(id: number): Promise<void> {
@@ -378,17 +375,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         } else {
             observable = await this.api.createFormSevice(this.formInit.value);
         }
-
         observable.subscribe({
             next: (response: any) => {
                 if (response) {
-                    /*if (this.formInit.value.trainingApproval !== undefined && this.formInit.value.trainingApproval !== null) {
-                        if (this.formInit.value.trainingApproval.length > 0) {
-                            this.assignApprovals(response.id);
-                        }
-                    }*/
-
-                   this.validationAssitant(response.id);
+                    this.assignApprovals(response.id);
+                    this.validationAssitant(response.id);
 
                     const toast = this.swaAlert.toast();
                     toast.fire({ icon: 'success', title: 'Formulario guardado correctamente' }).then((() => {

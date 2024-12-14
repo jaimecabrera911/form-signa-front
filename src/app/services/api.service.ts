@@ -253,22 +253,22 @@ export class ApiService {
     -------------------------*/
 
     createApprovalService(data): Observable<any> {
-        const url = `${environment.apiUrl}approvals`;
+        const url = `${environment.apiUrl}approval`;
         return this.http.post<any>(url,data);
     }
 
     approvalFormService(id): Observable<any> {
-        const url = `${environment.apiUrl}approvals/${id}`;
+        const url = `${environment.apiUrl}approval/form/${id}`;
         return this.http.get<any>(url);
     }
 
     updateApprovalService(data,id): Observable<any> {
-        const url = `${environment.apiUrl}approvals/${id}`;
+        const url = `${environment.apiUrl}approval/${id}`;
         return this.http.put<any>(url, data);
     }
 
     deleteApprovalService(id): Observable<any>{
-        const url = `${environment.apiUrl}approvals/${id}`;
+        const url = `${environment.apiUrl}approval/${id}`;
         return this.http.delete<any>(url);
     }
 

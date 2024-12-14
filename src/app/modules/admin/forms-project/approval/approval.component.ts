@@ -75,10 +75,6 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         public datepipe: DatePipe,
         private _formBuilder: FormBuilder) {
         super();
-        /*if(this.disabled){
-            //this.formApproval.disable();
-            //this.formApproval.controls['data'].disable();
-        }*/
     }
 
 
@@ -91,10 +87,12 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     getItemsTable(): void {
-        this.api.employeesManagerService().subscribe({
+        this.api.employeesService().subscribe({
             next: (elements: any) => {
-                if (elements.data) {
-                    this.elements = this.function.validateResponse(elements.data);
+                if (elements) {
+                    const isManagener = elements.filter((item: any) => item.isManager === true);
+                    this.elements = isManagener;
+                    this.elements = this.function.validateResponse(this.elements);
                     this.elements.forEach((item: any) => { item.enabled ? item.enabled = 'Activo' : item.enabled = 'Inactivo'; });
                     this.selectAutocomplte(this.elements);
                     if (this.formId) {
@@ -110,17 +108,19 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
             const itemsSelect: any[] = [];
             this.api.approvalFormService(this.formId).subscribe({
                 next: (response: any) => {
-                    this.approvalsForm = response.data;
-                    response?.data?.forEach((item: any) => {
+                    const formatEmployeee = response
+                                      .map((item: any) => ({...item, employeeId: item.employee.uid }) );
+                    this.approvalsForm = response;
+                    response?.forEach((item: any) => {
                         itemsSelect.push({
-                            id: item?.employee?.id,
+                            id: item?.employee?.uid,
                             name: item?.employee?.fullName
                         });
                     });
                     this.approvalsItems = [...itemsSelect];
                     if (this.approvalsItems) {
                         this.formInit.value.selectAutoComplete = this.approvalsItems;
-                        this.editarAsignar(response.data);
+                        this.editarAsignar(this.approvalsForm);
                     }
 
                 }, error: (e: any) => console.log('')
@@ -131,17 +131,17 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     selectAutocomplte(items): void {
         const itemsSelect: any[] = [];
         items.forEach((item: any) =>
-            itemsSelect.push({ id: item.id, name: this.function.setNameEmployee(item.firstName, item.secondName, item.firstSurname, item.secondSurname) }));
+            itemsSelect.push({ id: item.uid, name: item.fullName }));
         this.itemsAutoComplte = [...itemsSelect];
     }
 
     formData(empId, empName): FormGroup {
         return this._formBuilder.group({
             id: new FormControl(null),
-            employee: new FormControl(empId),
+            employeeId: new FormControl(empId),
             employeeName: new FormControl({ value: empName, disabled: true }),
             state: new FormControl('pendiente'),
-            reason: new FormControl(''),
+            reason: new FormControl(),
             createdAt: new FormControl(null),
             enabled: new FormControl(true),
             observations: new FormControl()
@@ -150,9 +150,8 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     addDataGroup(empId, empName): void {
         this.itemsAprv = this.formApproval.get('data') as FormArray;
-        this.deleteDataGroup();
-        const data = this.formApproval.get('data').value.filter((item: any) => item.employee === empId);
-        if (!data[0]) {
+        const data = this.formApproval.get('data').value.filter((item: any) => item.employeeId === empId);
+        if (data.length <= 0) {
             this.itemsAprv.push(this.formData(empId, empName));
         }
         this.addFormValue();
@@ -164,10 +163,8 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     deleteDataGroup(): void {
         const idSelect = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
-        console.log('idSelect ',idSelect);
-        const filterDelete = this.formApproval.get('data').value.filter((item: any) => !idSelect.includes(item.employee)).map((item: any) => item.employee);
-        const filterEditDelete = this.approvalsItems.filter((item: any) => !idSelect.includes(item.id)).map((item: any) => item.id);
-        if (filterDelete[0] || filterDelete[0] !== undefined) {
+        const filterDelete = this.formApproval.get('data').value.filter((item: any) => !idSelect.includes(item.employeeId)).map((item: any) => item.employeeId);
+        if (filterDelete.length > 0) {
             const index = this.formApproval.get('data').value.findIndex(item => item.employee === filterDelete[0]);
             const add = this.formApproval.get('data') as FormArray;
             add.removeAt(index);
@@ -178,12 +175,12 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
             this.addDataGroup(element.id, element.name);
         });
+        this.deleteDataGroup();
     }
 
     editarAsignar(items): void {
         items.forEach((element: any, i: number) => {
-            this.editDataGroup(element.id, element.employee.id,
-                element.employee.fullName,
+            this.editDataGroup(element.id, element.employee.uid, element.employee.fullName,
                 element.state, element.reason, element.observations, element.createdAt);
         });
     }
@@ -194,11 +191,10 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     formEditData(id, empId, empName, state, reason, observations, createdAt): FormGroup {
-        //console.log('disable ', this.disabled);
         return this._formBuilder.group({
             id: new FormControl({ value: id, disabled: false }),
-            employee: new FormControl({ value: empId, disabled: true }),
-            employeeName: new FormControl({ value: empName, disabled: true }),
+            employeeId: new FormControl({ value: empId, disabled: false }),
+            employeeName: new FormControl({ value: empName, disabled: false }),
             state: new FormControl({ value: state, disabled: false }),
             reason: new FormControl({ value: reason, disabled: false }),
             createdAt: new FormControl({ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }),
