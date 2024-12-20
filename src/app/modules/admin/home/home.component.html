@@ -20,9 +20,12 @@
             </div>
         </div>
     </div>
-    <div class="mt-4 mx-36">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 ">
+    <div class="mt-4 mx-32">
+        <h1 class="py-4 text-black text-lg">Proyectos</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 w-full min-w-0 ">
             <!-- Overdue -->
+
+            <!---
             <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
                 <div class="flex flex-col items-center mt-2 ">
                     <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500 ">
@@ -35,43 +38,81 @@
                     </div>
                 </div>
             </div>
+            -->
 
-            <!-- Summary -->
-            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+            <!-- Active -->
+            <div *ngIf="reportProjects?.active" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
                 <div class="flex flex-col items-center mt-2 ">
                     <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500 ">
-                        21
+                        {{ reportProjects?.active?.count }}
                     </div>
-                    <div class="text-lg font-medium text-blue-600 dark:text-blue-500 ">Formularios</div>
-                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
-                        <div class="text-md font-medium truncate ">Devueltos:</div>
-                        <div class="ml-1.5 text-lg font-semibold ">13</div>
-                    </div>
+                    <div class="text-lg font-medium text-blue-600 dark:text-blue-500 ">{{ reportProjects?.active?.state }}</div>
                 </div>
             </div>
 
-            <!-- Issues -->
-            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+            <!-- Pending -->
+            <div *ngIf="reportProjects?.pending" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
                 <div class="flex flex-col items-center mt-2 ">
                     <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500 ">
-                        24</div>
-                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500 ">Formularios</div>
+                        {{ reportProjects?.pending?.count }}</div>
+                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500 ">{{ reportProjects?.pending?.state }}</div>
+                </div>
+            </div>
+
+            <!-- Completed -->
+            <div *ngIf="reportProjects?.completed" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500 ">
+                        {{ reportProjects?.completed?.count }}</div>
+                    <div class="text-lg font-medium text-green-600 dark:text-green-500 ">{{ reportProjects?.completed?.state }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 mx-32">
+        <h1 class="py-4 text-black text-lg">Formularios</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 w-full min-w-0 ">
+            <!-- Overdue -->
+            <!---
+            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500 ">
+                        17
+                    </div>
+                    <div class="text-lg font-medium text-red-600 dark:text-red-500 ">Formularios</div>
                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
-                        <div class="text-md font-medium truncate ">Sin firmar:</div>
-                        <div class="ml-1.5 text-lg font-semibold ">19</div>
+                        <div class="text-md font-medium truncate ">Incompletos</div>
+                        <div class="ml-1.5 text-lg font-semibold ">9</div>
                     </div>
                 </div>
             </div>
-            <!-- Features -->
-            <div class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+            -->
+
+            <!-- Active -->
+            <div *ngIf="reportForms?.created" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500 ">
+                        {{ reportForms?.created?.count }}
+                    </div>
+                    <div class="text-lg font-medium text-blue-600 dark:text-blue-500 ">{{ reportForms?.created?.state }}</div>
+                </div>
+            </div>
+
+            <!-- Pending -->
+            <div *ngIf="reportForms?.pending" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
+                <div class="flex flex-col items-center mt-2 ">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500 ">
+                        {{ reportForms?.pending?.count }}</div>
+                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500 ">{{ reportForms?.pending?.state }}</div>
+                </div>
+            </div>
+
+            <!-- Completed -->
+            <div *ngIf="reportForms?.completed" class="flex flex-col flex-auto p-5 bg-card shadow rounded-2xl overflow-hidden ">
                 <div class="flex flex-col items-center mt-2 ">
                     <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500 ">
-                        38</div>
-                    <div class="text-lg font-medium text-green-600 dark:text-green-500 ">Formularios</div>
-                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
-                        <div class="text-md font-medium truncate ">completos:</div>
-                        <div class="ml-1.5 text-lg font-semibold ">16</div>
-                    </div>
+                        {{ reportForms?.completed?.count }}</div>
+                    <div class="text-lg font-medium text-green-600 dark:text-green-500 ">{{ reportForms?.completed?.state }}</div>
                 </div>
             </div>
         </div>

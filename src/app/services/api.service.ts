@@ -31,12 +31,15 @@ export class ApiService {
         Auth                 |
     ------------------------*/
 
-    login(identifier: string, password: string): Observable<any> {
-        const url = `${environment.apiUrl}auth/local`;
-        return this.http.post<any>(url, { identifier, password });
+    login(email: string, password: string): Observable<any> {
+        const url = `${environment.apiUrl}auth/signin`;
+        return this.http.post<any>(url, { email, password });
     }
 
-
+    getAuthMe(): Observable<any> {
+        const url = `${environment.apiUrl}auth/me`;
+        return this.http.get<any>(url);
+    }
 
     /*-------------------------|
         projects               |
@@ -91,8 +94,8 @@ export class ApiService {
         return this.http.get<Employee>(url);
     }
 
-    employeUsernameService(user: string): Observable<Employee> {
-        const url = `${environment.apiUrl}employees?populate=profilePicture%2Ccompany%2Cuser%2Csignature&filters%5Busername%5D=${user}`;
+    employeEmailService(email: string): Observable<Employee> {
+        const url = `${environment.apiUrl}employees/search?email=${email}`;
         return this.http.get<Employee>(url);
     }
 
@@ -226,7 +229,6 @@ export class ApiService {
 
     createAssistantService(data): Observable<Assistants> {
         const url = `${environment.apiUrl}assistant`;
-        console.log('DATA INSERT ',data);
         const formData = new FormData();
         formData.append('body', JSON.stringify(data));  // Por ejemplo un campo de texto
         if(data.file !== null || data.file !== undefined){
@@ -427,6 +429,20 @@ export class ApiService {
 
     dataFieldIdService(id: string): Observable<any> {
         const url = `${environment.apiUrl}data/${id}`;
+        return this.http.get<any>(url);
+    }
+
+     /*-------------------------|
+           Reports              |
+    --------------------------*/
+
+    reportProjectsService(): Observable<any> {
+        const url = `${environment.apiUrl}reports/project`;
+        return this.http.get<any>(url);
+    }
+
+    reportFormsService(): Observable<any> {
+        const url = `${environment.apiUrl}reports/form`;
         return this.http.get<any>(url);
     }
 

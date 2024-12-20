@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 //import { AuthService } from 'app/core/auth/auth.service';
-import { AuthService } from '../../../security-auth/auth.service';
+import { AuthenticationService } from '../../../security-auth/authentication.service';
 import { ApiService } from 'app/services/api.service';
 
 import { Observable } from 'rxjs';
@@ -33,8 +33,7 @@ export class AuthSignInComponent implements OnInit {
      */
     constructor(
         private _activatedRoute: ActivatedRoute,
-        //private _authService: AuthService,
-        private authService: AuthService,
+        private authService: AuthenticationService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _login: LoginService,
@@ -53,7 +52,7 @@ export class AuthSignInComponent implements OnInit {
         // Create the form
         //this.getCompanies();
         this.signInForm = this._formBuilder.group({
-            identifier: ['', [Validators.required]],
+            email: ['', [Validators.required]],
             password: ['', Validators.required],
             rememberMe: ['']
         });
@@ -83,9 +82,11 @@ export class AuthSignInComponent implements OnInit {
         }
         this.signInForm.disable();
         this.showAlert = false;
-        this.api.login(data.identifier, data.password)
+        console.log('email :: ',data.email,' password :: ', data.password);
+        this.api.login(data.email, data.password)
             .subscribe({
                 next: (response: any) => {
+                    console.log('response :: ',response);
                     this.signinSuccess(response);
                 }, error: (error: any) => this.signInError(error)
             });
@@ -95,7 +96,7 @@ export class AuthSignInComponent implements OnInit {
      *  Sign Success
      */
     signinSuccess(success: any): void {
-        this._login.loginSuccess(success);
+        this._login.loginSuccess(success.accessToken);
         this.alert = { type: 'success', message: 'Usuario verificado' };
         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('/');
         this._router.navigateByUrl(redirectURL);

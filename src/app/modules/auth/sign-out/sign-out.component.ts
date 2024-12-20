@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, Subject, takeUntil, takeWhile, tap, timer } from 'rxjs';
 //import { AuthService } from 'app/core/auth/auth.service';
-import { AuthService } from 'app/security-auth/auth.service';
 import { LoginService } from 'app/services/login.service';
 
 @Component({

@@ -1,27 +1,38 @@
 import { Injectable } from '@angular/core';
-//import {Login} from 'app/models/login';
 import { environment } from '../../environments/environment';
-import { ApiService } from './api.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionService {
 
-    private token: string | null = null;
+    private tokenJWT: string | null = null;
+    private tokenDecodeJWT: any | null = '';
 
-    constructor(private api: ApiService) {
+
+    constructor() {
     }
 
-    create(login: any): void {
-        localStorage.setItem(environment.cookieName, JSON.stringify(login));
-        this.token = login.jwt;
-        if (this.token) {
-            localStorage.setItem('token', this.token);
-            localStorage.setItem('username', login.user.username);
+    create(token: any): void {
+        this.tokenJWT = token;
+        this.tokenDecodeJWT = this.decodeToken(token);
+        localStorage.setItem(environment.cookieName, JSON.stringify(this.tokenDecodeJWT));
+        if (this.tokenJWT) {
+            localStorage.setItem('token', this.tokenJWT);
         }
     }
 
+
+    decodeToken(token: string): any {
+        try {
+          const decoded = jwtDecode(token); // Add type annotation for jwt_decode
+          return decoded;
+        } catch (error) {
+          console.error('Error al decodificar el token', error);
+          return null;
+        }
+    }
 
     get(): any | null {
         const session = localStorage.getItem(environment.cookieName);
@@ -32,44 +43,28 @@ export class SessionService {
         return null;
     }
 
-    getEmployee(): any | null {
-        const session = localStorage.getItem(environment.cookieNameEmp);
-        if (session) {
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            return <any>JSON.parse(session);
-        }
-        return null;
-    }
 
     getToken(): string {
-        if (!this.token) {
+        if (!this.tokenJWT) {
             const storedToken = localStorage.getItem('token');
             if (storedToken) {
-                this.token = storedToken;
+                this.tokenJWT = storedToken;
             } else {
-                this.token = ''; // Proveer un valor por defecto o manejar el caso de token no disponible
+                this.tokenJWT = ''; // Proveer un valor por defecto o manejar el caso de token no disponible
             }
         }
-        return this.token;
+        return this.tokenJWT;
     }
 
     validLoggedIn(): boolean {
-        const user = this.getToken();
-        this.createEmployee();
-        return (user.length > 0) ? true : false;
+        const token = this.getToken();
+        return (token.length > 0) ? true : false;
     }
 
-    createEmployee(): void {
-        const username: any = localStorage.getItem('username');
-        this.api.employeUsernameService(username).subscribe({
-            next: (response: any) => {
-                localStorage.setItem(environment.cookieNameEmp, JSON.stringify(response.data));
-            }, error: (e: any) => console.log(e)
-        });
-    }
+
 
     logout(): void {
-        this.token = null;
+        this.tokenJWT = null;
         localStorage.removeItem('token');
         localStorage.removeItem(environment.cookieName);
     }

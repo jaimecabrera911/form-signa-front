@@ -4,7 +4,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
-import { AuthService } from 'app/security-auth/auth.service';
+//import { AuthService } from 'app/security-auth/authentication.service';
 import { LoginService } from 'app/services/login.service';
 
 @Component({
@@ -49,8 +49,7 @@ export class UserComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.username = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.fullName : 'Cargando' ;
-
+        this.username = this.login.currentUserValue ? this.login?.currentUserValue?.fullName : '' ;
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((user: User) => {
@@ -61,7 +60,7 @@ export class UserComponent implements OnInit, OnDestroy
     }
 
     profile(): void
-    {   const id = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.id : 0 ;
+    {   const id = this.login.currentUserValue ? this.login?.currentUserValue?.uid : 0 ;
         this._router.navigate(['/employees/edit/',id]);
     }
 

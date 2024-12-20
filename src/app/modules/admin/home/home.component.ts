@@ -3,13 +3,12 @@ import {
     Input,
     ViewChild,
     OnInit,
-    HostListener,
-    AfterViewInit,
     ElementRef
   } from '@angular/core';
 import { Path } from 'app/components/routers/path';
+import { ApiService } from 'app/services/api.service';
 import { LoginService } from 'app/services/login.service';
-import { environment } from 'environments/environment';
+
 
 @Component({
   selector: 'app-home',
@@ -30,17 +29,54 @@ export class HomeComponent implements OnInit {
     searchPanel: boolean = false;
     user: any;
     profilePicture: any;
+    reportForms: any = {};
+    reportProjects: any = {};
 
     constructor(
-        private login: LoginService
+        private login: LoginService,
+        protected api: ApiService,
     ){}
 
     ngOnInit(): void {
-        this.user = this.login.currentEmployeeValue ? this.login?.currentEmployeeValue[0]?.firstName : 'Cargando' ;
-        this.profilePicture = this.login.currentEmployeeValue ? this.urlImage(this.login?.currentEmployeeValue[0]?.profilePicture.url) : 'Cargando' ;
+        console.log(this.login?.currentUserValue);
+        this.user = this.login?.currentUserValue.fullName ?? '' ;
+        this.profilePicture = this.login.currentUserValue ? this.urlImage(this.login?.currentUserValue?.profilePicture) : 'Cargando' ;
+        this.getReportsProject();
+        this.getReportForms();
     }
 
-    urlImage(url: any): string {
-        return url ? environment.urlApp + url : `${environment.urlApp}/src/assets/images/avatars/user.png`;
+    getReportsProject(): void {
+        this.api.reportProjectsService().subscribe({
+            next: (response: any) => {
+                this.getFormatReportProjects(response);
+            }, error: (e: any) => console.log(e)
+        });
+    }
+
+    getFormatReportProjects(response: any): void{
+        const reportComplete = response.filter((items: any) => items.state === 'completed') || 0;
+        const reportActive = response.filter((items: any) => items.state === 'active') || 0;
+        const reportPending = response.filter((items: any) => items.state === 'pending') || 0;
+        this.reportProjects = { completed: reportComplete[0], active: reportActive[0], pending: reportPending[0]};
+    }
+
+    getReportForms(): void {
+        this.api.reportFormsService().subscribe({
+            next: (response: any) => {
+                this.getFormatReportForms(response);
+            }, error: (e: any) => console.log(e)
+        });
+    }
+
+
+    getFormatReportForms(response: any): void{
+        const reportCreated = response.filter((items: any) => items.state === 'created') || 0;
+        const reportComplete = response.filter((items: any) => items.state === 'completed') || 0;
+        const reportPending = response.filter((items: any) => items.state === 'pending') || 0;
+        this.reportForms = { created: reportCreated[0] || 0, completed: reportComplete[0] || 0, pending: reportPending[0] || 0};
+    }
+
+    urlImage(url: any): any {
+        return url ? url : '../../../../assets/images/avatars/user.png';
     }
 }

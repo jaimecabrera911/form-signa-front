@@ -35,8 +35,8 @@
                     <!-- Email field -->
                     <label>Usuario</label>
                     <mat-form-field class="w-full">
-                        <input id="email" matInput [formControlName]="'identifier'">
-                        <mat-error *ngIf="signInForm.get('identifier').hasError('required')">
+                        <input id="email" matInput [formControlName]="'email'">
+                        <mat-error *ngIf="signInForm.get('email').hasError('required')">
                             Usuario es Obligatorio
                         </mat-error>
                     </mat-form-field>
@@ -44,6 +44,7 @@
                     <label>Contraseña</label>
                     <mat-form-field class="w-full">
                         <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
+                        <!---
                         <button mat-icon-button type="button" (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'" matSuffix>
                             <mat-icon
                                 class="icon-size-5"
@@ -54,6 +55,7 @@
                                 *ngIf="passwordField.type === 'text'"
                                 [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                         </button>
+                        -->
                         <mat-error>
                             Contraseña es obligatoria
                         </mat-error>
