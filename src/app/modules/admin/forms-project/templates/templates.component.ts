@@ -32,9 +32,9 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.changeDetectorRef.detectChanges();
         this.api.templatesFormService().subscribe({
-            next: (elements: any) => {
-                if (elements.data) {
-                    this.items = elements.data;
+            next: (response: any) => {
+                if (response) {
+                    this.items = response;
                     this.onLoad(this.items);
                 }
             }, error: (e: any) => console.error(e)
@@ -49,8 +49,8 @@ export class TemplatesComponent implements OnInit, OnDestroy {
 
     preview(id: string): void{
         const items: any = this.items.filter((item: any) => item.code === id);
-        this.templatePreview = items[0];
-        const urlImage = `${environment.urlApp}${items[0].image.formats.small.url}`;
+        this.templatePreview = items;
+        const urlImage = `${items[0]?.image?.url}`;
         Object.assign(this.templatePreview, { urlImage: urlImage });
     }
 

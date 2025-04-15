@@ -6,6 +6,7 @@ import { ControllerFormsComponent } from '../controller-forms.Component';
 import { DatePipe } from '@angular/common';
 import { Functions } from 'app/components/functions/functions';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'app/services/login.service';
 
 @Component({
     selector: 'app-sgfr76',
@@ -31,9 +32,10 @@ export class Sgfr76Component extends ControllerFormsComponent implements OnInit 
         protected activatedRouter: ActivatedRoute,
         public datepipe: DatePipe,
         protected matDialog: MatDialog,
+        protected login: LoginService,
         protected api: ApiService
     ) {
-        super(_formBuilder, matDialog, api);
+        super(_formBuilder, matDialog, login, api);
     }
 
     ngOnInit(): void {

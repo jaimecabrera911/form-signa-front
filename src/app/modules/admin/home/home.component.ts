@@ -33,13 +33,12 @@ export class HomeComponent implements OnInit {
     reportProjects: any = {};
 
     constructor(
-        private login: LoginService,
+        protected login: LoginService,
         protected api: ApiService,
     ){}
 
     ngOnInit(): void {
-        console.log(this.login?.currentUserValue);
-        this.user = this.login?.currentUserValue.fullName ?? '' ;
+        this.user = this.login?.currentUserValue?.fullName ?? '' ;
         this.profilePicture = this.login.currentUserValue ? this.urlImage(this.login?.currentUserValue?.profilePicture) : 'Cargando' ;
         this.getReportsProject();
         this.getReportForms();

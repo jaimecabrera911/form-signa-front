@@ -1,11 +1,13 @@
+import { Employee } from './../../../../models/employee';
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, ViewChild, ContentChildren, AfterViewInit, forwardRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { DefaultInput } from 'app/components/crm-form/default-input';
 import { Functions } from 'app/components/functions/functions';
 import { TableItems } from 'app/models/table/table-items';
 import { ApiService } from 'app/services/api.service';
+import { LoginService } from 'app/services/login.service';
 
 @Component({
     selector: 'app-approval',
@@ -73,6 +75,7 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     constructor(protected api: ApiService,
         public datepipe: DatePipe,
+        protected login: LoginService,
         private _formBuilder: FormBuilder) {
         super();
     }
@@ -82,8 +85,8 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     ngOnInit(): void {
+        this.itemsAprv = this.formApproval.get('data') as FormArray;
         this.getItemsTable();
-
     }
 
     getItemsTable(): void {
@@ -105,27 +108,27 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
 
     getApprovalsId(): void {
         if (this.formId) {
-            const itemsSelect: any[] = [];
             this.api.approvalFormService(this.formId).subscribe({
                 next: (response: any) => {
-                    const formatEmployeee = response
-                                      .map((item: any) => ({...item, employeeId: item.employee.uid }) );
-                    this.approvalsForm = response;
-                    response?.forEach((item: any) => {
-                        itemsSelect.push({
-                            id: item?.employee?.uid,
-                            name: item?.employee?.fullName
-                        });
-                    });
-                    this.approvalsItems = [...itemsSelect];
-                    if (this.approvalsItems) {
-                        this.formInit.value.selectAutoComplete = this.approvalsItems;
-                        this.editarAsignar(this.approvalsForm);
-                    }
-
+                    this.assignSelectAutocomplte(response);
+                    this.validateApproval();
                 }, error: (e: any) => console.log('')
             });
         }
+    }
+
+    disableControl(index: number): void {
+        this.itemsAprv.controls[index].disable();
+    }
+
+    validateApproval(): void{
+        const list = this.formApproval.controls['data'].value;
+        list.forEach((item: any) => {
+            const findIndex = list.findIndex(emp => emp.employeeId === item.employeeId);
+                if(item.employeeId !== this.login?.currentUserValue?.uid){
+                    this.disableControl(findIndex);
+                }
+            });
     }
 
     selectAutocomplte(items): void {
@@ -135,13 +138,29 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
         this.itemsAutoComplte = [...itemsSelect];
     }
 
+    assignSelectAutocomplte(response: any): void{
+        const itemsSelect: any[] = [];
+        this.approvalsForm = response;
+        response?.forEach((item: any) => {
+            itemsSelect.push({
+                id: item?.employee?.uid,
+                name: item?.employee?.fullName
+            });
+        });
+        this.approvalsItems = [...itemsSelect];
+        if (this.approvalsItems) {
+            this.formInit.value.selectAutoComplete = this.approvalsItems;
+            this.editarAsignar(this.approvalsForm);
+        }
+    }
+
     formData(empId, empName): FormGroup {
         return this._formBuilder.group({
             id: new FormControl(null),
             employeeId: new FormControl(empId),
             employeeName: new FormControl({ value: empName, disabled: true }),
             state: new FormControl('pendiente'),
-            reason: new FormControl(),
+            reason: new FormControl('',Validators.required),
             createdAt: new FormControl(null),
             enabled: new FormControl(true),
             observations: new FormControl()
@@ -149,34 +168,34 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     addDataGroup(empId, empName): void {
-        this.itemsAprv = this.formApproval.get('data') as FormArray;
-        const data = this.formApproval.get('data').value.filter((item: any) => item.employeeId === empId);
-        if (data.length <= 0) {
+        const data = this.itemsAprv.controls
+                        .filter((item: any) => item.value.employeeId === empId)
+                        .map((item: any) => item.value);
+        if (data.length === 0) {
             this.itemsAprv.push(this.formData(empId, empName));
         }
         this.addFormValue();
     }
 
     addFormValue(): void {
-        this.writeValue(this.formApproval.get('data').value);
+        const itemsApprovals: any[] = [];
+        this.itemsAprv.controls.forEach( (item: any) => itemsApprovals.push(item.value));
+        this.writeValue(itemsApprovals);
     }
 
     deleteDataGroup(): void {
         const idSelect = this.formInit.value.selectAutoComplete.map((item: any) => item.id);
-        const filterDelete = this.formApproval.get('data').value.filter((item: any) => !idSelect.includes(item.employeeId)).map((item: any) => item.employeeId);
+        const filterDelete = this.itemsAprv.controls
+                                .filter((item: any) => !idSelect.includes(item.value.employeeId))
+                                .map((item: any) => item.value.employeeId);
         if (filterDelete.length > 0) {
-            const index = this.formApproval.get('data').value.findIndex(item => item.employee === filterDelete[0]);
+            const index = this.itemsAprv.controls
+                                .findIndex(item => item.value.employeeId === filterDelete[0]);
             const add = this.formApproval.get('data') as FormArray;
             add.removeAt(index);
         }
     }
 
-    asignar(): void {
-        this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
-            this.addDataGroup(element.id, element.name);
-        });
-        this.deleteDataGroup();
-    }
 
     editarAsignar(items): void {
         items.forEach((element: any, i: number) => {
@@ -186,8 +205,7 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
     }
 
     editDataGroup(id, empId, empName, state, reason, observations, createdAt): void {
-        const itemsAprv = this.formApproval.get('data') as FormArray;
-        itemsAprv.push(this.formEditData(id, empId, empName, state, reason, observations, createdAt));
+        this.itemsAprv.push(this.formEditData(id, empId, empName, state, reason, observations, createdAt));
     }
 
     formEditData(id, empId, empName, state, reason, observations, createdAt): FormGroup {
@@ -196,10 +214,17 @@ export class ApprovalComponent extends DefaultInput implements AfterViewInit, On
             employeeId: new FormControl({ value: empId, disabled: false }),
             employeeName: new FormControl({ value: empName, disabled: false }),
             state: new FormControl({ value: state, disabled: false }),
-            reason: new FormControl({ value: reason, disabled: false }),
+            reason: new FormControl({ value: reason, disabled: false }, Validators.required),
             createdAt: new FormControl({ value: this.datepipe.transform(createdAt, 'yyyy-MM-dd'), disabled: true }),
             observations: new FormControl(observations)
         });
+    }
+
+    asignar(): void {
+        this.formInit.value.selectAutoComplete.forEach((element: any, i: number) => {
+            this.addDataGroup(element.id, element.name);
+        });
+        this.deleteDataGroup();
     }
 
 }

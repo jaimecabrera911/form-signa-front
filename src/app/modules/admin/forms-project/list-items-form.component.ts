@@ -180,9 +180,11 @@ export abstract class ListItemsFormComponent  implements OnInit {
     }
 
     async getTypeStairs(): Promise<void> {
+        console.log('starts ');
         await  this.api.dataFieldIdService('typeStairs').subscribe({
-            next: (response: any) => {
-                this.typeStairs = response?.values;
+            next: (items: any) => {
+                console.log('starts ',items);
+                this.typeStairs = this.formatSelectData(items);
             }, error: (e: any) => console.error(e)
         });
     }

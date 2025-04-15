@@ -5,6 +5,7 @@ import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ApiService } from 'app/services/api.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'app/services/login.service';
 @Component({
     selector: 'app-sgfr32',
     templateUrl: './sgfr32.component.html',
@@ -19,9 +20,10 @@ export class Sgfr32Component extends ControllerFormsComponent implements OnInit 
         protected _formBuilder: FormBuilder,
         protected activatedRouter: ActivatedRoute,
         protected matDialog: MatDialog,
-        protected api: ApiService
+        protected api: ApiService,
+        protected login: LoginService
     ) {
-        super(_formBuilder, matDialog, api);
+        super(_formBuilder, matDialog,login, api);
     }
 
     override ngOnInit(): void {

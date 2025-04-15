@@ -10,7 +10,7 @@ import { Functions } from 'app/components/functions/functions';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SignatureAssitantComponent } from '../signature-assitant/signature-assitant.component';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { LoginService } from 'app/services/login.service';
 @Component({
     selector: 'app-sgfr56',
     templateUrl: './sgfr56.component.html',
@@ -36,9 +36,10 @@ export class Sgfr56Component extends ControllerFormsComponent implements OnInit 
         protected activatedRouter: ActivatedRoute,
         public datepipe: DatePipe,
         protected matDialog: MatDialog,
+        protected login: LoginService,
         protected api: ApiService
     ) {
-        super(_formBuilder, matDialog, api);
+        super(_formBuilder, matDialog,login, api);
     }
 
     override ngOnInit(): void {

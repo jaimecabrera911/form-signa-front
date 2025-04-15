@@ -286,8 +286,12 @@ input[type="text"]:disabled {
     background: #CADAF6;
 }
 
-.mat-form-field-disabled {
-    .mat-form-field-flex {
+.mat-select-disabled .mat-select-value {
+    background-color: #CADAF6 !important;
+}
+
+.light .mat-form-field-appearance-fill.mat-form-field-disabled, .mat-form-field-disabled{
+    .mat-form-field-flex{
         background-color: #CADAF6 !important;
     }
 }

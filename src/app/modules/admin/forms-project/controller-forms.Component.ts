@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { ListItemsFormComponent } from './list-items-form.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalImageComponent } from '@fuse/components/modal-image/modal-image.component';
+import { LoginService } from 'app/services/login.service';
 
 const typeValues = [
     { id: 1, value: 'string' },
@@ -64,7 +65,8 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
     constructor(
         protected _formBuilder: FormBuilder,
         protected matDialog: MatDialog,
-        protected api: ApiService
+        protected login: LoginService,
+        protected api: ApiService,
     ) {
         super(api);
     }
@@ -112,6 +114,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
                     this.getForm();
                     this.getAssistantsId();
                     this.getApprovalsId();
+                    this.validateApproval(response?.employee?.uid);
                 }, error: (e: any) => this.swaAlert.toastErrorUpdate()
             });
 
@@ -126,6 +129,13 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             this.formInit.disable();
             this.formInit.controls['data'].disable();
             this.modView = false;
+        }
+    }
+
+    validateApproval(employeeUid: any): void{
+        if(this.login?.currentUserValue?.uid !== employeeUid){
+            this.formInit.disable();
+            this.formInit?.controls['data'].disable();
         }
     }
     async generatePDF(): Promise<void> {
@@ -287,7 +297,11 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
             });
         }
         trainingApproval.forEach((request: any) => {
-            this.saveApproval(request);
+            if(request.id === null || this.login?.currentUserValue?.uid === request.employeeId){
+                console.log('request', request);
+                console.log('request', this.login?.currentUserValue?.uid, ' request :',request.employeeId);
+                this.saveApproval(request);
+            }
         });
     }
 
@@ -324,17 +338,18 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         form.assistants = form.assignedAssistants;
 
         if (this.id) {
-            const idSelect = this.formInit.value.assignedAssistants.map((item: any) => item);
+            const idSelect = this.formInit?.value?.assignedAssistants ? this.formInit?.value?.assignedAssistants.map((item: any) => item) : '0';
             const filterDelete = this.assistantsForm.filter((item: any) => !idSelect.includes(item.employee.uid))
                                                     .map((item: any) => item.id);
             filterDelete.forEach((element: any) => {
                 this.deleteAssistant(element);
             });
         }
-
-        form.assignedAssistants.forEach((element: any) => {
-            this.saveAssistants(element, idForm);
-        });
+        if(form.assignedAssistants){
+            form.assignedAssistants.forEach((element: any) => {
+               this.saveAssistants(element, idForm);
+            });
+        }
     }
 
     async saveAssistants(idEmployee, idForm): Promise<void> {
@@ -375,6 +390,7 @@ export abstract class ControllerFormsComponent extends ListItemsFormComponent im
         } else {
             observable = await this.api.createFormSevice(this.formInit.value);
         }
+        this.assignApprovals(this.id);
         observable.subscribe({
             next: (response: any) => {
                 if (response) {

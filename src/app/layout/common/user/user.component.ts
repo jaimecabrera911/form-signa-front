@@ -35,7 +35,7 @@ export class UserComponent implements OnInit, OnDestroy
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _userService: UserService,
-        private login: LoginService,
+        protected login: LoginService
     )
     {
     }
@@ -60,7 +60,8 @@ export class UserComponent implements OnInit, OnDestroy
     }
 
     profile(): void
-    {   const id = this.login.currentUserValue ? this.login?.currentUserValue?.uid : 0 ;
+    {   const id = this.login?.currentUserValue ? this.login?.currentUserValue?.uid : 0 ;
+        console.log('id ',this.login?.currentUserValue);
         this._router.navigate(['/employees/edit/',id]);
     }
 

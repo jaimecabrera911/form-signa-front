@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ApiService } from 'app/services/api.service';
 import { ControllerFormsComponent } from '../controller-forms.Component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'app/services/login.service';
 
 @Component({
   selector: 'app-sgfr78',
@@ -20,9 +21,10 @@ export class Sgfr78Component extends ControllerFormsComponent implements OnInit 
         protected _formBuilder: FormBuilder,
         protected activatedRouter: ActivatedRoute,
         protected matDialog: MatDialog,
-        protected api: ApiService
+        protected api: ApiService,
+        protected login: LoginService
     ) {
-        super(_formBuilder, matDialog, api);
+        super(_formBuilder, matDialog, login, api);
     }
 
     override ngOnInit(): void {

@@ -14,14 +14,14 @@
 
         <div *ngIf="approvalsForm.length > 0 && formApproval.get('data')['controls'].length > 0" class="bg-[#748EB8] text-white font-medium grid grid-cols-1 p-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-x-4 w-full">
             <div class="flex flex-col flex-auto">Empleado</div>
-            <div class="flex flex-col flex-auto">Motivo</div>
+            <div class="flex flex-col flex-auto"><label class="required-item">Motivo</label></div>
             <div class="flex flex-col flex-auto">Observación</div>
             <div class="flex flex-col flex-auto">Fecha</div>
             <div class="flex flex-col flex-auto">Acción</div>
         </div>
         <div *ngIf="approvalsForm  <= 0 && formApproval.get('data')['controls'].length > 0" class="bg-[#748EB8] text-white font-medium p-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-4 w-full">
             <div class="flex flex-col flex-auto">Empleado</div>
-            <div class="flex flex-col flex-auto">Motivo</div>
+            <div class="flex flex-col flex-auto"><label class="required-item">Motivo</label></div>
             <div class="flex flex-col flex-auto">Observación</div>
         </div>
         <div formArrayName="data" class="w-full" *ngFor="let aprv of formApproval.get('data')['controls']; let i = index">

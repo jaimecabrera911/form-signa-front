@@ -5,13 +5,16 @@ import { MatButton } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { Notification } from 'app/layout/common/notifications/notifications.types';
 import { NotificationsService } from 'app/layout/common/notifications/notifications.service';
+import { LoginService } from 'app/services/login.service';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
     selector       : 'notifications',
     templateUrl    : './notifications.component.html',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs       : 'notifications'
+    exportAs       : 'notifications',
+    styles: ['.menu-icon-notifications{top: 14px; right: 5.5rem !important; position: fixed}']
 })
 export class NotificationsComponent implements OnInit, OnDestroy
 {
@@ -19,6 +22,7 @@ export class NotificationsComponent implements OnInit, OnDestroy
     @ViewChild('notificationsPanel') private _notificationsPanel: TemplateRef<any>;
 
     notifications: Notification[];
+    panelNotifications = {};
     unreadCount: number = 0;
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -30,7 +34,9 @@ export class NotificationsComponent implements OnInit, OnDestroy
         private _changeDetectorRef: ChangeDetectorRef,
         private _notificationsService: NotificationsService,
         private _overlay: Overlay,
-        private _viewContainerRef: ViewContainerRef
+        private _viewContainerRef: ViewContainerRef,
+        protected login: LoginService,
+        protected api: ApiService
     )
     {
     }
@@ -45,7 +51,8 @@ export class NotificationsComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Subscribe to notification changes
-        this._notificationsService.notifications$
+        this.notificationsUser();
+        /*this._notificationsService.notifications$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((notifications: Notification[]) => {
 
@@ -57,7 +64,28 @@ export class NotificationsComponent implements OnInit, OnDestroy
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
-            });
+            });*/
+    }
+
+    /**
+     * On destroy
+     */
+    notificationsUser(): void
+    {
+        const status = 'pendiente';
+        this.api.notificationsService(this.login?.currentUserValue?.uid,status)
+            .subscribe({
+            next: (response: any) => {
+                this.panelNotifications = {icon: 'heroicons_solid:mail-open'};
+                console.log(this.panelNotifications);
+                 // Load the notifications
+                this.notifications = response;
+                // Calculate the unread count
+                this._calculateUnreadCount();
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+        }, error: (e: any) => console.log(e)
+    });
     }
 
     /**
