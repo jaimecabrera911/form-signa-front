@@ -31,10 +31,10 @@ export class AuthService
         localStorage.setItem('accessToken', token);
     }
 
-    get accessToken(): string
+    /*get accessToken(): string
     {
         return localStorage.getItem('accessToken') ?? '';
-    }
+    }*/
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -45,27 +45,27 @@ export class AuthService
      *
      * @param email
      */
-    forgotPassword(email: string): Observable<any>
+    /*forgotPassword(email: string): Observable<any>
     {
         return this._httpClient.post('api/auth/forgot-password', email);
-    }
+    }*/
 
     /**
      * Reset password
      *
      * @param password
      */
-    resetPassword(password: string): Observable<any>
+    /*resetPassword(password: string): Observable<any>
     {
         return this._httpClient.post('api/auth/reset-password', password);
-    }
+    }*/
 
     /**
      * Sign in
      *
      * @param credentials
      */
-    signIn(credentials: { email: string; password: string }): Observable<any>
+    /*signIn(credentials: { email: string; password: string }): Observable<any>
     {
         // Throw error, if the user is already logged in
         if ( this._authenticated )
@@ -89,12 +89,12 @@ export class AuthService
                 return of(response);
             })
         );
-    }
+    }*/
 
     /**
      * Sign in using the access token
      */
-    signInUsingToken(): Observable<any>
+    /*signInUsingToken(): Observable<any>
     {
         // Renew token
         return this._httpClient.post('api/auth/refresh-access-token', {
@@ -120,7 +120,7 @@ export class AuthService
                 return of(true);
             })
         );
-    }
+    }*/
 
     /**
      * Sign out
@@ -142,25 +142,25 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
+    /*signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
     {
         return this._httpClient.post('api/auth/sign-up', user);
-    }
+    }*/
 
     /**
      * Unlock session
      *
      * @param credentials
      */
-    unlockSession(credentials: { email: string; password: string }): Observable<any>
+    /*unlockSession(credentials: { email: string; password: string }): Observable<any>
     {
         return this._httpClient.post('api/auth/unlock-session', credentials);
-    }
+    }*/
 
     /**
      * Check the authentication status
      */
-    check(): Observable<boolean>
+    /*check(): Observable<boolean>
     {
         // Check if the user is logged in
         if ( this._authenticated )
@@ -182,5 +182,5 @@ export class AuthService
 
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
-    }
+    }*/
 }

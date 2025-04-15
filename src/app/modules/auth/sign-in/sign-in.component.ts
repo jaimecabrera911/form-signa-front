@@ -76,14 +76,15 @@ export class AuthSignInComponent implements OnInit {
      * Sign in
      */
     signIn(): void {
-        const data = this.signInForm.value;
+        const {email, password} = this.signInForm.value;
         if (this.signInForm.invalid) {
             return;
         }
         this.signInForm.disable();
         this.showAlert = false;
-        console.log('email :: ',data.email,' password :: ', data.password);
-        this.api.login(data.email, data.password)
+        console.log('email :: ',email,' password :: ', password);
+        const datas = {email, password};
+        this.api.login(datas)
             .subscribe({
                 next: (response: any) => {
                     console.log('response :: ',response);

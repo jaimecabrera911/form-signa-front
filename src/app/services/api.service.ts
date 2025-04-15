@@ -31,9 +31,11 @@ export class ApiService {
         Auth                 |
     ------------------------*/
 
-    login(email: string, password: string): Observable<any> {
+    login(data: any): Observable<any> {
         const url = `${environment.apiUrl}auth/signin`;
-        return this.http.post<any>(url, { email, password });
+        console.log(' url :: ',url);
+        console.log(' password :: ',data);
+        return this.http.post<any>(url, data);
     }
 
     getAuthMe(): Observable<any> {
@@ -88,6 +90,7 @@ export class ApiService {
     /*-------------------------|
         Employees              |
     --------------------------*/
+
 
     employeesService(): Observable<Employee> {
         const url = `${environment.apiUrl}employees`;
@@ -443,6 +446,15 @@ export class ApiService {
 
     reportFormsService(): Observable<any> {
         const url = `${environment.apiUrl}reports/form`;
+        return this.http.get<any>(url);
+    }
+
+    /*-------------------------|
+           Notifications       |
+    --------------------------*/
+
+    notificationsService(uidEmployee: any, staus: any): Observable<any> {
+        const url = `${environment.apiUrl}approval/employee/${uidEmployee}/status/${staus}`;
         return this.http.get<any>(url);
     }
 

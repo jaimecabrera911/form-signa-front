@@ -24,7 +24,7 @@ export class AuthUtils
      * @param token
      * @param offsetSeconds
      */
-    static isTokenExpired(token: string, offsetSeconds?: number): boolean
+    /*static isTokenExpired(token: string, offsetSeconds?: number): boolean
     {
         // Return if there is no token
         if ( !token || token === '' )
@@ -44,7 +44,7 @@ export class AuthUtils
 
         // Check if the token is expired
         return !(date.valueOf() > new Date().valueOf() + offsetSeconds * 1000);
-    }
+    }*/
 
     // -----------------------------------------------------------------------------------------------------
     // @ Private methods
@@ -151,7 +151,7 @@ export class AuthUtils
      * @param token
      * @private
      */
-    private static _decodeToken(token: string): any
+   /* private static _decodeToken(token: string): any
     {
         // Return if there is no token
         if ( !token )
@@ -176,7 +176,7 @@ export class AuthUtils
         }
 
         return JSON.parse(decoded);
-    }
+    }*/
 
     /**
      * Get token expiration date
@@ -184,7 +184,7 @@ export class AuthUtils
      * @param token
      * @private
      */
-    private static _getTokenExpirationDate(token: string): Date | null
+    /*private static _getTokenExpirationDate(token: string): Date | null
     {
         // Get the decoded token
         const decodedToken = this._decodeToken(token);
@@ -200,5 +200,5 @@ export class AuthUtils
         date.setUTCSeconds(decodedToken.exp);
 
         return date;
-    }
+    }*/
 }
