@@ -8,12 +8,12 @@ import { AuthInterceptor } from 'app/core/auth/auth.interceptor';
         HttpClientModule
     ],
     providers: [
-        AuthService,
+        /*AuthService,
         {
             provide : HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi   : true
-        }
+        }*/
     ]
 })
 export class AuthModule
